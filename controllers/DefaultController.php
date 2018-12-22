@@ -88,7 +88,7 @@ class DefaultController extends Controller
             return $this->redirect($returnUrl);
         }
 
-        return $this->render('login', compact("model"));
+        return $this->renderAjax('login', compact("model"));
     }
 
     /**

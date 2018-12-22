@@ -121,3 +121,15 @@ a.desc:after {
 .list-group-item {
     cursor: pointer;
 }
+
+.modal-dialog {
+    width: 700px;
+}
+
+.modal-body {
+    padding: 15px 60px;
+}
+
+.modal-header {
+    border-bottom: none;
+}

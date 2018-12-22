@@ -7,4 +7,15 @@ $(document).ready(function() {
         $('.'+container+'-container').removeClass('hidden');
 
     });
+
+    $('#login').on('click', function(){
+        $.ajax({
+            url: '/user/login',
+            type: "GET",
+            success: function (data) {
+                $('.modal-body').html(data);
+                $('#my-modal').modal({show:true});
+            }
+        });
+    });
 });

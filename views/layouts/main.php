@@ -39,7 +39,7 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             Yii::$app->user->isGuest ? (
-                '<li><a class="btn btn-default" href="/user/login"><i class="glyphicon glyphicon-user" style="padding-right: 15px"></i>Войти</a></li>'
+                '<li><a id="login" class="btn btn-default" onclick="return false;"><i class="glyphicon glyphicon-user" style="padding-right: 15px"></i>Войти</a></li>'
             ) : (
                '<li><a class="btn btn-default" href="/user/profile"><i class="glyphicon glyphicon-user" style="padding-right: 15px"></i>'.Yii::$app->user->identity->username.'</a></li>'
             ),
@@ -65,6 +65,18 @@ AppAsset::register($this);
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>
+
+<div class="modal fade" id="my-modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php $this->endBody() ?>
 </body>
