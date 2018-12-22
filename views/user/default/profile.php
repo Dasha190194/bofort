@@ -16,7 +16,22 @@ $this->title = 'Личный кабинет';
 ?>
 <div class="user-default-profile">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="row">
+        <div class="col-md-6">
+            <h1><?= Html::encode($this->title) ?></h1>
+        </div>
+        <div class="col-md-offset-3 col-md-3" style="margin-top: 20px">
+            <?php echo Html::beginForm(['/user/logout'], 'post')
+            . Html::submitButton(
+            'Выход',
+            ['class' => 'btn btn-default btn-block']
+            )
+            . Html::endForm()
+            ?>
+        </div>
+    </div>
+
+    <hr>
 
     <?php if ($flash = Yii::$app->session->getFlash("Profile-success")): ?>
 

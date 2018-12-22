@@ -38,15 +38,30 @@ $module = $this->context->module;
 <!---->
 <!--    --><?php //endif; ?>
 <!---->
-<!--    --><?php //$form = ActiveForm::begin([
-//        'id' => 'account-form',
-//        'options' => ['class' => 'form-horizontal'],
-//        'fieldConfig' => [
-//            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-7\">{error}</div>",
-//            'labelOptions' => ['class' => 'col-lg-2 control-label'],
-//        ],
-//        'enableAjaxValidation' => true,
-//    ]); ?>
+    <?php $form = ActiveForm::begin([
+        'id' => 'account-form',
+        'options' => ['class' => ''],
+        'fieldConfig' => [
+//            'template' => "<div class='row'>{label}\n<div class=\"col-md-10\">{input}</div>\n<div class=\"col-lg-7\">{error}</div></div>",
+//            'labelOptions' => ['class' => 'col-md-2 control-label'],
+        ],
+        'enableAjaxValidation' => true,
+    ]); ?>
+
+    <div class="row">
+       <div class="col-md-6">
+            <?= $form->field($user, 'username')->input('text', ['placeholder' => "Ваше имя"])->label(false) ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <?= $form->field($user, 'email')->input('text', ['placeholder' => "Ваш email"])->label(false) ?>
+        </div>
+        <div class="col-md-6">
+            <?= $form->field($user, 'phone')->input('text', ['placeholder' => "+7 Номер телефона"])->label(false) ?>
+        </div>
+    </div>
+
 <!---->
 <!--    --><?php //if ($user->password): ?>
 <!--        --><?php
@@ -55,10 +70,6 @@ $module = $this->context->module;
 <!---->
 <!--    <hr/>-->
 <!---->
-<!--    --><?php //if ($module->useEmail): ?>
-<!--        --><?php
-//= $form->field($user, 'email') ?>
-<!--    --><?php //endif; ?>
 <!---->
 <!--    <div class="form-group">-->
 <!--        <div class="col-lg-offset-2 col-lg-10">-->
@@ -80,10 +91,7 @@ $module = $this->context->module;
 <!--        </div>-->
 <!--    </div>-->
 <!---->
-<!--    --><?php //if ($module->useUsername): ?>
-<!--        --><?php
-//= $form->field($user, 'username') ?>
-<!--    --><?php //endif; ?>
+
 <!---->
 <!--    --><?php
 //= $form->field($user, 'newPassword')->passwordInput() ?>
@@ -95,7 +103,7 @@ $module = $this->context->module;
 <!--        </div>-->
 <!--    </div>-->
 <!---->
-<!--    --><?php //ActiveForm::end(); ?>
+    <?php ActiveForm::end(); ?>
 <!---->
 <!--    <div class="form-group">-->
 <!--        <div class="col-lg-offset-2 col-lg-10">-->

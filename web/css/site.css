@@ -110,6 +110,10 @@ a.desc:after {
     text-decoration: none;
 }
 
+.nav > li {
+    padding: 0 10px;
+}
+
 .nav > li > form > button.logout:focus {
     outline: none;
 }
