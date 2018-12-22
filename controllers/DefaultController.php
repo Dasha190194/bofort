@@ -2,7 +2,9 @@
 
 namespace app\controllers;
 
+use app\models\CardsModel;
 use app\models\OrdersModel;
+use app\models\TransactionsModel;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
@@ -36,7 +38,7 @@ class DefaultController extends Controller
                         'roles' => ['?', '@'],
                     ],
                     [
-                        'actions' => ['account', 'profile', 'resend-change', 'cancel'],
+                        'actions' => ['account', 'profile', 'resend-change', 'cancel', 'change-card-state'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -359,6 +361,8 @@ class DefaultController extends Controller
         $user = Yii::$app->user->identity;
         $profile = Yii::$app->user->identity->profile;
         $orders = OrdersModel::find()->where(['user_id' => $user->getId()])->all();
+        $cards = CardsModel::find()->where(['user_id' => $user->getId()])->all();
+        $transactions = TransactionsModel::find()->where(['user_id' => $user->getId()])->all();
 
         $loadedPost = $profile->load(Yii::$app->request->post());
 
@@ -375,7 +379,7 @@ class DefaultController extends Controller
             return $this->refresh();
         }
 
-        return $this->render("profile", compact("profile", "user", 'orders'));
+        return $this->render("profile", compact("profile", "user", "orders", "cards", "transactions"));
     }
 
     /**
@@ -486,5 +490,9 @@ class DefaultController extends Controller
         }
 
         return $this->render('reset', compact("user", "success"));
+    }
+
+    public function actionChangeCardState($id, $state) {
+
     }
 }

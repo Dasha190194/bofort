@@ -49,7 +49,7 @@ $this->title = 'Личный кабинет';
             <?= $this->render('_notifications') ?>
             <?= $this->render('_booking', ['orders' => $orders]) ?>
             <?= $this->render('_account', ['user' => $user]) ?>
-            <?= $this->render('_cards') ?>
+            <?= $this->render('_cards', ['cards' => $cards, 'transactions' => $transactions]) ?>
             <?= $this->render('_security') ?>
         </div>
     </div>
