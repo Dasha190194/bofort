@@ -60,9 +60,20 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <div class="row">
+            <div class="col-md-4">
+                <div>О компании Bofort.ru</div>
+                <div>Тарифы</div>
+                <div>Услуги</div>
+            </div>
+            <div class="col-md-4">
+                <div>Частые вопросы</div>
+                <div>Контакты</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-4 col-md-4">2019, Bofort.ru, Москва, ул.Ленина, 14</div>
+        </div>
     </div>
 </footer>
 
