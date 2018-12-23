@@ -7,47 +7,70 @@ $this->title = 'My Yii Application';
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
     </div>
 
     <div class="body-content">
 
         <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+            <div class="col-md-12">
+                <p>
+                    Серия фильмов о Гарри Поттере — серия фильмов, основанных на вселенной Гарри Поттера английской писательницы Дж. К. Роулинг.
+                    Серия выпущена компанией Warner Bros. и состоит из 8 фильмов в жанре фэнтези, включая основную серию, начиная с «Гарри Поттер и философский камень» (2001)
+                    и заканчивая «Гарри Поттер и Дары Смерти. Часть 2» (2011); а также спин-офф «Фантастические твари и где они обитают» и его сиквел «Фантастические твари:
+                    Преступления Грин-де-Вальда». Франшиза занимает 3 место в списке самых прибыльных серий фильмов с $9,14 млрд мировой прибыли.
+                </p>
+                <a class="btn btn-default">О компании</a>
             </div>
         </div>
+
+        <hr/>
+
+        <div class="row">
+            <div class="col-md-offset-2 col-md-4">
+                <div class="row">
+                    <div class="col-md-2"><img src="/sun.png" width="50px"></div>
+                    <div class="col-md-10">Гарри Поттер и философский камень — 2001 год.</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"><img src="/sun.png" width="50px"></div>
+                    <div class="col-md-10">Гарри Поттер и тайная комната — 2002 год.</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"><img src="/sun.png" width="50px"></div>
+                    <div class="col-md-10">Гарри Поттер и узник Азкабана — 2004 год.</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-2"><img src="/sun.png" width="50px"></div>
+                    <div class="col-md-10">Гарри Поттер и Кубок огня — 2005 год.</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"><img src="/sun.png" width="50px"></div>
+                    <div class="col-md-10">Гарри Поттер и Орден Феникса — 2007 год.</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"><img src="/sun.png" width="50px"></div>
+                    <div class="col-md-10">Гарри Поттер и Принц-полукровка — 2009 год.</div>
+                </div>
+            </div>
+        </div>
+
+        <hr/>
+
+        <div class="row">
+            <h2>Red flag</h2>
+
+            Лодки
+        </div>
+
+        <hr/>
+
+        <?php if (Yii::$app->user->isGuest): ?>
+            <div class="row">
+                <?= $this->render('/user/default/register', ['user' => $user, 'profile' => $profile]) ?>
+            </div>
+        <?php endif; ?>
 
     </div>
 </div>

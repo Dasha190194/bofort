@@ -12,14 +12,13 @@ use yii\widgets\ActiveForm;
  * @var string $userDisplayName
  */
 
-$module = $this->context->module;
+$module = Yii::$app->getModule("user");
 
-$this->title = Yii::t('user', 'Register');
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Форма регистрации';
 ?>
 <div class="user-default-register">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h3 class="text-center"><?= Html::encode($this->title) ?></h3>
 
     <?php if ($flash = Yii::$app->session->getFlash("Register-success")): ?>
 
@@ -31,34 +30,46 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php $form = ActiveForm::begin([
             'id' => 'register-form',
+            'action' => '/user/register',
             'options' => ['class' => 'form-horizontal'],
             'fieldConfig' => [
-                'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-7\">{error}</div>",
-                'labelOptions' => ['class' => 'col-lg-2 control-label'],
+//                'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-7\">{error}</div>",
+//                'labelOptions' => ['class' => 'col-lg-2 control-label'],
             ],
             'enableAjaxValidation' => true,
         ]); ?>
 
-        <?php if ($module->requireEmail): ?>
-            <?= $form->field($user, 'email') ?>
-        <?php endif; ?>
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                <?= $form->field($user, 'username')->input('text', ['placeholder' => "Ваше имя* Например, Алексей"])->label(false)  ?>
+            </div>
+            <div class="col-md-offset-3 col-md-6">
+                <?= $form->field($user, 'email')->input('text', ['placeholder' => "Ваш email* Например, alex@gmail.com"])->label(false)  ?>
+            </div>
+            <div class="col-md-offset-3 col-md-6">
+                <?= $form->field($user, 'newPassword')->passwordInput()->label(false)  ?>
+            </div>
 
-        <?php if ($module->requireUsername): ?>
-            <?= $form->field($user, 'username') ?>
-        <?php endif; ?>
+            <div class="col-md-offset-3 col-md-6 text-center">
+                    <?= $form->field($user, 'personal_data_processing', [
+                        'template' => "{input}   Я соглашаюсь с условиями обработки персональных данных",
+                    ])->checkbox([], false)->label(false) ?>
+            </div>
+            <div class="col-md-offset-3 col-md-6 text-center">
+                <?= $form->field($user, 'mailing', [
+                    'template' => "{input}      Подписаться на рассылку Bofort.ru",
+                ])->checkbox([], false)->label(false)?>
+            </div>
 
-        <?= $form->field($user, 'newPassword')->passwordInput() ?>
+            <?php /* uncomment if you want to add profile fields here
+            <?= $form->field($profile, 'full_name') ?>
+            */ ?>
 
-        <?php /* uncomment if you want to add profile fields here
-        <?= $form->field($profile, 'full_name') ?>
-        */ ?>
-
-        <div class="form-group">
-            <div class="col-lg-offset-2 col-lg-10">
-                <?= Html::submitButton(Yii::t('user', 'Register'), ['class' => 'btn btn-primary']) ?>
+            <div class="col-md-offset-3 col-md-6 text-center">
+                <?= Html::submitButton('Зарегестрироваться', ['class' => 'btn btn-primary']) ?>
 
                 <br/><br/>
-                <?= Html::a(Yii::t('user', 'Login'), ["/user/login"]) ?>
+                Уже есть аккаунт? <?= Html::a('Войти', ["/user/login"]) ?>
             </div>
         </div>
 
