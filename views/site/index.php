@@ -59,9 +59,21 @@ $this->title = 'My Yii Application';
         <hr/>
 
         <div class="row">
-            <h2>Red flag</h2>
+            <h2>Лодки</h2>
 
-            Лодки
+            <?php foreach ($boats as $boat): ?>
+                <div class="col-md-3">
+                    <div class="boats-image">
+                        <img src="/index.png" width="250px" height="150px">
+                        <span class="label label-default"><?= $boat->price ?></span>
+                    </div>
+
+                    <p>Последние несколько лет стали для России и ее граждан тяжелым испытанием.
+                        Падение цен на нефть, международные санкции и разрыв экономических связей с развитыми странами Запада
+                        сильно ударили по экспортно-ориентированной экономике нашей страны.</p>
+                    <a class="btn btn-default">Подробно</a>
+                </div>
+            <?php endforeach; ?>
         </div>
 
         <hr/>

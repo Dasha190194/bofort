@@ -133,3 +133,20 @@ a.desc:after {
 .modal-header {
     border-bottom: none;
 }
+
+.boats-image {
+    position: relative;
+}
+
+.boats-image > span {
+    position: absolute;
+    right: 0;
+    width: 60px;
+    height: 30px;
+    top: 10px;
+    line-height: 2.3;
+}
+
+* {
+    border-radius: inherit !important;
+}

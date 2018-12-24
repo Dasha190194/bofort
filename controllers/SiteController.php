@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\BoatsModel;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -64,41 +65,9 @@ class SiteController extends Controller
     {
         $user = Yii::$app->getModule("user")->model("User", ["scenario" => "register"]);
         $profile = Yii::$app->getModule("user")->model("Profile");
+        $boats = BoatsModel::find()->limit(4)->all();
 
-        // load post data
-        $post = Yii::$app->request->post();
-        if ($user->load($post)) {
-
-            // ensure profile data gets loaded
-            $profile->load($post);
-
-            // validate for ajax request
-            if (Yii::$app->request->isAjax) {
-                Yii::$app->response->format = Response::FORMAT_JSON;
-                return ActiveForm::validate($user, $profile);
-            }
-
-            // validate for normal request
-            if ($user->validate() && $profile->validate()) {
-
-                // perform registration
-                $role = Yii::$app->getModule("user")->model("Role");
-                $user->setRegisterAttributes($role::ROLE_USER)->save();
-                $profile->setUser($user->id)->save();
-                $this->afterRegister($user);
-
-                // set flash
-                // don't use $this->refresh() because user may automatically be logged in and get 403 forbidden
-                $successText = Yii::t("user", "Successfully registered [ {displayName} ]", ["displayName" => $user->getDisplayName()]);
-                $guestText = "";
-                if (Yii::$app->user->isGuest) {
-                    $guestText = Yii::t("user", " - Please check your email to confirm your account");
-                }
-                Yii::$app->session->setFlash("Register-success", $successText . $guestText);
-            }
-        }
-
-        return $this->render('index', compact("user", "profile"));
+        return $this->render('index', compact("user", "profile", "boats"));
     }
 
     /**
