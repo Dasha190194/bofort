@@ -1,4 +1,4 @@
-<div class="profile-container cards-container">
+<div class="profile-container cards-container hidden">
     <div>
         <h2>Сохраненный карты</h2>
         <?php use app\models\TransactionsModel;
