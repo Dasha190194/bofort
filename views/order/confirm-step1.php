@@ -123,7 +123,7 @@ use yii\widgets\ActiveForm; ?>
             //     // }
             // },
             dayRender(date, cell) {
-                cell.append('<div class="time" data-number="'+date.format("H")+'">' + date.format("HH:MM") + '</div>');
+                cell.append('<div class="time" data-number="'+date.format("H")+'">' + moment(date).format("HH:MM") +' - ' + moment(date).add(1, 'hour').format("HH:MM") + '</div>');
             }
         });
 
