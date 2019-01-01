@@ -1,8 +1,9 @@
 <?php
 
-use yii\helpers\Html;
+use yii\helpers\Html;use yii\widgets\ActiveForm;
 
 /** @var \app\models\BoatsModel $boat */
+/** @var OrderCreateForm $model */
 $this->title = $boat->name;
 
  ?>
@@ -62,7 +63,14 @@ $this->title = $boat->name;
                 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
             </div>
 
-            <a class="btn btn-primary">Забронировать яхту</a>
+             <?php $form = ActiveForm::begin([
+                    'id' => 'order-create-form',
+                    'action' => '/order/create',
+             ]); ?>
+            <?= $form->field($model, 'boat_id')->hiddenInput(['value' => $boat->id])->label(false)?>
+             <?= Html::submitButton('Забронировать яхту', ['class' => 'btn btn-primary btn-block']) ?>
+
+            <?php ActiveForm::end(); ?>
         </div>
     </div>
 
