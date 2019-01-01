@@ -44,13 +44,14 @@ use yii\widgets\ActiveForm; ?>
             'action' => '/order/confirm-step2?id='.$order->id,
         ]); ?>
 
-        <div class="col-md-4">
-            <span id="dateChoose"></span>
-            <span id="timeChoose"></span>
-            <?= $form->field($model, 'datetime_from')->textInput(['value' => '2019-01-01 06:00:00'])->label(false)?>
-            <?= $form->field($model, 'datetime_to')->textInput(['value' => '2019-01-01 10:00:00'])->label(false)?>
+        <div class="col-md-2">
+            X
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
+            <?= $form->field($model, 'datetime_from')->textInput(['value' => ''])->label(false)?>
+            <?= $form->field($model, 'datetime_to')->textInput(['value' => ''])->label(false)?>
+        </div>
+        <div class="col-md-4">
             <?= $form->field($model, 'boat_id')->hiddenInput(['value' => $order->boat->id])->label(false)?>
             <?= $form->field($model, 'coast')->textInput(['value' => 20000])->label(false)?>
         </div>
@@ -122,16 +123,49 @@ use yii\widgets\ActiveForm; ?>
             //     // }
             // },
             dayRender(date, cell) {
-                cell.append('<div>' + date.format("HH:MM") + '</div>');
+                cell.append('<div class="time" data-number="'+date.format("H")+'">' + date.format("HH:MM") + '</div>');
             }
         });
 
+        var datetimeArray = [];
+        var numberArray = [];
 
-        $(document).on('click', '.fc-widget-header th', function(){
+         function selectNumber(number, timeBlock) {
+             numberArray.push(number);
+             timeBlock.css('background-color', '#ccc');
+
+             let min = Math.min.apply(Math, numberArray);
+             let minBlock = $('div[data-number="'+min+'"]').parent('.fc-major');
+             let minDate = minBlock.data('date');
+
+             $('#orderconfirmform-datetime_from').val(minDate);
+
+             let max = Math.max.apply(Math, numberArray);
+             let maxBlock = $('div[data-number="'+max+'"]').parent('.fc-major');
+             let maxDate = maxBlock.data('date');
+
+             $('#orderconfirmform-datetime_to').val(maxDate);
+         }
+
+        $(document).on('click', '.fc-major', function(){
             var timeBlock = $(this);
+            var datetime = timeBlock.data('date');
+            var number = timeBlock.find('.time').data('number');
 
-            timeBlock.css('background-color', '#ccc');
+            if (numberArray.length === 0) {
+                selectNumber(number, timeBlock);
+            } else {
+                let max = Math.max.apply(Math, numberArray);
+                console.log(max);
+                console.log(number);
+                if (number === max+1) {
+                    selectNumber(number, timeBlock)
+                } else {
+                    alert('error');
+                }
+            }
 
+            console.log(numberArray);
         });
     });
 
