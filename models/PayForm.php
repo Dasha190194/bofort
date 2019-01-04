@@ -21,12 +21,7 @@ class PayForm extends Model {
         return [
 
             [['order_id', 'offer_processing'], 'required'],
-            ['offer_processing', function ($attribute, $params) {
-                if ($params != true) {
-                    $this->addError($attribute, 'Вы не прочитали оферту!');
-                }
-            }
-            ]
+            ['offer_processing', 'required', 'requiredValue' => 1, 'message' => 'You should accept term to use our service'],
         ];
     }
 }

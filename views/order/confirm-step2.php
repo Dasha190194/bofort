@@ -91,7 +91,8 @@ use yii\widgets\ActiveForm; ?>
     <div class="row">
         <?php $form = ActiveForm::begin([
             'id' => 'pay-form',
-            'action' => '/order/pay',
+            'action' => '/payment/pay',
+            'enableAjaxValidation' => true,
         ]); ?>
 
         <?= $form->field($model, 'order_id')->hiddenInput(['value' => $order->id])->label(false)?>
@@ -99,8 +100,8 @@ use yii\widgets\ActiveForm; ?>
 
         <div class="col-md-offset-3 col-md-6 text-center">
             <?= $form->field($model, 'offer_processing', [
-                'template' => "{input}   Бронируя яхту, я принимаю договор оферты Bofort.ru",
-            ])->checkbox([], false)->label(false) ?>
+//                'template' => "{input}   Бронируя яхту, я принимаю договор оферты Bofort.ru {error}",
+            ])->checkbox() ?>
         </div>
         <div class="col-md-offset-3 col-md-6 text-center">
             <?= Html::submitButton('Привязать карту', ['class' => 'btn btn-primary btn-block']) ?>
