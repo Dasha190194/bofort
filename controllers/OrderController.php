@@ -10,6 +10,7 @@ namespace app\controllers;
 
 use app\models\OrderConfirmForm;
 use app\models\OrderCreateForm;
+use app\models\OrderSession;
 use app\models\OrdersModel;
 use app\models\PayForm;
 use app\models\PromoModel;
@@ -81,6 +82,11 @@ class OrderController extends Controller
         }
 
         return true;
+    }
+
+    public function actionAddService($order_id, $id) {
+        $order = OrdersModel::findOne($order_id);
+//        $order->
     }
 
     public function actionGetTimes() {

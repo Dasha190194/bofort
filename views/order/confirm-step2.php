@@ -54,10 +54,19 @@ use yii\widgets\ActiveForm; ?>
 
         <div class="services">
             <?php foreach ($services as $service): ?>
-                <div class="service btn btn-default" data-id="<?= $service->id ?>">
-                    <i class="glyphicon glyphicon-ok hidden"></i>
-                    <?= $service->name ?>
-                </div>
+                <?php foreach ($order->services as $order_service): ?>
+                    <?php if ($service->id == $order_service->id): ?>
+                        <div class="service btn btn-default active" data-id="<?= $service->id ?>">
+                            <i class="glyphicon glyphicon-ok"></i>
+                            <?= $service->name ?>
+                        </div>
+                    <?php else: ?>
+                        <div class="service btn btn-default" data-id="<?= $service->id ?>">
+                            <i class="glyphicon glyphicon-ok hidden"></i>
+                            <?= $service->name ?>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             <?php endforeach;?>
         </div>
     </div>
@@ -110,7 +119,7 @@ use yii\widgets\ActiveForm; ?>
         ]); ?>
 
         <?= $form->field($model, 'order_id')->hiddenInput(['value' => $order->id])->label(false)?>
-        <?= $form->field($model, 'services')->hiddenInput(['value' => ''])->label(false)?>
+        <?= $form->field($model, 'services')->hiddenInput(['value' => $order->services])->label(false)?>
 
         <div class="col-md-offset-3 col-md-6 text-center">
             <?= $form->field($model, 'offer_processing', [

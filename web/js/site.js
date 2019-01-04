@@ -26,16 +26,34 @@ $(document).ready(function() {
         var array = payform_services.val();
 
         if (thiss.hasClass('active')) {
-            array = array.split(',');
-            array = arrayRemove(array, id);
-            array = (array.length === 0)?'':array.join(',');
-            payform_services.val(array);
-            thiss.removeClass('active');
+            $.ajax({
+                url: '/order/remove-service',
+                type: 'GET',
+                data: {
+                    'service_id' : id
+                },
+                success: function() {
+                    array = array.split(',');
+                    array = arrayRemove(array, id);
+                    array = (array.length === 0)?'':array.join(',');
+                    payform_services.val(array);
+                    thiss.removeClass('active');
+                }
+            });
         } else {
-            array = (array.length !== 0)?array.split(','):[];
-            array.push(id);
-            payform_services.val(array.join(','));
-            thiss.addClass('active');
+            $.ajax({
+                url: '/order/add-service',
+                type: 'GET',
+                data: {
+                    'service_id' : id
+                },
+                success: function() {
+                    array = (array.length !== 0)?array.split(','):[];
+                    array.push(id);
+                    payform_services.val(array.join(','));
+                    thiss.addClass('active');
+                }
+            });
         }
     });
 

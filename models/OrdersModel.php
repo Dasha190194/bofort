@@ -35,4 +35,9 @@ class OrdersModel extends ActiveRecord
     public function getPromo() {
         return $this->hasOne(PromoModel::className(), ['id' => 'promo_id']);
     }
+
+    public function getServices() {
+        return $this->hasMany(ServicesModel::className(), ['id' => 'service_id'])
+                 ->viaTable('order_services', ['order_id' => 'id']);
+    }
 }
