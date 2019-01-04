@@ -25,7 +25,7 @@ class OrdersModel extends ActiveRecord
     }
 
     public function totalPrice() {
-        return ($this->price - $this->discount);
+        return ($this->price + $this->getServicesPrice() - $this->discount);
     }
 
     public function getBoat() {

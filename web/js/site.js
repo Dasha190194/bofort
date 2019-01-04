@@ -35,14 +35,15 @@ $(document).ready(function() {
                     'service_id' : id
                 },
                 success: function(data) {
-                    if (data == true) {
+                  //  if (data == true) {
                         array = array.split(',');
                         array = arrayRemove(array, id);
                         array = (array.length === 0)?'':array.join(',');
                         payform_services.val(array);
                         thiss.removeClass('active');
                         thiss.find('i').addClass('hidden');
-                    }
+                        $('#toPay').html(data);
+                //    }
                 }
             });
         } else {
@@ -54,12 +55,13 @@ $(document).ready(function() {
                     'service_id' : id
                 },
                 success: function(data) {
-                    if (data == true) {
+                  //  if (data == true) {
                         array = (array.length !== 0)?array.split(','):[];
                         array.push(id);
                         payform_services.val(array.join(','));
                         thiss.addClass('active');
-                    }
+                        $('#toPay').html(data);
+                  //  }
                 }
             });
         }

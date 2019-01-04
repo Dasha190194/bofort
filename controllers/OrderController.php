@@ -96,7 +96,7 @@ class OrderController extends Controller
             return false;
         }
 
-        return true;
+        return $this->renderPartial('_payBlock', compact('order'));   ;
     }
 
     public function actionRemoveService(int $order_id, int $service_id) {
@@ -111,7 +111,7 @@ class OrderController extends Controller
             return false;
         }
 
-        return true;
+        return $this->renderPartial('_payBlock', compact('order'));
     }
 
     public function actionGetTimes() {
