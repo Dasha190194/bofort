@@ -22,4 +22,6 @@ class ServicesModel extends ActiveRecord
 //        return $this->hasOne(BoatsModel::className(), ['id' => 'boat_id']);
 //    }
 
+
+
 }

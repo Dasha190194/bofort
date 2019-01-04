@@ -22,6 +22,7 @@ $(document).ready(function() {
     $('.service').on('click', function(){
         var thiss = $(this);
         var id = thiss.data('id');
+        var order_id = $('#payform-order_id').val();
         var payform_services = $('#payform-services');
         var array = payform_services.val();
 
@@ -30,14 +31,18 @@ $(document).ready(function() {
                 url: '/order/remove-service',
                 type: 'GET',
                 data: {
+                    'order_id' : order_id,
                     'service_id' : id
                 },
-                success: function() {
-                    array = array.split(',');
-                    array = arrayRemove(array, id);
-                    array = (array.length === 0)?'':array.join(',');
-                    payform_services.val(array);
-                    thiss.removeClass('active');
+                success: function(data) {
+                    if (data == true) {
+                        array = array.split(',');
+                        array = arrayRemove(array, id);
+                        array = (array.length === 0)?'':array.join(',');
+                        payform_services.val(array);
+                        thiss.removeClass('active');
+                        thiss.find('i').addClass('hidden');
+                    }
                 }
             });
         } else {
@@ -45,13 +50,16 @@ $(document).ready(function() {
                 url: '/order/add-service',
                 type: 'GET',
                 data: {
+                    'order_id' : order_id,
                     'service_id' : id
                 },
-                success: function() {
-                    array = (array.length !== 0)?array.split(','):[];
-                    array.push(id);
-                    payform_services.val(array.join(','));
-                    thiss.addClass('active');
+                success: function(data) {
+                    if (data == true) {
+                        array = (array.length !== 0)?array.split(','):[];
+                        array.push(id);
+                        payform_services.val(array.join(','));
+                        thiss.addClass('active');
+                    }
                 }
             });
         }

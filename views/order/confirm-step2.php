@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm; ?>
 <div class="order-confirm">
     <h1>Подтверждение бронирования</h1>
 
-    <?php if ($flash = Yii::$app->session->getFlash("Promo-apply-error")): ?>
+    <?php if ($flash = Yii::$app->session->getFlash("order-error")): ?>
 
         <div class="alert alert-danger">
             <p><?= $flash ?></p>
@@ -54,19 +54,18 @@ use yii\widgets\ActiveForm; ?>
 
         <div class="services">
             <?php foreach ($services as $service): ?>
-                <?php foreach ($order->services as $order_service): ?>
-                    <?php if ($service->id == $order_service->id): ?>
-                        <div class="service btn btn-default active" data-id="<?= $service->id ?>">
-                            <i class="glyphicon glyphicon-ok"></i>
-                            <?= $service->name ?>
-                        </div>
-                    <?php else: ?>
-                        <div class="service btn btn-default" data-id="<?= $service->id ?>">
-                            <i class="glyphicon glyphicon-ok hidden"></i>
-                            <?= $service->name ?>
-                        </div>
-                    <?php endif; ?>
-                <?php endforeach; ?>
+                <?php if (in_array($service->id, $order->getServicesId())):?>
+                    <div class="service btn btn-default active" data-id="<?= $service->id ?>">
+                        <i class="glyphicon glyphicon-ok"></i>
+                        <?= $service->name ?>
+                    </div>
+                <?php else: ?>
+                    <div class="service btn btn-default" data-id="<?= $service->id ?>">
+                        <i class="glyphicon glyphicon-ok hidden"></i>
+                        <?= $service->name ?>
+                    </div>
+                <?php endif; ?>
+
             <?php endforeach;?>
         </div>
     </div>
@@ -97,6 +96,20 @@ use yii\widgets\ActiveForm; ?>
             </div>
         </div>
 
+        <?php if(!empty($order->services)): ?>
+            <div class="col-md-12">
+                <div class="row total-row">
+                    <div class="col-md-3"><span>Дополнительные услуги</span></div>
+                    <div class="col-md-6">
+                        <?php foreach ($order->services as $service) :?>
+                            <?= $service->name . ' '?>
+                        <?php endforeach; ?>
+                    </div>
+                    <div class="col-md-3 text-right"><span><?= Utils::userPrice($order->getServicesPrice()) ?></span></div>
+                </div>
+            </div>
+        <?php endif; ?>
+
         <div class="col-md-12">
             <div class="row total-row">
                 <div class="col-md-6"><span> Скидки по акциям и промокодам</span></div>
@@ -119,7 +132,7 @@ use yii\widgets\ActiveForm; ?>
         ]); ?>
 
         <?= $form->field($model, 'order_id')->hiddenInput(['value' => $order->id])->label(false)?>
-        <?= $form->field($model, 'services')->hiddenInput(['value' => $order->services])->label(false)?>
+        <?= $form->field($model, 'services')->hiddenInput(['value' => implode(',', $order->getServicesId())])->label(false)?>
 
         <div class="col-md-offset-3 col-md-6 text-center">
             <?= $form->field($model, 'offer_processing', [

@@ -67,7 +67,7 @@ class OrderController extends Controller
             $promocode = PromoModel::find()->where(['word' => trim($word)])->one();
             if (!$promocode) throw new Exception('Промокод не найден!');
         } catch (Exception $e) {
-            Yii::$app->session->setFlash("Promo-apply-error", $e->getMessage());
+            Yii::$app->session->setFlash("order-error", $e->getMessage());
             Yii::error($e->getMessage(), 'order.apply-promo');
             return false;
         }
@@ -76,7 +76,7 @@ class OrderController extends Controller
             $order = OrdersModel::findOne($order_id);
             $order->applyPromo($promocode);
         } catch (Exception $e) {
-            Yii::$app->session->setFlash("Promo-apply-error", 'Не удалось применить промокод.');
+            Yii::$app->session->setFlash("order-error", 'Не удалось применить промокод.');
             Yii::error($e->getMessage(), 'order.apply-promo');
             return false;
         }
@@ -84,9 +84,34 @@ class OrderController extends Controller
         return true;
     }
 
-    public function actionAddService($order_id, $id) {
-        $order = OrdersModel::findOne($order_id);
-//        $order->
+    public function actionAddService(int $order_id, int $service_id) {
+        try {
+            $order = OrdersModel::findOne($order_id);
+            $service = ServicesModel::findOne($service_id);
+
+            $order->link('services', $service);
+        } catch (Exception $e) {
+            Yii::error($e->getMessage(), 'order.apply-promo');
+            Yii::$app->session->setFlash("order-error", 'Не удалось добавить услугу.');
+            return false;
+        }
+
+        return true;
+    }
+
+    public function actionRemoveService(int $order_id, int $service_id) {
+        try {
+            $order = OrdersModel::findOne($order_id);
+            $service = ServicesModel::findOne($service_id);
+
+            $order->unlink('services', $service);
+        } catch (Exception $e) {
+            Yii::error($e->getMessage(), 'order.apply-promo');
+            Yii::$app->session->setFlash("order-error", 'Не удалось удалить услугу.');
+            return false;
+        }
+
+        return true;
     }
 
     public function actionGetTimes() {

@@ -40,4 +40,18 @@ class OrdersModel extends ActiveRecord
         return $this->hasMany(ServicesModel::className(), ['id' => 'service_id'])
                  ->viaTable('order_services', ['order_id' => 'id']);
     }
+
+    public function getServicesPrice() {
+        return $this->hasMany(ServicesModel::className(), ['id' => 'service_id'])
+            ->viaTable('order_services', ['order_id' => 'id'])->sum('services.price');
+    }
+
+    public function getServicesId() {
+        $services = $this->getServices()->all();
+        $servicesId = [];
+        foreach ($services as $service) {
+            $servicesId[] = $service->id;
+        }
+        return $servicesId;
+    }
 }
