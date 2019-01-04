@@ -198,6 +198,15 @@ a.desc:after {
     margin: 10px 0 10px 10px;
 }
 
+.services .active {
+    padding-left: 27px;
+    /*color: #ffffff;*/
+}
+
+.active i {
+    display: inline !important;
+}
+
 .order-confirm .total-row {
     border-bottom: 1px solid #eee;
     padding: 10px;

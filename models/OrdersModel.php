@@ -18,7 +18,21 @@ class OrdersModel extends ActiveRecord
         return 'orders';
     }
 
+    public function applyPromo($promocode) {
+        $this->discount = $promocode->count;
+        $this->promo_id = $promocode->id;
+        $this->save();
+    }
+
+    public function totalPrice() {
+        return ($this->price - $this->discount);
+    }
+
     public function getBoat() {
         return $this->hasOne(BoatsModel::className(), ['id' => 'boat_id']);
+    }
+
+    public function getPromo() {
+        return $this->hasOne(PromoModel::className(), ['id' => 'promo_id']);
     }
 }

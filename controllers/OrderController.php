@@ -12,8 +12,10 @@ use app\models\OrderConfirmForm;
 use app\models\OrderCreateForm;
 use app\models\OrdersModel;
 use app\models\PayForm;
+use app\models\PromoModel;
 use app\models\ServicesModel;
 use Yii;
+use yii\base\Exception;
 use yii\web\Controller;
 
 class OrderController extends Controller
@@ -54,6 +56,31 @@ class OrderController extends Controller
         $model = new PayForm();
 
         return $this->render('confirm-step2', compact('order', 'services', 'model'));
+    }
+
+    public function actionApplyPromo(int $order_id, string $word) {
+
+        Yii::info("Apply Promo: $word", 'order.apply-promo');
+
+        try {
+            $promocode = PromoModel::find()->where(['word' => trim($word)])->one();
+            if (!$promocode) throw new Exception('Промокод не найден!');
+        } catch (Exception $e) {
+            Yii::$app->session->setFlash("Promo-apply-error", $e->getMessage());
+            Yii::error($e->getMessage(), 'order.apply-promo');
+            return false;
+        }
+
+        try {
+            $order = OrdersModel::findOne($order_id);
+            $order->applyPromo($promocode);
+        } catch (Exception $e) {
+            Yii::$app->session->setFlash("Promo-apply-error", 'Не удалось применить промокод.');
+            Yii::error($e->getMessage(), 'order.apply-promo');
+            return false;
+        }
+
+        return true;
     }
 
     public function actionGetTimes() {
