@@ -22,6 +22,7 @@ use yii\widgets\ActiveForm; ?>
         <div class="col-md-9">
             <h4><?= $order->boat->name ?></h4>
             <p>От <?= $order->boat->spaciousness ?> человек, мощность <?= $order->boat->engine_power ?>, <?= $order->boat->location ?></p>
+            <div id="boat_price" style="display: none;"><?= $order->boat->price ?></div>
         </div>
     </div>
 
@@ -30,15 +31,15 @@ use yii\widgets\ActiveForm; ?>
     <div class="row">
         <h3 class="text-center">Выберите дату и время начала аренды</h3>
 
-        <div class="col-md-offset-1 col-md-10">
-            <div id="calendar"></div>
-            <div id="times"></div>
+        <div class="col-md-offset-3 col-md-6">
+            <div id="calendar" style="margin-bottom: 20px;"></div>
+            <div id="times" style="display: none;"></div>
         </div>
     </div>
 
     <hr>
 
-    <div class="row">
+    <div id="order-confirm" class="row" style="display: none;">
         <?php $form = ActiveForm::begin([
             'id' => 'order-confirm-form',
             'action' => '/order/confirm-step2?id='.$order->id,
@@ -53,7 +54,7 @@ use yii\widgets\ActiveForm; ?>
         </div>
         <div class="col-md-4">
             <?= $form->field($model, 'boat_id')->hiddenInput(['value' => $order->boat->id])->label(false)?>
-            <?= $form->field($model, 'coast')->textInput(['value' => 20000])->label(false)?>
+            <?= $form->field($model, 'coast')->textInput(['value' => ''])->label(false)?>
         </div>
         <div class="col-md-2">
             <?= Html::submitButton('Далее', ['class' => 'btn btn-primary btn-block']) ?>
@@ -63,37 +64,47 @@ use yii\widgets\ActiveForm; ?>
 </div>
 
 <script>
-
     $(function() {
-        // $('#calendar').fullCalendar({
-        //     locale: 'ru',
-        //     header: {
-        //         left: 'prev',
-        //         center: 'title',
-        //         right: 'next'
-        //     },
-        //     dayClick: function(date, jsEvent, view) {
-        //
-        //         console.log('Clicked on: ' + date.format());
-        //         console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-        //         console.log('Current view: ' + view.name);
-        //
-        //         $.ajax({
-        //             url: '/order/get-times',
-        //             type: 'GET',
-        //             data: { 'date': date.format()},
-        //             success: function (data) {
-        //                 $(this).css('background-color', 'grey');
-        //
-        //             }
-        //         });
-        //     }
-        // });
+        $('#calendar').fullCalendar({
+            schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
+            locale: 'ru',
+            header: {
+                left: 'prev',
+                center: 'title',
+                right: 'next'
+            },
+            height: 300,
+            dayClick: function(date, jsEvent, view) {
 
+                console.log('Clicked on: ' + date.format());
+                console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+                console.log('Current view: ' + view.name);
+
+                $(this).css('background-color', '#ccc');
+
+                var times = $('#times');
+                times.fullCalendar('gotoDate', date.format());
+                times.show();
+                times.fullCalendar('render');
+                $('#order-confirm').show();
+
+                // $.ajax({
+                //     url: '/order/get-times',
+                //     type: 'GET',
+                //     data: { 'date': date.format()},
+                //     success: function (data) {
+                //         $(this).css('background-color', 'grey');
+                //
+                //     }
+                // });
+            }
+        });
 
         $('#times').fullCalendar({
+            schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
             defaultView: 'timeline',
             locale: 'ru',
+            height: 500,
             header: {
                 left: 'prev',
                 center: 'title',
@@ -123,7 +134,7 @@ use yii\widgets\ActiveForm; ?>
             //     // }
             // },
             dayRender(date, cell) {
-                cell.append('<div class="time" data-number="'+date.format("H")+'">' + moment(date).format("HH:MM") +' - ' + moment(date).add(1, 'hour').format("HH:MM") + '</div>');
+                cell.append('<div class="time" data-number="'+date.format("H")+'">' + moment(date).format("HH") +':00 - ' + moment(date).add(1, 'hour').format("HH") + ':00</div>');
             }
         });
 
@@ -145,6 +156,13 @@ use yii\widgets\ActiveForm; ?>
              let maxDate = maxBlock.data('date');
 
              $('#orderconfirmform-datetime_to').val(maxDate);
+
+             calculateCoast();
+         }
+
+         function calculateCoast() {
+             var price = $('#boat_price').text();
+             $('#orderconfirmform-coast').val(numberArray.length * price);
          }
 
         $(document).on('click', '.fc-major', function(){
@@ -156,8 +174,6 @@ use yii\widgets\ActiveForm; ?>
                 selectNumber(number, timeBlock);
             } else {
                 let max = Math.max.apply(Math, numberArray);
-                console.log(max);
-                console.log(number);
                 if (number === max+1) {
                     selectNumber(number, timeBlock)
                 } else {

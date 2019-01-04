@@ -2,6 +2,8 @@
 
 /* @var $this yii\web\View */
 
+/** @var \app\models\BoatsModel $boats */
+
 $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
@@ -68,10 +70,8 @@ $this->title = 'My Yii Application';
                         <span class="label label-default"><?= $boat->price ?></span>
                     </div>
 
-                    <p>Последние несколько лет стали для России и ее граждан тяжелым испытанием.
-                        Падение цен на нефть, международные санкции и разрыв экономических связей с развитыми странами Запада
-                        сильно ударили по экспортно-ориентированной экономике нашей страны.</p>
-                    <a class="btn btn-default">Подробно</a>
+                    <p><?= $boat->short_description ?></p>
+                    <a class="btn btn-default" href="/boats/show?id=<?= $boat->id ?>">Подробно</a>
                 </div>
             <?php endforeach; ?>
         </div>

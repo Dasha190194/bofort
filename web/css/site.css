@@ -227,10 +227,6 @@ a.desc:after {
     display: none;
 }
 
-#times .fc-license-message {
-    display: none;
-}
-
 /*#times .fc-chrono {*/
     /*display: flex;*/
     /*flex-wrap: wrap;*/
@@ -244,14 +240,14 @@ a.desc:after {
     flex-wrap: wrap;
     align-content: stretch;
     height: 100%;
-    width: 1041px;
+    width: 790px;
 }
 
 #times .fc-slats tr .fc-widget-content {
     width: 19%;
     height: 50px;
     border: 1px solid #eee;
-    margin: 10px 23px;
+    margin: 10px 24px;
 }
 
 .fc-time-area {
