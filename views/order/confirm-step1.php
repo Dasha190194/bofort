@@ -39,22 +39,34 @@ use yii\widgets\ActiveForm; ?>
 
     <hr>
 
-    <div id="order-confirm" class="row" style="display: none;">
+    <div id="order-confirm" class="row">
         <?php $form = ActiveForm::begin([
             'id' => 'order-confirm-form',
             'action' => '/order/confirm-step2?id='.$order->id,
         ]); ?>
 
-        <div class="col-md-2">
+        <div class="col-md-1">
             X
         </div>
-        <div class="col-md-4">
-            <?= $form->field($model, 'datetime_from')->textInput(['value' => ''])->label(false)?>
-            <?= $form->field($model, 'datetime_to')->textInput(['value' => ''])->label(false)?>
+        <div class="col-md-5">
+            <div class="row">
+                <label>Время</label>
+            </div>
+            <div class="row">
+                <strong id="datetime_from"></strong> - <strong id="datetime_to"></strong>
+            </div>
+            <?= $form->field($model, 'datetime_from')->hiddenInput(['value' => ''])->label(false)?>
+            <?= $form->field($model, 'datetime_to')->hiddenInput(['value' => ''])->label(false)?>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-offset-1 col-md-3">
+            <div class="row text-right">
+                <label>Стоимость аренды составит</label>
+            </div>
+            <div class="row text-right">
+                <strong id="coast"></strong>
+            </div>
             <?= $form->field($model, 'boat_id')->hiddenInput(['value' => $order->boat->id])->label(false)?>
-            <?= $form->field($model, 'coast')->textInput(['value' => ''])->label(false)?>
+            <?= $form->field($model, 'coast')->hiddenInput(['value' => ''])->label(false)?>
         </div>
         <div class="col-md-2">
             <?= Html::submitButton('Далее', ['class' => 'btn btn-primary btn-block']) ?>
@@ -150,12 +162,14 @@ use yii\widgets\ActiveForm; ?>
              let minDate = minBlock.data('date');
 
              $('#orderconfirmform-datetime_from').val(minDate);
+             $('#datetime_from').text(moment(minDate).format("YYYY-MM-DD HH:MM"));
 
              let max = Math.max.apply(Math, numberArray);
              let maxBlock = $('div[data-number="'+max+'"]').parent('.fc-major');
              let maxDate = maxBlock.data('date');
 
-             $('#orderconfirmform-datetime_to').val(maxDate);
+             $('#orderconfirmform-datetime_to').val(moment(maxDate).add(1, 'hour'));
+             $('#datetime_to').text(moment(maxDate).add(1, 'hour').format("YYYY-MM-DD HH:MM"));
 
              calculateCoast();
          }
@@ -163,6 +177,7 @@ use yii\widgets\ActiveForm; ?>
          function calculateCoast() {
              var price = $('#boat_price').text();
              $('#orderconfirmform-coast').val(numberArray.length * price);
+             $('#coast').text(numberArray.length * price + ' руб.');
          }
 
         $(document).on('click', '.fc-major', function(){
@@ -181,7 +196,6 @@ use yii\widgets\ActiveForm; ?>
                 }
             }
 
-            console.log(numberArray);
         });
     });
 

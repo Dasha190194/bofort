@@ -21,7 +21,7 @@ class PayForm extends Model {
         return [
 
             [['order_id', 'offer_processing'], 'required'],
-            ['offer_processing', 'required', 'requiredValue' => 1, 'message' => 'You should accept term to use our service'],
+            ['offer_processing', 'required', 'requiredValue' => 1, 'message' => 'Вам необходимо ознакомиться с офертой'],
         ];
     }
 }

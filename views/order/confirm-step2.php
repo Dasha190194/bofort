@@ -100,8 +100,8 @@ use yii\widgets\ActiveForm; ?>
 
         <div class="col-md-offset-3 col-md-6 text-center">
             <?= $form->field($model, 'offer_processing', [
-//                'template' => "{input}   Бронируя яхту, я принимаю договор оферты Bofort.ru {error}",
-            ])->checkbox() ?>
+                'template' => "{input}   Бронируя яхту, я принимаю договор оферты Bofort.ru {error}",
+            ])->checkbox([], false)->label(false) ?>
         </div>
         <div class="col-md-offset-3 col-md-6 text-center">
             <?= Html::submitButton('Привязать карту', ['class' => 'btn btn-primary btn-block']) ?>
