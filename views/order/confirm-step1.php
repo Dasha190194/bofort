@@ -15,6 +15,8 @@ use yii\widgets\ActiveForm; ?>
 
     <hr>
 
+    <a href="/boats/show?id=<?= $order->boat->id?>" style="display: block;width: 30px;height: 30px;background-color: #777777;color: white;"><i class="glyphicon glyphicon-chevron-left"></i></a>
+
     <div class="row">
         <div class="col-md-3">
             <img src="/index.png" width="250px" height="100px">
@@ -39,7 +41,7 @@ use yii\widgets\ActiveForm; ?>
 
     <hr>
 
-    <div id="order-confirm" class="row">
+    <div id="order-confirm" class="row" style="display: none;">
         <?php $form = ActiveForm::begin([
             'id' => 'order-confirm-form',
             'action' => '/order/confirm-step2?id='.$order->id,

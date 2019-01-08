@@ -15,6 +15,11 @@ use yii\web\Controller;
 
 class BoatsController extends Controller
 {
+    public function actionIndex() {
+        $boats = BoatsModel::find()->all();
+
+        return $this->render('index', compact('boats'));
+    }
 
     /**
      * @param int $id

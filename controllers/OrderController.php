@@ -17,10 +17,34 @@ use app\models\PromoModel;
 use app\models\ServicesModel;
 use Yii;
 use yii\base\Exception;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 
 class OrderController extends Controller
 {
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['create', 'confirm-step1', 'confirm-step2', 'apply-promo', 'add-service', 'remove-service'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+//            'verbs' => [
+//                'class' => VerbFilter::className(),
+//                'actions' => [
+//                    'logout' => ['post'],
+//                ],
+//            ],
+        ];
+    }
+
 
     public function actionCreate() {
 
