@@ -14,40 +14,6 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET row_security = off;
 
---
--- Name: bofort; Type: DATABASE; Schema: -; Owner: postgres
---
-
-CREATE DATABASE bofort WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'ru_RU.UTF-8' LC_CTYPE = 'ru_RU.UTF-8';
-
-
-ALTER DATABASE bofort OWNER TO postgres;
-
-\connect bofort
-
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SELECT pg_catalog.set_config('search_path', '', false);
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-SET row_security = off;
-
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -64,7 +30,8 @@ CREATE TABLE public.boats (
     engine_power character varying(50),
     spaciousness integer,
     certificate character varying(50),
-    location character varying(50)
+    location character varying(50),
+    short_description text
 );
 
 
@@ -140,6 +107,18 @@ CREATE TABLE public.migration (
 ALTER TABLE public.migration OWNER TO admin;
 
 --
+-- Name: order_services; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.order_services (
+    order_id integer,
+    service_id integer
+);
+
+
+ALTER TABLE public.order_services OWNER TO admin;
+
+--
 -- Name: orders; Type: TABLE; Schema: public; Owner: admin
 --
 
@@ -151,7 +130,12 @@ CREATE TABLE public.orders (
     is_paid smallint DEFAULT 0,
     is_book smallint DEFAULT 0,
     price double precision DEFAULT 0,
-    card_id integer
+    card_id integer,
+    offer_processing smallint DEFAULT 0,
+    promo_id integer DEFAULT 0,
+    discount double precision DEFAULT 0,
+    datetime_from timestamp without time zone,
+    datetime_to timestamp without time zone
 );
 
 
@@ -216,6 +200,40 @@ ALTER SEQUENCE public.profile_id_seq OWNED BY public.profile.id;
 
 
 --
+-- Name: promo; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.promo (
+    id integer NOT NULL,
+    word character varying(50),
+    count integer
+);
+
+
+ALTER TABLE public.promo OWNER TO admin;
+
+--
+-- Name: promo_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.promo_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.promo_id_seq OWNER TO admin;
+
+--
+-- Name: promo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.promo_id_seq OWNED BY public.promo.id;
+
+
+--
 -- Name: role; Type: TABLE; Schema: public; Owner: admin
 --
 
@@ -252,6 +270,40 @@ ALTER SEQUENCE public.role_id_seq OWNED BY public.role.id;
 
 
 --
+-- Name: services; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.services (
+    id integer NOT NULL,
+    name character varying(50),
+    price integer
+);
+
+
+ALTER TABLE public.services OWNER TO admin;
+
+--
+-- Name: services_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE public.services_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.services_id_seq OWNER TO admin;
+
+--
+-- Name: services_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE public.services_id_seq OWNED BY public.services.id;
+
+
+--
 -- Name: transactions; Type: TABLE; Schema: public; Owner: admin
 --
 
@@ -261,7 +313,8 @@ CREATE TABLE public.transactions (
     datetime_create timestamp without time zone DEFAULT now(),
     state smallint DEFAULT 0,
     order_id integer,
-    user_id integer
+    user_id integer,
+    total_price integer DEFAULT 0
 );
 
 
@@ -445,7 +498,21 @@ ALTER TABLE ONLY public.profile ALTER COLUMN id SET DEFAULT nextval('public.prof
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
+ALTER TABLE ONLY public.promo ALTER COLUMN id SET DEFAULT nextval('public.promo_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
 ALTER TABLE ONLY public.role ALTER COLUMN id SET DEFAULT nextval('public.role_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.services ALTER COLUMN id SET DEFAULT nextval('public.services_id_seq'::regclass);
 
 
 --
@@ -480,10 +547,18 @@ ALTER TABLE ONLY public.user_token ALTER COLUMN id SET DEFAULT nextval('public.u
 -- Data for Name: boats; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO public.boats (id, name, description, price, engine_power, spaciousness, certificate, location) VALUES (1, 'Ark Venture', 'Ark Venture – одно из самых новых приобретений мальдивского флота. Яхта была спущена на воду в конце 2011 г. и приступила к коммерческой деятельности в 2012 г. Яхта позиционируется, как лакшери. Красивые интерьеры и качественная отделка, а также статус новой яхты позволяют ее включить в список самых лучших коммерческих кораблей Мальдив. С 2013 г. сроком на 2 года яхта была включена в флот Canstellation под новым именем Virgo. Английский менеджмент в управлении дает гарантию хорошего сервиса и обслуживания яхты. Можно оценить яхту на 5*.', 1250, '500 лс', 13, 'паспорт единорога', 'Нагатинский затон');
-INSERT INTO public.boats (id, name, description, price, engine_power, spaciousness, certificate, location) VALUES (2, 'Ark Venture', 'Ark Venture – одно из самых новых приобретений мальдивского флота. Яхта была спущена на воду в конце 2011 г. и приступила к коммерческой деятельности в 2012 г. Яхта позиционируется, как лакшери. Красивые интерьеры и качественная отделка, а также статус новой яхты позволяют ее включить в список самых лучших коммерческих кораблей Мальдив. С 2013 г. сроком на 2 года яхта была включена в флот Canstellation под новым именем Virgo. Английский менеджмент в управлении дает гарантию хорошего сервиса и обслуживания яхты. Можно оценить яхту на 5*.', 1250, '500 лс', 13, 'паспорт единорога', 'Нагатинский затон');
-INSERT INTO public.boats (id, name, description, price, engine_power, spaciousness, certificate, location) VALUES (3, 'Ark Venture', 'Ark Venture – одно из самых новых приобретений мальдивского флота. Яхта была спущена на воду в конце 2011 г. и приступила к коммерческой деятельности в 2012 г. Яхта позиционируется, как лакшери. Красивые интерьеры и качественная отделка, а также статус новой яхты позволяют ее включить в список самых лучших коммерческих кораблей Мальдив. С 2013 г. сроком на 2 года яхта была включена в флот Canstellation под новым именем Virgo. Английский менеджмент в управлении дает гарантию хорошего сервиса и обслуживания яхты. Можно оценить яхту на 5*.', 1250, '500 лс', 13, 'паспорт единорога', 'Нагатинский затон');
-INSERT INTO public.boats (id, name, description, price, engine_power, spaciousness, certificate, location) VALUES (4, 'Ark Venture', 'Ark Venture – одно из самых новых приобретений мальдивского флота. Яхта была спущена на воду в конце 2011 г. и приступила к коммерческой деятельности в 2012 г. Яхта позиционируется, как лакшери. Красивые интерьеры и качественная отделка, а также статус новой яхты позволяют ее включить в список самых лучших коммерческих кораблей Мальдив. С 2013 г. сроком на 2 года яхта была включена в флот Canstellation под новым именем Virgo. Английский менеджмент в управлении дает гарантию хорошего сервиса и обслуживания яхты. Можно оценить яхту на 5*.', 1250, '500 лс', 13, 'паспорт единорога', 'Нагатинский затон');
+INSERT INTO public.boats (id, name, description, price, engine_power, spaciousness, certificate, location, short_description) VALUES (4, 'Ark Venture', 'Ark Venture – одно из самых новых приобретений мальдивского флота. Яхта была спущена на воду в конце 2011 г. и приступила к коммерческой деятельности в 2012 г. Яхта позиционируется, как лакшери. Красивые интерьеры и качественная отделка, а также статус новой яхты позволяют ее включить в список самых лучших коммерческих кораблей Мальдив. С 2013 г. сроком на 2 года яхта была включена в флот Canstellation под новым именем Virgo. Английский менеджмент в управлении дает гарантию хорошего сервиса и обслуживания яхты. Можно оценить яхту на 5*.', 1250, '500 лс', 13, 'паспорт единорога', 'Нагатинский затон', 'Последние несколько лет стали для России и ее граждан тяжелым испытанием.
+                        Падение цен на нефть, международные санкции и разрыв экономических связей с развитыми странами Запада
+                        сильно ударили по экспортно-ориентированной экономике нашей страны.');
+INSERT INTO public.boats (id, name, description, price, engine_power, spaciousness, certificate, location, short_description) VALUES (3, 'Ark Venture', 'Ark Venture – одно из самых новых приобретений мальдивского флота. Яхта была спущена на воду в конце 2011 г. и приступила к коммерческой деятельности в 2012 г. Яхта позиционируется, как лакшери. Красивые интерьеры и качественная отделка, а также статус новой яхты позволяют ее включить в список самых лучших коммерческих кораблей Мальдив. С 2013 г. сроком на 2 года яхта была включена в флот Canstellation под новым именем Virgo. Английский менеджмент в управлении дает гарантию хорошего сервиса и обслуживания яхты. Можно оценить яхту на 5*.', 1250, '500 лс', 13, 'паспорт единорога', 'Нагатинский затон', 'Последние несколько лет стали для России и ее граждан тяжелым испытанием.
+                        Падение цен на нефть, международные санкции и разрыв экономических связей с развитыми странами Запада
+                        сильно ударили по экспортно-ориентированной экономике нашей страны.');
+INSERT INTO public.boats (id, name, description, price, engine_power, spaciousness, certificate, location, short_description) VALUES (2, 'Ark Venture', 'Ark Venture – одно из самых новых приобретений мальдивского флота. Яхта была спущена на воду в конце 2011 г. и приступила к коммерческой деятельности в 2012 г. Яхта позиционируется, как лакшери. Красивые интерьеры и качественная отделка, а также статус новой яхты позволяют ее включить в список самых лучших коммерческих кораблей Мальдив. С 2013 г. сроком на 2 года яхта была включена в флот Canstellation под новым именем Virgo. Английский менеджмент в управлении дает гарантию хорошего сервиса и обслуживания яхты. Можно оценить яхту на 5*.', 1250, '500 лс', 13, 'паспорт единорога', 'Нагатинский затон', 'Последние несколько лет стали для России и ее граждан тяжелым испытанием.
+                        Падение цен на нефть, международные санкции и разрыв экономических связей с развитыми странами Запада
+                        сильно ударили по экспортно-ориентированной экономике нашей страны.');
+INSERT INTO public.boats (id, name, description, price, engine_power, spaciousness, certificate, location, short_description) VALUES (1, 'Ark Venture', 'Ark Venture – одно из самых новых приобретений мальдивского флота. Яхта была спущена на воду в конце 2011 г. и приступила к коммерческой деятельности в 2012 г. Яхта позиционируется, как лакшери. Красивые интерьеры и качественная отделка, а также статус новой яхты позволяют ее включить в список самых лучших коммерческих кораблей Мальдив. С 2013 г. сроком на 2 года яхта была включена в флот Canstellation под новым именем Virgo. Английский менеджмент в управлении дает гарантию хорошего сервиса и обслуживания яхты. Можно оценить яхту на 5*.', 1250, '500 лс', 13, 'паспорт единорога', 'Нагатинский затон', 'Последние несколько лет стали для России и ее граждан тяжелым испытанием.
+                        Падение цен на нефть, международные санкции и разрыв экономических связей с развитыми странами Запада
+                        сильно ударили по экспортно-ориентированной экономике нашей страны.');
 
 
 --
@@ -517,18 +592,70 @@ INSERT INTO public.migration (version, apply_time) VALUES ('m150214_044831_init_
 
 
 --
+-- Data for Name: order_services; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (NULL, NULL);
+INSERT INTO public.order_services (order_id, service_id) VALUES (5, 1);
+INSERT INTO public.order_services (order_id, service_id) VALUES (5, 5);
+INSERT INTO public.order_services (order_id, service_id) VALUES (5, 4);
+INSERT INTO public.order_services (order_id, service_id) VALUES (6, 1);
+INSERT INTO public.order_services (order_id, service_id) VALUES (6, 3);
+INSERT INTO public.order_services (order_id, service_id) VALUES (10, 1);
+INSERT INTO public.order_services (order_id, service_id) VALUES (10, 3);
+
+
+--
 -- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO public.orders (id, user_id, boat_id, datetime_create, is_paid, is_book, price, card_id) VALUES (1, 1, 1, '2018-12-21 15:25:00.180242', 1, 0, 50000, NULL);
-INSERT INTO public.orders (id, user_id, boat_id, datetime_create, is_paid, is_book, price, card_id) VALUES (2, 1, 1, '2018-12-22 04:29:31.578482', 0, 1, 23456, NULL);
+INSERT INTO public.orders (id, user_id, boat_id, datetime_create, is_paid, is_book, price, card_id, offer_processing, promo_id, discount, datetime_from, datetime_to) VALUES (1, 1, 1, '2018-12-21 15:25:00.180242', 1, 0, 50000, NULL, 0, 0, 0, NULL, NULL);
+INSERT INTO public.orders (id, user_id, boat_id, datetime_create, is_paid, is_book, price, card_id, offer_processing, promo_id, discount, datetime_from, datetime_to) VALUES (2, 1, 1, '2018-12-22 04:29:31.578482', 0, 1, 23456, NULL, 0, 0, 0, NULL, NULL);
+INSERT INTO public.orders (id, user_id, boat_id, datetime_create, is_paid, is_book, price, card_id, offer_processing, promo_id, discount, datetime_from, datetime_to) VALUES (4, 1, 1, '2018-12-31 20:21:27.237777', 0, 0, 1250, NULL, 0, 0, 0, NULL, NULL);
+INSERT INTO public.orders (id, user_id, boat_id, datetime_create, is_paid, is_book, price, card_id, offer_processing, promo_id, discount, datetime_from, datetime_to) VALUES (3, 1, 1, '2018-12-30 18:27:16.849654', 0, 0, 1250, NULL, 0, 0, 0, NULL, NULL);
+INSERT INTO public.orders (id, user_id, boat_id, datetime_create, is_paid, is_book, price, card_id, offer_processing, promo_id, discount, datetime_from, datetime_to) VALUES (5, 1, 1, '2019-01-01 15:12:00.727471', 0, 0, 12000, NULL, 0, 1, 100, NULL, NULL);
+INSERT INTO public.orders (id, user_id, boat_id, datetime_create, is_paid, is_book, price, card_id, offer_processing, promo_id, discount, datetime_from, datetime_to) VALUES (6, 1, 4, '2019-01-04 16:26:46.201306', 0, 0, 0, NULL, 0, 0, 0, NULL, NULL);
+INSERT INTO public.orders (id, user_id, boat_id, datetime_create, is_paid, is_book, price, card_id, offer_processing, promo_id, discount, datetime_from, datetime_to) VALUES (7, 1, 4, '2019-01-05 08:16:49.214822', 0, 0, 0, NULL, 0, 0, 0, NULL, NULL);
+INSERT INTO public.orders (id, user_id, boat_id, datetime_create, is_paid, is_book, price, card_id, offer_processing, promo_id, discount, datetime_from, datetime_to) VALUES (8, 1, 3, '2019-01-05 08:21:38.637592', 0, 0, 0, NULL, 0, 0, 0, NULL, NULL);
+INSERT INTO public.orders (id, user_id, boat_id, datetime_create, is_paid, is_book, price, card_id, offer_processing, promo_id, discount, datetime_from, datetime_to) VALUES (9, 1, 3, '2019-01-08 08:44:33.983584', 0, 0, 0, NULL, 0, 0, 0, NULL, NULL);
+INSERT INTO public.orders (id, user_id, boat_id, datetime_create, is_paid, is_book, price, card_id, offer_processing, promo_id, discount, datetime_from, datetime_to) VALUES (10, 1, 4, '2019-01-09 18:40:13.265901', 0, 0, 0, NULL, 0, 1, 100, NULL, NULL);
+INSERT INTO public.orders (id, user_id, boat_id, datetime_create, is_paid, is_book, price, card_id, offer_processing, promo_id, discount, datetime_from, datetime_to) VALUES (11, 1, 4, '2019-01-09 19:07:51.019485', 0, 0, 0, NULL, 0, 0, 0, NULL, NULL);
+INSERT INTO public.orders (id, user_id, boat_id, datetime_create, is_paid, is_book, price, card_id, offer_processing, promo_id, discount, datetime_from, datetime_to) VALUES (12, 1, 4, '2019-01-09 19:10:03.247317', 0, 0, 0, NULL, 0, 0, 0, NULL, NULL);
+INSERT INTO public.orders (id, user_id, boat_id, datetime_create, is_paid, is_book, price, card_id, offer_processing, promo_id, discount, datetime_from, datetime_to) VALUES (13, 1, 4, '2019-01-09 19:10:31.147896', 0, 0, 2500, NULL, 0, 0, 0, '2019-01-11 11:01:00', '2019-01-11 13:01:00');
 
 
 --
 -- Name: orders_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public.orders_id_seq', 2, true);
+SELECT pg_catalog.setval('public.orders_id_seq', 13, true);
 
 
 --
@@ -551,6 +678,20 @@ SELECT pg_catalog.setval('public.profile_id_seq', 6, true);
 
 
 --
+-- Data for Name: promo; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+INSERT INTO public.promo (id, word, count) VALUES (1, '123', 100);
+
+
+--
+-- Name: promo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.promo_id_seq', 1, true);
+
+
+--
 -- Data for Name: role; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -566,30 +707,66 @@ SELECT pg_catalog.setval('public.role_id_seq', 2, true);
 
 
 --
+-- Data for Name: services; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+INSERT INTO public.services (id, name, price) VALUES (1, 'Капитан с бородой и попугаем', 2500);
+INSERT INTO public.services (id, name, price) VALUES (2, 'Полный трюм рома', 10000);
+INSERT INTO public.services (id, name, price) VALUES (3, 'Чёрный флаг', 200);
+INSERT INTO public.services (id, name, price) VALUES (4, 'Отсутствие пробоин', 1000000);
+INSERT INTO public.services (id, name, price) VALUES (5, 'Право грабить испанские корабли', 500);
+
+
+--
+-- Name: services_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('public.services_id_seq', 5, true);
+
+
+--
 -- Data for Name: transactions; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO public.transactions (id, card_id, datetime_create, state, order_id, user_id) VALUES (2, 2, '2018-12-22 15:13:17.491839', 1, 1, 1);
-INSERT INTO public.transactions (id, card_id, datetime_create, state, order_id, user_id) VALUES (1, 1, '2018-12-22 15:13:07.327306', -1, 1, 1);
+INSERT INTO public.transactions (id, card_id, datetime_create, state, order_id, user_id, total_price) VALUES (2, 2, '2018-12-22 15:13:17.491839', 1, 1, 1, 0);
+INSERT INTO public.transactions (id, card_id, datetime_create, state, order_id, user_id, total_price) VALUES (1, 1, '2018-12-22 15:13:07.327306', -1, 1, 1, 0);
+INSERT INTO public.transactions (id, card_id, datetime_create, state, order_id, user_id, total_price) VALUES (3, NULL, '2019-01-04 13:48:09.608434', 0, 5, 1, 1014900);
+INSERT INTO public.transactions (id, card_id, datetime_create, state, order_id, user_id, total_price) VALUES (4, NULL, '2019-01-04 13:48:11.197604', 0, 5, 1, 1014900);
+INSERT INTO public.transactions (id, card_id, datetime_create, state, order_id, user_id, total_price) VALUES (5, NULL, '2019-01-04 13:50:51.584173', 0, 5, 1, 1014900);
+INSERT INTO public.transactions (id, card_id, datetime_create, state, order_id, user_id, total_price) VALUES (6, NULL, '2019-01-04 13:50:56.929691', 0, 5, 1, 1014900);
+INSERT INTO public.transactions (id, card_id, datetime_create, state, order_id, user_id, total_price) VALUES (7, NULL, '2019-01-04 13:50:58.624827', 0, 5, 1, 1014900);
+INSERT INTO public.transactions (id, card_id, datetime_create, state, order_id, user_id, total_price) VALUES (8, NULL, '2019-01-04 13:51:10.08154', 0, 5, 1, 1014900);
+INSERT INTO public.transactions (id, card_id, datetime_create, state, order_id, user_id, total_price) VALUES (9, NULL, '2019-01-04 13:51:13.893464', 0, 5, 1, 1014900);
+INSERT INTO public.transactions (id, card_id, datetime_create, state, order_id, user_id, total_price) VALUES (10, NULL, '2019-01-04 13:51:21.732497', 0, 5, 1, 1014900);
+INSERT INTO public.transactions (id, card_id, datetime_create, state, order_id, user_id, total_price) VALUES (11, NULL, '2019-01-04 13:51:47.274204', 0, 5, 1, 1014900);
+INSERT INTO public.transactions (id, card_id, datetime_create, state, order_id, user_id, total_price) VALUES (12, NULL, '2019-01-04 13:51:48.190532', 0, 5, 1, 1014900);
+INSERT INTO public.transactions (id, card_id, datetime_create, state, order_id, user_id, total_price) VALUES (13, NULL, '2019-01-04 13:51:48.271826', 0, 5, 1, 1014900);
+INSERT INTO public.transactions (id, card_id, datetime_create, state, order_id, user_id, total_price) VALUES (14, NULL, '2019-01-05 08:16:41.029014', 0, 6, 1, 2700);
+INSERT INTO public.transactions (id, card_id, datetime_create, state, order_id, user_id, total_price) VALUES (15, NULL, '2019-01-05 08:16:41.904962', 0, 6, 1, 2700);
+INSERT INTO public.transactions (id, card_id, datetime_create, state, order_id, user_id, total_price) VALUES (16, NULL, '2019-01-05 08:16:41.953567', 0, 6, 1, 2700);
+INSERT INTO public.transactions (id, card_id, datetime_create, state, order_id, user_id, total_price) VALUES (17, NULL, '2019-01-05 08:22:35.862847', 0, 8, 1, 0);
+INSERT INTO public.transactions (id, card_id, datetime_create, state, order_id, user_id, total_price) VALUES (18, NULL, '2019-01-09 18:59:47.933004', 0, 10, 1, 2600);
+INSERT INTO public.transactions (id, card_id, datetime_create, state, order_id, user_id, total_price) VALUES (19, NULL, '2019-01-09 18:59:49.085821', 0, 10, 1, 2600);
+INSERT INTO public.transactions (id, card_id, datetime_create, state, order_id, user_id, total_price) VALUES (20, NULL, '2019-01-09 18:59:49.140061', 0, 10, 1, 2600);
 
 
 --
 -- Name: transactions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public.transactions_id_seq', 2, true);
+SELECT pg_catalog.setval('public.transactions_id_seq', 20, true);
 
 
 --
 -- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO public."user" (id, role_id, status, email, username, password, auth_key, access_token, logged_in_ip, logged_in_at, created_ip, created_at, updated_at, banned_at, banned_reason, phone, mailing, personal_data_processing) VALUES (1, 1, 1, 'neo@neo.com', 'neo', '$2y$13$dyVw4WkZGkABf2UrGWrhHO4ZmVBv.K4puhOL59Y9jQhIdj63TlV.O', 'XBGFwbF8aEFpxVcR6m7jNs1WXBJ0IzWj', 'Hr_Lh07b8WLnlhWcYa6DZkzdAdvnKiWK', '127.0.0.1', '2018-12-22 16:30:16', NULL, '2018-12-21 13:50:54', NULL, NULL, NULL, NULL, 0, 0);
 INSERT INTO public."user" (id, role_id, status, email, username, password, auth_key, access_token, logged_in_ip, logged_in_at, created_ip, created_at, updated_at, banned_at, banned_reason, phone, mailing, personal_data_processing) VALUES (2, 2, 0, 'dasha@mail.ru', 'dasha', '$2y$13$z7k5RWVkRvqMAnSCn2zRce.KoqNKGeHyR0ACeMnvk7PL3Ex83uKbe', 'ocoLVtgNM5kXWfNlnHn54bQabboYgmmf', 'kXZrXPiJzYVfoxGKabZ4LxT9veWrlU6r', NULL, NULL, '127.0.0.1', '2018-12-23 13:28:31', '2018-12-23 13:28:31', NULL, NULL, NULL, 0, 0);
 INSERT INTO public."user" (id, role_id, status, email, username, password, auth_key, access_token, logged_in_ip, logged_in_at, created_ip, created_at, updated_at, banned_at, banned_reason, phone, mailing, personal_data_processing) VALUES (3, 2, 0, 'dasha1@mail.ru', 'dasha1', '$2y$13$yoo2UmqoSPQ0qiIw8dMFh.aKw2s8MI.BMGRY0NLDuAigzUvoSbAgS', 'B8MDokeQ6pUMUBvtxhUGe7XljouaPHDC', 'FS6CD3g7bssuP5uwnK-XXgq084SwDay-', NULL, NULL, '127.0.0.1', '2018-12-23 13:37:52', '2018-12-23 13:37:52', NULL, NULL, NULL, 0, 0);
 INSERT INTO public."user" (id, role_id, status, email, username, password, auth_key, access_token, logged_in_ip, logged_in_at, created_ip, created_at, updated_at, banned_at, banned_reason, phone, mailing, personal_data_processing) VALUES (4, 2, 0, 'dasha2@mail.ru', 'dasha2', '$2y$13$asBOijDHbKX69qmFPqJy/u6plWaoIilnRCQGlJY4DS7MNQKr2IX..', '3fcvy_4bkOClUkdbaC9lo4ThCaLIqyrN', 'c6VelzbS7mbG7xbxZOWXMCs_0qjz1KWe', '127.0.0.1', '2018-12-23 14:44:02', '127.0.0.1', '2018-12-23 13:41:14', '2018-12-23 13:41:14', NULL, NULL, NULL, 0, 0);
 INSERT INTO public."user" (id, role_id, status, email, username, password, auth_key, access_token, logged_in_ip, logged_in_at, created_ip, created_at, updated_at, banned_at, banned_reason, phone, mailing, personal_data_processing) VALUES (5, 2, 0, 'ccccc@dd.er', 'ccc', '$2y$13$t1XCO8GvsVsPNmWVDttgDeHGfR3Cl23EqF9yWjkvb/gaKOsy9FVK.', '-18gRl2yLo5LDvq9GMJHKzoWLg7NfD7t', 'iVUYBfyhBy9MTt-XO0hWnNnn11GPyT8b', '127.0.0.1', '2018-12-23 14:53:24', '127.0.0.1', '2018-12-23 14:53:24', '2018-12-23 14:53:24', NULL, NULL, NULL, 0, 0);
 INSERT INTO public."user" (id, role_id, status, email, username, password, auth_key, access_token, logged_in_ip, logged_in_at, created_ip, created_at, updated_at, banned_at, banned_reason, phone, mailing, personal_data_processing) VALUES (6, 2, 0, 'cccc@dd.ty', 'xccc', '$2y$13$xvFfluyDBm6IvWbFe8un3u0hD6prvjMHAmN0CEYl8guhkfHTxqsKa', 'YBbi3eWSEIiTahrKlYYXUhE3YmYyKkUs', 'dOG0XVHZrXUl0MIULVdUIKCzK7VjgUFY', '127.0.0.1', '2018-12-24 17:16:28', '127.0.0.1', '2018-12-23 15:01:30', '2018-12-23 15:01:30', NULL, NULL, NULL, 1, 1);
+INSERT INTO public."user" (id, role_id, status, email, username, password, auth_key, access_token, logged_in_ip, logged_in_at, created_ip, created_at, updated_at, banned_at, banned_reason, phone, mailing, personal_data_processing) VALUES (1, 1, 1, 'neo@neo.com', 'neo', '$2y$13$dyVw4WkZGkABf2UrGWrhHO4ZmVBv.K4puhOL59Y9jQhIdj63TlV.O', 'XBGFwbF8aEFpxVcR6m7jNs1WXBJ0IzWj', 'Hr_Lh07b8WLnlhWcYa6DZkzdAdvnKiWK', '127.0.0.1', '2019-01-09 15:37:51', NULL, '2018-12-21 13:50:54', NULL, NULL, NULL, NULL, 0, 0);
 
 
 --
@@ -668,11 +845,27 @@ ALTER TABLE ONLY public.profile
 
 
 --
+-- Name: promo_pk; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.promo
+    ADD CONSTRAINT promo_pk PRIMARY KEY (id);
+
+
+--
 -- Name: role_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY public.role
     ADD CONSTRAINT role_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: services_pk; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.services
+    ADD CONSTRAINT services_pk PRIMARY KEY (id);
 
 
 --
@@ -765,16 +958,6 @@ ALTER TABLE ONLY public."user"
 
 ALTER TABLE ONLY public.user_token
     ADD CONSTRAINT user_token_user_id FOREIGN KEY (user_id) REFERENCES public."user"(id);
-
-
---
--- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
---
-
-REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM postgres;
-GRANT ALL ON SCHEMA public TO postgres;
-GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
 --
