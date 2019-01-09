@@ -56,7 +56,7 @@ $this->title = $boat->name;
             </div>
             <div class="characteristic">
                 <span>Располпжение причала</span>
-                <?= $boat->engine_power ?>
+                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
             </div>
             <div class="characteristic">
                 <span>Доступны дополнительные услуги</span>

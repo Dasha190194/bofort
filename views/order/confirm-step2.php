@@ -38,7 +38,7 @@ use yii\widgets\ActiveForm; ?>
             </div>
             <div class="characteristic">
                 <span>Аренда</span>
-                XXXXXXXXXXXXXXXXX
+                <?= $order->datetime_from . ' - ' . $order->datetime_to ?>
             </div>
             <div class="characteristic">
                 <span>Причал выдачи/сдачи</span>
@@ -79,7 +79,11 @@ use yii\widgets\ActiveForm; ?>
             <input id="word" class="form-control" value="<?= (isset($order->promo->word))?$order->promo->word:'' ?>" placeholder="Промокод" style="height: 44px;">
         </div>
         <div class="col-md-3">
-            <a id="promo-apply" class="btn btn-primary btn-block" style="height: 44px; line-height: 2em">Применить</a>
+            <?php if(!isset($order->promo->word)): ?>
+                <a id="promo-apply" class="btn btn-primary btn-block" style="height: 44px; line-height: 2em">Применить</a>
+            <?php else: ?>
+                <i class="glyphicon glyphicon-ok" style="margin-top: 12px;"></i>
+            <?php endif; ?>
         </div>
 
     </div>

@@ -69,7 +69,10 @@ class OrderController extends Controller
 
         $post = Yii::$app->request->post();
         if ($model->load($post)) {
-
+            $order->price = $model->coast;
+            $order->datetime_from = $model->datetime_from;
+            $order->datetime_to = $model->datetime_to;
+            $order->save();
             return $this->redirect(['/order/confirm-step2', 'id' => $order->id]);
         }
         return $this->render('confirm-step1', compact('order', 'model'));

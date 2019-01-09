@@ -44,11 +44,11 @@ use yii\widgets\ActiveForm; ?>
     <div id="order-confirm" class="row" style="display: none;">
         <?php $form = ActiveForm::begin([
             'id' => 'order-confirm-form',
-            'action' => '/order/confirm-step2?id='.$order->id,
+            'action' => '/order/confirm-step1?id='.$order->id,
         ]); ?>
 
         <div class="col-md-1">
-            X
+            <span id="close">X</span>
         </div>
         <div class="col-md-5">
             <div class="row">
@@ -100,7 +100,6 @@ use yii\widgets\ActiveForm; ?>
                 times.fullCalendar('gotoDate', date.format());
                 times.show();
                 times.fullCalendar('render');
-                $('#order-confirm').show();
 
                 // $.ajax({
                 //     url: '/order/get-times',
@@ -163,14 +162,14 @@ use yii\widgets\ActiveForm; ?>
              let minBlock = $('div[data-number="'+min+'"]').parent('.fc-major');
              let minDate = minBlock.data('date');
 
-             $('#orderconfirmform-datetime_from').val(minDate);
+             $('#orderconfirmform-datetime_from').val(moment(minDate).format("YYYY-MM-DD HH:MM"));
              $('#datetime_from').text(moment(minDate).format("YYYY-MM-DD HH:MM"));
 
              let max = Math.max.apply(Math, numberArray);
              let maxBlock = $('div[data-number="'+max+'"]').parent('.fc-major');
              let maxDate = maxBlock.data('date');
 
-             $('#orderconfirmform-datetime_to').val(moment(maxDate).add(1, 'hour'));
+             $('#orderconfirmform-datetime_to').val(moment(maxDate).add(1, 'hour').format("YYYY-MM-DD HH:MM"));
              $('#datetime_to').text(moment(maxDate).add(1, 'hour').format("YYYY-MM-DD HH:MM"));
 
              calculateCoast();
@@ -178,6 +177,8 @@ use yii\widgets\ActiveForm; ?>
 
          function calculateCoast() {
              var price = $('#boat_price').text();
+
+             $('#order-confirm').show();
              $('#orderconfirmform-coast').val(numberArray.length * price);
              $('#coast').text(numberArray.length * price + ' руб.');
          }
@@ -198,6 +199,10 @@ use yii\widgets\ActiveForm; ?>
                 }
             }
 
+        });
+
+        $(document).on('click', '#close', function(){
+           location.reload();
         });
     });
 
