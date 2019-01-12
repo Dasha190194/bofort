@@ -22,6 +22,7 @@ $config = [
         ],
         'user' => [
             'class' => 'amnah\yii2\user\components\User',
+            'identityClass' => 'app\models\User',
         ],
         'view' => [
             'theme' => [
@@ -38,8 +39,25 @@ $config = [
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
-            'useFileTransport' => true,
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.gmail.com',
+                'username' => 'dariyogienko@gmail.com',
+                'password' => 'Dasha190194',
+                'port' => '587',
+                'encryption' => 'tls',
+            ],
+            'messageConfig' => [
+                'from' => 'dariyogienko@gmail.com' // sender address goes here
+            ]
         ],
+//        'mail' => [
+//            'class' => 'yii\swiftmailer\Mailer',
+//            'messageConfig' => [
+//                'from' => 'dariyogienko@gmail.com' // sender address goes here
+//            ]
+//        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [

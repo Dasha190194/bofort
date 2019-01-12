@@ -43,7 +43,7 @@ AppAsset::register($this);
             ) : (
                '<li><a class="btn btn-default" href="/user/profile"><i class="glyphicon glyphicon-user" style="padding-right: 15px"></i>'.Yii::$app->user->identity->username.'</a></li>'
             ),
-            '<li><a class="btn btn-default" href="#">Забронировать катер</a></li>'
+            '<li><a class="btn btn-default" href="/boats/index">Забронировать катер</a></li>'
         ],
     ]);
     NavBar::end();

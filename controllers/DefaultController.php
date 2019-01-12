@@ -254,25 +254,25 @@ class DefaultController extends Controller
         $userToken = $this->module->model("UserToken");
         Yii::$app->user->login($user, $this->module->loginDuration);
 
-        // determine userToken type to see if we need to send email
-//        $userTokenType = null;
-//        if ($user->status == $user::STATUS_INACTIVE) {
-//            $userTokenType = $userToken::TYPE_EMAIL_ACTIVATE;
-//        } elseif ($user->status == $user::STATUS_UNCONFIRMED_EMAIL) {
-//            $userTokenType = $userToken::TYPE_EMAIL_CHANGE;
-//        }
-//
-//        // check if we have a userToken type to process, or just log user in directly
-//        if ($userTokenType) {
-//            $userToken = $userToken::generate($user->id, $userTokenType);
-//            if (!$numSent = $user->sendEmailConfirmation($userToken)) {
-//
-//                // handle email error
-//                //Yii::$app->session->setFlash("Email-error", "Failed to send email");
-//            }
-//        } else {
-//            Yii::$app->user->login($user, $this->module->loginDuration);
-//        }
+         //determine userToken type to see if we need to send email
+        $userTokenType = null;
+        if ($user->status == $user::STATUS_INACTIVE) {
+            $userTokenType = $userToken::TYPE_EMAIL_ACTIVATE;
+        } elseif ($user->status == $user::STATUS_UNCONFIRMED_EMAIL) {
+            $userTokenType = $userToken::TYPE_EMAIL_CHANGE;
+        }
+
+        // check if we have a userToken type to process, or just log user in directly
+        if ($userTokenType) {
+            $userToken = $userToken::generate($user->id, $userTokenType);
+            if (!$numSent = $user->sendEmailConfirmation($userToken)) {
+
+                // handle email error
+                //Yii::$app->session->setFlash("Email-error", "Failed to send email");
+            }
+        } else {
+            Yii::$app->user->login($user, $this->module->loginDuration);
+        }
     }
 
     /**

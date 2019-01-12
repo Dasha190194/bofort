@@ -47,12 +47,12 @@ $this->title = 'Форма регистрации';
                 <?= $form->field($user, 'email')->input('text', ['placeholder' => "Ваш email* Например, alex@gmail.com"])->label(false)  ?>
             </div>
             <div class="col-md-offset-3 col-md-6">
-                <?= $form->field($user, 'newPassword')->passwordInput()->label(false)  ?>
+                <?= $form->field($user, 'newPassword')->passwordInput(['placeholder' => "Пароль* ............"])->label(false)  ?>
             </div>
 
             <div class="col-md-offset-3 col-md-6 text-center">
                     <?= $form->field($user, 'personal_data_processing', [
-                        'template' => "{input}   Я соглашаюсь с условиями обработки персональных данных",
+                        'template' => "{input}   Я соглашаюсь с условиями обработки персональных данных {error}",
                     ])->checkbox([], false)->label(false) ?>
             </div>
             <div class="col-md-offset-3 col-md-6 text-center">
@@ -69,7 +69,8 @@ $this->title = 'Форма регистрации';
                 <?= Html::submitButton('Зарегестрироваться', ['class' => 'btn btn-primary']) ?>
 
                 <br/><br/>
-                Уже есть аккаунт? <?= Html::a('Войти', ["/user/login"]) ?>
+                Уже есть аккаунт?
+                <a id="login-register" onclick="return false;">Войти</a>
             </div>
         </div>
 

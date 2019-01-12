@@ -8,7 +8,7 @@ $(document).ready(function() {
 
     });
 
-    $('#login').on('click', function(){
+    $('#login, #login-register').on('click', function(){
         $.ajax({
             url: '/user/login',
             type: "GET",
