@@ -212,6 +212,14 @@ a.desc:after {
     padding: 10px;
 }
 
+.notifications-container .panel {
+    cursor: pointer;
+}
+
+.notifications-container .noOpen {
+    background-color: #f8f9fa;
+}
+
 /* Календарь */
 
 /*#times .fc-widget-header {*/

@@ -3,8 +3,10 @@
 namespace app\controllers;
 
 use app\models\CardsModel;
+use app\models\NotificationsModel;
 use app\models\OrdersModel;
 use app\models\TransactionsModel;
+use Exception;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
@@ -365,6 +367,8 @@ class DefaultController extends Controller
         $orders = OrdersModel::find()->where(['user_id' => $user->getId()])->all();
         $cards = CardsModel::find()->where(['user_id' => $user->getId()])->all();
         $transactions = TransactionsModel::find()->where(['user_id' => $user->getId()])->all();
+        $notifications = NotificationsModel::find()->where(['user_id' => $user->getId()])->all();
+        $new_notifications = NotificationsModel::find()->where(['user_id' => $user->getId(), 'is_open' => 0])->count();
 
         $loadedPost = $profile->load(Yii::$app->request->post());
 
@@ -381,7 +385,7 @@ class DefaultController extends Controller
             return $this->refresh();
         }
 
-        return $this->render("profile", compact("profile", "user", "orders", "cards", "transactions"));
+        return $this->render("profile", compact("profile", "user", "orders", "cards", "transactions", "notifications", 'new_notifications'));
     }
 
     /**

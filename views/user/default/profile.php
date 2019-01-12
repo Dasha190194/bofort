@@ -9,6 +9,10 @@ use amnah\yii2\user\helpers\Timezone;
  * @var yii\web\View $this
  * @var yii\widgets\ActiveForm $form
  * @var amnah\yii2\user\models\Profile $profile
+ * @var \app\models\NotificationsModel $notifications
+ * @var \app\models\OrdersModel $orders
+ * @var \app\models\CardsModel $cards
+ * @var \app\models\TransactionsModel $transactions
  */
 
 $this->title = 'Личный кабинет';
@@ -43,10 +47,10 @@ $this->title = 'Личный кабинет';
 
     <div class="row">
         <div class="col-md-4">
-            <?= $this->render('_profileMenu') ?>
+            <?= $this->render('_profileMenu', ['new_notifications' => $new_notifications]) ?>
         </div>
         <div class="col-md-8">
-            <?= $this->render('_notifications') ?>
+            <?= $this->render('_notifications', ['notifications' => $notifications]) ?>
             <?= $this->render('_booking', ['orders' => $orders]) ?>
             <?= $this->render('_account', ['user' => $user]) ?>
             <?= $this->render('_cards', ['cards' => $cards, 'transactions' => $transactions]) ?>
