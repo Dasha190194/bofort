@@ -22,7 +22,7 @@ $this->title = $boat->name;
 
     <div class="row">
         <div class="col-md-6 boat-show-img">
-            <img src="/index.png" width="555px" height="250px">
+            <img src="/<?= $boat->image->path ?>" width="555px" height="250px">
             <span class="label label-default"><?= $boat->price ?></span>
         </div>
         <div class="col-md-6">
@@ -55,8 +55,8 @@ $this->title = $boat->name;
                 <?= $boat->name ?>
             </div>
             <div class="characteristic">
-                <span>Располпжение причала</span>
-                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                <span>Располпжение причала . <a>Показать на карте</a></span>
+                <?= $boat->location ?>
             </div>
             <div class="characteristic">
                 <span>Доступны дополнительные услуги</span>
@@ -75,3 +75,29 @@ $this->title = $boat->name;
     </div>
 
 </div>
+
+<!--<script>-->
+<!--    var myMap;-->
+<!---->
+<!--    // Дождёмся загрузки API и готовности DOM.-->
+<!--    ymaps.ready(init);-->
+<!---->
+<!--    function init () {-->
+<!--    // Создание экземпляра карты и его привязка к контейнеру с-->
+<!--    // заданным id ("map").-->
+<!--    myMap = new ymaps.Map('map', {-->
+<!--    // При инициализации карты обязательно нужно указать-->
+<!--    // её центр и коэффициент масштабирования.-->
+<!--    center: [55.76, 37.64], // Москва-->
+<!--    zoom: 10-->
+<!--    }, {-->
+<!--    searchControlProvider: 'yandex#search'-->
+<!--    });-->
+<!---->
+<!--    document.getElementById('destroyButton').onclick = function () {-->
+<!--    // Для уничтожения используется метод destroy.-->
+<!--    myMap.destroy();-->
+<!--    };-->
+<!---->
+<!--    }-->
+<!--</script>-->

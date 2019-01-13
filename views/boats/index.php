@@ -18,7 +18,7 @@
     <?php foreach($boats as $boat):?>
         <div class="row" style="margin-bottom: 20px">
             <div class="col-md-4 boat-show-img">
-                <img src="/index.png" width="350px" height="200px">
+                <img src="/<?= $boat->image->path ?>" width="350px" height="200px">
                 <span class="label label-default"><?= $boat->price ?></span>
             </div>
             <div class="col-md-8">

@@ -2,13 +2,14 @@
 
 namespace app\controllers;
 
+use app\helpers\RZImage;
 use app\models\BoatsModel;
 use Yii;
 use yii\filters\AccessControl;
+use yii\imagine\Image;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
-use yii\widgets\ActiveForm;
 use app\models\LoginForm;
 use app\models\ContactForm;
 

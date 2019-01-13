@@ -13,12 +13,14 @@ use yii\db\ActiveRecord;
 
 class BoatsModel extends ActiveRecord
 {
+
     public static function tableName()
     {
         return 'boats';
     }
 
-    public function getOrders() {
-        return $this->hasMany(BoatsModel::className(), ['id' => 'boat_id']);
+
+    public function getImage() {
+        return $this->hasOne(ImagesModel::className(), ['boat_id' => 'id']);
     }
 }

@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm; ?>
 
     <div class="row">
         <div class="col-md-6">
-            <img src="/index.png" width="500px" height="300px">
+            <img src="/<?= $order->boat->image->path ?>" width="500px" height="250px">
         </div>
         <div class="col-md-6">
             <h3>Условия аренды</h3>

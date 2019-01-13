@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm; ?>
 
     <div class="row">
         <div class="col-md-3">
-            <img src="/index.png" width="250px" height="100px">
+            <img src="/images/thumbnail?path=<?= $order->boat->image->path ?>&width=250&height=150">
         </div>
         <div class="col-md-9">
             <h4><?= $order->boat->name ?></h4>
