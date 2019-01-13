@@ -19,8 +19,11 @@ class BoatsModel extends ActiveRecord
         return 'boats';
     }
 
-
     public function getImage() {
         return $this->hasOne(ImagesModel::className(), ['boat_id' => 'id']);
+    }
+
+    public function getImages() {
+        return $this->hasMany(ImagesModel::className(), ['boat_id' => 'id']);
     }
 }

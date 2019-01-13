@@ -1,5 +1,6 @@
 <?php
 
+use yii\bootstrap\Carousel;
 use yii\helpers\Html;use yii\widgets\ActiveForm;
 
 /** @var \app\models\BoatsModel $boat */
@@ -22,7 +23,7 @@ $this->title = $boat->name;
 
     <div class="row">
         <div class="col-md-6 boat-show-img">
-            <img src="/<?= $boat->image->path ?>" width="555px" height="250px">
+            <img src="/<?= $boat->image->path ?>" width="555px" height="350px" id="show-carousel-modal">
             <span class="label label-default"><?= $boat->price ?></span>
         </div>
         <div class="col-md-6">
@@ -71,6 +72,35 @@ $this->title = $boat->name;
              <?= Html::submitButton('Забронировать яхту', ['class' => 'btn btn-primary btn-block']) ?>
 
             <?php ActiveForm::end(); ?>
+        </div>
+    </div>
+
+    <div class="modal fade" id="carousel-modal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <?php
+                        $items = [];
+                        foreach ($boat->images as $image) {
+                            $items[] = [
+                                'content' => '<img src="/'.$image->path.'" style="width:555px;height:350px;">',
+                            ];
+                        }
+
+                        echo Carousel::widget([
+                            'items' => $items,
+                            'options' => [
+                                'style' => 'width:100%;',
+                                'interval' => false
+                            ]
+                        ]);
+                    ?>
+
+                </div>
+            </div>
         </div>
     </div>
 

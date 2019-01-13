@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     $(".list-group-item").on('click', function(){
         $('.active').removeClass('active');
         $(this).addClass('active');
@@ -113,6 +114,10 @@ $(document).ready(function() {
                 }
             }
         });
+    });
+
+    $('#show-carousel-modal').on('click', function(){
+        $('#carousel-modal').modal({show:true});
     });
 
     function arrayRemove(arr, value) {
