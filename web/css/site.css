@@ -220,6 +220,14 @@ a.desc:after {
     background-color: #f8f9fa;
 }
 
+#yandex-map {
+    padding: 0;
+}
+
+#showLocation {
+    cursor: pointer;
+}
+
 /* Календарь */
 
 /*#times .fc-widget-header {*/
