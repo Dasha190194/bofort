@@ -120,6 +120,21 @@ $(document).ready(function() {
         $('#carousel-modal').modal({show:true});
     });
 
+    $('#show-order-info-modal').on('click', function() {
+
+        $.ajax({
+            url: '/order/info',
+            type: 'GET',
+            success: function(result) {
+                $('#order-info-modal .modal-body').html(result);
+                $('#order-info-modal').modal({show:true});
+            }
+        });
+
+
+
+    });
+
     function arrayRemove(arr, value) {
         return arr.filter(function(ele){
             return ele != value;

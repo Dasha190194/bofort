@@ -13,6 +13,12 @@ use yii\db\ActiveRecord;
 
 class OrdersModel extends ActiveRecord
 {
+    static $states = [
+        0 => '',
+        1 => 'Оплачен',
+        2 => 'Отменен'
+    ];
+
     public static function tableName()
     {
         return 'orders';

@@ -26,16 +26,16 @@ class OrderController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'actions' => ['create', 'confirm-step1', 'confirm-step2', 'apply-promo', 'add-service', 'remove-service'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
+//            'access' => [
+//                'class' => AccessControl::className(),
+//                'rules' => [
+//                    [
+//                        'actions' => ['create', 'confirm-step1', 'confirm-step2', 'apply-promo', 'add-service', 'remove-service'],
+//                        'allow' => true,
+//                        'roles' => ['@'],
+//                    ],
+//                ],
+//            ],
 //            'verbs' => [
 //                'class' => VerbFilter::className(),
 //                'actions' => [
@@ -139,6 +139,12 @@ class OrderController extends Controller
         }
 
         return $this->renderPartial('_payBlock', compact('order'));
+    }
+
+    public function actionInfo($id = 14) {
+        $order = OrdersModel::findOne($id);
+
+        return $this->renderPartial('_orderInfo', compact('order'));
     }
 
     public function actionGetTimes() {
