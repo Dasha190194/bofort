@@ -9,8 +9,11 @@
 namespace app\controllers;
 
 
+use app\models\BoatForm;
 use app\models\BoatsModel;
 use app\models\OrderCreateForm;
+use Yii;
+use yii\base\ErrorException;
 use yii\web\Controller;
 
 class BoatsController extends Controller
@@ -22,6 +25,7 @@ class BoatsController extends Controller
     }
 
     /**
+     * Страница лодки
      * @param int $id
      */
     public function actionShow(int $id) {
@@ -30,5 +34,47 @@ class BoatsController extends Controller
         $model = new OrderCreateForm();
 
         return $this->render('show', compact('boat', 'model'));
+    }
+
+    /**
+     * Редактирование лодки
+     * @param int $id
+     */
+    public function actionUpdate(int $id) {
+
+        $boat = BoatsModel::findOne($id);
+        if(!$boat) throw new ErrorException('Not found.');
+
+        $form = new BoatForm();
+
+        $post = Yii::$app->request->post();
+        $boat->load($post);
+        if ($boat->load($post) && $boat->validate()) {
+
+            $boat->save();
+            return $this->redirect('/boats/show?id='.$boat->id);
+        }
+
+        return $this->render('update', compact('boat', 'form'));
+    }
+
+    /**
+     * Редактирование лодки
+     * @param int $id
+     */
+    public function actionCreate() {
+
+        $boat = new BoatsModel();
+        $form = new BoatForm();
+
+        $post = Yii::$app->request->post();
+        $boat->load($post);
+        if ($boat->load($post) && $boat->validate()) {
+
+            $boat->save();
+            return $this->redirect('/boats/show?id='.$boat->id);
+        }
+
+        return $this->render('create', compact('boat', 'form'));
     }
 }

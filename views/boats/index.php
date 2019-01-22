@@ -50,6 +50,9 @@
                     <a class="btn btn-default" href="/boats/show?id=<?= $boat->id ?>">
                         Подробнее
                     </a>
+                    <?php if(Yii::$app->user->can("admin")): ?>
+                        <a href="/boats/update?id=<?= $boat->id ?>">Редактировать</a>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

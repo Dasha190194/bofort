@@ -23,7 +23,7 @@ $this->title = $boat->name;
 
     <div class="row">
         <div class="col-md-6 boat-show-img">
-            <img src="/<?= $boat->image->path ?>" width="555px" height="350px" id="show-carousel-modal">
+            <img src="/<?= (isset($boat->image))?$boat->image->path:'index.png' ?>" width="555px" height="350px" id="show-carousel-modal">
             <span class="label label-default"><?= $boat->price ?></span>
         </div>
         <div class="col-md-6">
@@ -116,7 +116,8 @@ $this->title = $boat->name;
 
             $('#showLocation').click(function () {
 
-                ymaps.geocode('Нагатинский затон').then(function (res) {
+                var location = "<?= $boat->location ?>";
+                ymaps.geocode(location).then(function (res) {
                     myMap = new ymaps.Map('yandex-map', {
                         center: res.geoObjects.get(0).geometry.getCoordinates(),
                         zoom : 13
