@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm; ?>
     <?php $form = ActiveForm::begin([
         'id' => 'create-boat-form',
 //        'action' => '/payment/pay',
-        'enableAjaxValidation' => true,
+//        'enableAjaxValidation' => true,
     ]); ?>
 
     <?= $form->field($boat, 'name')->input('text') ?>
@@ -27,6 +27,7 @@ use yii\widgets\ActiveForm; ?>
     <?= $form->field($boat, 'certificate')->input('text') ?>
     <?= $form->field($boat, 'location')->input('text') ?>
     <?= $form->field($boat, 'short_description')->input('text') ?>
+    <?= $form->field($boat, 'image')->fileInput() ?>
 
     <div class="col-md-offset-3 col-md-6 text-center">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary btn-block']) ?>

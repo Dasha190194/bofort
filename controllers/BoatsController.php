@@ -15,6 +15,7 @@ use app\models\OrderCreateForm;
 use Yii;
 use yii\base\ErrorException;
 use yii\web\Controller;
+use yii\web\UploadedFile;
 
 class BoatsController extends Controller
 {
@@ -68,12 +69,17 @@ class BoatsController extends Controller
         $form = new BoatForm();
 
         $post = Yii::$app->request->post();
-        $boat->load($post);
-        if ($boat->load($post) && $boat->validate()) {
+        $form->load($post);
+        if ($form->load($post) && $form->validate()) {
 
-            $boat->save();
+            if ($boat->save()) {
+                $form->image = UploadedFile::getInstance($boat, 'image');
+                $form->upload();
+            }
             return $this->redirect('/boats/show?id='.$boat->id);
         }
+
+
 
         return $this->render('create', compact('boat', 'form'));
     }
