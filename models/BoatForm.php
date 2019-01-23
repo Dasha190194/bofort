@@ -40,4 +40,23 @@ class BoatForm extends Model
         }
     }
 
+//    public function attributeLabels()
+//    {
+//        return [
+//            'image_url' => 'Афиша пакета',
+//            'description' => 'Описание пакета',
+//            'image_file' => 'Афиша пакета'
+//        ];
+//    }
+
+    public function upload()
+    {
+        if ($this->validate()) {
+            if(!isset($this->image_file)) return true;
+            $this->image->saveAs("uploads/{$this->image->baseName}.{$this->image->extension}");
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
