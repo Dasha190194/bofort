@@ -58,6 +58,47 @@ class BoatsController extends Controller
         return $this->render('update', compact('boat', 'form'));
     }
 
+    public function actionDescription($id) {
+        $model = new PackageDescriptionForm();
+        $package = PackageModel::ActionAllInfoGet($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            try {
+                $model->image_file = UploadedFile::getInstance($model, 'image_file');
+                if ($model->upload()) {
+                    PackageModel::ActionDescriptionUrlUpdate(
+                        $model->package_id,
+                        $model->description,
+                        $model->image_url
+                    );
+                } else {
+                    throw new Exception('Ошибка сохранения изображения!');
+                }
+            } catch (Exception $e) {
+                Yii::$app->session->setFlash('error', $e->getMessage());
+                Yii::error($e->getMessage(), 'package.description');
+            }
+
+            return $this->redirect(['package/index']);
+        }
+
+        try {
+            $descriptions = PackageModel::ActionDescriptionUrlGet($id);
+            $model->loadData($descriptions[0]);
+        } catch (Exception $e) {
+            Yii::$app->session->setFlash('error', $e->getMessage());
+            Yii::error($e->getMessage(), 'action.update');
+        }
+
+
+        return $this->render('description',[
+            'model' => $model,
+            'package' => $package[0][0]
+        ]);
+
+    }
+
+
     /**
      * Редактирование лодки
      * @param int $id
