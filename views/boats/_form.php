@@ -6,7 +6,7 @@
  * Time: 20:21
  */
 
-/** @var \app\models\BoatsModel $boat */
+/** @var \app\models\BoatForm $model */
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm; ?>
@@ -19,15 +19,15 @@ use yii\widgets\ActiveForm; ?>
 //        'enableAjaxValidation' => true,
     ]); ?>
 
-    <?= $form->field($boat, 'name')->input('text') ?>
-    <?= $form->field($boat, 'description')->input('text') ?>
-    <?= $form->field($boat, 'price')->input('text') ?>
-    <?= $form->field($boat, 'engine_power')->input('text') ?>
-    <?= $form->field($boat, 'spaciousness')->input('text') ?>
-    <?= $form->field($boat, 'certificate')->input('text') ?>
-    <?= $form->field($boat, 'location')->input('text') ?>
-    <?= $form->field($boat, 'short_description')->input('text') ?>
-    <?= $form->field($boat, 'image')->fileInput() ?>
+    <?= $form->field($model, 'name')->input('text') ?>
+    <?= $form->field($model, 'description')->input('text') ?>
+    <?= $form->field($model, 'price')->input('text') ?>
+    <?= $form->field($model, 'engine_power')->input('text') ?>
+    <?= $form->field($model, 'spaciousness')->input('text') ?>
+    <?= $form->field($model, 'certificate')->input('text') ?>
+    <?= $form->field($model, 'location')->input('text') ?>
+    <?= $form->field($model, 'short_description')->input('text') ?>
+    <?= $form->field($model, 'image')->fileInput() ?>
 
     <div class="col-md-offset-3 col-md-6 text-center">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary btn-block']) ?>

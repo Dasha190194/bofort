@@ -14,6 +14,7 @@ use app\models\BoatsModel;
 use app\models\OrderCreateForm;
 use Yii;
 use yii\base\ErrorException;
+use yii\base\Exception;
 use yii\web\Controller;
 use yii\web\UploadedFile;
 
@@ -46,82 +47,47 @@ class BoatsController extends Controller
         $boat = BoatsModel::findOne($id);
         if(!$boat) throw new ErrorException('Not found.');
 
-        $form = new BoatForm();
+        $model = new BoatForm();
 
         $post = Yii::$app->request->post();
-        $boat->load($post);
-        if ($boat->load($post) && $boat->validate()) {
+        if ($model->load($post) && $model->validate()) {
 
-            $boat->save();
-            return $this->redirect('/boats/show?id='.$boat->id);
-        }
-
-        return $this->render('update', compact('boat', 'form'));
-    }
-
-    public function actionDescription($id) {
-        $model = new PackageDescriptionForm();
-        $package = PackageModel::ActionAllInfoGet($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             try {
-                $model->image_file = UploadedFile::getInstance($model, 'image_file');
-                if ($model->upload()) {
-                    PackageModel::ActionDescriptionUrlUpdate(
-                        $model->package_id,
-                        $model->description,
-                        $model->image_url
-                    );
-                } else {
-                    throw new Exception('Ошибка сохранения изображения!');
-                }
+                $model->image = UploadedFile::getInstance($model, 'image');
+                if (!$model->upload()) throw new Exception('Ошибка сохранения изображения!');
             } catch (Exception $e) {
-                Yii::$app->session->setFlash('error', $e->getMessage());
-                Yii::error($e->getMessage(), 'package.description');
+                Yii::error($e->getMessage(), 'boats.create');
             }
 
-            return $this->redirect(['package/index']);
+            $id = $model->save();
+            $this->redirect(['show', 'id' => $id]);
         }
 
-        try {
-            $descriptions = PackageModel::ActionDescriptionUrlGet($id);
-            $model->loadData($descriptions[0]);
-        } catch (Exception $e) {
-            Yii::$app->session->setFlash('error', $e->getMessage());
-            Yii::error($e->getMessage(), 'action.update');
-        }
-
-
-        return $this->render('description',[
-            'model' => $model,
-            'package' => $package[0][0]
-        ]);
-
+        $model->loadData($boat);
+        return $this->render('update', compact('model'));
     }
 
-
     /**
-     * Редактирование лодки
+     * Создание лодки
      * @param int $id
      */
     public function actionCreate() {
-
-        $boat = new BoatsModel();
-        $form = new BoatForm();
+        $model = new BoatForm();
 
         $post = Yii::$app->request->post();
-        $form->load($post);
-        if ($form->load($post) && $form->validate()) {
+        if ($model->load($post) && $model->validate()) {
 
-            if ($boat->save()) {
-                $form->image = UploadedFile::getInstance($boat, 'image');
-                $form->upload();
+            try {
+                $model->image = UploadedFile::getInstance($model, 'image');
+                if (!$model->upload()) throw new Exception('Ошибка сохранения изображения!');
+            } catch (Exception $e) {
+                Yii::error($e->getMessage(), 'boats.create');
             }
-            return $this->redirect('/boats/show?id='.$boat->id);
+
+            $id = $model->save();
+            $this->redirect(['show', 'id' => $id]);
         }
 
-
-
-        return $this->render('create', compact('boat', 'form'));
+        return $this->render('create', compact('model'));
     }
 }
