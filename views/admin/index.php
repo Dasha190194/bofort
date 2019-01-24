@@ -11,6 +11,15 @@
 <div class="admin-container">
     <ul>
         <li>
+            Оплаченная аренда !!!!!!!!!
+        </li>
+        <li>
+            <a href="/boats/tarifs">Изменить стоимость!!!!!!!</a>
+        </li>
+        <li>
+            <a href="/boats/actions">Акции</a>
+        </li>
+        <li>
             <a href="/boats/index">Катера</a>
             <ul>
                 <li>

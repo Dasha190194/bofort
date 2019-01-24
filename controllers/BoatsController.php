@@ -9,12 +9,14 @@
 namespace app\controllers;
 
 
+use app\models\BoatActionsForm;
 use app\models\BoatForm;
 use app\models\BoatsModel;
 use app\models\OrderCreateForm;
 use Yii;
 use yii\base\ErrorException;
 use yii\base\Exception;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\UploadedFile;
 
@@ -88,5 +90,16 @@ class BoatsController extends Controller
         }
 
         return $this->render('create', compact('model'));
+    }
+
+    public function actionActions() {
+
+        $query = BoatsModel::find(); // where `id` is your primary key
+        $model = new BoatActionsForm();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        return $this->render('actions', compact('dataProvider', 'model'));
     }
 }

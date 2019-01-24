@@ -27,10 +27,14 @@ class BoatsModel extends ActiveRecord
         return $this->hasMany(ImagesModel::className(), ['boat_id' => 'id']);
     }
 
-    public function getServices()
-    {
+    public function getServices(){
         return $this->hasMany(ServicesModel::className(), ['id' => 'service_id'])
             ->viaTable('boat_services', ['boat_id' => 'id']);
+    }
+
+    public function getActions(){
+        return $this->hasMany(ActionsModel::className(), ['id' => 'actions_id'])
+            ->viaTable('boat_actions', ['boat_id' => 'id']);
     }
 
     public function getServicesName() {
