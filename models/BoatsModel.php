@@ -14,14 +14,6 @@ use yii\db\ActiveRecord;
 class BoatsModel extends ActiveRecord
 {
 
-    public function rules()
-    {
-        return [
-            [['name', 'description', 'price', 'engine_power', 'spaciousness', 'certificate', 'location', 'short_description'], 'required'],
-            ['price', 'number'],
-        ];
-    }
-
     public static function tableName()
     {
         return 'boats';
@@ -33,5 +25,20 @@ class BoatsModel extends ActiveRecord
 
     public function getImages() {
         return $this->hasMany(ImagesModel::className(), ['boat_id' => 'id']);
+    }
+
+    public function getServices()
+    {
+        return $this->hasMany(ServicesModel::className(), ['id' => 'service_id'])
+            ->viaTable('boat_services', ['boat_id' => 'id']);
+    }
+
+    public function getServicesName() {
+        $services = $this->getServices()->all();
+        $servicesId = [];
+        foreach ($services as $service) {
+            $servicesId[] = $service->name;
+        }
+        return $servicesId;
     }
 }

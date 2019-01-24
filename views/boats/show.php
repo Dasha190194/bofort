@@ -61,7 +61,9 @@ $this->title = $boat->name;
             </div>
             <div class="characteristic">
                 <span>Доступны дополнительные услуги</span>
-                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                <?php if($boat->services):
+                        echo implode(', ', $boat->getServicesName());
+                endif; ?>
             </div>
 
              <?php $form = ActiveForm::begin([
