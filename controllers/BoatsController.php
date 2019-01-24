@@ -51,9 +51,8 @@ class BoatsController extends Controller
 
         $post = Yii::$app->request->post();
         if ($model->load($post) && $model->validate()) {
-
             try {
-                $model->image = UploadedFile::getInstance($model, 'image');
+                $model->images = UploadedFile::getInstances($model, 'images');
                 if (!$model->upload()) throw new Exception('Ошибка сохранения изображения!');
             } catch (Exception $e) {
                 Yii::error($e->getMessage(), 'boats.create');
@@ -78,7 +77,7 @@ class BoatsController extends Controller
         if ($model->load($post) && $model->validate()) {
 
             try {
-                $model->image = UploadedFile::getInstance($model, 'image');
+                $model->images = UploadedFile::getInstances($model, 'images');
                 if (!$model->upload()) throw new Exception('Ошибка сохранения изображения!');
             } catch (Exception $e) {
                 Yii::error($e->getMessage(), 'boats.create');

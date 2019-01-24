@@ -14,7 +14,7 @@ use yii\base\Model;
 
 class BoatForm extends Model
 {
-    public $name, $description, $price, $engine_power, $spaciousness, $certificate, $location, $short_description, $image;
+    public $name, $description, $price, $engine_power, $spaciousness, $certificate, $location, $short_description, $images;
 
     /**
      * @return array the validation rules.
@@ -24,31 +24,31 @@ class BoatForm extends Model
         return [
             [['name', 'description', 'price', 'engine_power', 'spaciousness', 'certificate', 'location', 'short_description'], 'required'],
             ['price', 'number'],
-            [['image'], 'file', 'extensions' => 'png, jpg'],
+            [['images'], 'file', 'maxFiles' => 10, 'extensions' => 'png, jpg'],
         ];
     }
 
     public function save() {
         $boat = new BoatsModel();
         foreach (array_keys($this->getAttributes()) as $attribute)
-            if ($attribute != 'image') $boat->$attribute = $this->$attribute;
+            if ($attribute != 'images') $boat->$attribute = $this->$attribute;
 
         $boat->save();
 
-        $image = new ImagesModel();
-        $image->path = Yii::$app->params['uploadsPath']."{$this->image->baseName}.{$this->image->extension}";
-        $boat->link('images', $image);
+        foreach ($this->images as $img) {
+            $image = new ImagesModel();
+            $image->path = Yii::$app->params['uploadsPath']."/{$img->baseName}.{$img->extension}";
+            $boat->link('images', $image);
+        }
 
         return $boat->id;
     }
 
     public function upload(){
-        if($this->validate()){
-            $this->image->saveAs(Yii::$app->params['uploadsPath']."{$this->image->baseName}.{$this->image->extension}");
-            return true;
-        }else{
-            return false;
+        foreach ($this->images as $image) {
+            $image->saveAs(Yii::$app->params['uploadsPath'] . "/{$image->baseName}.{$image->extension}");
         }
+        return true;
     }
 
     public function loadData($arModel){

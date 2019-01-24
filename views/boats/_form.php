@@ -17,6 +17,7 @@ use yii\widgets\ActiveForm; ?>
         'id' => 'create-boat-form',
 //        'action' => '/payment/pay',
 //        'enableAjaxValidation' => true,
+        'options' => ['enctype' => 'multipart/form-data']
     ]); ?>
 
     <?= $form->field($model, 'name')->input('text') ?>
@@ -27,7 +28,7 @@ use yii\widgets\ActiveForm; ?>
     <?= $form->field($model, 'certificate')->input('text') ?>
     <?= $form->field($model, 'location')->input('text') ?>
     <?= $form->field($model, 'short_description')->input('text') ?>
-    <?= $form->field($model, 'image')->fileInput() ?>
+    <?= $form->field($model, 'images[]')->fileInput(['multiple' => true, 'accept' => 'image/*']) ?>
 
     <div class="col-md-offset-3 col-md-6 text-center">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary btn-block']) ?>
