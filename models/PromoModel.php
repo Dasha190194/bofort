@@ -37,4 +37,12 @@ class PromoModel extends ActiveRecord
             [['word', 'count', 'count_to_use', 'type', 'is_active'], 'required'],
         ];
     }
+
+    public function getPromoHistory() {
+        return $this->hasMany(PromoHistoryModel::className(), ['id' => 'promo_id']);
+    }
+
+    public function getPromoHistoryByUser($userId) {
+        return $this->hasMany(PromoHistoryModel::className(), ['promo_id' => 'id'])->where(['user_id' => $userId])->count();
+    }
 }

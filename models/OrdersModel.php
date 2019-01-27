@@ -9,6 +9,8 @@
 namespace app\models;
 
 
+use Yii;
+use yii\base\Exception;
 use yii\db\ActiveRecord;
 
 class OrdersModel extends ActiveRecord
@@ -28,6 +30,12 @@ class OrdersModel extends ActiveRecord
       //  $this->discount = $promocode->count;
         $this->promo_id = $promocode->id;
         $this->save();
+
+        $promoHistory = new PromoHistoryModel();
+        $promoHistory->order_id = $this->id;
+        $promoHistory->user_id = Yii::$app->user->getId();
+        $promoHistory->promo_id = $this->promo_id;
+        $promoHistory->save();
     }
 
     //TODO это ебаный пиздец - перепиши
@@ -35,6 +43,12 @@ class OrdersModel extends ActiveRecord
 
         if ($this->promo_id != 0) {
             $promo = $this->promo;
+
+            if ($promo->count_to_use == 1) {
+                $promoHistoryCnt = $promo->getPromoHistoryByUser(Yii::$app->user->getId()) > 1;
+                if (!empty($promoHistoryCnt)) throw new Exception('Промокод уже был использован!');
+            }
+
             if ($promo->type == 1) {
                 $this->discount = ($this->price + $this->getServicesPrice()) * ($promo->count/100);
             } elseif($promo->type == 2) {

@@ -91,7 +91,7 @@ class OrderController extends Controller
         Yii::info("Apply Promo: $word", 'order.apply-promo');
 
         try {
-            $promocode = PromoModel::find()->where(['word' => trim($word)])->one();
+            $promocode = PromoModel::find()->where(['word' => trim($word), 'is_active' => 1])->one();
             if (!$promocode) throw new Exception('Промокод не найден!');
         } catch (Exception $e) {
             Yii::$app->session->setFlash("order-error", $e->getMessage());
