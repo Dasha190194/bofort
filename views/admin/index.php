@@ -17,7 +17,10 @@
             <a href="/boats/tarifs">Изменить стоимость!!!!!!!</a>
         </li>
         <li>
-            <a href="/boats/actions">Акции</a>
+            <a href="/actions/">Акции</a>
+        </li>
+        <li>
+            <a href="/promo/">Промокоды</a>
         </li>
         <li>
             <a href="/boats/index">Катера</a>

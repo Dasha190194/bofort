@@ -91,15 +91,4 @@ class BoatsController extends Controller
 
         return $this->render('create', compact('model'));
     }
-
-    public function actionActions() {
-
-        $query = BoatsModel::find(); // where `id` is your primary key
-        $model = new BoatActionsForm();
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
-        return $this->render('actions', compact('dataProvider', 'model'));
-    }
 }

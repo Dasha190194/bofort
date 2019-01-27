@@ -18,5 +18,8 @@ class ActionsModel extends ActiveRecord
         return 'actions';
     }
 
+    public function getBoat() {
+        return $this->hasOne(BoatsModel::className(), ['id' => 'boat_id'])->viaTable('boat_actions', ['action_id' => 'id']);
+    }
 
 }
