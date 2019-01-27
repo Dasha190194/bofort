@@ -17,4 +17,14 @@ class PromoModel extends ActiveRecord
     {
         return 'promo';
     }
+
+    /**
+     * @return array the validation rules.
+     */
+    public function rules()
+    {
+        return [
+            [['word', 'count', 'count_to_use', 'type', 'is_active'], 'required'],
+        ];
+    }
 }

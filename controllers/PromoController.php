@@ -10,6 +10,8 @@ namespace app\controllers;
 
 
 use app\models\PromoModel;
+use Yii;
+use yii\base\ErrorException;
 use yii\web\Controller;
 
 class PromoController extends Controller
@@ -20,17 +22,37 @@ class PromoController extends Controller
         return $this->render('index', compact('promos'));
     }
 
+    public function actionCreate() {
+        $promo = new PromoModel();
+
+        $post = Yii::$app->request->post();
+        if ($promo->load($post) && $promo->validate()) {
+            $promo->save();
+            $this->redirect('index');
+        }
+        return $this->render('create', compact('promo'));
+    }
+
     public function actionUpdate(int $id) {
         $promo = PromoModel::findOne($id);
         if(!$promo) throw new ErrorException('Not found.');
 
-        $model = new PromoForm();
         $post = Yii::$app->request->post();
-        if ($model->load($post) && $model->validate()) {
-            $model->save();
+        if ($promo->load($post) && $promo->validate()) {
+            $promo->save();
             $this->redirect('index');
         }
-        return $this->render('update', compact('model'));
+        return $this->render('update', compact('promo'));
+    }
+
+    public function actionChangeActive(int $id) {
+        $promo = PromoModel::findOne($id);
+        if(!$promo) throw new ErrorException('Not found.');
+
+        $promo->is_active = !$promo->is_active;
+        $promo->save();
+
+        $this->redirect('index');
     }
 
 }

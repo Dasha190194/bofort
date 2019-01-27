@@ -16,27 +16,29 @@ use yii\helpers\Html;
                     <td>Количество</td>
                     <td>Активно</td>
                 </tr>
-                <tr>
-                    <?php foreach ($promos as $promo): ?>
+                <?php foreach ($promos as $promo): ?>
+                    <tr>
                         <td><?= $promo->word ?></td>
                         <td><?= $promo->count ?></td>
                         <td><?= $promo->type ?></td>
                         <td><?= $promo->count_to_use ?></td>
                         <td><?= $promo->is_active ?></td>
                         <td>
-                            <?= Html::a('Редактировать', ['promo/update', 'id' => $promo->id])?>
+                            <?= Html::a('Редактировать', ['promo/update', 'id' => $promo->id], ['style' => 'cursor:pointer;'])?>
                         </td>
                         <td>
-                            <a>Скрыть</a>
+                            <?php $name = ($promo->is_active)?'Скрыть':'Показать';
+                               echo Html::a($name, ['promo/change-active', 'id' => $promo->id], ['style' => 'cursor:pointer;', 'id' => 'change-active']);
+                            ?>
                         </td>
-                    <?php endforeach; ?>
-                </tr>
+                    </tr>
+                <?php endforeach; ?>
             </table>
         </div>
     </div>
     <div class="row">
         <div class="col-md-2">
-            <a class="btn btn-primary">Создать</a>
+            <?= Html::a('Создать', ['promo/create'], ['class' => 'btn btn-primary'])?>
         </div>
     </div>
 </div>

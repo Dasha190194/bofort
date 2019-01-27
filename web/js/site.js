@@ -130,9 +130,6 @@ $(document).ready(function() {
                 $('#order-info-modal').modal({show:true});
             }
         });
-
-
-
     });
 
     function arrayRemove(arr, value) {
@@ -140,6 +137,12 @@ $(document).ready(function() {
             return ele != value;
         });
     }
+    //
+    // $('#change-active').on('click', function(){
+    //     $.ajax({
+    //         url: 'promo/change-active'
+    //     });
+    // });
 
 });
 
