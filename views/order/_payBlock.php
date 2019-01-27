@@ -9,6 +9,7 @@
 /** @var \app\models\OrdersModel $order */
 
 use app\helpers\Utils;
+$total = $order->totalPrice();
 
 ?>
 
@@ -20,7 +21,7 @@ use app\helpers\Utils;
         <div class="col-md-12">
             <div class="row total-row">
                 <div class="col-md-6"><span>Стоимость аренды яхты</span></div>
-                <div class="col-md-6 text-right"><span><?=Utils::userPrice($order->boat->price) ?></span></div>
+                <div class="col-md-6 text-right"><span><?=Utils::userPrice($order->price) ?></span></div>
             </div>
         </div>
 
@@ -38,17 +39,19 @@ use app\helpers\Utils;
             </div>
         <?php endif; ?>
 
-        <div class="col-md-12">
-            <div class="row total-row">
-                <div class="col-md-6"><span> Скидки по акциям и промокодам</span></div>
-                <div class="col-md-6 text-right"><span>- <?= Utils::userPrice($order->discount) ?></span></div>
+        <?php if($order->discount != 0): ?>
+            <div class="col-md-12">
+                <div class="row total-row">
+                    <div class="col-md-6"><span> Скидки по акциям и промокодам</span></div>
+                    <div class="col-md-6 text-right"><span>- <?= Utils::userPrice($order->discount) ?></span></div>
+                </div>
             </div>
-        </div>
+        <?php endif; ?>
 
         <div class="col-md-12">
             <div class="row total-row">
                 <div class="col-md-6"><span> Итого</span></div>
-                <div class="col-md-6 text-right"><span><?= Utils::userPrice($order->totalPrice()) ?></span></div>
+                <div class="col-md-6 text-right"><span><?= Utils::userPrice($total) ?></span></div>
             </div>
         </div>
 </div>

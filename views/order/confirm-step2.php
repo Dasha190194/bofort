@@ -47,28 +47,30 @@ use yii\widgets\ActiveForm; ?>
         </div>
     </div>
 
-    <div class="row">
-        <h2>Дополнительные услуги</h2>
+    <?php if(!empty($services)): ?>
+        <div class="row">
+            <h2>Дополнительные услуги</h2>
 
-        <hr>
+            <hr>
 
-        <div class="services">
-            <?php foreach ($services as $service): ?>
-                <?php if (in_array($service->id, $order->getServicesId())):?>
-                    <div class="service btn btn-default active" data-id="<?= $service->id ?>">
-                        <i class="glyphicon glyphicon-ok"></i>
-                        <?= $service->name ?>
-                    </div>
-                <?php else: ?>
-                    <div class="service btn btn-default" data-id="<?= $service->id ?>">
-                        <i class="glyphicon glyphicon-ok hidden"></i>
-                        <?= $service->name ?>
-                    </div>
-                <?php endif; ?>
+            <div class="services">
+                <?php foreach ($services as $service): ?>
+                    <?php if (in_array($service->id, $order->getServicesId())):?>
+                        <div class="service btn btn-default active" data-id="<?= $service->id ?>">
+                            <i class="glyphicon glyphicon-ok"></i>
+                            <?= $service->name ?>
+                        </div>
+                    <?php else: ?>
+                        <div class="service btn btn-default" data-id="<?= $service->id ?>">
+                            <i class="glyphicon glyphicon-ok hidden"></i>
+                            <?= $service->name ?>
+                        </div>
+                    <?php endif; ?>
 
-            <?php endforeach;?>
+                <?php endforeach;?>
+            </div>
         </div>
-    </div>
+    <?php endif; ?>
 
     <div class="row">
         <h2>Если у вас есть промокод, введите его здесь</h2>

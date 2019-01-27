@@ -25,12 +25,24 @@ class OrdersModel extends ActiveRecord
     }
 
     public function applyPromo($promocode) {
-        $this->discount = $promocode->count;
+      //  $this->discount = $promocode->count;
         $this->promo_id = $promocode->id;
         $this->save();
     }
 
+    //TODO это ебаный пиздец - перепиши
     public function totalPrice() {
+
+        if ($this->promo_id != 0) {
+            $promo = $this->promo;
+            if ($promo->type == 1) {
+                $this->discount = ($this->price + $this->getServicesPrice()) * ($promo->count/100);
+            } elseif($promo->type == 2) {
+                $this->discount = $promo->count;
+            }
+        }
+
+        $this->save();
         return ($this->price + $this->getServicesPrice() - $this->discount);
     }
 

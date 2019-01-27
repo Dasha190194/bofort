@@ -80,7 +80,7 @@ class OrderController extends Controller
 
     public function actionConfirmStep2(int $id) {
         $order = OrdersModel::findOne($id);
-        $services = ServicesModel::find()->all();
+        $services = $order->boat->services;
         $model = new PayForm();
 
         return $this->render('confirm-step2', compact('order', 'services', 'model'));

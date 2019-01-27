@@ -1,9 +1,11 @@
+<?php
+use app\models\TransactionsModel;
+?>
+
 <div class="profile-container cards-container hidden">
     <div>
         <h2>Сохраненный карты</h2>
-        <?php use app\models\TransactionsModel;
-
-        foreach($cards as $card): ?>
+        <?php foreach($cards as $card): ?>
             <div class="row">
                 <div class="col-md-2">
                     <?php if($card->type == 'VISA'): ?>

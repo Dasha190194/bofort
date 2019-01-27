@@ -13,6 +13,16 @@ use yii\db\ActiveRecord;
 
 class PromoModel extends ActiveRecord
 {
+    public static $types = [
+        1 => '%',
+        2 => 'фиксировано'
+    ];
+
+    public static $uses = [
+        1 => '1 использование',
+        2 => 'массовое'
+    ];
+
     public static function tableName()
     {
         return 'promo';

@@ -136,13 +136,7 @@ $(document).ready(function() {
         return arr.filter(function(ele){
             return ele != value;
         });
-    }
-    //
-    // $('#change-active').on('click', function(){
-    //     $.ajax({
-    //         url: 'promo/change-active'
-    //     });
-    // });
+    };
 
 });
 
