@@ -15,6 +15,9 @@ use app\models\OrdersModel;
 use app\models\PayForm;
 use app\models\PromoModel;
 use app\models\ServicesModel;
+use DateInterval;
+use DatePeriod;
+use DateTime;
 use Yii;
 use yii\base\Exception;
 use yii\filters\AccessControl;
@@ -75,6 +78,7 @@ class OrderController extends Controller
             $order->save();
             return $this->redirect(['/order/confirm-step2', 'id' => $order->id]);
         }
+
         return $this->render('confirm-step1', compact('order', 'model'));
     }
 
@@ -147,27 +151,20 @@ class OrderController extends Controller
         return $this->renderPartial('_orderInfo', compact('order'));
     }
 
-    public function actionGetTimes() {
-        $times = [
-            1 => '06:00 - 07:00',
-            2 => '07:00 - 08:00',
-            3 => '08:00 - 09:00',
-            4 => '09:00 - 10:00',
-            5 => '10:00 - 11:00',
-            6 => '11:00 - 12:00',
-            7 => '12:00 - 13:00',
-            8 => '13:00 - 14:00',
-            9 => '14:00 - 15:00',
-            10 => '15:00 - 16:00',
-            11 => '16:00 - 17:00',
-            12 => '17:00 - 18:00',
-            13 => '18:00 - 19:00',
-            14 => '19:00 - 20:00',
-            15 => '20:00 - 21:00',
-            16 => '21:00 - 22:00',
-            17 => '26:00 - 23:00'
-        ];
+    public function actionGetTimes(int $boat_id, $date) {
+        $busyBoats = OrdersModel::find()->where(['boat_id' => $boat_id, 'is_paid' => 1])->all();
+        $datetimes = [];
+        foreach ($busyBoats as &$busyBoat) {
+            $begin = new DateTime($busyBoat->datetime_from);
+            $end = new DateTime( $busyBoat->datetime_to);
+         //   $end = $end->modify( '+1 hour' );
+            $interval = new DateInterval('PT1H');
+            $range = new DatePeriod($begin, $interval ,$end);
+            foreach ($range as $rng) {
+                $datetimes[] = $rng->format('Y-m-d\TH:i:s');
+            }
+        }
 
-        return $this->render('_times', compact('times'));
+        return json_encode($datetimes);
     }
 }

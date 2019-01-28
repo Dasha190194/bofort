@@ -101,15 +101,23 @@ use yii\widgets\ActiveForm; ?>
                 times.show();
                 times.fullCalendar('render');
 
-                // $.ajax({
-                //     url: '/order/get-times',
-                //     type: 'GET',
-                //     data: { 'date': date.format()},
-                //     success: function (data) {
-                //         $(this).css('background-color', 'grey');
-                //
-                //     }
-                // });
+                var boat_id = "<?= $order->boat->id ?>";
+
+                $.ajax({
+                    url: '/order/get-times',
+                    type: 'GET',
+                    data: {
+                            'date': date.format(),
+                            'boat_id': boat_id
+                    },
+                    success: function (data) {
+                        result = JSON.parse(data);
+                        for (i=0; i<result.length; i++) {
+                            console.log(result[0]);
+                            $('[data-date="'+result[0]+'"]').addClass('busy-time');
+                        }
+                    }
+                });
             }
         });
 

@@ -285,3 +285,7 @@ a.desc:after {
 .fc-scroller {
     overflow: hidden !important;
 }
+
+.busy-time {
+    background-color: #eee;
+}

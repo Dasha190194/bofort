@@ -11,7 +11,7 @@ use yii\base\Model;
  */
 
 class ActionForm extends Model {
-    public $price, $datetime, $boats;
+    public $price, $datetime, $name, $boats;
 
     /**
      * @return array the validation rules.
@@ -19,7 +19,7 @@ class ActionForm extends Model {
     public function rules()
     {
         return [
-            [['price', 'datetime', 'boats'], 'required'],
+            [['price', 'datetime', 'name', 'boats'], 'required'],
         ];
     }
 
