@@ -152,12 +152,17 @@ class OrderController extends Controller
     }
 
     public function actionGetTimes(int $boat_id, $date) {
-        $busyBoats = OrdersModel::find()->where(['boat_id' => $boat_id, 'is_paid' => 1])->all();
+
+        $date = new DateTime($date.'-01');
+        $busyBoats = OrdersModel::find()
+                            ->where(['boat_id' => $boat_id, 'is_paid' => 1])
+                            ->andWhere(['>=', 'datetime_from', $date->format('Y-m-d')])
+                            ->andWhere(['<=',  'datetime_from', $date->modify('+ 1 month')->format('Y-m-d')])
+                            ->all();
         $datetimes = [];
         foreach ($busyBoats as &$busyBoat) {
             $begin = new DateTime($busyBoat->datetime_from);
             $end = new DateTime( $busyBoat->datetime_to);
-         //   $end = $end->modify( '+1 hour' );
             $interval = new DateInterval('PT1H');
             $range = new DatePeriod($begin, $interval ,$end);
             foreach ($range as $rng) {
@@ -165,6 +170,6 @@ class OrderController extends Controller
             }
         }
 
-        return json_encode($datetimes);
+        return $this->asJson($datetimes);
     }
 }

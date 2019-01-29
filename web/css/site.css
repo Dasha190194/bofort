@@ -286,6 +286,6 @@ a.desc:after {
     overflow: hidden !important;
 }
 
-.busy-time {
+.select-time, .busy-time {
     background-color: #ccc;
 }

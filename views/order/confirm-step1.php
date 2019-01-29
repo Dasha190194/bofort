@@ -79,6 +79,9 @@ use yii\widgets\ActiveForm; ?>
 
 <script>
     $(function() {
+
+        var boat_id = "<?= $order->boat->id ?>";
+
         $('#calendar').fullCalendar({
             schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
             locale: 'ru',
@@ -100,20 +103,16 @@ use yii\widgets\ActiveForm; ?>
                 times.show();
                 times.fullCalendar('render');
 
-                var boat_id = "<?= $order->boat->id ?>";
-
                 $.ajax({
                     url: '/order/get-times',
                     type: 'GET',
                     data: {
-                            'date': date.format(),
+                            'date': start.format('YYYY-MM'),
                             'boat_id': boat_id
                     },
                     success: function (data) {
-                        result = JSON.parse(data);
-                        for (i=0; i<result.length; i++) {
-                            // console.log(result[0]);
-                            $('[data-date="'+result[0]+'"]').addClass('busy-time');
+                        for (i=0; i<data.length; i++) {
+                            $('[data-date="'+data[i]+'"]').addClass('busy-time');
                         }
                     }
                 });
@@ -167,11 +166,39 @@ use yii\widgets\ActiveForm; ?>
         $('#times .fc-left').click(function(){
             if (start.format('YYYY-MM') < end.format('YYYY-MM')) $('#calendar').fullCalendar('prev');
             daySelect($('#calendar table').find('[data-date="'+start.format('YYYY-MM-DD')+'"]'));
+
+            $.ajax({
+                url: '/order/get-times',
+                type: 'GET',
+                data: {
+                    'date': start.format('YYYY-MM'),
+                    'boat_id': boat_id
+                },
+                success: function (data) {
+                    for (i=0; i<data.length; i++) {
+                        $('[data-date="'+data[i]+'"]').addClass('busy-time');
+                    }
+                }
+            });
         });
 
         $('#times .fc-right').click(function(){
             if (start.subtract(1, 'day').format('YYYY-MM') < end.subtract(1, 'day').format('YYYY-MM')) $('#calendar').fullCalendar('next');
             daySelect($('#calendar table').find('[data-date="'+start.add(1, 'day').format('YYYY-MM-DD')+'"]'));
+
+            $.ajax({
+                url: '/order/get-times',
+                type: 'GET',
+                data: {
+                    'date': start.format('YYYY-MM'),
+                    'boat_id': boat_id
+                },
+                success: function (data) {
+                    for (i=0; i<data.length; i++) {
+                        $('[data-date="'+data[i]+'"]').addClass('busy-time');
+                    }
+                }
+            });
         });
 
         var datetimeArray = [];
@@ -180,6 +207,7 @@ use yii\widgets\ActiveForm; ?>
         function selectNumber(number, timeBlock) {
              numberArray.push(number);
              timeBlock.css('background-color', '#ccc');
+             timeBlock.addClass('select-time');
 
              let min = Math.min.apply(Math, numberArray);
              let minBlock = $('div[data-number="'+min+'"]').parent('.fc-major');
@@ -198,6 +226,28 @@ use yii\widgets\ActiveForm; ?>
              calculateCoast();
          }
 
+        function deselectNumber(number, timeBlock) {
+            numberArray.splice(numberArray.indexOf(number), 1);
+            timeBlock.css('background-color', 'white');
+            timeBlock.removeClass('select-time');
+
+            let min = Math.min.apply(Math, numberArray);
+            let minBlock = $('div[data-number="'+min+'"]').parent('.fc-major');
+            let minDate = minBlock.data('date');
+
+            $('#orderconfirmform-datetime_from').val(moment(minDate).format("YYYY-MM-DD HH:MM"));
+            $('#datetime_from').text(moment(minDate).format("YYYY-MM-DD HH:MM"));
+
+            let max = Math.max.apply(Math, numberArray);
+            let maxBlock = $('div[data-number="'+max+'"]').parent('.fc-major');
+            let maxDate = maxBlock.data('date');
+
+            $('#orderconfirmform-datetime_to').val(moment(maxDate).add(1, 'hour').format("YYYY-MM-DD HH:MM"));
+            $('#datetime_to').text(moment(maxDate).add(1, 'hour').format("YYYY-MM-DD HH:MM"));
+
+            calculateCoast();
+        }
+
         function calculateCoast() {
              var price = $('#boat_price').text();
 
@@ -207,26 +257,32 @@ use yii\widgets\ActiveForm; ?>
          }
 
         function daySelect(day) {
-            $('.fc-day').removeClass('busy-time');
-            day.addClass('busy-time');
+            $('.fc-day').removeClass('select-time');
+            day.addClass('select-time');
         }
 
         $(document).on('click', '.fc-major', function(){
             var timeBlock = $(this);
-            var datetime = timeBlock.data('date');
-            var number = timeBlock.find('.time').data('number');
 
-            if (numberArray.length === 0) {
-                selectNumber(number, timeBlock);
-            } else {
-                let max = Math.max.apply(Math, numberArray);
-                if (number === max+1) {
-                    selectNumber(number, timeBlock)
+            if (!timeBlock.hasClass('busy-time')) {
+                var datetime = timeBlock.data('date');
+                var number = timeBlock.find('.time').data('number');
+
+                if (timeBlock.hasClass('select-time')) {
+                    deselectNumber(number, timeBlock);
                 } else {
-                    alert('error');
+                    if (numberArray.length === 0) {
+                        selectNumber(number, timeBlock);
+                    } else {
+                        let max = Math.max.apply(Math, numberArray);
+                        if (number === max+1) {
+                            selectNumber(number, timeBlock);
+                        } else {
+                            alert('error');
+                        }
+                    }
                 }
             }
-
         });
 
         $(document).on('click', '#close', function(){
