@@ -35,7 +35,7 @@ use yii\widgets\ActiveForm; ?>
 
         <div class="col-md-offset-3 col-md-6">
             <div id="calendar" style="margin-bottom: 20px;"></div>
-            <div id="times" style="display: none;"></div>
+            <div id="times" style=""></div>
         </div>
     </div>
 
@@ -87,14 +87,13 @@ use yii\widgets\ActiveForm; ?>
                 center: 'title',
                 right: 'next'
             },
-            height: 300,
             dayClick: function(date, jsEvent, view) {
 
-                console.log('Clicked on: ' + date.format());
-                console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-                console.log('Current view: ' + view.name);
+                // console.log('Clicked on: ' + date.format());
+                // console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+                // console.log('Current view: ' + view.name);
 
-                $(this).css('background-color', '#ccc');
+                daySelect($(this));
 
                 var times = $('#times');
                 times.fullCalendar('gotoDate', date.format());
@@ -113,13 +112,15 @@ use yii\widgets\ActiveForm; ?>
                     success: function (data) {
                         result = JSON.parse(data);
                         for (i=0; i<result.length; i++) {
-                            console.log(result[0]);
+                            // console.log(result[0]);
                             $('[data-date="'+result[0]+'"]').addClass('busy-time');
                         }
                     }
                 });
             }
         });
+
+        var start, end;
 
         $('#times').fullCalendar({
             schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
@@ -156,13 +157,27 @@ use yii\widgets\ActiveForm; ?>
             // },
             dayRender(date, cell) {
                 cell.append('<div class="time" data-number="'+date.format("H")+'">' + moment(date).format("HH") +':00 - ' + moment(date).add(1, 'hour').format("HH") + ':00</div>');
+            },
+            viewRender(view, element) {
+                start = view.start;
+                end = view.end;
             }
+        });
+
+        $('#times .fc-left').click(function(){
+            if (start.format('YYYY-MM') < end.format('YYYY-MM')) $('#calendar').fullCalendar('prev');
+            daySelect($('#calendar table').find('[data-date="'+start.format('YYYY-MM-DD')+'"]'));
+        });
+
+        $('#times .fc-right').click(function(){
+            if (start.subtract(1, 'day').format('YYYY-MM') < end.subtract(1, 'day').format('YYYY-MM')) $('#calendar').fullCalendar('next');
+            daySelect($('#calendar table').find('[data-date="'+start.add(1, 'day').format('YYYY-MM-DD')+'"]'));
         });
 
         var datetimeArray = [];
         var numberArray = [];
 
-         function selectNumber(number, timeBlock) {
+        function selectNumber(number, timeBlock) {
              numberArray.push(number);
              timeBlock.css('background-color', '#ccc');
 
@@ -183,13 +198,18 @@ use yii\widgets\ActiveForm; ?>
              calculateCoast();
          }
 
-         function calculateCoast() {
+        function calculateCoast() {
              var price = $('#boat_price').text();
 
              $('#order-confirm').show();
              $('#orderconfirmform-coast').val(numberArray.length * price);
              $('#coast').text(numberArray.length * price + ' руб.');
          }
+
+        function daySelect(day) {
+            $('.fc-day').removeClass('busy-time');
+            day.addClass('busy-time');
+        }
 
         $(document).on('click', '.fc-major', function(){
             var timeBlock = $(this);
