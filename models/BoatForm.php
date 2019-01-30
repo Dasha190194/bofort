@@ -11,6 +11,8 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
+use yii\imagine\Image;
+use yii\web\UploadedFile;
 
 class BoatForm extends Model
 {
@@ -24,7 +26,22 @@ class BoatForm extends Model
         return [
             [['name', 'description', 'price', 'engine_power', 'spaciousness', 'certificate', 'location', 'short_description'], 'required'],
             ['price', 'number'],
-            [['images'], 'file', 'maxFiles' => 10, 'extensions' => 'png, jpg'],
+            [['images'], 'file', 'maxFiles' => 10, 'extensions' => 'png, jpg, jpeg'],
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'name' => 'Имя',
+            'description' => 'Описание',
+            'price' => 'Цена',
+            'engine_power' => 'Мощность',
+            'spaciousness' => 'Вместимость',
+            'certificate' => 'Сертификаты',
+            'location' => 'Расположение',
+            'short_description' => 'Короткое описание для главной',
+            'images' => 'Фотографии'
         ];
     }
 
@@ -37,7 +54,7 @@ class BoatForm extends Model
 
         foreach ($this->images as $img) {
             $image = new ImagesModel();
-            $image->path = Yii::$app->params['uploadsPath']."/{$img->baseName}.{$img->extension}";
+            $image->path = "{$img->baseName}.{$img->extension}";
             $boat->link('images', $image);
         }
 
@@ -46,7 +63,9 @@ class BoatForm extends Model
 
     public function upload(){
         foreach ($this->images as $image) {
-            $image->saveAs(Yii::$app->params['uploadsPath'] . "/{$image->baseName}.{$image->extension}");
+            $path = Yii::$app->params['uploadsPath'] . "/origin/{$image->baseName}.{$image->extension}";
+            $image->saveAs($path);
+            Image::thumbnail($path, 250, 150)->save(Yii::getAlias('@webroot').'/'.Yii::$app->params['uploadsPath']."/250X150/{$image->baseName}.{$image->extension}", ['quality' => 80]);
         }
         return true;
     }
@@ -54,5 +73,6 @@ class BoatForm extends Model
     public function loadData($arModel){
         foreach (array_keys($this->getAttributes()) as $attribute)
             $this->$attribute = $arModel->$attribute;
+
     }
 }

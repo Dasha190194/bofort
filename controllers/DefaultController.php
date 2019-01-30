@@ -40,12 +40,12 @@ class DefaultController extends Controller
                         'roles' => ['?', '@'],
                     ],
                     [
-                        'actions' => ['account', 'profile', 'resend-change', 'cancel', 'change-card-state'],
+                        'actions' => ['account', 'profile', 'resend-change', 'cancel', 'change-card-state', 'reset'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['login', 'register', 'forgot', 'reset', 'login-email', 'login-callback'],
+                        'actions' => ['login', 'register', 'forgot', 'login-email', 'login-callback'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -385,6 +385,8 @@ class DefaultController extends Controller
             return $this->refresh();
         }
 
+
+
         return $this->render("profile", compact("profile", "user", "orders", "cards", "transactions", "notifications", 'new_notifications'));
     }
 
@@ -469,33 +471,26 @@ class DefaultController extends Controller
     /**
      * Reset password
      */
-    public function actionReset($token)
+    public function actionReset()
     {
         /** @var \amnah\yii2\user\models\User $user */
         /** @var \amnah\yii2\user\models\UserToken $userToken */
 
-        // get user token and check expiration
-        $userToken = $this->module->model("UserToken");
-        $userToken = $userToken::findByToken($token, $userToken::TYPE_PASSWORD_RESET);
-        if (!$userToken) {
-            return $this->render('reset', ["invalidToken" => true]);
-        }
 
         // get user and set "reset" scenario
         $success = false;
-        $user = $this->module->model("User");
-        $user = $user::findOne($userToken->user_id);
+        $user =  Yii::$app->user->identity;
         $user->setScenario("reset");
 
         // load post data and reset user password
         if ($user->load(Yii::$app->request->post()) && $user->save()) {
 
             // delete userToken and set success = true
-            $userToken->delete();
+
             $success = true;
         }
 
-        return $this->render('reset', compact("user", "success"));
+        return $this->redirect(['/user/profile']);
     }
 
     public function actionChangeCardState($id, $state) {
