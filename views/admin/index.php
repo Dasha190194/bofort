@@ -11,7 +11,7 @@
 <div class="admin-container">
     <ul>
         <li>
-            Оплаченная аренда !!!!!!!!!
+            <a href="/boats/tarifs">Оплаченная аренда</a>
         </li>
         <li>
             <a href="/boats/tarifs">Изменить стоимость!!!!!!!</a>
@@ -31,7 +31,7 @@
             </ul>
         </li>
         <li>
-            <a href="">Пользователи</a>
+            <a href="/user/admin">Пользователи</a>
         </li>
     </ul>
 </div>

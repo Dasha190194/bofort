@@ -35,7 +35,7 @@ use yii\widgets\ActiveForm; ?>
 
         <div class="col-md-offset-3 col-md-6">
             <div id="calendar" style="margin-bottom: 20px;"></div>
-            <div id="times" style=""></div>
+            <div id="times" style="display: none;"></div>
         </div>
     </div>
 
@@ -103,19 +103,7 @@ use yii\widgets\ActiveForm; ?>
                 times.show();
                 times.fullCalendar('render');
 
-                $.ajax({
-                    url: '/order/get-times',
-                    type: 'GET',
-                    data: {
-                            'date': start.format('YYYY-MM'),
-                            'boat_id': boat_id
-                    },
-                    success: function (data) {
-                        for (i=0; i<data.length; i++) {
-                            $('[data-date="'+data[i]+'"]').addClass('busy-time');
-                        }
-                    }
-                });
+                getTimes();
             }
         });
 
@@ -166,39 +154,13 @@ use yii\widgets\ActiveForm; ?>
         $('#times .fc-left').click(function(){
             if (start.format('YYYY-MM') < end.format('YYYY-MM')) $('#calendar').fullCalendar('prev');
             daySelect($('#calendar table').find('[data-date="'+start.format('YYYY-MM-DD')+'"]'));
-
-            $.ajax({
-                url: '/order/get-times',
-                type: 'GET',
-                data: {
-                    'date': start.format('YYYY-MM'),
-                    'boat_id': boat_id
-                },
-                success: function (data) {
-                    for (i=0; i<data.length; i++) {
-                        $('[data-date="'+data[i]+'"]').addClass('busy-time');
-                    }
-                }
-            });
+            getTimes();
         });
 
         $('#times .fc-right').click(function(){
             if (start.subtract(1, 'day').format('YYYY-MM') < end.subtract(1, 'day').format('YYYY-MM')) $('#calendar').fullCalendar('next');
             daySelect($('#calendar table').find('[data-date="'+start.add(1, 'day').format('YYYY-MM-DD')+'"]'));
-
-            $.ajax({
-                url: '/order/get-times',
-                type: 'GET',
-                data: {
-                    'date': start.format('YYYY-MM'),
-                    'boat_id': boat_id
-                },
-                success: function (data) {
-                    for (i=0; i<data.length; i++) {
-                        $('[data-date="'+data[i]+'"]').addClass('busy-time');
-                    }
-                }
-            });
+            getTimes();
         });
 
         var datetimeArray = [];
@@ -209,20 +171,7 @@ use yii\widgets\ActiveForm; ?>
              timeBlock.css('background-color', '#ccc');
              timeBlock.addClass('select-time');
 
-             let min = Math.min.apply(Math, numberArray);
-             let minBlock = $('div[data-number="'+min+'"]').parent('.fc-major');
-             let minDate = minBlock.data('date');
-
-             $('#orderconfirmform-datetime_from').val(moment(minDate).format("YYYY-MM-DD HH:MM"));
-             $('#datetime_from').text(moment(minDate).format("YYYY-MM-DD HH:MM"));
-
-             let max = Math.max.apply(Math, numberArray);
-             let maxBlock = $('div[data-number="'+max+'"]').parent('.fc-major');
-             let maxDate = maxBlock.data('date');
-
-             $('#orderconfirmform-datetime_to').val(moment(maxDate).add(1, 'hour').format("YYYY-MM-DD HH:MM"));
-             $('#datetime_to').text(moment(maxDate).add(1, 'hour').format("YYYY-MM-DD HH:MM"));
-
+             fixValue();
              calculateCoast();
          }
 
@@ -231,21 +180,26 @@ use yii\widgets\ActiveForm; ?>
             timeBlock.css('background-color', 'white');
             timeBlock.removeClass('select-time');
 
+            fixValue();
+            calculateCoast();
+        }
+
+        function fixValue() {
+
             let min = Math.min.apply(Math, numberArray);
             let minBlock = $('div[data-number="'+min+'"]').parent('.fc-major');
             let minDate = minBlock.data('date');
 
-            $('#orderconfirmform-datetime_from').val(moment(minDate).format("YYYY-MM-DD HH:MM"));
-            $('#datetime_from').text(moment(minDate).format("YYYY-MM-DD HH:MM"));
+            $('#orderconfirmform-datetime_from').val(moment(minDate).format("YYYY-MM-DD HH:M0"));
+            $('#datetime_from').text(moment(minDate).format("YYYY-MM-DD HH:M0"));
 
             let max = Math.max.apply(Math, numberArray);
             let maxBlock = $('div[data-number="'+max+'"]').parent('.fc-major');
             let maxDate = maxBlock.data('date');
 
-            $('#orderconfirmform-datetime_to').val(moment(maxDate).add(1, 'hour').format("YYYY-MM-DD HH:MM"));
-            $('#datetime_to').text(moment(maxDate).add(1, 'hour').format("YYYY-MM-DD HH:MM"));
+            $('#orderconfirmform-datetime_to').val(moment(maxDate).add(1, 'hour').format("YYYY-MM-DD HH:M0"));
+            $('#datetime_to').text(moment(maxDate).add(1, 'hour').format("YYYY-MM-DD HH:M0"));
 
-            calculateCoast();
         }
 
         function calculateCoast() {
@@ -259,6 +213,22 @@ use yii\widgets\ActiveForm; ?>
         function daySelect(day) {
             $('.fc-day').removeClass('select-time');
             day.addClass('select-time');
+        }
+
+        function getTimes() {
+            $.ajax({
+                url: '/order/get-times',
+                type: 'GET',
+                data: {
+                    'date': start.format('YYYY-MM'),
+                    'boat_id': boat_id
+                },
+                success: function (data) {
+                    for (i=0; i<data.length; i++) {
+                        $('[data-date="'+data[i]+'"]').addClass('busy-time');
+                    }
+                }
+            });
         }
 
         $(document).on('click', '.fc-major', function(){
