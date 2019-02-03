@@ -6,6 +6,8 @@ use app\helpers\Utils;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm; ?>
 
+<script src="https://widget.cloudpayments.ru/bundles/cloudpayments"></script>
+
 <div class="order-confirm">
     <h1>Подтверждение бронирования</h1>
 
@@ -97,7 +99,7 @@ use yii\widgets\ActiveForm; ?>
     <div class="row">
         <?php $form = ActiveForm::begin([
             'id' => 'pay-form',
-            'action' => '/payment/pay',
+            'action' => '/payment/pay-validate',
             'enableAjaxValidation' => true,
         ]); ?>
 
@@ -114,5 +116,64 @@ use yii\widgets\ActiveForm; ?>
         </div>
         <?php ActiveForm::end(); ?>
     </div>
+
+    <script>
+
+        $(document).ready(function () {
+
+            const cloud_id = "<?= Yii::$app->params['cloud_id'] ?>";
+
+            function pay(order_id, total_price, user_id) {
+                var widget = new cp.CloudPayments();
+                widget.charge({
+                        publicId: cloud_id,
+                        description: 'Оплата заказа',
+                        amount: total_price,
+                        currency: 'RUB',
+                        invoiceId: order_id,
+                        accountId: user_id,
+                    },
+                    function (options) {
+
+                    },
+                    function (reason, options) { // fail
+                        //действие при неуспешной оплате
+                    });
+            };
+
+            jQuery.fn.preventDoubleSubmission = function() {
+                $(this).on('submit',function(e){
+                    var $form = $(this);
+
+                    if ($form.data('submitted') === true) {
+                        // Previously submitted - don't submit again
+                        e.preventDefault();
+                    } else {
+                        // Mark it so that the next submit can be ignored
+                        $form.data('submitted', true);
+                        var data = $(this).serialize();
+                        $.ajax({
+                            url: '/payment/pay',
+                            data: data,
+                            type: 'POST',
+                            async: false,
+                            success: function (request) {
+                                if (request.result == 'success') {
+                                    pay(request.data.order_id, request.data.total_price, request.data.user_id);
+                                }
+                            }
+                        });
+
+                    }
+                });
+
+                // Keep chainability
+                return this;
+            };
+
+            $('#pay-form').preventDoubleSubmission();
+        });
+
+    </script>
 
 </div>

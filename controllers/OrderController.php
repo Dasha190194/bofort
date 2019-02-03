@@ -29,22 +29,16 @@ class OrderController extends Controller
     public function behaviors()
     {
         return [
-//            'access' => [
-//                'class' => AccessControl::className(),
-//                'rules' => [
-//                    [
-//                        'actions' => ['create', 'confirm-step1', 'confirm-step2', 'apply-promo', 'add-service', 'remove-service'],
-//                        'allow' => true,
-//                        'roles' => ['@'],
-//                    ],
-//                ],
-//            ],
-//            'verbs' => [
-//                'class' => VerbFilter::className(),
-//                'actions' => [
-//                    'logout' => ['post'],
-//                ],
-//            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['create', 'confirm-step1', 'confirm-step2', 'apply-promo', 'add-service', 'remove-service', 'info', 'get-times'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
         ];
     }
 

@@ -1,1 +1,12 @@
-efrersfc
+virtualbox 5
+vagrant 2.2.3
+
+
+vagrant box add laravel/homestead
+git clone https://github.com/laravel/homestead.git Homestead
+bash init.sh
+
+--- see homestead.yaml
+
+hosts 192.168.10.10  bofort.test
+vagrant up

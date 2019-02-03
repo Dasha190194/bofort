@@ -14,12 +14,30 @@ use app\models\PayForm;
 use app\models\TransactionsModel;
 use Exception;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 
 class PaymentController extends Controller
 {
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['pay', 'pay-validate'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
     public function actionPay()
     {
         $post = Yii::$app->request->post();
@@ -41,15 +59,25 @@ class PaymentController extends Controller
                 return $this->redirect(['/order/confirm-step2', 'id' => $form->order_id]);
             }
 
-            return true;
-        } else {
-
-            if (Yii::$app->request->isAjax) {
-                Yii::$app->response->format = Response::FORMAT_JSON;
-                return ActiveForm::validate($form);
-            }
+            return $this->asJson(
+                [
+                    'result' => 'success',
+                    'data' => $transaction
+                ]);
         }
 
+        return $this->asJson(
+            [
+                'result' => 'error'
+            ]);
+    }
+
+    public function actionPayValidate() {
+        $post = Yii::$app->request->post();
+        $form = new PayForm();
+        $form->load($post);
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return ActiveForm::validate($form);
     }
 
 }
