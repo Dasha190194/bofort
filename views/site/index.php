@@ -12,7 +12,7 @@ $this->title = 'My Yii Application';
 
     <div class="body-content">
 
-        <div class="row"><div class=""><img src="/img/content/hero.jpg" alt="" class="img-responsive"></div></div>
+        <div class="row"><img src="/img/content/hero.jpg" alt="" class="hero"></div>
 
         <div class="row mt-32">
             <div class="col-md-12">
