@@ -8,60 +8,54 @@ $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
 
-    <div class="jumbotron">
-    </div>
+    <!-- <div class="jumbotron"></div> -->
 
     <div class="body-content">
 
-        <div class="row">
+        <div class="row"><div class=""><img src="/img/content/hero.jpg" alt="" class="img-responsive"></div></div>
+
+        <div class="row mt-32">
             <div class="col-md-12">
                 <p>
-                    Серия фильмов о Гарри Поттере — серия фильмов, основанных на вселенной Гарри Поттера английской писательницы Дж. К. Роулинг.
-                    Серия выпущена компанией Warner Bros. и состоит из 8 фильмов в жанре фэнтези, включая основную серию, начиная с «Гарри Поттер и философский камень» (2001)
-                    и заканчивая «Гарри Поттер и Дары Смерти. Часть 2» (2011); а также спин-офф «Фантастические твари и где они обитают» и его сиквел «Фантастические твари:
-                    Преступления Грин-де-Вальда». Франшиза занимает 3 место в списке самых прибыльных серий фильмов с $9,14 млрд мировой прибыли.
+                    <strong>Can you make it stand out more?</strong> in an ideal world. Can we have another option. Concept is bang on, but can we look at a better execution I know somebody who can do this for a reasonable cost. Notify me!
                 </p>
-                <a class="btn btn-default">О компании</a>
+                <p>
+                    <strong>Can you use a high definition screenshot</strong> that's going to be a chunk of change yet I think we need to start from scratch can you make the logo bigger yes bigger bigger still the logo is too big, I printed it out but the animated gif is not moving.
+                    I have an awesome idea for a startup, i need you to build it for me can my website be in english?
+                </p>
+                <p>
+                    <strong>Make it sexy, or try a more powerful colour</strong> is there a way we can make the page feel more introductory without being cheesy give us a complimentary logo along with the website can we try some other colours maybe. I was wondering if my cat could be placed over the logo in the flyer can you punch up the fun level on these icons concept is bang on, but can we look at a better execution, and can my website be in english?
+                </p>
+                <a class="btn btn-primary mt-16">О компании</a>
             </div>
         </div>
 
         <hr/>
 
         <div class="row">
+            
             <div class="col-md-offset-2 col-md-4">
-                <div class="row">
-                    <div class="col-md-2"><img src="/sun.png" width="50px"></div>
-                    <div class="col-md-10">Гарри Поттер и философский камень — 2001 год.</div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2"><img src="/sun.png" width="50px"></div>
-                    <div class="col-md-10">Гарри Поттер и тайная комната — 2002 год.</div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2"><img src="/sun.png" width="50px"></div>
-                    <div class="col-md-10">Гарри Поттер и узник Азкабана — 2004 год.</div>
-                </div>
+                <ul>
+                    <li>Быстрое онлайн-бронирование</li>
+                    <li>Без депозита</li>
+                    <li>Только новые катера и яхты</li>
+                </ul>
             </div>
+
             <div class="col-md-4">
-                <div class="row">
-                    <div class="col-md-2"><img src="/sun.png" width="50px"></div>
-                    <div class="col-md-10">Гарри Поттер и Кубок огня — 2005 год.</div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2"><img src="/sun.png" width="50px"></div>
-                    <div class="col-md-10">Гарри Поттер и Орден Феникса — 2007 год.</div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2"><img src="/sun.png" width="50px"></div>
-                    <div class="col-md-10">Гарри Поттер и Принц-полукровка — 2009 год.</div>
-                </div>
+                <ul>
+                    <li>Быстрое онлайн-бронирование</li>
+                    <li>Без депозита</li>
+                    <li>Только новые катера и яхты</li>
+                </ul>
             </div>
+
         </div>
 
-        <hr/>
+        <hr>
 
         <div class="row">
-            <h2>Лодки</h2>
+            <h2 class="text-center">Выбери свое судно</h2>
 
             <?php foreach ($boats as $boat): ?>
                 <div class="col-md-3">
@@ -71,12 +65,10 @@ $this->title = 'My Yii Application';
                     </div>
 
                     <p><?= $boat->short_description ?></p>
-                    <a class="btn btn-default" href="/boats/show?id=<?= $boat->id ?>">Подробно</a>
+                    <a class="btn btn-primary" href="/boats/show?id=<?= $boat->id ?>">Подробно</a>
                 </div>
             <?php endforeach; ?>
         </div>
-
-        <hr/>
 
         <?php if (Yii::$app->user->isGuest): ?>
             <div class="row">

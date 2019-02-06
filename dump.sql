@@ -14,17 +14,17 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET row_security = off;
 
-DROP DATABASE IF EXISTS bofort;
+-- DROP DATABASE IF EXISTS bofort;
 --
 -- Name: bofort; Type: DATABASE; Schema: -; Owner: postgres
 --
 
-CREATE DATABASE bofort WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'ru_RU.UTF-8' LC_CTYPE = 'ru_RU.UTF-8';
+-- CREATE DATABASE bofort WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'ru_RU.UTF-8' LC_CTYPE = 'ru_RU.UTF-8';
 
 
 ALTER DATABASE bofort OWNER TO postgres;
 
-\connect bofort
+--connect bofort
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -54,7 +54,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: actions; Type: TABLE; Schema: public; Owner: admin
+-- Name: actions; Type: TABLE; Schema: public; Owner: homestead
 --
 
 CREATE TABLE public.actions (
@@ -65,10 +65,10 @@ CREATE TABLE public.actions (
 );
 
 
-ALTER TABLE public.actions OWNER TO admin;
+ALTER TABLE public.actions OWNER TO homestead;
 
 --
--- Name: actions_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+-- Name: actions_id_seq; Type: SEQUENCE; Schema: public; Owner: homestead
 --
 
 CREATE SEQUENCE public.actions_id_seq
@@ -79,17 +79,17 @@ CREATE SEQUENCE public.actions_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.actions_id_seq OWNER TO admin;
+ALTER TABLE public.actions_id_seq OWNER TO homestead;
 
 --
--- Name: actions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+-- Name: actions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: homestead
 --
 
 ALTER SEQUENCE public.actions_id_seq OWNED BY public.actions.id;
 
 
 --
--- Name: boat_actions; Type: TABLE; Schema: public; Owner: admin
+-- Name: boat_actions; Type: TABLE; Schema: public; Owner: homestead
 --
 
 CREATE TABLE public.boat_actions (
@@ -98,10 +98,10 @@ CREATE TABLE public.boat_actions (
 );
 
 
-ALTER TABLE public.boat_actions OWNER TO admin;
+ALTER TABLE public.boat_actions OWNER TO homestead;
 
 --
--- Name: boat_services; Type: TABLE; Schema: public; Owner: admin
+-- Name: boat_services; Type: TABLE; Schema: public; Owner: homestead
 --
 
 CREATE TABLE public.boat_services (
@@ -110,10 +110,10 @@ CREATE TABLE public.boat_services (
 );
 
 
-ALTER TABLE public.boat_services OWNER TO admin;
+ALTER TABLE public.boat_services OWNER TO homestead;
 
 --
--- Name: boats; Type: TABLE; Schema: public; Owner: admin
+-- Name: boats; Type: TABLE; Schema: public; Owner: homestead
 --
 
 CREATE TABLE public.boats (
@@ -129,10 +129,10 @@ CREATE TABLE public.boats (
 );
 
 
-ALTER TABLE public.boats OWNER TO admin;
+ALTER TABLE public.boats OWNER TO homestead;
 
 --
--- Name: boats_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+-- Name: boats_id_seq; Type: SEQUENCE; Schema: public; Owner: homestead
 --
 
 CREATE SEQUENCE public.boats_id_seq
@@ -143,17 +143,17 @@ CREATE SEQUENCE public.boats_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.boats_id_seq OWNER TO admin;
+ALTER TABLE public.boats_id_seq OWNER TO homestead;
 
 --
--- Name: boats_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+-- Name: boats_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: homestead
 --
 
 ALTER SEQUENCE public.boats_id_seq OWNED BY public.boats.id;
 
 
 --
--- Name: cards; Type: TABLE; Schema: public; Owner: admin
+-- Name: cards; Type: TABLE; Schema: public; Owner: homestead
 --
 
 CREATE TABLE public.cards (
@@ -165,10 +165,10 @@ CREATE TABLE public.cards (
 );
 
 
-ALTER TABLE public.cards OWNER TO admin;
+ALTER TABLE public.cards OWNER TO homestead;
 
 --
--- Name: cards_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+-- Name: cards_id_seq; Type: SEQUENCE; Schema: public; Owner: homestead
 --
 
 CREATE SEQUENCE public.cards_id_seq
@@ -179,17 +179,17 @@ CREATE SEQUENCE public.cards_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.cards_id_seq OWNER TO admin;
+ALTER TABLE public.cards_id_seq OWNER TO homestead;
 
 --
--- Name: cards_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+-- Name: cards_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: homestead
 --
 
 ALTER SEQUENCE public.cards_id_seq OWNED BY public.cards.id;
 
 
 --
--- Name: images; Type: TABLE; Schema: public; Owner: admin
+-- Name: images; Type: TABLE; Schema: public; Owner: homestead
 --
 
 CREATE TABLE public.images (
@@ -199,10 +199,10 @@ CREATE TABLE public.images (
 );
 
 
-ALTER TABLE public.images OWNER TO admin;
+ALTER TABLE public.images OWNER TO homestead;
 
 --
--- Name: images_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+-- Name: images_id_seq; Type: SEQUENCE; Schema: public; Owner: homestead
 --
 
 CREATE SEQUENCE public.images_id_seq
@@ -213,17 +213,17 @@ CREATE SEQUENCE public.images_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.images_id_seq OWNER TO admin;
+ALTER TABLE public.images_id_seq OWNER TO homestead;
 
 --
--- Name: images_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+-- Name: images_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: homestead
 --
 
 ALTER SEQUENCE public.images_id_seq OWNED BY public.images.id;
 
 
 --
--- Name: migration; Type: TABLE; Schema: public; Owner: admin
+-- Name: migration; Type: TABLE; Schema: public; Owner: homestead
 --
 
 CREATE TABLE public.migration (
@@ -232,10 +232,10 @@ CREATE TABLE public.migration (
 );
 
 
-ALTER TABLE public.migration OWNER TO admin;
+ALTER TABLE public.migration OWNER TO homestead;
 
 --
--- Name: notifications; Type: TABLE; Schema: public; Owner: admin
+-- Name: notifications; Type: TABLE; Schema: public; Owner: homestead
 --
 
 CREATE TABLE public.notifications (
@@ -246,10 +246,10 @@ CREATE TABLE public.notifications (
 );
 
 
-ALTER TABLE public.notifications OWNER TO admin;
+ALTER TABLE public.notifications OWNER TO homestead;
 
 --
--- Name: notifications_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+-- Name: notifications_id_seq; Type: SEQUENCE; Schema: public; Owner: homestead
 --
 
 CREATE SEQUENCE public.notifications_id_seq
@@ -260,17 +260,17 @@ CREATE SEQUENCE public.notifications_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.notifications_id_seq OWNER TO admin;
+ALTER TABLE public.notifications_id_seq OWNER TO homestead;
 
 --
--- Name: notifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+-- Name: notifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: homestead
 --
 
 ALTER SEQUENCE public.notifications_id_seq OWNED BY public.notifications.id;
 
 
 --
--- Name: order_services; Type: TABLE; Schema: public; Owner: admin
+-- Name: order_services; Type: TABLE; Schema: public; Owner: homestead
 --
 
 CREATE TABLE public.order_services (
@@ -279,10 +279,10 @@ CREATE TABLE public.order_services (
 );
 
 
-ALTER TABLE public.order_services OWNER TO admin;
+ALTER TABLE public.order_services OWNER TO homestead;
 
 --
--- Name: orders; Type: TABLE; Schema: public; Owner: admin
+-- Name: orders; Type: TABLE; Schema: public; Owner: homestead
 --
 
 CREATE TABLE public.orders (
@@ -303,10 +303,10 @@ CREATE TABLE public.orders (
 );
 
 
-ALTER TABLE public.orders OWNER TO admin;
+ALTER TABLE public.orders OWNER TO homestead;
 
 --
--- Name: orders_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+-- Name: orders_id_seq; Type: SEQUENCE; Schema: public; Owner: homestead
 --
 
 CREATE SEQUENCE public.orders_id_seq
@@ -317,17 +317,17 @@ CREATE SEQUENCE public.orders_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.orders_id_seq OWNER TO admin;
+ALTER TABLE public.orders_id_seq OWNER TO homestead;
 
 --
--- Name: orders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+-- Name: orders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: homestead
 --
 
 ALTER SEQUENCE public.orders_id_seq OWNED BY public.orders.id;
 
 
 --
--- Name: profile; Type: TABLE; Schema: public; Owner: admin
+-- Name: profile; Type: TABLE; Schema: public; Owner: homestead
 --
 
 CREATE TABLE public.profile (
@@ -340,10 +340,10 @@ CREATE TABLE public.profile (
 );
 
 
-ALTER TABLE public.profile OWNER TO admin;
+ALTER TABLE public.profile OWNER TO homestead;
 
 --
--- Name: profile_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+-- Name: profile_id_seq; Type: SEQUENCE; Schema: public; Owner: homestead
 --
 
 CREATE SEQUENCE public.profile_id_seq
@@ -354,17 +354,17 @@ CREATE SEQUENCE public.profile_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.profile_id_seq OWNER TO admin;
+ALTER TABLE public.profile_id_seq OWNER TO homestead;
 
 --
--- Name: profile_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+-- Name: profile_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: homestead
 --
 
 ALTER SEQUENCE public.profile_id_seq OWNED BY public.profile.id;
 
 
 --
--- Name: promo; Type: TABLE; Schema: public; Owner: admin
+-- Name: promo; Type: TABLE; Schema: public; Owner: homestead
 --
 
 CREATE TABLE public.promo (
@@ -377,10 +377,10 @@ CREATE TABLE public.promo (
 );
 
 
-ALTER TABLE public.promo OWNER TO admin;
+ALTER TABLE public.promo OWNER TO homestead;
 
 --
--- Name: promo_history; Type: TABLE; Schema: public; Owner: admin
+-- Name: promo_history; Type: TABLE; Schema: public; Owner: homestead
 --
 
 CREATE TABLE public.promo_history (
@@ -391,10 +391,10 @@ CREATE TABLE public.promo_history (
 );
 
 
-ALTER TABLE public.promo_history OWNER TO admin;
+ALTER TABLE public.promo_history OWNER TO homestead;
 
 --
--- Name: promo_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+-- Name: promo_id_seq; Type: SEQUENCE; Schema: public; Owner: homestead
 --
 
 CREATE SEQUENCE public.promo_id_seq
@@ -405,17 +405,17 @@ CREATE SEQUENCE public.promo_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.promo_id_seq OWNER TO admin;
+ALTER TABLE public.promo_id_seq OWNER TO homestead;
 
 --
--- Name: promo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+-- Name: promo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: homestead
 --
 
 ALTER SEQUENCE public.promo_id_seq OWNED BY public.promo.id;
 
 
 --
--- Name: role; Type: TABLE; Schema: public; Owner: admin
+-- Name: role; Type: TABLE; Schema: public; Owner: homestead
 --
 
 CREATE TABLE public.role (
@@ -423,14 +423,14 @@ CREATE TABLE public.role (
     name character varying(255) NOT NULL,
     created_at timestamp(0) without time zone,
     updated_at timestamp(0) without time zone,
-    can_admin smallint DEFAULT 0 NOT NULL
+    can_homestead smallint DEFAULT 0 NOT NULL
 );
 
 
-ALTER TABLE public.role OWNER TO admin;
+ALTER TABLE public.role OWNER TO homestead;
 
 --
--- Name: role_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+-- Name: role_id_seq; Type: SEQUENCE; Schema: public; Owner: homestead
 --
 
 CREATE SEQUENCE public.role_id_seq
@@ -441,17 +441,17 @@ CREATE SEQUENCE public.role_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.role_id_seq OWNER TO admin;
+ALTER TABLE public.role_id_seq OWNER TO homestead;
 
 --
--- Name: role_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+-- Name: role_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: homestead
 --
 
 ALTER SEQUENCE public.role_id_seq OWNED BY public.role.id;
 
 
 --
--- Name: services; Type: TABLE; Schema: public; Owner: admin
+-- Name: services; Type: TABLE; Schema: public; Owner: homestead
 --
 
 CREATE TABLE public.services (
@@ -461,10 +461,10 @@ CREATE TABLE public.services (
 );
 
 
-ALTER TABLE public.services OWNER TO admin;
+ALTER TABLE public.services OWNER TO homestead;
 
 --
--- Name: services_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+-- Name: services_id_seq; Type: SEQUENCE; Schema: public; Owner: homestead
 --
 
 CREATE SEQUENCE public.services_id_seq
@@ -475,17 +475,17 @@ CREATE SEQUENCE public.services_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.services_id_seq OWNER TO admin;
+ALTER TABLE public.services_id_seq OWNER TO homestead;
 
 --
--- Name: services_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+-- Name: services_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: homestead
 --
 
 ALTER SEQUENCE public.services_id_seq OWNED BY public.services.id;
 
 
 --
--- Name: transactions; Type: TABLE; Schema: public; Owner: admin
+-- Name: transactions; Type: TABLE; Schema: public; Owner: homestead
 --
 
 CREATE TABLE public.transactions (
@@ -499,10 +499,10 @@ CREATE TABLE public.transactions (
 );
 
 
-ALTER TABLE public.transactions OWNER TO admin;
+ALTER TABLE public.transactions OWNER TO homestead;
 
 --
--- Name: transactions_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+-- Name: transactions_id_seq; Type: SEQUENCE; Schema: public; Owner: homestead
 --
 
 CREATE SEQUENCE public.transactions_id_seq
@@ -513,17 +513,17 @@ CREATE SEQUENCE public.transactions_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.transactions_id_seq OWNER TO admin;
+ALTER TABLE public.transactions_id_seq OWNER TO homestead;
 
 --
--- Name: transactions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+-- Name: transactions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: homestead
 --
 
 ALTER SEQUENCE public.transactions_id_seq OWNED BY public.transactions.id;
 
 
 --
--- Name: user; Type: TABLE; Schema: public; Owner: admin
+-- Name: user; Type: TABLE; Schema: public; Owner: homestead
 --
 
 CREATE TABLE public."user" (
@@ -548,10 +548,10 @@ CREATE TABLE public."user" (
 );
 
 
-ALTER TABLE public."user" OWNER TO admin;
+ALTER TABLE public."user" OWNER TO homestead;
 
 --
--- Name: user_auth; Type: TABLE; Schema: public; Owner: admin
+-- Name: user_auth; Type: TABLE; Schema: public; Owner: homestead
 --
 
 CREATE TABLE public.user_auth (
@@ -565,10 +565,10 @@ CREATE TABLE public.user_auth (
 );
 
 
-ALTER TABLE public.user_auth OWNER TO admin;
+ALTER TABLE public.user_auth OWNER TO homestead;
 
 --
--- Name: user_auth_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+-- Name: user_auth_id_seq; Type: SEQUENCE; Schema: public; Owner: homestead
 --
 
 CREATE SEQUENCE public.user_auth_id_seq
@@ -579,17 +579,17 @@ CREATE SEQUENCE public.user_auth_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.user_auth_id_seq OWNER TO admin;
+ALTER TABLE public.user_auth_id_seq OWNER TO homestead;
 
 --
--- Name: user_auth_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+-- Name: user_auth_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: homestead
 --
 
 ALTER SEQUENCE public.user_auth_id_seq OWNED BY public.user_auth.id;
 
 
 --
--- Name: user_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+-- Name: user_id_seq; Type: SEQUENCE; Schema: public; Owner: homestead
 --
 
 CREATE SEQUENCE public.user_id_seq
@@ -600,17 +600,17 @@ CREATE SEQUENCE public.user_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.user_id_seq OWNER TO admin;
+ALTER TABLE public.user_id_seq OWNER TO homestead;
 
 --
--- Name: user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+-- Name: user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: homestead
 --
 
 ALTER SEQUENCE public.user_id_seq OWNED BY public."user".id;
 
 
 --
--- Name: user_token; Type: TABLE; Schema: public; Owner: admin
+-- Name: user_token; Type: TABLE; Schema: public; Owner: homestead
 --
 
 CREATE TABLE public.user_token (
@@ -624,10 +624,10 @@ CREATE TABLE public.user_token (
 );
 
 
-ALTER TABLE public.user_token OWNER TO admin;
+ALTER TABLE public.user_token OWNER TO homestead;
 
 --
--- Name: user_token_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+-- Name: user_token_id_seq; Type: SEQUENCE; Schema: public; Owner: homestead
 --
 
 CREATE SEQUENCE public.user_token_id_seq
@@ -638,140 +638,140 @@ CREATE SEQUENCE public.user_token_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.user_token_id_seq OWNER TO admin;
+ALTER TABLE public.user_token_id_seq OWNER TO homestead;
 
 --
--- Name: user_token_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+-- Name: user_token_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: homestead
 --
 
 ALTER SEQUENCE public.user_token_id_seq OWNED BY public.user_token.id;
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: admin
+-- Name: id; Type: DEFAULT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.actions ALTER COLUMN id SET DEFAULT nextval('public.actions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: admin
+-- Name: id; Type: DEFAULT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.boats ALTER COLUMN id SET DEFAULT nextval('public.boats_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: admin
+-- Name: id; Type: DEFAULT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.cards ALTER COLUMN id SET DEFAULT nextval('public.cards_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: admin
+-- Name: id; Type: DEFAULT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.images ALTER COLUMN id SET DEFAULT nextval('public.images_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: admin
+-- Name: id; Type: DEFAULT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.notifications ALTER COLUMN id SET DEFAULT nextval('public.notifications_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: admin
+-- Name: id; Type: DEFAULT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.orders ALTER COLUMN id SET DEFAULT nextval('public.orders_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: admin
+-- Name: id; Type: DEFAULT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.profile ALTER COLUMN id SET DEFAULT nextval('public.profile_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: admin
+-- Name: id; Type: DEFAULT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.promo ALTER COLUMN id SET DEFAULT nextval('public.promo_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: admin
+-- Name: id; Type: DEFAULT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.role ALTER COLUMN id SET DEFAULT nextval('public.role_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: admin
+-- Name: id; Type: DEFAULT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.services ALTER COLUMN id SET DEFAULT nextval('public.services_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: admin
+-- Name: id; Type: DEFAULT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.transactions ALTER COLUMN id SET DEFAULT nextval('public.transactions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: admin
+-- Name: id; Type: DEFAULT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public."user" ALTER COLUMN id SET DEFAULT nextval('public.user_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: admin
+-- Name: id; Type: DEFAULT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.user_auth ALTER COLUMN id SET DEFAULT nextval('public.user_auth_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: admin
+-- Name: id; Type: DEFAULT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.user_token ALTER COLUMN id SET DEFAULT nextval('public.user_token_id_seq'::regclass);
 
 
 --
--- Data for Name: actions; Type: TABLE DATA; Schema: public; Owner: admin
+-- Data for Name: actions; Type: TABLE DATA; Schema: public; Owner: homestead
 --
 
 
 
 --
--- Name: actions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+-- Name: actions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: homestead
 --
 
 SELECT pg_catalog.setval('public.actions_id_seq', 11, true);
 
 
 --
--- Data for Name: boat_actions; Type: TABLE DATA; Schema: public; Owner: admin
+-- Data for Name: boat_actions; Type: TABLE DATA; Schema: public; Owner: homestead
 --
 
 
 
 --
--- Data for Name: boat_services; Type: TABLE DATA; Schema: public; Owner: admin
+-- Data for Name: boat_services; Type: TABLE DATA; Schema: public; Owner: homestead
 --
 
 
 
 --
--- Data for Name: boats; Type: TABLE DATA; Schema: public; Owner: admin
+-- Data for Name: boats; Type: TABLE DATA; Schema: public; Owner: homestead
 --
 
 INSERT INTO public.boats (id, name, description, price, engine_power, spaciousness, certificate, location, short_description) VALUES (20, 'Riva Rivamare', 'Великолепная яхта Riva Rivamare - это поистинне икона итальянского 
@@ -802,27 +802,27 @@ Ferretti 450  - это самая маленькая яхта в размерн�
 
 
 --
--- Name: boats_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+-- Name: boats_id_seq; Type: SEQUENCE SET; Schema: public; Owner: homestead
 --
 
 SELECT pg_catalog.setval('public.boats_id_seq', 22, true);
 
 
 --
--- Data for Name: cards; Type: TABLE DATA; Schema: public; Owner: admin
+-- Data for Name: cards; Type: TABLE DATA; Schema: public; Owner: homestead
 --
 
 
 
 --
--- Name: cards_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+-- Name: cards_id_seq; Type: SEQUENCE SET; Schema: public; Owner: homestead
 --
 
 SELECT pg_catalog.setval('public.cards_id_seq', 2, true);
 
 
 --
--- Data for Name: images; Type: TABLE DATA; Schema: public; Owner: admin
+-- Data for Name: images; Type: TABLE DATA; Schema: public; Owner: homestead
 --
 
 INSERT INTO public.images (id, path, boat_id) VALUES (18, 'boat1.jpeg', 22);
@@ -833,14 +833,14 @@ INSERT INTO public.images (id, path, boat_id) VALUES (14, 'boat1.jpeg', 20);
 
 
 --
--- Name: images_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+-- Name: images_id_seq; Type: SEQUENCE SET; Schema: public; Owner: homestead
 --
 
 SELECT pg_catalog.setval('public.images_id_seq', 18, true);
 
 
 --
--- Data for Name: migration; Type: TABLE DATA; Schema: public; Owner: admin
+-- Data for Name: migration; Type: TABLE DATA; Schema: public; Owner: homestead
 --
 
 INSERT INTO public.migration (version, apply_time) VALUES ('m000000_000000_base', 1545400250);
@@ -848,39 +848,39 @@ INSERT INTO public.migration (version, apply_time) VALUES ('m150214_044831_init_
 
 
 --
--- Data for Name: notifications; Type: TABLE DATA; Schema: public; Owner: admin
+-- Data for Name: notifications; Type: TABLE DATA; Schema: public; Owner: homestead
 --
 
 
 
 --
--- Name: notifications_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+-- Name: notifications_id_seq; Type: SEQUENCE SET; Schema: public; Owner: homestead
 --
 
 SELECT pg_catalog.setval('public.notifications_id_seq', 6, true);
 
 
 --
--- Data for Name: order_services; Type: TABLE DATA; Schema: public; Owner: admin
+-- Data for Name: order_services; Type: TABLE DATA; Schema: public; Owner: homestead
 --
 
 
 
 --
--- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: admin
+-- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: homestead
 --
 
 
 
 --
--- Name: orders_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+-- Name: orders_id_seq; Type: SEQUENCE SET; Schema: public; Owner: homestead
 --
 
 SELECT pg_catalog.setval('public.orders_id_seq', 21, true);
 
 
 --
--- Data for Name: profile; Type: TABLE DATA; Schema: public; Owner: admin
+-- Data for Name: profile; Type: TABLE DATA; Schema: public; Owner: homestead
 --
 
 INSERT INTO public.profile (id, user_id, created_at, updated_at, full_name, timezone) VALUES (1, 1, '2018-12-21 13:50:54', NULL, 'the one', NULL);
@@ -888,48 +888,48 @@ INSERT INTO public.profile (id, user_id, created_at, updated_at, full_name, time
 
 
 --
--- Name: profile_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+-- Name: profile_id_seq; Type: SEQUENCE SET; Schema: public; Owner: homestead
 --
 
 SELECT pg_catalog.setval('public.profile_id_seq', 11, true);
 
 
 --
--- Data for Name: promo; Type: TABLE DATA; Schema: public; Owner: admin
+-- Data for Name: promo; Type: TABLE DATA; Schema: public; Owner: homestead
 --
 
 
 
 --
--- Data for Name: promo_history; Type: TABLE DATA; Schema: public; Owner: admin
+-- Data for Name: promo_history; Type: TABLE DATA; Schema: public; Owner: homestead
 --
 
 
 
 --
--- Name: promo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+-- Name: promo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: homestead
 --
 
 SELECT pg_catalog.setval('public.promo_id_seq', 2, true);
 
 
 --
--- Data for Name: role; Type: TABLE DATA; Schema: public; Owner: admin
+-- Data for Name: role; Type: TABLE DATA; Schema: public; Owner: homestead
 --
 
-INSERT INTO public.role (id, name, created_at, updated_at, can_admin) VALUES (1, 'Admin', '2018-12-21 13:50:54', NULL, 1);
-INSERT INTO public.role (id, name, created_at, updated_at, can_admin) VALUES (2, 'User', '2018-12-21 13:50:54', NULL, 0);
+INSERT INTO public.role (id, name, created_at, updated_at, can_homestead) VALUES (1, 'homestead', '2018-12-21 13:50:54', NULL, 1);
+INSERT INTO public.role (id, name, created_at, updated_at, can_homestead) VALUES (2, 'User', '2018-12-21 13:50:54', NULL, 0);
 
 
 --
--- Name: role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+-- Name: role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: homestead
 --
 
 SELECT pg_catalog.setval('public.role_id_seq', 2, true);
 
 
 --
--- Data for Name: services; Type: TABLE DATA; Schema: public; Owner: admin
+-- Data for Name: services; Type: TABLE DATA; Schema: public; Owner: homestead
 --
 
 INSERT INTO public.services (id, name, price) VALUES (1, 'Капитан с бородой и попугаем', 2500);
@@ -940,27 +940,27 @@ INSERT INTO public.services (id, name, price) VALUES (5, 'Право граби�
 
 
 --
--- Name: services_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+-- Name: services_id_seq; Type: SEQUENCE SET; Schema: public; Owner: homestead
 --
 
 SELECT pg_catalog.setval('public.services_id_seq', 5, true);
 
 
 --
--- Data for Name: transactions; Type: TABLE DATA; Schema: public; Owner: admin
+-- Data for Name: transactions; Type: TABLE DATA; Schema: public; Owner: homestead
 --
 
 
 
 --
--- Name: transactions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+-- Name: transactions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: homestead
 --
 
 SELECT pg_catalog.setval('public.transactions_id_seq', 23, true);
 
 
 --
--- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: admin
+-- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: homestead
 --
 
 INSERT INTO public."user" (id, role_id, status, email, username, password, auth_key, access_token, logged_in_ip, logged_in_at, created_ip, created_at, updated_at, banned_at, banned_reason, phone, mailing, personal_data_processing) VALUES (1, 1, 1, 'neo@neo.com', 'neo', '$2y$13$dyVw4WkZGkABf2UrGWrhHO4ZmVBv.K4puhOL59Y9jQhIdj63TlV.O', 'XBGFwbF8aEFpxVcR6m7jNs1WXBJ0IzWj', 'Hr_Lh07b8WLnlhWcYa6DZkzdAdvnKiWK', '127.0.0.1', '2019-01-30 08:51:31', NULL, '2018-12-21 13:50:54', NULL, NULL, NULL, NULL, 0, 0);
@@ -968,40 +968,40 @@ INSERT INTO public."user" (id, role_id, status, email, username, password, auth_
 
 
 --
--- Data for Name: user_auth; Type: TABLE DATA; Schema: public; Owner: admin
+-- Data for Name: user_auth; Type: TABLE DATA; Schema: public; Owner: homestead
 --
 
 
 
 --
--- Name: user_auth_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+-- Name: user_auth_id_seq; Type: SEQUENCE SET; Schema: public; Owner: homestead
 --
 
 SELECT pg_catalog.setval('public.user_auth_id_seq', 1, false);
 
 
 --
--- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+-- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: homestead
 --
 
 SELECT pg_catalog.setval('public.user_id_seq', 11, true);
 
 
 --
--- Data for Name: user_token; Type: TABLE DATA; Schema: public; Owner: admin
+-- Data for Name: user_token; Type: TABLE DATA; Schema: public; Owner: homestead
 --
 
 
 
 --
--- Name: user_token_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+-- Name: user_token_id_seq; Type: SEQUENCE SET; Schema: public; Owner: homestead
 --
 
 SELECT pg_catalog.setval('public.user_token_id_seq', 6, true);
 
 
 --
--- Name: actions_pk; Type: CONSTRAINT; Schema: public; Owner: admin
+-- Name: actions_pk; Type: CONSTRAINT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.actions
@@ -1009,7 +1009,7 @@ ALTER TABLE ONLY public.actions
 
 
 --
--- Name: boats_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+-- Name: boats_pkey; Type: CONSTRAINT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.boats
@@ -1017,7 +1017,7 @@ ALTER TABLE ONLY public.boats
 
 
 --
--- Name: cards_pk; Type: CONSTRAINT; Schema: public; Owner: admin
+-- Name: cards_pk; Type: CONSTRAINT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.cards
@@ -1025,7 +1025,7 @@ ALTER TABLE ONLY public.cards
 
 
 --
--- Name: images_pk; Type: CONSTRAINT; Schema: public; Owner: admin
+-- Name: images_pk; Type: CONSTRAINT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.images
@@ -1033,7 +1033,7 @@ ALTER TABLE ONLY public.images
 
 
 --
--- Name: migration_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+-- Name: migration_pkey; Type: CONSTRAINT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.migration
@@ -1041,7 +1041,7 @@ ALTER TABLE ONLY public.migration
 
 
 --
--- Name: notifications_pk; Type: CONSTRAINT; Schema: public; Owner: admin
+-- Name: notifications_pk; Type: CONSTRAINT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.notifications
@@ -1049,7 +1049,7 @@ ALTER TABLE ONLY public.notifications
 
 
 --
--- Name: orders_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+-- Name: orders_pkey; Type: CONSTRAINT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.orders
@@ -1057,7 +1057,7 @@ ALTER TABLE ONLY public.orders
 
 
 --
--- Name: profile_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+-- Name: profile_pkey; Type: CONSTRAINT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.profile
@@ -1065,7 +1065,7 @@ ALTER TABLE ONLY public.profile
 
 
 --
--- Name: promo_pk; Type: CONSTRAINT; Schema: public; Owner: admin
+-- Name: promo_pk; Type: CONSTRAINT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.promo
@@ -1073,7 +1073,7 @@ ALTER TABLE ONLY public.promo
 
 
 --
--- Name: role_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+-- Name: role_pkey; Type: CONSTRAINT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.role
@@ -1081,7 +1081,7 @@ ALTER TABLE ONLY public.role
 
 
 --
--- Name: services_pk; Type: CONSTRAINT; Schema: public; Owner: admin
+-- Name: services_pk; Type: CONSTRAINT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.services
@@ -1089,7 +1089,7 @@ ALTER TABLE ONLY public.services
 
 
 --
--- Name: transactions_pk; Type: CONSTRAINT; Schema: public; Owner: admin
+-- Name: transactions_pk; Type: CONSTRAINT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.transactions
@@ -1097,7 +1097,7 @@ ALTER TABLE ONLY public.transactions
 
 
 --
--- Name: user_auth_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+-- Name: user_auth_pkey; Type: CONSTRAINT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.user_auth
@@ -1105,7 +1105,7 @@ ALTER TABLE ONLY public.user_auth
 
 
 --
--- Name: user_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+-- Name: user_pkey; Type: CONSTRAINT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public."user"
@@ -1113,7 +1113,7 @@ ALTER TABLE ONLY public."user"
 
 
 --
--- Name: user_token_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+-- Name: user_token_pkey; Type: CONSTRAINT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.user_token
@@ -1121,35 +1121,35 @@ ALTER TABLE ONLY public.user_token
 
 
 --
--- Name: user_auth_provider_id; Type: INDEX; Schema: public; Owner: admin
+-- Name: user_auth_provider_id; Type: INDEX; Schema: public; Owner: homestead
 --
 
 CREATE INDEX user_auth_provider_id ON public.user_auth USING btree (provider_id);
 
 
 --
--- Name: user_email; Type: INDEX; Schema: public; Owner: admin
+-- Name: user_email; Type: INDEX; Schema: public; Owner: homestead
 --
 
 CREATE UNIQUE INDEX user_email ON public."user" USING btree (email);
 
 
 --
--- Name: user_token_token; Type: INDEX; Schema: public; Owner: admin
+-- Name: user_token_token; Type: INDEX; Schema: public; Owner: homestead
 --
 
 CREATE UNIQUE INDEX user_token_token ON public.user_token USING btree (token);
 
 
 --
--- Name: user_username; Type: INDEX; Schema: public; Owner: admin
+-- Name: user_username; Type: INDEX; Schema: public; Owner: homestead
 --
 
 CREATE UNIQUE INDEX user_username ON public."user" USING btree (username);
 
 
 --
--- Name: profile_user_id; Type: FK CONSTRAINT; Schema: public; Owner: admin
+-- Name: profile_user_id; Type: FK CONSTRAINT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.profile
@@ -1157,7 +1157,7 @@ ALTER TABLE ONLY public.profile
 
 
 --
--- Name: user_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: admin
+-- Name: user_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.user_auth
@@ -1165,7 +1165,7 @@ ALTER TABLE ONLY public.user_auth
 
 
 --
--- Name: user_role_id; Type: FK CONSTRAINT; Schema: public; Owner: admin
+-- Name: user_role_id; Type: FK CONSTRAINT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public."user"
@@ -1173,7 +1173,7 @@ ALTER TABLE ONLY public."user"
 
 
 --
--- Name: user_token_user_id; Type: FK CONSTRAINT; Schema: public; Owner: admin
+-- Name: user_token_user_id; Type: FK CONSTRAINT; Schema: public; Owner: homestead
 --
 
 ALTER TABLE ONLY public.user_token
