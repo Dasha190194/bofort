@@ -134,7 +134,6 @@ use yii\widgets\ActiveForm; ?>
                         accountId: user_id,
                     },
                     function (options) {
-
                     },
                     function (reason, options) { // fail
                         //действие при неуспешной оплате

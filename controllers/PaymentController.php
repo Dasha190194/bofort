@@ -9,6 +9,8 @@
 namespace app\controllers;
 
 
+use app\helpers\CloudPayments\InputPayAnswer;
+use app\models\CardsModel;
 use app\models\OrdersModel;
 use app\models\PayForm;
 use app\models\TransactionsModel;
@@ -80,4 +82,24 @@ class PaymentController extends Controller
         return ActiveForm::validate($form);
     }
 
+    public function actionComplete() {
+
+    if (Yii::$app->getRequest()->getMethod() == 'POST') {
+
+        $input = InputPayAnswer::collect();
+        $transaction = TransactionsModel::find()->where(['order_id' => $input->invoiceId])->orderBy('id DESC')->limit(1);
+        $transaction->state = 1;
+        $transaction->save();
+
+        $user_id = $transaction->user_id;
+        $card = new CardsModel();
+        $card->first_six = $input->cardFirstSix;
+        $card->last_four = $input->cardLastFour;
+        $card->exp_date = $input->cardExpDate;
+        $card->token = $input->token;
+        $card->user_id = $user_id;
+        $card->type = $input->cardType;
+    }
+
+   }
 }
