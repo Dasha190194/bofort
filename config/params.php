@@ -3,5 +3,5 @@
 return [
     'adminEmail' => 'dariyogienko@gmail.com',
     'uploadsPath' => 'uploads',
-    'cloud_id' => 'test_api_00000000000000000000001',
+    'cloud_id' => 'pk_de50bf19d0acc03c97a4063abeb49',
 ];
