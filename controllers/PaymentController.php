@@ -29,7 +29,7 @@ class PaymentController extends Controller
     {
         if ($action->id == 'complete') {
             Yii::$app->controller->enableCsrfValidation = false;
-            // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         }
         return parent::beforeAction($action);
     }
