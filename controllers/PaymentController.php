@@ -28,11 +28,13 @@ class PaymentController extends Controller
     public function beforeAction($action)
     {
         if ($action->id == 'complete') {
-            $this->enableCsrfValidation = false;
-            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            Yii::$app->controller->enableCsrfValidation = false;
+            // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         }
         return parent::beforeAction($action);
     }
+
+    public $enableCsrfValidation = false;
 
     public function behaviors()
     {
@@ -103,7 +105,6 @@ class PaymentController extends Controller
     {
         if (Yii::$app->getRequest()->getMethod() == 'POST') {
             $input = InputPayAnswer::collect();
-
             try {
                 $transaction = TransactionsModel::find()->where(['order_id' => $input->invoiceId])->orderBy('id DESC')->one();
                 if (empty($transaction)) throw new Exception("Для заказа $input->invoiceId отсутствует транзакция");
