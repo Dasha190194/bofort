@@ -36,12 +36,7 @@ class InputPayAnswer extends Model
     }
 
     static function collect() {
-<<<<<<< HEAD
-	    Yii::info(Yii::$app->request->getRawBody());
-	    $data = Json::decode(Yii::$app->request->getRawBody(), true);
-=======
         $data = $_POST;
->>>>>>> 5a2ce735806335d3a3a374497b3b5100eb2804a7
         $out = new self;
         $out->transactionId = $data['TransactionId'];
         $out->amount = $data['Amount'];
