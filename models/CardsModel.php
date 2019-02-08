@@ -9,6 +9,7 @@
 namespace app\models;
 
 
+use app\helpers\CloudPayments\InputPayAnswer;
 use yii\db\ActiveRecord;
 
 class CardsModel extends ActiveRecord
@@ -19,7 +20,15 @@ class CardsModel extends ActiveRecord
         return 'cards';
     }
 
-//    public function getOrders() {
-//        return $this->hasMany(BoatsModel::className(), ['id' => 'boat_id']);
-//    }
+    public function createCardIfNoExist(InputPayAnswer $input) {
+        if (!$this::find()->where(['token' => $input->token, 'user_id' => $input->accountId])->one()) {
+            $this->first_six = $input->cardFirstSix;
+            $this->last_four = $input->cardLastFour;
+            $this->exp_date = $input->cardExpDate;
+            $this->token = $input->token;
+            $this->user_id = $input->accountId;
+            $this->type = $input->cardType;
+            $this->save();
+        }
+    }
 }

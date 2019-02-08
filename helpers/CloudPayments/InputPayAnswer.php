@@ -9,7 +9,9 @@
 
 namespace app\helpers\CloudPayments;
 
+use Yii;
 use yii\base\Model;
+use yii\helpers\Json;
 
 class InputPayAnswer extends Model
 {
@@ -34,19 +36,20 @@ class InputPayAnswer extends Model
     }
 
     static function collect() {
+        $data = Json::decode(Yii::$app->request->getRawBody(), true);
         $out = new self;
-        $out->transactionId = \Yii::$app->getRequest()->getBodyParam('TransactionId');
-        $out->amount = \Yii::$app->getRequest()->getBodyParam('Amount');
-        $out->currency = \Yii::$app->getRequest()->getBodyParam('Currency');
-        $out->dateTime = \Yii::$app->getRequest()->getBodyParam('DateTime');
-        $out->cardFirstSix = \Yii::$app->getRequest()->getBodyParam('CardFirstSix');
-        $out->cardLastFour = \Yii::$app->getRequest()->getBodyParam('CardLastFour');
-        $out->cardType = \Yii::$app->getRequest()->getBodyParam('CardType');
-        $out->cardExpDate = \Yii::$app->getRequest()->getBodyParam('CardExpDate');
-        $out->status = \Yii::$app->getRequest()->getBodyParam('Status');
-        $out->invoiceId = \Yii::$app->getRequest()->getBodyParam('InvoiceId');
-        $out->accountId = \Yii::$app->getRequest()->getBodyParam('AccountId');
-        $out->token = \Yii::$app->getRequest()->getBodyParam('Token');
+        $out->transactionId = $data['TransactionId'];
+        $out->amount = $data['Amount'];
+        $out->currency = $data['Currency'];
+        $out->dateTime = $data['DateTime'];
+        $out->cardFirstSix = $data['CardFirstSix'];
+        $out->cardLastFour = $data['CardLastFour'];
+        $out->cardType = $data['CardType'];
+        $out->cardExpDate = $data['CardExpDate'];
+        $out->status = $data['Status'];
+        $out->invoiceId = $data['InvoiceId'];
+        $out->accountId = $data['AccountId'];
+        $out->token = $data['Token'];
         return $out;
     }
 

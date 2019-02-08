@@ -16,6 +16,7 @@ use app\models\PayForm;
 use app\models\TransactionsModel;
 use Exception;
 use Yii;
+use yii\debug\models\search\Log;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
@@ -23,6 +24,15 @@ use yii\widgets\ActiveForm;
 
 class PaymentController extends Controller
 {
+
+    public function beforeAction($action)
+    {
+        if ($action->id == 'complete') {
+            $this->enableCsrfValidation = false;
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        }
+        return parent::beforeAction($action);
+    }
 
     public function behaviors()
     {
@@ -44,6 +54,7 @@ class PaymentController extends Controller
             ],
         ];
     }
+
 
     public function actionPay()
     {
@@ -79,7 +90,8 @@ class PaymentController extends Controller
             ]);
     }
 
-    public function actionPayValidate() {
+    public function actionPayValidate()
+    {
         $post = Yii::$app->request->post();
         $form = new PayForm();
         $form->load($post);
@@ -87,24 +99,27 @@ class PaymentController extends Controller
         return ActiveForm::validate($form);
     }
 
-    public function actionComplete() {
+    public function actionComplete()
+    {
+        if (Yii::$app->getRequest()->getMethod() == 'POST') {
+            $input = InputPayAnswer::collect();
 
-    if (Yii::$app->getRequest()->getMethod() == 'POST') {
+            try {
+                $transaction = TransactionsModel::find()->where(['order_id' => $input->invoiceId])->orderBy('id DESC')->one();
+                if (empty($transaction)) throw new Exception("Для заказа $input->invoiceId отсутствует транзакция");
 
-        $input = InputPayAnswer::collect();
-        $transaction = TransactionsModel::find()->where(['order_id' => $input->invoiceId])->orderBy('id DESC')->limit(1);
-        $transaction->state = 1;
-        $transaction->save();
+                $transaction->state = 1;
+                $transaction->save();
 
-        $user_id = $transaction->user_id;
-        $card = new CardsModel();
-        $card->first_six = $input->cardFirstSix;
-        $card->last_four = $input->cardLastFour;
-        $card->exp_date = $input->cardExpDate;
-        $card->token = $input->token;
-        $card->user_id = $user_id;
-        $card->type = $input->cardType;
+                $card = new CardsModel();
+                $card->createCardIFNoExist($input);
+
+                return ['code' => 0];
+            } catch (Exception $e) {
+                Yii::error($e->getMessage(), 'payment.complete');
+            }
+        }
+
+        return ['code' => -1];
     }
-
-   }
 }
