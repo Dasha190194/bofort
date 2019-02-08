@@ -3,10 +3,10 @@
 return [
     'class' => 'yii\db\Connection',
     'dsn' => 'pgsql:host=localhost;dbname=bofort',
-//    'username' => 'admin',
-//    'password' => 'admin',
-    'username' => 'homestead',
-    'password' => 'secret',
+    'username' => 'admin',
+    'password' => 'admin',
+//    'username' => 'homestead',
+//    'password' => 'secret',
     'charset' => 'utf8',
 
     // Schema cache options (for production environment)
