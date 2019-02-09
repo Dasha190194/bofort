@@ -80,7 +80,7 @@ class PaymentController extends Controller
 
                    $transaction->card_id = $card->id;
                    $transaction->state = 1;
-                   $transaction->cloud_transaction_id = $response->getTransactionId();
+                   $transaction->cloud_transaction_id = $response->getId();
                    $transaction->save();
 
                    return $this->asJson(
@@ -95,7 +95,7 @@ class PaymentController extends Controller
 
                    $transaction->card_id = $card->id;
                    $transaction->state = -1;
-                   $transaction->cloud_transaction_id = $response->getTransactionId();
+                   $transaction->cloud_transaction_id = $response->getId();
                    $transaction->save();
 
                    return $this->asJson(
