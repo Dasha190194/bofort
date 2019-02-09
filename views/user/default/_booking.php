@@ -33,10 +33,10 @@ $date_now = date_create();
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <a href="#" class="btn btn-default btn-block">Отменить бронирование</a>
+                            <a data-id="<?= $order->id?>" class="btn btn-default btn-block order-refund">Отменить бронирование</a>
                         </div>
                         <div class="col-md-6">
-                            <a href="#" class="btn btn-primary btn-block">Подробнее</a>
+                            <a data-id="<?= $order->id?>" class="btn btn-primary btn-block order-more-info">Подробнее</a>
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@ $date_now = date_create();
 
     <h2>История аренды</h2>
         <?php foreach ($orders as $order): ?>
-            <?php if(($order->state === 1 and $order->datetime_from < $date_now) or ($order->state === 2)): ?>
+            <?php if(($order->state === 1 and $order->datetime_from > $date_now) or ($order->state === 2)): ?>
                 <div class="panel-orders-history panel panel-default">
                     <div class="panel-title">
                         <img src="/<?= $order->boat->image->path ?>" width="748px" height="340px">
@@ -74,7 +74,7 @@ $date_now = date_create();
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <a id="show-order-info-modal" class="btn btn-primary btn-block">Подробнее</a>
+                                <a class="btn btn-primary btn-block order-more-info">Подробнее</a>
                             </div>
                         </div>
                     </div>
@@ -85,7 +85,7 @@ $date_now = date_create();
 
 
 <div class="modal fade" id="order-info-modal" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="width: 780px;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>

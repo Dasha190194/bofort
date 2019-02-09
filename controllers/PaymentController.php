@@ -104,16 +104,22 @@ class PaymentController extends Controller
     public function actionComplete()
     {
         if (Yii::$app->getRequest()->getMethod() == 'POST') {
+
+            Yii::info("Cloudpayment answer [$_POST]", 'payment.complete');
             $input = InputPayAnswer::collect();
             try {
                 $transaction = TransactionsModel::find()->where(['order_id' => $input->invoiceId])->orderBy('id DESC')->one();
                 if (empty($transaction)) throw new Exception("Для заказа $input->invoiceId отсутствует транзакция");
 
+                $card = CardsModel::createCardIFNoExist($input);
+
                 $transaction->state = 1;
+                $transaction->card_id = $card->id;
                 $transaction->save();
 
-                $card = new CardsModel();
-                $card->createCardIFNoExist($input);
+                $order = OrdersModel::findOne($input->invoiceId);
+                $order->state = 1;
+                $order->save();
 
                 return ['code' => 0];
             } catch (Exception $e) {

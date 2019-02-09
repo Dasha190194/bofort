@@ -21,28 +21,33 @@ class CardsModel extends ActiveRecord
     }
 
     // TODO еще подумать над логикой
-    public function createCardIfNoExist(InputPayAnswer $input) {
-        $cards = $this::find()->where(['user_id' => $input->accountId])->all();
+    public static function createCardIfNoExist(InputPayAnswer $input) {
+        $cards = self::find()->where(['user_id' => $input->accountId])->all();
         if (empty($cards)) {
-            $this->first_six = $input->cardFirstSix;
-            $this->last_four = $input->cardLastFour;
-            $this->exp_date = $input->cardExpDate;
-            $this->token = $input->token;
-            $this->user_id = $input->accountId;
-            $this->type = $input->cardType;
-            $this->state = 1;
-            $this->save();
+            $card = new self;
+            $card->first_six = $input->cardFirstSix;
+            $card->last_four = $input->cardLastFour;
+            $card->exp_date = $input->cardExpDate;
+            $card->token = $input->token;
+            $card->user_id = $input->accountId;
+            $card->type = $input->cardType;
+            $card->state = 1;
+            $card->save();
         } else {
-            if (!$this::find()->where(['token' => $input->token, 'user_id' => $input->accountId])->one()) {
-                $this->first_six = $input->cardFirstSix;
-                $this->last_four = $input->cardLastFour;
-                $this->exp_date = $input->cardExpDate;
-                $this->token = $input->token;
-                $this->user_id = $input->accountId;
-                $this->type = $input->cardType;
-                $this->state = 0;
-                $this->save();
+            $card = self::find()->where(['token' => $input->token, 'user_id' => $input->accountId])->one();
+            if (!$card) {
+                $card = new self;
+                $card->first_six = $input->cardFirstSix;
+                $card->last_four = $input->cardLastFour;
+                $card->exp_date = $input->cardExpDate;
+                $card->token = $input->token;
+                $card->user_id = $input->accountId;
+                $card->type = $input->cardType;
+                $card->state = 0;
+                $card->save();
             }
         }
+
+        return $card;
     }
 }

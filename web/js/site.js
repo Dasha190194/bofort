@@ -120,14 +120,33 @@ $(document).ready(function() {
         $('#carousel-modal').modal({show:true});
     });
 
-    $('#show-order-info-modal').on('click', function() {
+    $('.order-more-info').on('click', function() {
 
+        var id = $(this).data('id');
         $.ajax({
             url: '/order/info',
             type: 'GET',
+            data: {
+                'id': id
+            },
             success: function(result) {
                 $('#order-info-modal .modal-body').html(result);
                 $('#order-info-modal').modal({show:true});
+            }
+        });
+    });
+
+    $('.order-refund').on('click', function(){
+
+        var id = $(this).data('id');
+        $.ajax({
+            url: '/order/refund',
+            type: 'GET',
+            data: {
+                'id': id
+            },
+            success: function(result) {
+                // location.reload();
             }
         });
     });

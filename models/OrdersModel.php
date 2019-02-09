@@ -78,6 +78,10 @@ class OrdersModel extends ActiveRecord
             ->viaTable('order_services', ['order_id' => 'id'])->sum('services.price');
     }
 
+    public function getTransaction() {
+        return $this->hasOne(TransactionsModel::className(), ['order_id' => 'id']);
+    }
+
     public function getServicesId() {
         $services = $this->getServices()->all();
         $servicesId = [];

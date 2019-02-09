@@ -33,7 +33,8 @@ class OrderController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['create', 'confirm-step1', 'confirm-step2', 'apply-promo', 'add-service', 'remove-service', 'info', 'get-times', 'final'],
+                        'actions' => ['create', 'confirm-step1', 'confirm-step2', 'apply-promo', 'add-service',
+                                      'remove-service', 'info', 'get-times', 'final', 'refund'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -85,6 +86,21 @@ class OrderController extends Controller
 
     public function actionFinal(int $id) {
         return $this->render('final');
+    }
+
+    public function actionRefund(int $id) {
+
+        $order = OrdersModel::findOne($id);
+     //   try {
+            $client = new \CloudPayments\Manager(Yii::$app->params['cloud_id'], Yii::$app->params['cloud_private_key']);
+            $client->refundPayment($order->transaction->cloud_transaction_id, $order->transaction->total_price);
+     //   } catch (Exception $e){
+         //   Yii::error($e->getMessage(), 'order.refund');
+            return $this->asJson(['result' => false]);
+     //   }
+
+        Yii::info("Order [$id] success refund", 'order.refund');
+        return $this->asJson(['result' => true]);
     }
 
     public function actionApplyPromo(int $order_id, string $word) {
