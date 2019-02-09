@@ -366,7 +366,7 @@ class DefaultController extends Controller
         $profile = Yii::$app->user->identity->profile;
         $orders = OrdersModel::find()->where(['user_id' => $user->getId()])->all();
         $cards = CardsModel::find()->where(['user_id' => $user->getId()])->all();
-        $transactions = TransactionsModel::find()->where(['user_id' => $user->getId()])->andWhere(['<>', 'card_id', null])->all();
+        $transactions = TransactionsModel::find()->where(['user_id' => $user->getId()])->andWhere(['IS NOT', 'card_id', null])->all();
         $notifications = NotificationsModel::find()->where(['user_id' => $user->getId()])->all();
         $new_notifications = NotificationsModel::find()->where(['user_id' => $user->getId(), 'is_open' => 0])->count();
 

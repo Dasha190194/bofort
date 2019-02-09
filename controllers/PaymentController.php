@@ -58,7 +58,7 @@ class PaymentController extends Controller
         ];
     }
 
-
+    // TODO очень сложно
     public function actionPay()
     {
         $post = Yii::$app->request->post();
@@ -67,20 +67,21 @@ class PaymentController extends Controller
 
         if ($form->validate()) {
             $order = OrdersModel::findOne($form->order_id);
-
-            try {
-                $transaction = new TransactionsModel();
-                $transaction->create($form->order_id, $order->totalPrice(), Yii::$app->user->getId());
-            } catch (Exception $e) {
-                Yii::error($e->getMessage(), 'payment.pay');
-                return $this->redirect(['/order/confirm-step2', 'id' => $form->order_id]);
-            }
-
             $card = CardsModel::find()->where(['user_id' => Yii::$app->user->getId(), 'state' => 1])->one();
+
             if ($card) {
                try {
+
+                   $transaction = new TransactionsModel();
+                   $transaction->create($form->order_id, $order->totalPrice(), Yii::$app->user->getId());
+
                    $client = new \CloudPayments\Manager(Yii::$app->params['cloud_id'], Yii::$app->params['cloud_private_key']);
                    $response = $client->chargeToken($transaction->total_price, 'RUB', Yii::$app->user->getId(), $card->token);
+
+                   $transaction->card_id = $card->id;
+                   $transaction->state = 1;
+                   $transaction->cloud_transaction_id = $response->getTransactionId();
+                   $transaction->save();
 
                    return $this->asJson(
                        [
@@ -91,6 +92,11 @@ class PaymentController extends Controller
 
                } catch (PaymentException $e) {
                    Yii::error($e->getMessage(), 'payment.pay');
+
+                   $transaction->card_id = $card->id;
+                   $transaction->state = -1;
+                   $transaction->cloud_transaction_id = $response->getTransactionId();
+                   $transaction->save();
 
                    return $this->asJson(
                        [
@@ -105,7 +111,11 @@ class PaymentController extends Controller
                 [
                     'success' => true,
                     'action' => 'frame',
-                    'data' => $transaction
+                    'data' => [
+                        'order_id' => $order->id,
+                        'total_price' => $order->totalPrice(),
+                        'user_id' => Yii::$app->user->getId()
+                    ]
                 ]);
         }
 
@@ -131,8 +141,9 @@ class PaymentController extends Controller
           //  Yii::info("Cloudpayment answer [{$_POST}]", 'payment.complete');
             $input = InputPayAnswer::collect();
             try {
-                $transaction = TransactionsModel::find()->where(['order_id' => $input->invoiceId])->orderBy('id DESC')->one();
-                if (empty($transaction)) throw new Exception("Для заказа $input->invoiceId отсутствует транзакция");
+
+                $transaction = new TransactionsModel();
+                $transaction->create($input->invoiceId, $input->amount, $input->accountId);
 
                 $card = CardsModel::createCardIFNoExist($input);
 

@@ -2,6 +2,7 @@
 use app\models\TransactionsModel;
 
 /** @var \app\models\CardsModel $cards */
+/** @var TransactionsModel $transactions */
 ?>
 
 <div class="profile-container cards-container hidden">
@@ -39,30 +40,32 @@ use app\models\TransactionsModel;
         <?php endforeach; ?>
 <!--        <a class="btn btn-default">Добавить новую карту</a>-->
     </div>
-    <div>
-        <h2>История списаний</h2>
-        <hr>
-        <?php foreach($transactions as $transaction): ?>
-            <div class="row">
-                <div class="col-md-6">
-                    <div>
-                        <?= $transaction->datetime_create ?>
-                    </div>
-                    <div>
-                        <?= $transaction->card->type ?>
-                        <?= $transaction->card->number ?>
-                    </div>
-                </div>
-                <div class="col-md-offset-3 col-md-3">
-                    <div>
-                        <?= $transaction->order->price ?>
-                    </div>
-                    <div>
-                        <?= TransactionsModel::$transactionsState[$transaction->state] ?>
-                    </div>
-                </div>
-            </div>
+    <?php if(!empty($transactions)): ?>
+        <div>
+            <h2>История списаний</h2>
             <hr>
-        <?php endforeach; ?>
-    </div>
+            <?php foreach($transactions as $transaction): ?>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div>
+                            <?= $transaction->datetime_create ?>
+                        </div>
+                        <div>
+                            <?= $transaction->card->type ?>
+                            <?= $transaction->card->last_four ?>
+                        </div>
+                    </div>
+                    <div class="col-md-offset-3 col-md-3">
+                        <div>
+                            <?= $transaction->order->price ?>
+                        </div>
+                        <div>
+                            <?= TransactionsModel::$transactionsState[$transaction->state] ?>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
 </div>
