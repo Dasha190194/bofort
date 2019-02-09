@@ -115,6 +115,7 @@ class PaymentController extends Controller
 
                 $transaction->state = 1;
                 $transaction->card_id = $card->id;
+                $transaction->cloud_transaction_id = $input->transactionId;
                 $transaction->save();
 
                 $order = OrdersModel::findOne($input->invoiceId);
