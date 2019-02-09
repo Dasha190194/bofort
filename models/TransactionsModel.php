@@ -28,7 +28,7 @@ class TransactionsModel extends ActiveRecord
         $this->order_id = $order_id;
         $this->total_price = $total_price;
         $this->user_id = $user_id;
-        $this->save();
+        //$this->save();
     }
 
     public function getOrder() {
