@@ -24,6 +24,13 @@ class TransactionsModel extends ActiveRecord
         return 'transactions';
     }
 
+    public function create($order_id, $total_price, $user_id) {
+        $this->order_id = $order_id;
+        $this->total_price = $total_price;
+        $this->user_id = $user_id;
+        $this->save();
+    }
+
     public function getOrder() {
         return $this->hasOne(OrdersModel::className(), ['id' => 'order_id']);
     }

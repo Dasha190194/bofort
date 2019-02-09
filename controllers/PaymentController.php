@@ -14,6 +14,7 @@ use app\models\CardsModel;
 use app\models\OrdersModel;
 use app\models\PayForm;
 use app\models\TransactionsModel;
+use CloudPayments\Exception\PaymentException;
 use Exception;
 use Yii;
 use yii\debug\models\search\Log;
@@ -69,26 +70,48 @@ class PaymentController extends Controller
 
             try {
                 $transaction = new TransactionsModel();
-                $transaction->order_id = $form->order_id;
-                $transaction->total_price = $order->totalPrice();
-                $transaction->user_id = Yii::$app->user->getId();
-                $transaction->save();
+                $transaction->create($form->order_id, $order->totalPrice(), Yii::$app->user->getId());
             } catch (Exception $e) {
-                Yii::$app->session->setFlash("order-error", 'Ошибка создания транзакции');
                 Yii::error($e->getMessage(), 'payment.pay');
                 return $this->redirect(['/order/confirm-step2', 'id' => $form->order_id]);
             }
 
+            $card = CardsModel::find()->where(['user_id' => Yii::$app->user->getId(), 'state' => 1])->one();
+            if ($card) {
+               try {
+                   $client = new \CloudPayments\Manager(Yii::$app->params['cloud_id'], Yii::$app->params['cloud_private_key']);
+                   $response = $client->chargeToken($transaction->total_price, 'RUB', Yii::$app->user->getId(), $card->token);
+
+                   return $this->asJson(
+                       [
+                           'success' => true,
+                           'action' => 'charge',
+                           'data' => $response->getId()
+                       ]);
+
+               } catch (PaymentException $e) {
+                   Yii::error($e->getMessage(), 'payment.pay');
+
+                   return $this->asJson(
+                       [
+                           'success' => false,
+                           'action' => 'charge',
+                           'data' => $e->getCardHolderMessage()
+                       ]);
+               }
+            }
+
             return $this->asJson(
                 [
-                    'result' => 'success',
+                    'success' => true,
+                    'action' => 'frame',
                     'data' => $transaction
                 ]);
         }
 
         return $this->asJson(
             [
-                'result' => 'error'
+                'success' => false,
             ]);
     }
 

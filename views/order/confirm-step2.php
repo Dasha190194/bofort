@@ -146,10 +146,8 @@ use yii\widgets\ActiveForm; ?>
                     var $form = $(this);
 
                     if ($form.data('submitted') === true) {
-                        // Previously submitted - don't submit again
                         e.preventDefault();
                     } else {
-                        // Mark it so that the next submit can be ignored
                         $form.data('submitted', true);
                         var data = $(this).serialize();
                         $.ajax({
@@ -158,8 +156,15 @@ use yii\widgets\ActiveForm; ?>
                             type: 'POST',
                             async: false,
                             success: function (request) {
-                                if (request.result == 'success') {
-                                    pay(request.data.order_id, request.data.total_price, request.data.user_id);
+                                if (request.success) {
+                                    switch (request.action) {
+                                        case 'charge': location.replace('/order/final'); break;
+                                        case 'frame':  pay(request.data.order_id, request.data.total_price, request.data.user_id); break;
+                                    }
+                                } else {
+                                    if (request.action === 'charge') {
+                                        alert(request.data);
+                                    }
                                 }
                             }
                         });
