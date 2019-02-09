@@ -4,7 +4,7 @@
 
 /** @var \app\models\BoatsModel $boats */
 
-$this->title = 'My Yii Application';
+$this->title = 'Bofort';
 ?>
 <div class="site-index">
 
