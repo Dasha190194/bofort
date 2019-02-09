@@ -84,20 +84,23 @@ class OrderController extends Controller
         return $this->render('confirm-step2', compact('order', 'services', 'model'));
     }
 
-    public function actionFinal(int $id) {
+    public function actionFinal() {
         return $this->render('final');
     }
 
     public function actionRefund(int $id) {
 
         $order = OrdersModel::findOne($id);
-     //   try {
+        try {
             $client = new \CloudPayments\Manager(Yii::$app->params['cloud_id'], Yii::$app->params['cloud_private_key']);
             $client->refundPayment($order->transaction->cloud_transaction_id, $order->transaction->total_price);
-     //   } catch (Exception $e){
-         //   Yii::error($e->getMessage(), 'order.refund');
+        } catch (Exception $e){
+            Yii::error($e->getMessage(), 'order.refund');
             return $this->asJson(['result' => false]);
-     //   }
+        }
+
+        $order->state = 2;
+        $order->save();
 
         Yii::info("Order [$id] success refund", 'order.refund');
         return $this->asJson(['result' => true]);

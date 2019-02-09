@@ -74,7 +74,7 @@ $date_now = date_create();
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <a class="btn btn-primary btn-block order-more-info">Подробнее</a>
+                                <a data-id="<?= $order->id?>" class="btn btn-primary btn-block order-more-info">Подробнее</a>
                             </div>
                         </div>
                     </div>
