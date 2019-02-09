@@ -134,6 +134,7 @@ use yii\widgets\ActiveForm; ?>
                         accountId: user_id,
                     },
                     function (options) {
+                        location.replace('/order/final');
                     },
                     function (reason, options) { // fail
                         //действие при неуспешной оплате

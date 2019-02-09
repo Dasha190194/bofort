@@ -1,8 +1,10 @@
 <?php
 use app\models\TransactionsModel;
+
+/** @var \app\models\CardsModel $cards */
 ?>
 
-<div class="profile-container cards-container hidden">
+<div class="profile-container cards-container">
     <div>
         <h2>Сохраненный карты</h2>
         <?php foreach($cards as $card): ?>
@@ -16,19 +18,26 @@ use app\models\TransactionsModel;
                 </div>
                 <div class="col-md-4" style="padding-top: 14px;">
                     <div>
-                        <?= $card->type?> <?= $card->number?>
+                        <?= $card->type?> ****<?= $card->last_four?>
                     </div>
                     <div>
                         <?php if($card->state == 1): ?>
                             <i class="glyphicon glyphicon-ok"></i> Основная карта
                         <?php else: ?>
-                            <a href="/user/change-card-state">Сделать основной</a>
+                            <a href="/user/change-card-state?id=<?=$card->id?>&state=1">Сделать основной</a>
                         <?php endif; ?>
                     </div>
                 </div>
+                <div class="col-md-offset-3 col-md-3">
+                    <?php if($card->state == 1): ?>
+                        Карту нельзя удалить
+                    <?php else: ?>
+                        <a>Удалить карту</a>
+                    <?php endif; ?>
+                </div>
             </div>
         <?php endforeach; ?>
-        <a class="btn btn-default">Добавить новую карту</a>
+<!--        <a class="btn btn-default">Добавить новую карту</a>-->
     </div>
     <div>
         <h2>История списаний</h2>

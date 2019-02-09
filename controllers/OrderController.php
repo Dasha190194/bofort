@@ -42,7 +42,6 @@ class OrderController extends Controller
         ];
     }
 
-
     public function actionCreate() {
 
         $post = Yii::$app->request->post();
@@ -82,6 +81,10 @@ class OrderController extends Controller
         $model = new PayForm();
 
         return $this->render('confirm-step2', compact('order', 'services', 'model'));
+    }
+
+    public function actionFinal(int $id) {
+        return $this->render('final');
     }
 
     public function actionApplyPromo(int $order_id, string $word) {
@@ -139,7 +142,7 @@ class OrderController extends Controller
         return $this->renderPartial('_payBlock', compact('order'));
     }
 
-    public function actionInfo($id = 14) {
+    public function actionInfo($id) {
         $order = OrdersModel::findOne($id);
 
         return $this->renderPartial('_orderInfo', compact('order'));

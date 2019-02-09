@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm; ?>
 
 <link rel='stylesheet' href='/js/fullcalendar/fullcalendar.css' />
+<link rel='stylesheet' href='/css/calendar.css' />
 <script src='/js/fullcalendar/lib/moment.min.js'></script>
 <script src='/js/fullcalendar/fullcalendar.js'></script>
 <script src='/js/fullcalendar/locale-all.js'></script>

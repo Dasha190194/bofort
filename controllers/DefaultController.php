@@ -494,6 +494,17 @@ class DefaultController extends Controller
     }
 
     public function actionChangeCardState($id, $state) {
+        Yii::info("Изменение состояния карты [$id] $state", 'default.change-card-state');
+        try {
+            CardsModel::updateAll(['state' => !$state], 'user_id = '.Yii::$app->user->getId());
+            $card = CardsModel::findOne($id);
+            $card->state = $state;
+            $card->save();
+        } catch (Exception $e) {
+            Yii::error($e->getMessage(), 'default.change-card-state');
+        }
 
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return ['result' => true];
     }
 }

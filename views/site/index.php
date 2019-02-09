@@ -60,7 +60,7 @@ $this->title = 'My Yii Application';
             <?php foreach ($boats as $boat): ?>
                 <div class="col-md-3">
                     <div class="boats-image">
-                        <img src="/uploads/250X150/<?= $boat->image->path ?>">
+                        <img src="http://bofort.su/uploads/250X150/<?= $boat->image->path ?>">
                         <span class="label label-default"><?= $boat->price ?></span>
                     </div>
 
