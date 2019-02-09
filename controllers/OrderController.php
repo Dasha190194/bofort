@@ -33,7 +33,7 @@ class OrderController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['create', 'confirm-step1', 'confirm-step2', 'apply-promo', 'add-service', 'remove-service', 'info', 'get-times'],
+                        'actions' => ['create', 'confirm-step1', 'confirm-step2', 'apply-promo', 'add-service', 'remove-service', 'info', 'get-times', 'final'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

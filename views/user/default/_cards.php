@@ -4,7 +4,7 @@ use app\models\TransactionsModel;
 /** @var \app\models\CardsModel $cards */
 ?>
 
-<div class="profile-container cards-container">
+<div class="profile-container cards-container hidden">
     <div>
         <h2>Сохраненный карты</h2>
         <?php foreach($cards as $card): ?>
