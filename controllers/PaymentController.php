@@ -105,7 +105,7 @@ class PaymentController extends Controller
     {
         if (Yii::$app->getRequest()->getMethod() == 'POST') {
 
-            Yii::info("Cloudpayment answer [$_POST]", 'payment.complete');
+          //  Yii::info("Cloudpayment answer [{$_POST}]", 'payment.complete');
             $input = InputPayAnswer::collect();
             try {
                 $transaction = TransactionsModel::find()->where(['order_id' => $input->invoiceId])->orderBy('id DESC')->one();
