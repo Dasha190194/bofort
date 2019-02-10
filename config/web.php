@@ -42,10 +42,10 @@ $config = [
             'useFileTransport' => false,
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
-                'host' => 'smtp.gmail.com',
-                'username' => 'dariyogienko@gmail.com',
-                'password' => 'Dasha190194',
-                'port' => '587',
+                'host' => 'smtp.beget.com',
+                'username' => 'reply@bofort.su',
+                'password' => 'Qwerty123',
+                'port' => '25',
                 'encryption' => 'tls',
             ],
             'messageConfig' => [
