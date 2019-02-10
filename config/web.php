@@ -49,7 +49,7 @@ $config = [
                 'encryption' => 'tls',
             ],
             'messageConfig' => [
-                'from' => 'dariyogienko@gmail.com' // sender address goes here
+                'from' => 'reply@bofort.su' // sender address goes here
             ]
         ],
 //        'mail' => [
