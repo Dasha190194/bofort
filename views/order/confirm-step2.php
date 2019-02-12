@@ -136,8 +136,8 @@ use yii\widgets\ActiveForm; ?>
                     function (options) {
                         location.replace('/order/final');
                     },
-                    function (reason, options) { // fail
-                        //действие при неуспешной оплате
+                    function (reason, options) {
+                        alert(reason);
                     });
             };
 

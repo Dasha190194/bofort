@@ -24,11 +24,12 @@ class TransactionsModel extends ActiveRecord
         return 'transactions';
     }
 
-    public function create($order_id, $total_price, $user_id) {
+    public function create($order_id, $total_price, $user_id, $card_id, $cloud_transaction_id) {
         $this->order_id = $order_id;
         $this->total_price = $total_price;
         $this->user_id = $user_id;
-        //$this->save();
+        $this->card_id = $card_id;
+        $this->cloud_transaction_id = $cloud_transaction_id;
     }
 
     public function getOrder() {

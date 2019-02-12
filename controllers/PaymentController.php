@@ -134,22 +134,23 @@ class PaymentController extends Controller
         return ActiveForm::validate($form);
     }
 
+    /**
+     * Callback от cloudpayment об успешной оплате
+     * @return array
+     */
     public function actionComplete()
     {
         if (Yii::$app->getRequest()->getMethod() == 'POST') {
 
-          //  Yii::info("Cloudpayment answer [{$_POST}]", 'payment.complete');
+            Yii::info('Cloudpayment answer ['.json_decode($_POST).']', 'payment.complete');
             $input = InputPayAnswer::collect();
             try {
 
-                $transaction = new TransactionsModel();
-                $transaction->create($input->invoiceId, $input->amount, $input->accountId);
-
                 $card = CardsModel::createCardIFNoExist($input);
 
+                $transaction = new TransactionsModel();
+                $transaction->create($input->invoiceId, $input->amount, $input->accountId, $card->id, $input->transactionId);
                 $transaction->state = 1;
-                $transaction->card_id = $card->id;
-                $transaction->cloud_transaction_id = $input->transactionId;
                 $transaction->save();
 
                 $order = OrdersModel::findOne($input->invoiceId);
@@ -159,6 +160,32 @@ class PaymentController extends Controller
                 return ['code' => 0];
             } catch (Exception $e) {
                 Yii::error($e->getMessage(), 'payment.complete');
+            }
+        }
+
+        return ['code' => -1];
+    }
+
+    /**
+     * Callback от cloudpayment о неуспешной оплате
+     * @return array
+     */
+    public function actionFail() {
+        if (Yii::$app->getRequest()->getMethod() == 'POST') {
+
+            Yii::info('Cloudpayment answer ['.json_decode($_POST).']', 'payment.fail');
+            $input = InputPayAnswer::collect();
+            try {
+
+                $card = CardsModel::createCardIFNoExist($input);
+
+                $transaction = new TransactionsModel();
+                $transaction->create($input->invoiceId, $input->amount, $input->accountId, $card->id, $input->transactionId);
+                $transaction->save();
+
+                return ['code' => 0];
+            } catch (Exception $e) {
+                Yii::error($e->getMessage(), 'payment.fail');
             }
         }
 
