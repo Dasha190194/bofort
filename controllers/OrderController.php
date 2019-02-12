@@ -167,11 +167,18 @@ class OrderController extends Controller
         return $this->renderPartial('_orderInfo', compact('order'));
     }
 
+    /**
+     * Достаем заеятое время у каждой лодки
+     * @param int $boat_id
+     * @param $date
+     * @return \yii\web\Response
+     * @throws \Exception
+     */
     public function actionGetTimes(int $boat_id, $date) {
 
         $date = new DateTime($date.'-01');
         $busyBoats = OrdersModel::find()
-                            ->where(['boat_id' => $boat_id, 'is_paid' => 1])
+                            ->where(['boat_id' => $boat_id, 'state' => 1])
                             ->andWhere(['>=', 'datetime_from', $date->format('Y-m-d')])
                             ->andWhere(['<=',  'datetime_from', $date->modify('+ 1 month')->format('Y-m-d')])
                             ->all();
@@ -182,7 +189,7 @@ class OrderController extends Controller
             $interval = new DateInterval('PT1H');
             $range = new DatePeriod($begin, $interval ,$end);
             foreach ($range as $rng) {
-                $datetimes[] = $rng->format('Y-m-d\TH:i:s');
+                $datetimes[] = $rng->format('Y-m-d\TH:00:00');
             }
         }
 

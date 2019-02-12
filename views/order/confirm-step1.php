@@ -191,15 +191,15 @@ use yii\widgets\ActiveForm; ?>
             let minBlock = $('div[data-number="'+min+'"]').parent('.fc-major');
             let minDate = minBlock.data('date');
 
-            $('#orderconfirmform-datetime_from').val(moment(minDate).format("YYYY-MM-DD HH:M0"));
-            $('#datetime_from').text(moment(minDate).format("YYYY-MM-DD HH:M0"));
+            $('#orderconfirmform-datetime_from').val(moment(minDate).format("YYYY-MM-DD HH:00"));
+            $('#datetime_from').text(moment(minDate).format("YYYY-MM-DD HH:00"));
 
             let max = Math.max.apply(Math, numberArray);
             let maxBlock = $('div[data-number="'+max+'"]').parent('.fc-major');
             let maxDate = maxBlock.data('date');
 
-            $('#orderconfirmform-datetime_to').val(moment(maxDate).add(1, 'hour').format("YYYY-MM-DD HH:M0"));
-            $('#datetime_to').text(moment(maxDate).add(1, 'hour').format("YYYY-MM-DD HH:M0"));
+            $('#orderconfirmform-datetime_to').val(moment(maxDate).add(1, 'hour').format("YYYY-MM-DD HH:00"));
+            $('#datetime_to').text(moment(maxDate).add(1, 'hour').format("YYYY-MM-DD HH:00"));
 
         }
 
