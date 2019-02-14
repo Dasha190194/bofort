@@ -88,6 +88,12 @@ class OrderController extends Controller
         return $this->render('final');
     }
 
+    /**
+     * Отмена заказа и возврат денег
+     * @param int $id
+     * @return \yii\web\Response
+     * @throws \CloudPayments\Exception\RequestException
+     */
     public function actionRefund(int $id) {
 
         $order = OrdersModel::findOne($id);
@@ -101,6 +107,9 @@ class OrderController extends Controller
 
         $order->state = 2;
         $order->save();
+
+        $order->transaction->state = 2;
+        $order->transaction->save();
 
         Yii::info("Order [$id] success refund", 'order.refund');
         return $this->asJson(['result' => true]);

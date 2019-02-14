@@ -26,6 +26,26 @@ class OrdersModel extends ActiveRecord
         return 'orders';
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'price' => 'Цена',
+            'discount' => 'Скидка',
+            'datetime_from' => 'Время начала',
+            'datetime_to' => 'Время конца',
+            'datetime_create' =>'Время создания',
+        ];
+    }
+
+    public function rules()
+    {
+        return [
+            [['datetime_from', 'datetime_to'], 'safe'],
+            ['state', 'safe'],
+        ];
+    }
+
+
     public function applyPromo($promocode) {
       //  $this->discount = $promocode->count;
         $this->promo_id = $promocode->id;
@@ -80,6 +100,10 @@ class OrdersModel extends ActiveRecord
 
     public function getTransaction() {
         return $this->hasOne(TransactionsModel::className(), ['order_id' => 'id']);
+    }
+
+    public function getUser() {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
     public function getServicesId() {

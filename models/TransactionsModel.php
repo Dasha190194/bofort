@@ -16,7 +16,8 @@ class TransactionsModel extends ActiveRecord
     static $transactionsState = [
             0 => 'Новая',
             1 => 'Успешная',
-            -1 => 'Ошибка'
+            -1 => 'Ошибка',
+            2 => 'Возврат'
         ];
 
     public static function tableName()
