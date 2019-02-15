@@ -73,7 +73,7 @@ class PaymentController extends Controller
                try {
 
                    $transaction = new TransactionsModel();
-                   $transaction->create($form->order_id, $order->totalPrice(), Yii::$app->user->getId());
+                   $transaction->create($form->order_id, $order->totalPrice(), Yii::$app->user->getId(), $card->id);
 
                    $client = new \CloudPayments\Manager(Yii::$app->params['cloud_id'], Yii::$app->params['cloud_private_key']);
                    $response = $client->chargeToken($transaction->total_price, 'RUB', Yii::$app->user->getId(), $card->token);
@@ -95,7 +95,7 @@ class PaymentController extends Controller
 
                    $transaction->card_id = $card->id;
                    $transaction->state = -1;
-                   $transaction->cloud_transaction_id = $response->getId();
+                 //  $transaction->cloud_transaction_id = $response->getId();
                    $transaction->save();
 
                    return $this->asJson(

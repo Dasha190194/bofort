@@ -150,6 +150,7 @@ use yii\widgets\ActiveForm; ?>
                     } else {
                         $form.data('submitted', true);
                         var data = $(this).serialize();
+                        console.log(123);
                         $.ajax({
                             url: '/payment/pay',
                             data: data,
