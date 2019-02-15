@@ -142,7 +142,7 @@ class PaymentController extends Controller
     {
         if (Yii::$app->getRequest()->getMethod() == 'POST') {
 
-            Yii::info('Cloudpayment answer ['.json_decode($_POST).']', 'payment.complete');
+            Yii::info('Cloudpayment answer ['.json_encode($_POST).']', 'payment.complete');
             $input = InputPayAnswer::collect();
             try {
 
@@ -173,7 +173,7 @@ class PaymentController extends Controller
     public function actionFail() {
         if (Yii::$app->getRequest()->getMethod() == 'POST') {
 
-            Yii::info('Cloudpayment answer ['.json_decode($_POST).']', 'payment.fail');
+            Yii::info('Cloudpayment answer ['.json_encode($_POST).']', 'payment.fail');
             $input = InputPayAnswer::collect();
             try {
 
