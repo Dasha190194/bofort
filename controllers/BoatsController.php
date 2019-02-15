@@ -13,6 +13,8 @@ use app\models\BoatActionsForm;
 use app\models\BoatForm;
 use app\models\BoatsModel;
 use app\models\OrderCreateForm;
+use app\models\TariffForm;
+use app\models\TariffsModel;
 use Yii;
 use yii\base\ErrorException;
 use yii\base\Exception;
@@ -50,9 +52,10 @@ class BoatsController extends Controller
         if(!$boat) throw new ErrorException('Not found.');
 
         $model = new BoatForm();
+        $modelT = new TariffForm();
 
         $post = Yii::$app->request->post();
-        if ($model->load($post) && $model->validate()) {
+        if ($model->load($post) && $model->validate() && $modelT->load($post) && $modelT->validate()) {
             try {
                 $model->images = UploadedFile::getInstances($model, 'images');
                 if (!$model->upload()) throw new Exception('Ошибка сохранения изображения!');
@@ -60,12 +63,22 @@ class BoatsController extends Controller
                 Yii::error($e->getMessage(), 'boats.create');
             }
 
-            $id = $model->save();
+            $id = $model->save($boat);
+
+            $tariff = $boat->tariff;
+            $tariff->boat_id = $id;
+            $tariff->holiday = $modelT->holiday;
+            $tariff->weekday = $modelT->weekday;
+            $tariff->four_hours = $modelT->four_hours;
+            $tariff->one_day = $modelT->one_day;
+            $tariff->save();
+
             $this->redirect(['show', 'id' => $id]);
         }
 
         $model->loadData($boat);
-        return $this->render('update', compact('model'));
+        $modelT->loadData($boat->tariff);
+        return $this->render('update', compact('model', 'modelT'));
     }
 
     /**
@@ -74,6 +87,7 @@ class BoatsController extends Controller
      */
     public function actionCreate() {
         $model = new BoatForm();
+        $modelT = new TariffForm();
 
         $post = Yii::$app->request->post();
         if ($model->load($post) && $model->validate()) {
@@ -86,9 +100,18 @@ class BoatsController extends Controller
             }
 
             $id = $model->save();
+
+            $tariff = new TariffsModel();
+            $tariff->boat_id = $id;
+            $tariff->holiday = $modelT->holiday;
+            $tariff->weekday = $modelT->weekday;
+            $tariff->four_hours = $modelT->four_hours;
+            $tariff->one_day = $modelT->one_day;
+            $tariff->save();
+
             $this->redirect(['show', 'id' => $id]);
         }
 
-        return $this->render('create', compact('model'));
+        return $this->render('create', compact('model', 'modelT'));
     }
 }

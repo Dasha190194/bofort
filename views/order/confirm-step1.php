@@ -20,12 +20,11 @@ use yii\widgets\ActiveForm; ?>
 
     <div class="row">
         <div class="col-md-3">
-            <img src="/images/thumbnail?path=<?= $order->boat->image->path ?>&width=250&height=150">
+            <img src="<?= (isset($boat->image))?Yii::$app->params['uploadsPath'].'250X150/'.$boat->image->path:'/index.png' ?>">
         </div>
         <div class="col-md-9">
             <h4><?= $order->boat->name ?></h4>
             <p>От <?= $order->boat->spaciousness ?> человек, мощность <?= $order->boat->engine_power ?>, <?= $order->boat->location ?></p>
-            <div id="boat_price" style="display: none;"><?= $order->boat->price ?></div>
         </div>
     </div>
 
@@ -173,7 +172,7 @@ use yii\widgets\ActiveForm; ?>
              timeBlock.addClass('select-time');
 
              fixValue();
-             calculateCoast();
+
          }
 
         function deselectNumber(number, timeBlock) {
@@ -182,7 +181,6 @@ use yii\widgets\ActiveForm; ?>
             timeBlock.removeClass('select-time');
 
             fixValue();
-            calculateCoast();
         }
 
         function fixValue() {
@@ -201,14 +199,30 @@ use yii\widgets\ActiveForm; ?>
             $('#orderconfirmform-datetime_to').val(moment(maxDate).add(1, 'hour').format("YYYY-MM-DD HH:00"));
             $('#datetime_to').text(moment(maxDate).add(1, 'hour').format("YYYY-MM-DD HH:00"));
 
+            calculateCoast(moment(minDate).format("YYYY-MM-DD HH:00"), moment(maxDate).add(1, 'hour').format("YYYY-MM-DD HH:00"));
         }
 
-        function calculateCoast() {
-             var price = $('#boat_price').text();
+        function calculateCoast(minDate, maxDate) {
 
-             $('#order-confirm').show();
-             $('#orderconfirmform-coast').val(numberArray.length * price);
-             $('#coast').text(numberArray.length * price + ' руб.');
+            var price = 0;
+
+            $.ajax({
+                url: '/order/price',
+                type: 'GET',
+                data: {
+                    boat_id: boat_id,
+                    datetime_from: minDate,
+                    datetime_to: maxDate
+                },
+                success: function (data) {
+                    if (data.success === true) {
+                        price = data.result;
+                        $('#order-confirm').show();
+                        $('#orderconfirmform-coast').val(price);
+                        $('#coast').text(price + ' руб.');
+                    }
+                }
+            });
          }
 
         function daySelect(day) {

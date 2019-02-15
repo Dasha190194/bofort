@@ -11,10 +11,7 @@
 <div class="admin-container">
     <ul>
         <li>
-            <a href="/boats/tarifs">Заказы</a>
-        </li>
-        <li>
-            <a href="/boats/tarifs">Изменить стоимость!!!!!!!</a>
+            <a href="/admin/orders">Заказы</a>
         </li>
         <li>
             <a href="/actions/">Акции</a>

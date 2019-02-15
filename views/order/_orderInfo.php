@@ -38,7 +38,7 @@ use app\helpers\Utils; ?>
     <div class="col-md-12">
         <div class="row total-row">
             <div class="col-md-6"><span>Стоимость аренды яхты</span></div>
-            <div class="col-md-6 text-right"><span><?=Utils::userPrice($order->boat->price) ?></span></div>
+            <div class="col-md-6 text-right"><span><?=Utils::userPrice($order->price) ?></span></div>
         </div>
     </div>
 </div>

@@ -37,6 +37,10 @@ class BoatsModel extends ActiveRecord
             ->viaTable('boat_actions', ['boat_id' => 'id']);
     }
 
+    public function getTariff() {
+        return $this->hasOne(TariffsModel::className(), ['boat_id' => 'id']);
+    }
+
     public function getServicesName() {
         $services = $this->getServices()->all();
         $servicesId = [];

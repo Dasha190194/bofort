@@ -8,6 +8,7 @@
 
 namespace app\controllers;
 
+use app\models\BoatsModel;
 use app\models\OrderConfirmForm;
 use app\models\OrderCreateForm;
 use app\models\OrderSession;
@@ -34,7 +35,7 @@ class OrderController extends Controller
                 'rules' => [
                     [
                         'actions' => ['create', 'confirm-step1', 'confirm-step2', 'apply-promo', 'add-service',
-                                      'remove-service', 'info', 'get-times', 'final', 'refund'],
+                                      'remove-service', 'info', 'get-times', 'final', 'refund', 'price'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -177,7 +178,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Достаем заеятое время у каждой лодки
+     * Достаем занятое время у каждой лодки
      * @param int $boat_id
      * @param $date
      * @return \yii\web\Response
@@ -203,5 +204,49 @@ class OrderController extends Controller
         }
 
         return $this->asJson($datetimes);
+    }
+
+    /**
+     * Расчет стоимости заказа
+     * @param int $boat_id
+     * @param $datetime_from
+     * @param $datetime_to
+     * @return \yii\web\Response
+     */
+    public function actionPrice(int $boat_id, $datetime_from, $datetime_to) {
+
+        try {
+            $boat = BoatsModel::findOne($boat_id);
+            if (!$boat) throw new Exception('Лодка не найдена!');
+
+            $price = 0;
+            $tariff = $boat->tariff;
+            $datetimes = $this->getDateTimeInterval($datetime_from, $datetime_to);
+
+            if (count($datetimes) >= 24) $price = $tariff->one_day;
+            elseif (count($datetimes) >= 4) $price = $tariff->four_hours;
+            elseif (in_array($datetimes[0]->format('D'), ['Sat', 'Sun'])) $price = $tariff->holiday;
+            else $price = $tariff->weekday;
+
+        } catch (Exception $e) {
+            Yii::error("Произошла ошибка при расчете тарифа boat_i[$boat_id]");
+        }
+
+        return $this->asJson([
+           'success' => true,
+           'result' => $price*count($datetimes)
+        ]);
+    }
+
+    private function getDateTimeInterval($datetime_from, $datetime_to, $raw = 1) {
+        $begin = new DateTime($datetime_from);
+        $end = new DateTime($datetime_to);
+        $interval = new DateInterval('PT1H');
+        $range = new DatePeriod($begin, $interval ,$end);
+        foreach ($range as $rng) {
+            $datetimes[] = ($raw)?$rng:$rng->format('Y-m-d\TH:00:00');
+        }
+
+        return $datetimes;
     }
 }

@@ -16,7 +16,7 @@ use yii\web\UploadedFile;
 
 class BoatForm extends Model
 {
-    public $name, $description, $price, $engine_power, $spaciousness, $certificate, $location, $short_description, $images;
+    public $name, $description, $engine_power, $spaciousness, $certificate, $location, $short_description, $images;
 
     /**
      * @return array the validation rules.
@@ -24,8 +24,7 @@ class BoatForm extends Model
     public function rules()
     {
         return [
-            [['name', 'description', 'price', 'engine_power', 'spaciousness', 'certificate', 'location', 'short_description'], 'required'],
-            ['price', 'number'],
+            [['name', 'description', 'engine_power', 'spaciousness', 'certificate', 'location', 'short_description'], 'required'],
             [['images'], 'file', 'maxFiles' => 10, 'extensions' => 'png, jpg, jpeg'],
         ];
     }
@@ -35,7 +34,6 @@ class BoatForm extends Model
         return [
             'name' => 'Имя',
             'description' => 'Описание',
-            'price' => 'Цена',
             'engine_power' => 'Мощность',
             'spaciousness' => 'Вместимость',
             'certificate' => 'Сертификаты',
@@ -45,8 +43,7 @@ class BoatForm extends Model
         ];
     }
 
-    public function save() {
-        $boat = new BoatsModel();
+    public function save(BoatsModel $boat) {
         foreach (array_keys($this->getAttributes()) as $attribute)
             if ($attribute != 'images') $boat->$attribute = $this->$attribute;
 

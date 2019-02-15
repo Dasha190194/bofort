@@ -19,7 +19,7 @@
         <div class="row" style="margin-bottom: 20px">
             <div class="col-md-4 boat-show-img">
                 <img src="<?= (isset($boat->image))?Yii::$app->params['uploadsPath'].'350X200/'. $boat->image->path:'/index.png'?>">
-                <span class="label label-default"><?= $boat->price ?></span>
+                <span class="label label-default"><?= $boat->tariff->weekday ?></span>
             </div>
             <div class="col-md-8">
                 <div class="row">

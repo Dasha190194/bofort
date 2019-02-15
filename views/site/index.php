@@ -61,7 +61,7 @@ $this->title = 'Bofort';
                 <div class="col-md-3">
                     <div class="boats-image">
                         <img src="http://bofort.su/uploads/250X150/<?= $boat->image->path ?>">
-                        <span class="label label-default"><?= $boat->price ?></span>
+                        <span class="label label-default"><?= $boat->tariff->weekday ?></span>
                     </div>
 
                     <p><?= $boat->short_description ?></p>
