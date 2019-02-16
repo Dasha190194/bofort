@@ -88,7 +88,7 @@ $this->title = $boat->name;
                         $items = [];
                         foreach ($boat->images as $image) {
                             $items[] = [
-                                'content' => '<img src="/'.$image->path.'" style="width:555px;height:350px;">',
+                                'content' => '<img src="'.Yii::$app->params['uploadsPath'].'550X350/'.$image->path.'">',
                             ];
                         }
 

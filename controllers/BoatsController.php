@@ -55,6 +55,7 @@ class BoatsController extends Controller
         $modelT = new TariffForm();
 
         $post = Yii::$app->request->post();
+
         if ($model->load($post) && $model->validate() && $modelT->load($post) && $modelT->validate()) {
             try {
                 $model->images = UploadedFile::getInstances($model, 'images');
@@ -99,7 +100,8 @@ class BoatsController extends Controller
                 Yii::error($e->getMessage(), 'app.boats.create');
             }
 
-            $id = $model->save();
+            $boat = new BoatsModel();
+            $id = $model->save($boat);
 
             $tariff = new TariffsModel();
             $tariff->boat_id = $id;

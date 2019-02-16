@@ -11,7 +11,14 @@
 
 use kartik\file\FileInput;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm; ?>
+use yii\widgets\ActiveForm;
+
+$images = [];
+foreach ($model->images as $image) {
+    $images[] = 'http://localhost:8080/uploads/origin/'.$image->path;
+}
+
+?>
 
 
 <div class="row">
@@ -57,6 +64,10 @@ use yii\widgets\ActiveForm; ?>
                                 'showUpload' => true,
                                 'browseLabel' => ' ',
                                 'removeLabel' => ' ',
+                                'initialPreview'=>$images,
+                                'initialPreviewAsData'=>true,
+                                'overwriteInitial'=>true,
+                                'maxFileSize'=>2800
                                ],
             'options' => [
                             'accept' => 'image/*',
