@@ -2,11 +2,16 @@
 
 namespace app\controllers;
 
+use amnah\yii2\user\models\UserToken;
+use app\components\Sms\SmsModel;
+use app\components\Sms\SMSRU;
 use app\models\CardsModel;
 use app\models\NotificationsModel;
 use app\models\OrdersModel;
+use app\models\PhoneConfirmForm;
 use app\models\TransactionsModel;
 use Exception;
+use tests\models\UserTest;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
@@ -40,7 +45,7 @@ class DefaultController extends Controller
                         'roles' => ['?', '@'],
                     ],
                     [
-                        'actions' => ['account', 'profile', 'resend-change', 'cancel', 'change-card-state', 'reset'],
+                        'actions' => ['account', 'profile', 'resend-change', 'cancel', 'change-card-state', 'reset', 'account-edit', 'code-confirm'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -369,23 +374,21 @@ class DefaultController extends Controller
         $transactions = TransactionsModel::find()->where(['user_id' => $user->getId()])->andWhere(['IS NOT', 'card_id', null])->all();
         $notifications = NotificationsModel::find()->where(['user_id' => $user->getId()])->all();
         $new_notifications = NotificationsModel::find()->where(['user_id' => $user->getId(), 'is_open' => 0])->count();
+//
+//        $loadedPost = $profile->load(Yii::$app->request->post());
 
-        $loadedPost = $profile->load(Yii::$app->request->post());
-
-        // validate for ajax request
-        if ($loadedPost && Yii::$app->request->isAjax) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return ActiveForm::validate($profile);
-        }
-
-        // validate for normal request
-        if ($loadedPost && $profile->validate()) {
-            $profile->save(false);
-            Yii::$app->session->setFlash("Profile-success", Yii::t("user", "Profile updated"));
-            return $this->refresh();
-        }
-
-
+//        // validate for ajax request
+//        if ($loadedPost && Yii::$app->request->isAjax) {
+//            Yii::$app->response->format = Response::FORMAT_JSON;
+//            return ActiveForm::validate($profile);
+//        }
+//
+//        // validate for normal request
+//        if ($loadedPost && $profile->validate()) {
+//            $profile->save(false);
+//            Yii::$app->session->setFlash("Profile-success", Yii::t("user", "Profile updated"));
+//            return $this->refresh();
+//        }
 
         return $this->render("profile", compact("profile", "user", "orders", "cards", "transactions", "notifications", 'new_notifications'));
     }
@@ -494,17 +497,65 @@ class DefaultController extends Controller
     }
 
     public function actionChangeCardState($id, $state) {
-        Yii::info("Изменение состояния карты [$id] $state", 'default.change-card-state');
+        Yii::info("Изменение состояния карты [$id] $state", 'app.default.change-card-state');
         try {
             CardsModel::updateAll(['state' => !$state], 'user_id = '.Yii::$app->user->getId());
             $card = CardsModel::findOne($id);
             $card->state = $state;
             $card->save();
         } catch (Exception $e) {
-            Yii::error($e->getMessage(), 'default.change-card-state');
+            Yii::error($e->getMessage(), 'app.default.change-card-state');
         }
 
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return ['result' => true];
+    }
+
+    public function actionAccountEdit() {
+
+        try {
+            $user = Yii::$app->user->identity;
+            $post = Yii::$app->request->post();
+
+            $phone = $post['User']['phone'];
+
+            $user->username = $post['User']['username'];
+            $user->email = $post['User']['email'];
+            $user->save();
+
+            if ($user->phone != $phone) {
+                $accessToken = new UserToken();
+                $accessToken->user_id = $user->id;
+                $accessToken->type = 5;
+                $accessToken->token = rand(1000, 9999);
+                $accessToken->save();
+
+                $model = new PhoneConfirmForm();
+                $model->phone = $phone;
+
+//                $result = $user->sendSmsConfirmation($phone, $accessToken->token);
+//                if (!$result) throw new Exception('Сообщение не было отправлено.');
+
+                return $this->renderPartial('/user/default/_phoneCode', compact('model'));
+            }
+        } catch (Exception $e) {
+            Yii::error($e->getMessage(), 'app.default.account-edit');
+        }
+
+        return $this->redirect(["/user/profile"]);
+    }
+
+    public function actionCodeConfirm() {
+        $post = Yii::$app->request->post();
+        $model = new PhoneConfirmForm();
+
+        if ($model->load($post) and $model->validate()) {
+            $user = Yii::$app->user->identity;
+            $user->phone = $model->phone;
+            $user->save();
+
+            return $this->asJson(['success' => true]);
+        }
+        return $this->asJson(['success' => false]);
     }
 }

@@ -40,12 +40,7 @@ $module = $this->context->module;
 <!---->
     <?php $form = ActiveForm::begin([
         'id' => 'account-form',
-        'options' => ['class' => ''],
-        'fieldConfig' => [
-//            'template' => "<div class='row'>{label}\n<div class=\"col-md-10\">{input}</div>\n<div class=\"col-lg-7\">{error}</div></div>",
-//            'labelOptions' => ['class' => 'col-md-2 control-label'],
-        ],
-        'enableAjaxValidation' => true,
+        'action' => '/default/account-edit',
     ]); ?>
 
     <div class="row">
@@ -96,12 +91,11 @@ $module = $this->context->module;
 <!--    --><?php
 //= $form->field($user, 'newPassword')->passwordInput() ?>
 <!---->
-<!--    <div class="form-group">-->
-<!--        <div class="col-lg-offset-2 col-lg-10">-->
-<!--            --><?php
-//= Html::submitButton(Yii::t('user', 'Update'), ['class' => 'btn btn-primary']) ?>
-<!--        </div>-->
-<!--    </div>-->
+    <div class="form-group">
+        <div class="col-md-2 col-md-offset-9">
+            <?= Html::submitButton(Yii::t('user', 'Сохранить'), ['class' => 'btn btn-primary update-account']) ?>
+        </div>
+    </div>
 <!---->
     <?php ActiveForm::end(); ?>
 <!---->
@@ -115,4 +109,18 @@ $module = $this->context->module;
 <!--        </div>-->
 <!--    </div>-->
 <!---->
+
+
+<div class="modal fade" id="phone-code" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
 </div>

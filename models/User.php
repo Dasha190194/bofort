@@ -2,6 +2,9 @@
 
 namespace app\models;
 
+use app\components\Sms\SmsModel;
+use app\components\Sms\SMSRU;
+use Exception;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
@@ -501,5 +504,20 @@ class User extends ActiveRecord implements IdentityInterface
         }
 
         return $dropdown;
+    }
+
+    public function sendSmsConfirmation($phone, $token) {
+        try {
+            $smsService = new SMSRU(Yii::$app->params['sms_key']);
+            $sms = new SmsModel($phone, $token);
+            $result = $smsService->send_one($sms);
+
+            if ($result->status == "OK") return 1;
+            else throw new Exception($result->status_text);
+
+        } catch (Exception $e) {
+            Yii::error("Sms не отправлено. Ошибка [{$e->getMessage()}]", 'user.sms-confirm');
+            return 0;
+        }
     }
 }

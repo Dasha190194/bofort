@@ -59,11 +59,15 @@ $config = [
 //            ]
 //        ],
         'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
+            'traceLevel' => YII_DEBUG ? 0 : 0,
+            'flushInterval' => 1,
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
+                   // 'categories' => ['app.*'],
                     'levels' => ['error', 'warning', 'info'],
+                    'logVars' => [],
+                    'exportInterval' => 1,
                 ],
             ],
         ],
@@ -80,6 +84,9 @@ $config = [
             'class' => 'amnah\yii2\user\Module',
             'controllerMap' => [
                 'default' => 'app\controllers\DefaultController',
+            ],
+            'modelClasses'  => [
+                'Profile' => 'app\models\Profile'
             ],
         ],
         'gridview' =>  [

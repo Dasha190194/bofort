@@ -30,7 +30,7 @@ class NotificationsController extends Controller
             $count_new_notifications = NotificationsModel::find()->where(['user_id' => Yii::$app->user->identity->getId(), 'is_open' => 0])->count();
             $response['result'] = ['count' => $count_new_notifications];
         } catch (Exception $e) {
-            Yii::error($e->getMessage(), 'notifications.open');
+            Yii::error($e->getMessage(), 'app.notifications.open');
             $response['success'] = false;
         }
 
@@ -46,7 +46,7 @@ class NotificationsController extends Controller
         try {
             NotificationsModel::deleteAll(['user_id' => Yii::$app->user->identity->getId()]);
         } catch (Exception $e) {
-            Yii::error($e->getMessage(), 'notifications.clearAll');
+            Yii::error($e->getMessage(), 'app.notifications.clearAll');
             $response['success'] = false;
         }
 

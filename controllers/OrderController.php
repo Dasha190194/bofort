@@ -102,7 +102,7 @@ class OrderController extends Controller
             $client = new \CloudPayments\Manager(Yii::$app->params['cloud_id'], Yii::$app->params['cloud_private_key']);
             $client->refundPayment($order->transaction->cloud_transaction_id, $order->transaction->total_price);
         } catch (Exception $e){
-            Yii::error($e->getMessage(), 'order.refund');
+            Yii::error($e->getMessage(), 'app.order.refund');
             return $this->asJson(['result' => false]);
         }
 
@@ -118,14 +118,14 @@ class OrderController extends Controller
 
     public function actionApplyPromo(int $order_id, string $word) {
 
-        Yii::info("Apply Promo: $word", 'order.apply-promo');
+        Yii::info("Apply Promo: $word", 'app.order.apply-promo');
 
         try {
             $promocode = PromoModel::find()->where(['word' => trim($word), 'is_active' => 1])->one();
             if (!$promocode) throw new Exception('Промокод не найден!');
         } catch (Exception $e) {
             Yii::$app->session->setFlash("order-error", $e->getMessage());
-            Yii::error($e->getMessage(), 'order.apply-promo');
+            Yii::error($e->getMessage(), 'app.order.apply-promo');
             return false;
         }
 
@@ -134,7 +134,7 @@ class OrderController extends Controller
             $order->applyPromo($promocode);
         } catch (Exception $e) {
             Yii::$app->session->setFlash("order-error", 'Не удалось применить промокод.');
-            Yii::error($e->getMessage(), 'order.apply-promo');
+            Yii::error($e->getMessage(), 'app.order.apply-promo');
             return false;
         }
 
@@ -148,7 +148,7 @@ class OrderController extends Controller
 
             $order->link('services', $service);
         } catch (Exception $e) {
-            Yii::error($e->getMessage(), 'order.apply-promo');
+            Yii::error($e->getMessage(), 'app.order.apply-promo');
             Yii::$app->session->setFlash("order-error", 'Не удалось добавить услугу.');
             return false;
         }
@@ -163,7 +163,7 @@ class OrderController extends Controller
 
             $order->unlink('services', $service);
         } catch (Exception $e) {
-            Yii::error($e->getMessage(), 'order.apply-promo');
+            Yii::error($e->getMessage(), 'app.order.apply-promo');
             Yii::$app->session->setFlash("order-error", 'Не удалось удалить услугу.');
             return false;
         }
@@ -229,7 +229,7 @@ class OrderController extends Controller
             else $price = $tariff->weekday;
 
         } catch (Exception $e) {
-            Yii::error("Произошла ошибка при расчете тарифа boat_i[$boat_id]");
+            Yii::error("Произошла ошибка при расчете тарифа boat_i[$boat_id]", 'app.order.price');
         }
 
         return $this->asJson([
