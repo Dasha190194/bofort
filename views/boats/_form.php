@@ -9,13 +9,16 @@
 /** @var \app\models\BoatForm $model */
 /** @var \app\models\TariffsModel $modelT */
 
+use app\models\ImagesModel;
 use kartik\file\FileInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 $images = [];
-foreach ($model->images as $image) {
-    $images[] = 'http://localhost:8080/uploads/origin/'.$image->path;
+if (isset($model->images)) {
+    foreach ($model->images as $image) {
+        if ($image instanceof ImagesModel) $images[] = Yii::$app->params['uploadsUrl'].'origin/'.$image->path;
+    }
 }
 
 ?>
@@ -24,8 +27,6 @@ foreach ($model->images as $image) {
 <div class="row">
     <?php $form = ActiveForm::begin([
         'id' => 'create-boat-form',
-//        'action' => '/payment/pay',
-//        'enableAjaxValidation' => true,
         'options' => ['enctype' => 'multipart/form-data']
     ]); ?>
 
@@ -58,20 +59,18 @@ foreach ($model->images as $image) {
     <?= $form->field($model, 'images[]')->widget(FileInput::classname(),
         [
             'pluginOptions' => [
-                                'showCaption' => true,
                                 'showRemove' => true,
                                 'showPreview' => true,
-                                'showUpload' => true,
                                 'browseLabel' => ' ',
                                 'removeLabel' => ' ',
-                                'initialPreview'=>$images,
-                                'initialPreviewAsData'=>true,
-                                'overwriteInitial'=>true,
-                                'maxFileSize'=>2800
+                                'initialPreview' => $images,
+                                'initialPreviewAsData' => true,
+                                'overwriteInitial' => true,
+                                'maxFileSize' => 2800
                                ],
             'options' => [
                             'accept' => 'image/*',
-                            'multiple'=>true,
+                            'multiple' => true,
                          ]
         ]
     ); ?>

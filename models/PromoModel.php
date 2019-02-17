@@ -38,6 +38,18 @@ class PromoModel extends ActiveRecord
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'word' => 'Промокод',
+            'count' => 'Скидка',
+            'count_to_use' => 'Сколько раз можно использовать',
+            'type' => 'Тип',
+            'is_active' => 'Активный'
+        ];
+    }
+
+
     public function getPromoHistory() {
         return $this->hasMany(PromoHistoryModel::className(), ['id' => 'promo_id']);
     }

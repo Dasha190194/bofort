@@ -67,6 +67,7 @@ class PaymentController extends Controller
 
         if ($form->validate()) {
             $order = OrdersModel::findOne($form->order_id);
+            $order->isOfferProcessing();
             $card = CardsModel::find()->where(['user_id' => Yii::$app->user->getId(), 'state' => 1])->one();
 
             if ($card) {

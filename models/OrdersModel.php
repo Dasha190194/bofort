@@ -114,4 +114,9 @@ class OrdersModel extends ActiveRecord
         }
         return $servicesId;
     }
+
+    public function isOfferProcessing() {
+        $this->offer_processing = 1;
+        $this->save();
+    }
 }

@@ -18,14 +18,14 @@ use yii\widgets\ActiveForm;
 <div class="row">
     <?php $form = ActiveForm::begin([
         'id' => 'action-form',
-//        'action' => '/payment/pay',
-//        'enableAjaxValidation' => true,
+        'enableAjaxValidation' => true,
     ]); ?>
 
+    <?= $form->field($model, 'name')->input('text') ?>
     <?= $form->field($model, 'price')->input('text') ?>
     <?= $form->field($model, 'datetime')->widget(\kartik\datetime\DateTimePicker::class, [
-        //'language' => 'ru',
-        //'dateFormat' => 'yyyy-MM-dd',
+        /*'language' => 'ru',
+        'dateFormat' => 'yyyy-MM-dd', */
     ]) ?>
     <?= $form->field($model, 'boats')->dropDownList(ArrayHelper::map($boats, 'id', 'name')) ?>
 

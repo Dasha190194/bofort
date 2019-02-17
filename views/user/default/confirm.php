@@ -16,16 +16,16 @@ $this->title = Yii::t('user', $success ? 'Confirmed' : 'Error');
 
         <div class="alert alert-success">
 
-            <p><?= Yii::t("user", "Your email [ {email} ] has been confirmed", ["email" => $email]) ?></p>
+            <p>Ваш Email успешно подтвержден!</p>
 
             <?php if (Yii::$app->user->isLoggedIn): ?>
 
-                <p><?= Html::a(Yii::t("user", "Go to my account"), ["/user/account"]) ?></p>
+                <p><?= Html::a('Перейти в мой аккаунт', ["/user/profile"]) ?></p>
                 <p><?= Html::a(Yii::t("user", "Go home"), Yii::$app->getHomeUrl()) ?></p>
 
             <?php else: ?>
 
-                <p><?= Html::a(Yii::t("user", "Log in here"), ["/user/login"]) ?></p>
+                <p><?= Html::a(Yii::t("user", "Войти"), ["/user/login"]) ?></p>
 
             <?php endif; ?>
 

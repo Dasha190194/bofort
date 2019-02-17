@@ -23,9 +23,19 @@ class ActionForm extends Model {
         ];
     }
 
-    public function save()
+    public function attributeLabels()
     {
-        $action = new ActionsModel();
+        return [
+            'price' => 'Скидка',
+            'datetime' => 'Время',
+            'name' => 'Название',
+            'boats' => 'Лодка'
+        ];
+    }
+
+    public function save(ActionsModel $action)
+    {
+        $action->name = $this->name;
         $action->price = $this->price;
         $action->datetime = $this->datetime;
         $action->save();

@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm; ?>
 
     <div class="row">
         <div class="col-md-3">
-            <img src="<?= (isset($boat->image))?Yii::$app->params['uploadsUrl'].'250X150/'.$boat->image->path:'/index.png' ?>">
+            <img src="<?= (isset($order->boat->image))?Yii::$app->params['uploadsUrl'].'250X150/'.$order->boat->image->path:'/index.png' ?>">
         </div>
         <div class="col-md-9">
             <h4><?= $order->boat->name ?></h4>
@@ -90,11 +90,10 @@ use yii\widgets\ActiveForm; ?>
                 center: 'title',
                 right: 'next'
             },
+            validRange: function(nowDate){
+                return {start: nowDate}
+            },
             dayClick: function(date, jsEvent, view) {
-
-                // console.log('Clicked on: ' + date.format());
-                // console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-                // console.log('Current view: ' + view.name);
 
                 daySelect($(this));
 
@@ -126,22 +125,6 @@ use yii\widgets\ActiveForm; ?>
             minTime: '06:00',
             maxTime: '23:00',
             slotDuration: '01:00:00',
-            // selectable: true,
-            // selectHelper: true,
-            // dayClick: function(date, jsEvent, view) {
-            //     $(this).css('background-color', '#777');
-            //
-            // },
-            // select: function( start, end, jsEvent, view ){
-            //     console.log(start);
-            //     console.log(end);
-            //     // if(window.confirm("Create this event?")){
-            //     //     $("#calendar").fullCalendar( "removeEvents", "chunked-helper");
-            //     //     $("#calendar").fullCalendar( "addEventSource",chunk({start:start,end:end},"event"));
-            //     // }else{
-            //     //     $("#calendar").fullCalendar( "removeEvents", "chunked-helper");
-            //     // }
-            // },
             dayRender(date, cell) {
                 cell.append('<div class="time" data-number="'+date.format("H")+'">' + moment(date).format("HH") +':00 - ' + moment(date).add(1, 'hour').format("HH") + ':00</div>');
             },

@@ -40,6 +40,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/jpeg', 'href' => Url::
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
+            Yii::$app->user->can("admin")? ('<li><a class="btn btn-default" href="/admin">Админка</a></li>'):(''),
             Yii::$app->user->isGuest ? (
                 '<li><a id="login" class="btn btn-default" onclick="return false;"><i class="glyphicon glyphicon-user" style="padding-right: 15px"></i>Войти</a></li>'
             ) : (

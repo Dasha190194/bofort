@@ -14,12 +14,33 @@ use app\models\ActionsModel;
 use app\models\BoatsModel;
 use Yii;
 use yii\base\ErrorException;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 
 
 
 class ActionsController extends Controller
 {
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index', 'create', 'update', 'delete'],
+                        'allow' => true,
+                        'roles' => ['admin'],
+                    ],
+                ],
+            ],
+        ];
+
+    }
+
     public function actionIndex() {
         $actions = ActionsModel::find()->all();
 
@@ -31,7 +52,8 @@ class ActionsController extends Controller
 
         $post = Yii::$app->request->post();
         if ($model->load($post) && $model->validate()) {
-            $model->save();
+            $action = new ActionsModel();
+            $model->save($action);
             $this->redirect('index');
         }
 
@@ -48,7 +70,7 @@ class ActionsController extends Controller
 
         $post = Yii::$app->request->post();
         if ($model->load($post) && $model->validate()) {
-            $model->save();
+            $model->save($action);
             $this->redirect('index');
         }
 

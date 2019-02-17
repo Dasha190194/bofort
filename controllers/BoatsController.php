@@ -19,11 +19,37 @@ use Yii;
 use yii\base\ErrorException;
 use yii\base\Exception;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\UploadedFile;
 
 class BoatsController extends Controller
 {
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['update', 'create'],
+                        'allow' => true,
+                        'roles' => ['admin'],
+                    ],
+                    [
+                        'actions' => ['index', 'show'],
+                        'allow' => true,
+                    ],
+                ],
+            ],
+        ];
+
+    }
+
     public function actionIndex() {
         $boats = BoatsModel::find()->all();
 
@@ -91,7 +117,7 @@ class BoatsController extends Controller
         $modelT = new TariffForm();
 
         $post = Yii::$app->request->post();
-        if ($model->load($post) && $model->validate()) {
+        if ($model->load($post) && $model->validate() && $modelT->load($post) && $modelT->validate()) {
 
             try {
                 $model->images = UploadedFile::getInstances($model, 'images');

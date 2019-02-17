@@ -3,15 +3,12 @@
 namespace app\controllers;
 
 use amnah\yii2\user\models\UserToken;
-use app\components\Sms\SmsModel;
-use app\components\Sms\SMSRU;
 use app\models\CardsModel;
 use app\models\NotificationsModel;
 use app\models\OrdersModel;
 use app\models\PhoneConfirmForm;
 use app\models\TransactionsModel;
 use Exception;
-use tests\models\UserTest;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
@@ -247,8 +244,7 @@ class DefaultController extends Controller
             }
         }
 
-        return $this->redirect('/user/profile');
-       //eturn $this->render("register", compact("user", "profile"));
+        return $this->redirect('/');
     }
 
     /**
@@ -259,7 +255,7 @@ class DefaultController extends Controller
     {
         /** @var \amnah\yii2\user\models\UserToken $userToken */
         $userToken = $this->module->model("UserToken");
-        Yii::$app->user->login($user, $this->module->loginDuration);
+        //Yii::$app->user->login($user, $this->module->loginDuration);
 
          //determine userToken type to see if we need to send email
         $userTokenType = null;
@@ -309,6 +305,8 @@ class DefaultController extends Controller
             // set email and delete token
             $email = $newEmail ?: $user->email;
             $userToken->delete();
+
+            Yii::$app->user->login($user, $this->module->loginDuration);
         }
 
         return $this->render("confirm", compact("userToken", "success", "email"));

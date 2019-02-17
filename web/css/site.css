@@ -127,3 +127,7 @@ a.desc:after {
 .admin-container .list-group-item {
     cursor: pointer;
 }
+
+.fileinput-upload-button {
+    display: none !important;
+}

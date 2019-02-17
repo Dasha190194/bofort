@@ -6,6 +6,7 @@ use yii\helpers\Html;
 ?>
 
 <div class="actions_container">
+    <h2>Акции</h2>
     <div class="row">
         <div class="col-md-12">
             <table class="table table-bordered">
