@@ -132,20 +132,6 @@ class SiteController extends Controller
      */
     public function actionAbout()
     {
-//        $smsService = new SMSRU(Yii::$app->params['sms_key']);
-//        $sms = new SmsModel('79684573662', 'Привет!');
-//        $result = $smsService->send_one($sms);
-//
-//        if ($result->status == "OK") { // Запрос выполнен успешно
-//            echo "Сообщение отправлено успешно. ";
-//            echo "ID сообщения: $result->sms_id. ";
-//            echo "Ваш новый баланс: $result->balance";
-//        } else {
-//            echo "Сообщение не отправлено. ";
-//            echo "Код ошибки: $result->status_code. ";
-//            echo "Текст ошибки: $result->status_text.";
-//        }
-
         return $this->render('about');
     }
 }

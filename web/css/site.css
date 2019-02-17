@@ -121,3 +121,9 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+
+/*АДМИНКА*/
+.admin-container .list-group-item {
+    cursor: pointer;
+}

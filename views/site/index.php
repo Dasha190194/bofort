@@ -26,7 +26,7 @@ $this->title = 'Bofort';
                 <p>
                     <strong>Make it sexy, or try a more powerful colour</strong> is there a way we can make the page feel more introductory without being cheesy give us a complimentary logo along with the website can we try some other colours maybe. I was wondering if my cat could be placed over the logo in the flyer can you punch up the fun level on these icons concept is bang on, but can we look at a better execution, and can my website be in english?
                 </p>
-                <a class="btn btn-primary mt-16">О компании</a>
+                <a class="btn btn-primary mt-16" href="/site/about">О компании</a>
             </div>
         </div>
 

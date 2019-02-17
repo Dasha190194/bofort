@@ -9,17 +9,17 @@
 ?>
 
 <div class="admin-container">
-    <ul>
-        <li>
+    <ul class="list-group">
+        <li class="list-group-item">
             <a href="/admin/orders">Заказы</a>
         </li>
-        <li>
+        <li class="list-group-item">
             <a href="/actions/">Акции</a>
         </li>
-        <li>
+        <li class="list-group-item">
             <a href="/promo/">Промокоды</a>
         </li>
-        <li>
+        <li class="list-group-item">
             <a href="/boats/index">Катера</a>
             <ul>
                 <li>
@@ -27,7 +27,7 @@
                 </li>
             </ul>
         </li>
-        <li>
+        <li class="list-group-item">
             <a href="/user/admin">Пользователи</a>
         </li>
     </ul>
