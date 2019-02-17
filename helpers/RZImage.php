@@ -29,16 +29,16 @@ class RZImage {
     }
 
     public function originalExists() {
-        return file_exists(Yii::$app->params['uploadsPath'] . $this->original);
+        return file_exists(Yii::$app->params['uploadsUrl'] . $this->original);
     }
 
     public function resultExists() {
-        return file_exists(Yii::$app->params['uploadsPath']. $this->result);
+        return file_exists(Yii::$app->params['uploadsUrl']. $this->result);
     }
 
     private function checkFolder() {
-        if(!is_dir(Yii::$app->params['uploadsPath'] . pathinfo($this->result, PATHINFO_DIRNAME))) {
-            return mkdir(Yii::$app->params['uploadsPath']. pathinfo($this->result, PATHINFO_DIRNAME), 0777, true);
+        if(!is_dir(Yii::$app->params['uploadsUrl'] . pathinfo($this->result, PATHINFO_DIRNAME))) {
+            return mkdir(Yii::$app->params['uploadsUrl']. pathinfo($this->result, PATHINFO_DIRNAME), 0777, true);
         }
         return true;
     }
@@ -48,12 +48,12 @@ class RZImage {
 
             if(!$this->resultExists()) {
                 if($this->checkFolder()) {
-                    Image::thumbnail(Yii::$app->params['uploadsPath']. $this->original, $this->width, $this->height)->save(Yii::$app->params['uploadsPath'] . $this->result, ['quality' => 80]);
+                    Image::thumbnail(Yii::$app->params['uploadsUrl']. $this->original, $this->width, $this->height)->save(Yii::$app->params['uploadsUrl'] . $this->result, ['quality' => 80]);
                 } else {
                     throw new \yii\web\HttpException(424 ,'Не удалось создать папку для хранения превью.');
                 }
             }
-            return Image::thumbnail(Yii::$app->params['uploadsPath'] . $this->original, $this->width, $this->height)->render();
+            return Image::thumbnail(Yii::$app->params['uploadsUrl'] . $this->original, $this->width, $this->height)->render();
 
         } else {
             throw new \yii\web\HttpException(410 ,'Файл не найден. Скорее всего он был удален.');

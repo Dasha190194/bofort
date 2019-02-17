@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm; ?>
 
     <div class="row">
         <div class="col-md-3">
-            <img src="<?= (isset($boat->image))?Yii::$app->params['uploadsPath'].'250X150/'.$boat->image->path:'/index.png' ?>">
+            <img src="<?= (isset($boat->image))?Yii::$app->params['uploadsUrl'].'250X150/'.$boat->image->path:'/index.png' ?>">
         </div>
         <div class="col-md-9">
             <h4><?= $order->boat->name ?></h4>

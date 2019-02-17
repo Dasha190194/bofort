@@ -23,7 +23,7 @@ $this->title = $boat->name;
 
     <div class="row">
         <div class="col-md-6 boat-show-img">
-            <img src="<?= (isset($boat->image))?Yii::$app->params['uploadsPath'].'550X350/'.$boat->image->path:'/index.png' ?>" id="show-carousel-modal">
+            <img src="<?= (isset($boat->image))?Yii::$app->params['uploadsUrl'].'550X350/'.$boat->image->path:'/index.png' ?>" id="show-carousel-modal">
             <span class="label label-default"><?= $boat->tariff->weekday ?></span>
         </div>
         <div class="col-md-6">
@@ -88,7 +88,7 @@ $this->title = $boat->name;
                         $items = [];
                         foreach ($boat->images as $image) {
                             $items[] = [
-                                'content' => '<img src="'.Yii::$app->params['uploadsPath'].'550X350/'.$image->path.'">',
+                                'content' => '<img src="'.Yii::$app->params['uploadsUrl'].'550X350/'.$image->path.'">',
                             ];
                         }
 
