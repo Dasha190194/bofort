@@ -76,8 +76,9 @@ $(document).ready(function() {
                 'order_id': $('#payform-order_id').val(),
                 'word': $('#word').val()
             },
-            success: function () {
-                location.reload();
+            success: function (data) {
+               if (data == false) alert('Не удалось применить промокод!');
+               location.reload();
             }
         });
     });

@@ -48,6 +48,11 @@ class OrdersModel extends ActiveRecord
 
     public function applyPromo($promocode) {
       //  $this->discount = $promocode->count;
+
+        if ($promocode->count_to_use == 1) {
+            $promoHistoryCnt = $promocode->getPromoHistoryByUser(Yii::$app->user->getId()) > 1;
+            if ($promoHistoryCnt) throw new Exception('Промокод уже был использован!');
+        }
         $this->promo_id = $promocode->id;
         $this->save();
 
@@ -63,11 +68,6 @@ class OrdersModel extends ActiveRecord
 
         if ($this->promo_id != 0) {
             $promo = $this->promo;
-
-            if ($promo->count_to_use == 1) {
-                $promoHistoryCnt = $promo->getPromoHistoryByUser(Yii::$app->user->getId()) > 1;
-                if (!empty($promoHistoryCnt)) throw new Exception('Промокод уже был использован!');
-            }
 
             if ($promo->type == 1) {
                 $this->discount = ($this->price + $this->getServicesPrice()) * ($promo->count/100);

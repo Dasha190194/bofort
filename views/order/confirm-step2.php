@@ -11,13 +11,13 @@ use yii\widgets\ActiveForm; ?>
 <div class="order-confirm">
     <h1>Подтверждение бронирования</h1>
 
-    <?php if ($flash = Yii::$app->session->getFlash("order-error")): ?>
+    <?php /*if ($flash = Yii::$app->session->getFlash("order-error")):
 
         <div class="alert alert-danger">
             <p><?= $flash ?></p>
         </div>
 
-    <?php endif; ?>
+     /*endif;*/ ?>
 
     <hr>
 
@@ -138,6 +138,7 @@ use yii\widgets\ActiveForm; ?>
                     },
                     function (reason, options) {
                         alert(reason);
+                        location.reload();
                     });
             };
 
@@ -165,7 +166,6 @@ use yii\widgets\ActiveForm; ?>
                                 } else {
                                     if (request.action === 'charge') {
                                         alert(request.data);
-                                        $form.data('submitted', false);
                                     }
                                 }
                             }

@@ -33,6 +33,9 @@
                 </li>
             </ul>
         </li>
+        <li class="list-group-item">
+            <a href="/services">Дополнительные услуги</a>
+        </li>
         <a href="/user/admin">
             <li class="list-group-item">
                Пользователи

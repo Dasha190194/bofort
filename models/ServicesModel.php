@@ -18,10 +18,9 @@ class ServicesModel extends ActiveRecord
         return 'services';
     }
 
-//    public function getBoat() {
-//        return $this->hasOne(BoatsModel::className(), ['id' => 'boat_id']);
-//    }
-
+    public function getBoat() {
+        return $this->hasOne(BoatsModel::className(), ['id' => 'boat_id'])->viaTable('boat_services', ['service_id' => 'id']);
+    }
 
 
 }
