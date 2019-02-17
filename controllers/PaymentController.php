@@ -150,7 +150,8 @@ class PaymentController extends Controller
                 $card = CardsModel::createCardIFNoExist($input);
 
                 $transaction = new TransactionsModel();
-                $transaction->create($input->invoiceId, $input->amount, $input->accountId, $card->id, $input->transactionId);
+                $transaction->create($input->invoiceId, $input->amount, $input->accountId, $card->id);
+                $transaction->cloud_transaction_id = $input->transactionId;
                 $transaction->state = 1;
                 $transaction->save();
 
@@ -181,7 +182,9 @@ class PaymentController extends Controller
                 $card = CardsModel::createCardIFNoExist($input);
 
                 $transaction = new TransactionsModel();
-                $transaction->create($input->invoiceId, $input->amount, $input->accountId, $card->id, $input->transactionId);
+                $transaction->create($input->invoiceId, $input->amount, $input->accountId, $card->id);
+                $transaction->cloud_transaction_id = $input->transactionId;
+                $transaction->state = -1;
                 $transaction->save();
 
                 return ['code' => 0];
