@@ -2,7 +2,8 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'pgsql:host=localhost;dbname=bofort',
+    'dsn' => 'pgsql:host=95.214.62.173;dbname=bofort',
+//    'dsn' => 'pgsql:host=localhost;dbname=bofort',
     'username' => 'admin',
     'password' => 'admin',
 //    'username' => 'homestead',
