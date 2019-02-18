@@ -25,7 +25,7 @@
 	h5,
 	h6,
 	li {
-		line-height: 1.92em;
+		line-height: 1.64em;
 	}
 
 	p {
@@ -68,7 +68,14 @@
 		margin-bottom: 3.84em;
 	}
 
-	
+/* Alignment */
+
+/* Divider */
+
+	.divider img {
+		width: 100%;
+		max-width: 844px;
+	}
 
 /* Buttons */
 
@@ -89,7 +96,24 @@
 
 /* Footer */
 
-	.copy {}
+	.footer {
+		background-image: url('/img/footer.jpg');
+		background-repeat: no-repeat;
+		background-size: cover;
+		border-top: none;
+	}
+
+	.footer p {
+		color: white;
+	}
+
+	.text-seo p {
+		opacity: .48;
+		text-align: center;
+		font-size: 8px;
+		margin: 0; 
+	}
+
 	
 
 

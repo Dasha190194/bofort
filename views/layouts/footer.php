@@ -6,12 +6,12 @@
  * Time: 21:56
  */
 ?>
-<footer class="footer">
+<footer class="footer mt-16">
     <div class="container">
         <div class="row">
             <div class="col-md-4">
                 <p class="small">О компании Bofort.ru</p>
-                <p class="small">Тарифы и Услуги</p>
+                <p class="small">Тарифы и услуги</p>
             </div>
             <div class="col-md-4">
                 <p class="small">Частые вопросы</p>
@@ -22,14 +22,24 @@
                 <p class="small">// Здесь будет телефон</p>
             </div>
         </div>
-        <div class="row mt-16 mb-16">
-            <div class="col-md-12">
-                <p class="small text-center">Make it sexy, or try a more powerful colour is there a way we can make the page feel more introductory without being cheesy give us a complimentary logo along with the website can we try some other colours maybe. I was wondering if <strong>/* ЭТО АБЗАЦ Х**НИ ДЛЯ СЕО */</strong> my cat could be placed over the logo in the flyer can you punch up the fun level on these icons concept is bang on, but can we look at a better execution, and can my website be in english?</p>
+        <div class="row mt-32 mb-32">
+            <div class="col-md-4 col-md-offset-4">
+                <img class="center-block pull-left" src="/img/icons/payment__visa.png" alt="Одобрено платежной системой VISA">
+                <img class="center-block pull-left" src="/img/icons/payment__mc.png" alt="Одобрено платежной системой MasterCard">
+                <img class="center-block pull-left" src="/img/icons/payment__mir.png" alt="Одобрено платежной системой МИР">
             </div>
         </div>
-        <div class="row mb-32">
+        <div class="row mt-16 mb-16">
+            <div class="col-md-12 text-seo">
+                <p>Мы предоставляем в аренду катера для капитанов и их спутников. Взять катер в прокат - недорогой способ провести время в Москве на водной прогулке или романтическом свидании.</p>
+                <p>Для классического путешествия по воде хорошо подходит аренда парусных яхт, на которых отдыхать можно как веселой компанией друзей, так и всей семьей.</p>
+                <p>Для любителей рыбалки идеально подойдет аренда моторных лодок. А для ценителей более экстремального отдыха мы перелагаем катание на вейкбордах, которые можно взять в прокат вместе с катером.</p>
+                <p>Аренда катеров - отличный способ провести время и почувствовать себя на курорте, не выбираясь из Москвы.</p>
+            </div>
+        </div>
+        <div class="row mb-16">
             <div class="col-md-12">
-                <p class="small text-center copy"><?php /* Даша, прости! - Какой ты миииилый :) */ echo date("Y"); ?>, &copy; Bofort.ru, Москва, Петровско-Разумовский проезд, 15</p>
+                <p class="small text-center copy"><?php /* Даша, прости! - Какой ты миииилый :) */ echo date("Y"); ?> &copy; Bofort.ru, Москва, Петровско-Разумовский проезд, 15</p>
             </div>
         </div>
     </div>
