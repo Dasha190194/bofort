@@ -29,28 +29,8 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/jpeg', 'href' => Url::
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-default navbar-fixed-top',
-        ],
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            Yii::$app->user->can("admin")? ('<li><a class="btn btn-default" href="/admin">Админка</a></li>'):(''),
-            Yii::$app->user->isGuest ? (
-                '<li><a id="login" class="btn btn-default" onclick="return false;"><i class="glyphicon glyphicon-user" style="padding-right: 15px"></i>Войти</a></li>'
-            ) : (
-               '<li><a class="btn btn-default" href="/user/profile"><i class="glyphicon glyphicon-user" style="padding-right: 15px"></i>'.Yii::$app->user->identity->username.'</a></li>'
-            ),
-            '<li><a class="btn btn-default" href="/boats/index">Забронировать катер</a></li>'
-        ],
-    ]);
-    NavBar::end();
-    ?>
+
+    <?= $this->render('header') ?>
 
     <div class="container">
         <?= Breadcrumbs::widget([

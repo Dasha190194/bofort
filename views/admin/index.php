@@ -15,12 +15,12 @@
                 Заказы
             </li>
         </a>
-        <a href="/actions/">
+        <a href="/admin/actions">
             <li class="list-group-item">
                 Акции
             </li>
         </a>
-        <a href="/promo/">
+        <a href="/admin/promo">
             <li class="list-group-item">
                 Промокоды
             </li>
@@ -29,14 +29,14 @@
             <a href="/boats/index">Катера</a>
             <ul>
                 <li>
-                    <a href="/boats/create">Создать катер</a>
+                    <a href="/admin/boats/create">Создать катер</a>
                 </li>
             </ul>
         </li>
         <li class="list-group-item">
-            <a href="/services">Дополнительные услуги</a>
+            <a href="/admin/services">Дополнительные услуги</a>
         </li>
-        <a href="/user/admin">
+        <a href="/admin/users">
             <li class="list-group-item">
                Пользователи
             </li>

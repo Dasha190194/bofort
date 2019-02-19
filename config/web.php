@@ -65,7 +65,7 @@ $config = [
                 [
                     'class' => 'yii\log\FileTarget',
                    // 'categories' => ['app.*'],
-                    'levels' => ['error', 'warning', 'info'],
+                    'levels' => ['error', 'warning'],
                     'logVars' => [],
                     'exportInterval' => 1,
                 ],
@@ -76,6 +76,12 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'admin/promo' => 'promo/index',
+                'admin/actions' => 'actions/index',
+                'admin/boats/create' => 'boats/create',
+                'admin/services' => 'services/index',
+                'admin/users' => 'user/admin',
+                'boats/show/<slug>' => 'boats/slug',
             ],
         ],
     ],

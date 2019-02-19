@@ -47,7 +47,7 @@
                    </div>
                </div>
                 <div class="row">
-                    <a class="btn btn-default" href="/boats/show?id=<?= $boat->id ?>">
+                    <a class="btn btn-default" href="/boats/show/<?= $boat->slug ?>">
                         Подробнее
                     </a>
                     <?php if(Yii::$app->user->can("admin")): ?>

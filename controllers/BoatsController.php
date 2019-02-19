@@ -41,7 +41,7 @@ class BoatsController extends Controller
                         'roles' => ['admin'],
                     ],
                     [
-                        'actions' => ['index', 'show'],
+                        'actions' => ['index', 'show', 'slug'],
                         'allow' => true,
                     ],
                 ],
@@ -67,6 +67,14 @@ class BoatsController extends Controller
 
         return $this->render('show', compact('boat', 'model'));
     }
+
+    public function actionSlug($slug) {
+        $boat = BoatsModel::find()->where(['slug'=>$slug])->one();
+        $model = new OrderCreateForm();
+
+        return $this->render('show', compact('boat', 'model'));
+    }
+
 
     /**
      * Редактирование лодки
@@ -100,7 +108,7 @@ class BoatsController extends Controller
             $tariff->one_day = $modelT->one_day;
             $tariff->save();
 
-            $this->redirect(['show', 'id' => $id]);
+            $this->redirect(['slug', 'slug' => $boat->slug]);
         }
 
         $model->loadData($boat);
