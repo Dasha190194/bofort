@@ -80,7 +80,7 @@ $this->title = 'Bofort';
                     </div>
 
                     <p><?= $boat->short_description ?></p>
-                    <a class="btn btn-primary" href="/boats/show?id=<?= $boat->id ?>">Подробно</a>
+                    <a class="btn btn-primary" href="/boats/show/<?= $boat->slug ?>">Подробно</a>
                 </div>
             <?php endforeach; ?>
         </div>

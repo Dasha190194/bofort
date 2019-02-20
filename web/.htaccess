@@ -1,6 +1,0 @@
-#RewriteCond %{QUERY_STRING} promo
-              ##RewriteRule ^.*$  - [F]
-              ##
-              ##
-              ##
-              ##Deny from All

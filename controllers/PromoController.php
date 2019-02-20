@@ -12,10 +12,32 @@ namespace app\controllers;
 use app\models\PromoModel;
 use Yii;
 use yii\base\ErrorException;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 
 class PromoController extends Controller
 {
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index', 'create', 'update', 'change-active'],
+                        'allow' => true,
+                        'roles' => ['admin'],
+                    ],
+                ],
+            ],
+        ];
+
+    }
+
     public function actionIndex() {
         $promos = PromoModel::find()->all();
 
