@@ -44,6 +44,10 @@
 
 /* Dividers */
 
+	.mt-8 {
+		margin-top: .48em;
+	}
+
 	.mt-16 {
 		margin-top: .96em;
 	}
@@ -54,6 +58,10 @@
 
 	.mt-64 {
 		margin-top: 3.84em;
+	}
+
+	.mb-8 {
+		margin-bottom: .48em;
 	}
 
 	.mb-16 {
@@ -90,9 +98,57 @@
 		background: #05345C;
 	}
 	
-  .btn-primary:hover {
+  .btn-primary:hover{
   	background: #042A4B;
   }
+
+  .btn-default {
+  	color: #05345C;
+  }
+
+  .btn-default:hover {
+  	color: #F8F9FA;
+  }
+
+/* Header */
+
+	.navbar-default .navbar-nav > li > a.btn-primary {
+		color: #fff;
+	}
+
+	.navbar-default .navbar-nav > li > a.btn-primary:hover,
+	.navbar-default .navbar-nav > li > a.btn-primary:focus {
+		background: #042A4B;
+	}
+
+	.navbar-default .navbar-nav > li > a.btn-default {
+		color: #05345C;
+	}
+
+	.navbar-default .navbar-nav > li > a.btn-default:hover,
+	.navbar-default .navbar-nav > li > a.btn-default:focus {
+		background: #F8F9FA;
+	}
+
+	.navbar-nav > li > a {
+		padding: .8em 3.2em;
+	}
+
+	.navbar-default {
+		background: none;
+		background-color: none;
+		border: none;
+		border-radius: 0;
+	}
+
+	.header-vertical-collapse {
+		margin-bottom: -80px;
+	}
+
+	.navbar-brand {
+		padding: .64em calc(32px);
+	}
+
 
 /* Footer */
 
