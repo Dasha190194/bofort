@@ -79,6 +79,8 @@ $this->title = 'Bofort';
                         <span class="label label-default"><?= $boat->tariff->weekday ?></span>
                     </div>
 
+                    <h4><?= $boat->name ?></h4>
+
                     <p><?= $boat->short_description ?></p>
                     <a class="btn btn-primary" href="/boats/show/<?= $boat->slug ?>">Подробно</a>
                 </div>
