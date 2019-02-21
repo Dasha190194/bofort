@@ -12,7 +12,25 @@ $this->title = 'Bofort';
 
     <div class="body-content">
 
-        <div class="row"><div class=""><img src="/img/content/hero.jpg" alt="" class="img-responsive"></div></div>
+        <div class="row hero">
+            <div class="col-sm-12">
+                
+                <!-- <img src="/img/content/hero.jpg" alt="" class="img-responsive"> -->
+
+                <div class="hero-img-container">
+                
+                    <img src="/img/content/hero.jpg" alt="" class="img-responsive">
+
+                    <div class="hero-title visible-sm visible-md visible-lg">
+                        <p class="hero-title-h1">Аренда катеров и яхт в Москве</p>
+                        <p class="hero-title-h2">с нами – это просто!</p>
+                        <a href="/boats/index" class="btn btn-warning mt-8">Выбрать судно&ensp;&ensp;<span>›</span></a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
 
         <div class="row mt-32">
             <div class="col-md-12">
@@ -61,21 +79,25 @@ $this->title = 'Bofort';
         </div>
 
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-sm-12">
                 <div class="divider mt-32 mb-32"><img class="center-block" src="/img/divider.png" alt=""></div>
             </div>
         </div>
 
         <div class="row">
 
-            <div class="col-md-12 mb-16">
+            <div class="col-sm-12 mb-16">
                 <h3 class="text-center">Выбери свое судно</h3>
             </div>
 
+        </div>
+
+        <div class="row">
+
             <?php foreach ($boats as $boat): ?>
-                <div class="col-md-3">
+                <div class="col-xs-12 col-sm-6 col-md-3 mb-16">
                     <div class="boats-image">
-                        <img src="http://bofort.su/uploads/250X150/<?= $boat->image->path ?>">
+                        <img class="img-responsive" src="http://bofort.su/uploads/250X150/<?= $boat->image->path ?>">
                         <span class="label label-default"><?= $boat->tariff->weekday ?></span>
                     </div>
 
