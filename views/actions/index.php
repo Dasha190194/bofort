@@ -11,13 +11,17 @@ use yii\helpers\Html;
         <div class="col-md-12">
             <table class="table table-bordered">
                 <tr>
+                    <td>Название</td>
                     <td>Цена</td>
-                    <td>Время</td>
+                    <td>Время начала</td>
+                    <td>Время окончания</td>
                 </tr>
                 <?php foreach ($actions as $action): ?>
                     <tr>
+                        <td><?= $action->name ?></td>
                         <td><?= $action->price ?></td>
-                        <td><?= $action->datetime ?></td>
+                        <td><?= $action->datetime_from ?></td>
+                        <td><?= $action->datetime_to ?></td>
                         <td>
                             <?= Html::a('Редактировать', ['actions/update', 'id' => $action->id], ['style' => 'cursor:pointer;'])?>
                         </td>

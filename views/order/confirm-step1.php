@@ -222,8 +222,11 @@ use yii\widgets\ActiveForm; ?>
                     'boat_id': boat_id
                 },
                 success: function (data) {
-                    for (i=0; i<data.length; i++) {
-                        $('[data-date="'+data[i]+'"]').addClass('busy-time');
+                    for (i=0; i<data.calendar.length; i++) {
+                        $('[data-date="'+data.calendar[i]+'"]').addClass('busy-time');
+                    }
+                    for (i=0; i<data.actions.length; i++) {
+                        $('[data-date="'+data.actions[i]+'"]').append('<span>Акция!</span>');
                     }
                 }
             });

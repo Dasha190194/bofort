@@ -27,7 +27,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/jpeg', 'href' => Url::
 </head>
 <body>
 <?php $this->beginBody() ?>
-
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <div class="wrap">
 
     <?= $this->render('header') ?>

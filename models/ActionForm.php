@@ -11,7 +11,7 @@ use yii\base\Model;
  */
 
 class ActionForm extends Model {
-    public $price, $datetime, $name, $boats;
+    public $price, $datetime_from, $datetime_to, $name, $boats;
 
     /**
      * @return array the validation rules.
@@ -19,15 +19,16 @@ class ActionForm extends Model {
     public function rules()
     {
         return [
-            [['price', 'datetime', 'name', 'boats'], 'required'],
+            [['price', 'datetime_from', 'datetime_to', 'name', 'boats'], 'required'],
         ];
     }
 
     public function attributeLabels()
     {
         return [
-            'price' => 'Скидка',
-            'datetime' => 'Время',
+            'price' => 'Цена',
+            'datetime_from' => 'Время начала',
+            'datetime_to' => 'Время окончания',
             'name' => 'Название',
             'boats' => 'Лодка'
         ];
@@ -37,7 +38,8 @@ class ActionForm extends Model {
     {
         $action->name = $this->name;
         $action->price = $this->price;
-        $action->datetime = $this->datetime;
+        $action->datetime_from = $this->datetime_from;
+        $action->datetime_to = $this->datetime_to;
         $action->save();
 
         $boat = BoatsModel::findOne($this->boats);

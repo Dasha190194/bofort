@@ -23,10 +23,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->input('text') ?>
     <?= $form->field($model, 'price')->input('text') ?>
-    <?= $form->field($model, 'datetime')->widget(\kartik\datetime\DateTimePicker::class, [
-        /*'language' => 'ru',
-        'dateFormat' => 'yyyy-MM-dd', */
-    ]) ?>
+    <?= $form->field($model, 'datetime_from')->widget(\kartik\datetime\DateTimePicker::class) ?>
+    <?= $form->field($model, 'datetime_to')->widget(\kartik\datetime\DateTimePicker::class) ?>
     <?= $form->field($model, 'boats')->dropDownList(ArrayHelper::map($boats, 'id', 'name')) ?>
 
     <div class="col-md-offset-3 col-md-6 text-center">

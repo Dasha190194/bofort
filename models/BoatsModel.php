@@ -54,7 +54,7 @@ class BoatsModel extends ActiveRecord
     }
 
     public function getActions(){
-        return $this->hasMany(ActionsModel::className(), ['id' => 'actions_id'])
+        return $this->hasMany(ActionsModel::className(), ['id' => 'action_id'])
             ->viaTable('boat_actions', ['boat_id' => 'id']);
     }
 
