@@ -30,7 +30,11 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/jpeg', 'href' => Url::
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <div class="wrap">
 
-    <?= $this->render('header') ?>
+    <?php if (Yii::$app->controller->id.'/'.Yii::$app->controller->action->id == 'site/index'): ?>
+        <?= $this->render('mainHeader') ?>
+    <?php else: ?>
+        <?= $this->render('header') ?>
+    <?php endif; ?>
 
     <div class="container">
         <?= Breadcrumbs::widget([
