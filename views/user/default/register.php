@@ -66,7 +66,7 @@ $this->title = 'Форма регистрации';
             */ ?>
 
             <div class="col-md-offset-3 col-md-6 text-center">
-                <?= Html::submitButton('Зарегестрироваться', ['class' => 'btn btn-primary']) ?>
+                <?= Html::submitButton('Зарегистрироваться', ['class' => 'btn btn-primary']) ?>
 
                 <br/><br/>
                 Уже есть аккаунт?
