@@ -241,29 +241,43 @@ class OrderController extends Controller
             $tariff = $boat->tariff;
             $datetimes = $this->getDateTimeInterval($datetime_from, $datetime_to);
 
-//            $actions = $boat->getActions()->where(['<=', 'datetime_from', $datetime_from])->andWhere(['>=', 'datetime_to', $datetime_to])->all();
-//            if (!empty($actions)) {
-//                $datetimes2 = $this->getDateTimeInterval($datetime_from, $datetime_to, 0);
-//                foreach ($actions as $action) {
-//                    $actt = $this->getDateTimeInterval($action->datetime_from, $action->datetime_to, 0);
-//                    $res = array_intersect($actt, $datetimes2);
-//                }
-//                var_dump($res);die;
-//            }
-
-
-            if (count($datetimes) >= 24) $price = $tariff->one_day;
-            elseif (count($datetimes) >= 4) $price = $tariff->four_hours;
-            elseif (in_array($datetimes[0]->format('D'), ['Sat', 'Sun'])) $price = $tariff->holiday;
-            else $price = $tariff->weekday;
-
+            // TODO поправить
+            $actions = $boat->getActions()->all();
+            if (!empty($actions)) {
+                $datetimes2 = $this->getDateTimeInterval($datetime_from, $datetime_to, 0);
+                foreach ($datetimes2  as $dt) {
+                    foreach ($actions as $action) {
+                        $flag = 0;
+                        $actt = $this->getDateTimeInterval($action->datetime_from, $action->datetime_to, 0);
+                        foreach ($actt as $a) {
+                            if ($a == $dt) {
+                                $price += $action->price;
+                                $flag = 1;
+                            }
+                        }
+                    }
+                    if ($flag == 0) {
+                        $ti = new DateTime($dt);
+                        if (count($datetimes2) >= 24) $price += $tariff->one_day;
+                        elseif (count($datetimes2) >= 4) $price += $tariff->four_hours;
+                        elseif (in_array($ti->format('D'), ['Sat', 'Sun'])) $price += $tariff->holiday;
+                        else $price += $tariff->weekday;
+                    }
+                }
+            } else {
+                if (count($datetimes) >= 24) $price = $tariff->one_day;
+                elseif (count($datetimes) >= 4) $price = $tariff->four_hours;
+                elseif (in_array($datetimes[0]->format('D'), ['Sat', 'Sun'])) $price = $tariff->holiday;
+                else $price = $tariff->weekday;
+                $price = $price*count($datetimes);
+            }
         } catch (Exception $e) {
             Yii::error("Произошла ошибка при расчете тарифа boat_i[$boat_id]", 'app.order.price');
         }
 
         return $this->asJson([
            'success' => true,
-           'result' => $price*count($datetimes)
+           'result' => $price
         ]);
     }
 
