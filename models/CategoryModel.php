@@ -39,11 +39,11 @@ class CategoryModel extends ActiveRecord
     }
 
     public function getImage() {
-        return $this->hasOne(ImagesModel::className(), ['boat_id' => 'id']);
+        return $this->hasOne(ImagesModel::className(), ['category_id' => 'id']);
     }
 
     public function getImages() {
-        return $this->hasMany(ImagesModel::className(), ['boat_id' => 'id']);
+        return $this->hasMany(ImagesModel::className(), ['category_id' => 'id']);
     }
 
     public function getBoats() {
