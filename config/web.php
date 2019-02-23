@@ -81,7 +81,9 @@ $config = [
                 'admin/boats/create' => 'boats/create',
                 'admin/services' => 'services/index',
                 'admin/users' => 'user/admin',
+                'admin/category/<action:(create|update|index)>' => 'category/<action>',
                 'boats/show/<slug>' => 'boats/slug',
+                'boats/<slug>' => 'boats/index'
             ],
         ],
     ],
@@ -108,7 +110,7 @@ if (YII_ENV_DEV) {
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
+        'allowedIPs' => ['192.168.10.1', '::1'],
     ];
 
     $config['bootstrap'][] = 'gii';

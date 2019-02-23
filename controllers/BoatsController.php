@@ -12,6 +12,7 @@ namespace app\controllers;
 use app\models\BoatActionsForm;
 use app\models\BoatForm;
 use app\models\BoatsModel;
+use app\models\CategoryModel;
 use app\models\OrderCreateForm;
 use app\models\TariffForm;
 use app\models\TariffsModel;
@@ -50,8 +51,13 @@ class BoatsController extends Controller
 
     }
 
-    public function actionIndex() {
-        $boats = BoatsModel::find()->all();
+    public function actionIndex($slug = null) {
+        if (!is_null($slug)) {
+            $category = CategoryModel::find()->where(['slug' => $slug])->one();
+            $boats = $category->boats;
+        } else {
+            $boats = BoatsModel::find()->all();
+        }
 
         return $this->render('index', compact('boats'));
     }

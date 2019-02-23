@@ -2,18 +2,14 @@
 
 namespace app\controllers;
 
-use app\components\Sms\SmsModel;
-use app\components\Sms\SMSRU;
-use app\helpers\RZImage;
-use app\models\BoatsModel;
+
+use app\models\CategoryModel;
 use Yii;
 use yii\filters\AccessControl;
-use yii\imagine\Image;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
-use app\models\ContactForm;
 
 class SiteController extends Controller
 {
@@ -68,9 +64,9 @@ class SiteController extends Controller
     {
         $user = Yii::$app->getModule("user")->model("User", ["scenario" => "register"]);
         $profile = Yii::$app->getModule("user")->model("Profile");
-        $boats = BoatsModel::find()->limit(4)->all();
+        $categories = CategoryModel::find()->limit(4)->all();
 
-        return $this->render('index', compact("user", "profile", "boats"));
+        return $this->render('index', compact("user", "profile", "categories"));
     }
 
     /**

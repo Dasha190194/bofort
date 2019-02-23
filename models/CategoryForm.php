@@ -14,9 +14,9 @@ use yii\base\Model;
 use yii\imagine\Image;
 use yii\web\UploadedFile;
 
-class BoatForm extends Model
+class CategoryForm extends Model
 {
-    public $name, $description, $engine_power, $spaciousness, $certificate, $location, $short_description, $category_id, $images;
+    public $name, $description, $images;
 
     /**
      * @return array the validation rules.
@@ -24,7 +24,7 @@ class BoatForm extends Model
     public function rules()
     {
         return [
-            [['name', 'description', 'engine_power', 'spaciousness', 'certificate', 'location', 'short_description', 'category_id'], 'required'],
+            [['name', 'description'], 'required'],
             [['images'], 'file', 'maxFiles' => 10, 'extensions' => 'png, jpg, jpeg'],
         ];
     }
@@ -34,29 +34,23 @@ class BoatForm extends Model
         return [
             'name' => 'Имя',
             'description' => 'Описание',
-            'engine_power' => 'Мощность',
-            'spaciousness' => 'Вместимость',
-            'certificate' => 'Сертификаты',
-            'location' => 'Расположение',
-            'short_description' => 'Короткое описание для главной',
-            'category_id' => 'Категория',
             'images' => 'Фотографии'
         ];
     }
 
-    public function save(BoatsModel $boat) {
+    public function save(CategoryModel $category) {
         foreach (array_keys($this->getAttributes()) as $attribute)
-            if ($attribute != 'images') $boat->$attribute = $this->$attribute;
+            if ($attribute != 'images') $category->$attribute = $this->$attribute;
 
-        $boat->save();
+        $category->save();
 
         foreach ($this->images as $img) {
             $image = new ImagesModel();
             $image->path = "{$img->baseName}.{$img->extension}";
-            $boat->link('images', $image);
+            $category->link('images', $image);
         }
 
-        return $boat->id;
+        return $category->id;
     }
 
     public function upload(){

@@ -94,17 +94,17 @@ $this->title = 'Bofort';
 
         <div class="row">
 
-            <?php foreach ($boats as $boat): ?>
+            <?php foreach ($categories as $category): ?>
                 <div class="col-xs-12 col-sm-6 col-md-3 mb-16">
                     <div class="boats-image">
-                        <img class="img-responsive" src="http://bofort.su/uploads/250X150/<?= $boat->image->path ?>">
-                        <span class="label label-default"><?= $boat->tariff->weekday ?></span>
+                        <img class="img-responsive" src="http://bofort.su/uploads/250X150/<?= (isset($category->image->path)?:'index.png') ?>">
+<?php /*                        <span class="label label-default">--><?//= $boat->tariff->weekday ?><!--</span> */?>
                     </div>
 
-                    <h4><?= $boat->name ?></h4>
+                    <h4><?= $category->name ?></h4>
 
-                    <p><?= $boat->short_description ?></p>
-                    <a class="btn btn-primary" href="/boats/show/<?= $boat->slug ?>">Подробно</a>
+                    <p><?= $category->description ?></p>
+                    <a class="btn btn-primary" href="/boats/<?= $category->slug ?>">Подробно</a>
                 </div>
             <?php endforeach; ?>
         </div>

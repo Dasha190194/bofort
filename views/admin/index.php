@@ -25,6 +25,11 @@
                 Промокоды
             </li>
         </a>
+        <a href="/admin/category/index">
+            <li class="list-group-item">
+                Категории
+            </li>
+        </a>
         <li class="list-group-item">
             <a href="/boats/index">Катера</a>
             <ul>
