@@ -12,7 +12,6 @@ use app\models\ActionsModel;
 use app\models\BoatsModel;
 use app\models\OrderConfirmForm;
 use app\models\OrderCreateForm;
-use app\models\OrderSession;
 use app\models\OrdersModel;
 use app\models\PayForm;
 use app\models\PromoModel;
@@ -190,7 +189,7 @@ class OrderController extends Controller
         $date1 = new DateTime($date.'-01');
         $date2 = new DateTime($date.'-01');
         $busyBoats = OrdersModel::find()
-                            ->where(['boat_id' => $boat_id, 'state' => 1])
+                            ->where(['boat_id' => $boat_id, 'state' => [1,3]])
                             ->andWhere(['>=', 'datetime_from', $date1->format('Y-m-d')])
                             ->andWhere(['<=',  'datetime_from', $date1->modify('+ 1 month')->format('Y-m-d')])
                             ->all();

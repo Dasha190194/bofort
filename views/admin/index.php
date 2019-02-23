@@ -41,5 +41,12 @@
                Пользователи
             </li>
         </a>
+        <?php if(Yii::$app->user->identity->isShipowner()): ?>
+            <a href="/admin/my-boats">
+                <li class="list-group-item">
+                    Мои лодки
+                </li>
+            </a>
+        <?php endif; ?>
     </ul>
 </div>

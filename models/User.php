@@ -120,7 +120,9 @@ class User extends ActiveRecord implements IdentityInterface
 
             // my user fields
             [['mailing'], 'safe'],
-            ['personal_data_processing', 'required', 'requiredValue' => 1, 'message' => 'Вам необходимо ознакомиться с условиями обработки персональных данных'],
+            ['personal_data_processing', 'required', 'requiredValue' => 1, 'message' => 'Вам необходимо ознакомиться с условиями обработки персональных данных', 'when' => function($model) {
+                return $model->role_id == 2;
+            }],
         ];
 
         // add required for currentPassword on account page
@@ -437,6 +439,10 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->role->checkPermission($permissionName);
     }
 
+    public function isShipowner() {
+        return ($this->role_id == 3)?true:false;
+    }
+
     /**
      * Get display name for the user
      * @return string|int
@@ -519,5 +525,9 @@ class User extends ActiveRecord implements IdentityInterface
             Yii::error("Sms не отправлено. Ошибка [{$e->getMessage()}]", 'user.sms-confirm');
             return 0;
         }
+    }
+
+    public function getBoats() {
+        return $this->hasMany(BoatsModel::className(), ['user_id' => 'id']);
     }
 }

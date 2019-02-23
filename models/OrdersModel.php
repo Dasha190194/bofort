@@ -18,7 +18,8 @@ class OrdersModel extends ActiveRecord
     static $states = [
         0 => '',
         1 => 'Оплачен',
-        2 => 'Отменен'
+        2 => 'Отменен',
+        3 => 'Фиктивный'
     ];
 
     public static function tableName()
