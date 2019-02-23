@@ -97,7 +97,7 @@ $this->title = 'Bofort';
             <?php foreach ($categories as $category): ?>
                 <div class="col-xs-12 col-sm-6 col-md-3 mb-16">
                     <div class="boats-image">
-                        <img class="img-responsive" src="http://bofort.su/uploads/250X150/<?= (isset($category->image->path)?:'index.png') ?>">
+                        <img class="img-responsive" src="http://bofort.su/uploads/250X150/<?= (isset($category->image->path)?$category->image->path:'index.png') ?>">
 <?php /*                        <span class="label label-default">--><?//= $boat->tariff->weekday ?><!--</span> */?>
                     </div>
 
