@@ -83,7 +83,7 @@ $config = [
                 'admin/users' => 'user/admin',
                 'admin/category/<action:(create|update|index)>' => 'category/<action>',
                 'boats/show/<slug>' => 'boats/slug',
-                'boats/<slug>' => 'boats/index'
+                'boats/index/<slug>' => 'boats/index'
             ],
         ],
     ],
