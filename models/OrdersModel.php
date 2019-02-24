@@ -120,4 +120,18 @@ class OrdersModel extends ActiveRecord
         $this->offer_processing = 1;
         $this->save();
     }
+
+    /*
+     * Создание фиктивного заказа, когда владелец лодки не хочет чтобы ее бронировали
+     */
+    public static function createFictitiousOrder(BlockForm $model) {
+        $order = new self;
+        $order->datetime_from = $model->datetime_from;
+        $order->datetime_to = $model->datetime_to;
+        $order->boat_id = $model->boat_id;
+        $order->user_id = Yii::$app->user->id;
+        $order->state = 3;
+        $order->save();
+        return $order;
+    }
 }

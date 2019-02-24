@@ -23,10 +23,20 @@ class AdminController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'orders', 'services', 'my-boat'],
+                        'actions' => ['index'],
                         'allow' => true,
                         'roles' => ['admin', 'shipowner'],
                     ],
+                    [
+                        'actions' => ['orders', 'services'],
+                        'allow' => true,
+                        'roles' => ['admin'],
+                    ],
+                    [
+                        'actions' => ['my-boat'],
+                        'allow' => true,
+                        'roles' => ['shipowner']
+                    ]
                 ],
             ],
         ];
@@ -45,7 +55,7 @@ class AdminController extends Controller
             $posted = current($post[$order->formName()]);
             $post[$order->formName()] = $posted;
             $order->load($post);
-            return  $this->asJson(['output'=>'', 'message'=>'']);
+            return $this->asJson(['output'=>'', 'message'=>'']);
         }
 
         $orders = OrdersModel::find()->where(['state' => 1]);
@@ -64,13 +74,7 @@ class AdminController extends Controller
 
         $post = Yii::$app->request->post();
         if ($model->load($post) && $model->validate()) {
-            $order = new OrdersModel();
-            $order->datetime_from = $model->datetime_from;
-            $order->datetime_to = $model->datetime_to;
-            $order->boat_id = $model->boat_id;
-            $order->user_id = Yii::$app->user->id;
-            $order->state = 3;
-            $order->save();
+            $order = OrdersModel::createFictitiousOrder($model);
         }
 
         return $this->render('my-boat', compact('boat', 'model'));

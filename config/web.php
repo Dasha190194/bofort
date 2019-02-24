@@ -27,7 +27,7 @@ $config = [
         'view' => [
             'theme' => [
                 'pathMap' => [
-                    '@vendor/amnah/yii2-user/views' => '@app/views/user', // example: @app/views/user/default/login.php
+                    '@vendor/amnah/yii2-user/views' => '@app/views/user',
                 ],
             ],
         ],
@@ -36,9 +36,6 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
             'useFileTransport' => false,
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
@@ -49,25 +46,26 @@ $config = [
                 'encryption' => 'tls',
             ],
             'messageConfig' => [
-                'from' => 'reply@bofort.su' // sender address goes here
+                'from' => 'reply@bofort.su'
             ]
         ],
-//        'mail' => [
-//            'class' => 'yii\swiftmailer\Mailer',
-//            'messageConfig' => [
-//                'from' => 'dariyogienko@gmail.com' // sender address goes here
-//            ]
-//        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 0 : 0,
             'flushInterval' => 1,
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                   // 'categories' => ['app.*'],
-                    'levels' => ['error', 'warning'],
+                    'categories' => ['app.*'],
+                    'levels' => ['error', 'warning', 'info'],
                     'logVars' => [],
                     'exportInterval' => 1,
+                ],
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'levels' => ['error'],
+                    'logVars' => [],
+                    'exportInterval' => 1,
+                    'logFile' => '@runtime/logs/errors.log'
                 ],
             ],
         ],
@@ -77,7 +75,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 'admin/promo' => 'promo/index',
-                'admin/actions' => 'actions/index',
+                'admin/actions/<action:(create|update|index|delete)>' => 'actions/<action>',
                 'admin/boats/create' => 'boats/create',
                 'admin/services' => 'services/index',
                 'admin/users' => 'user/admin',

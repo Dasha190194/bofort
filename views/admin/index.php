@@ -15,7 +15,7 @@
                 Заказы
             </li>
         </a>
-        <a href="/admin/actions">
+        <a href="/admin/actions/index">
             <li class="list-group-item">
                 Акции
             </li>

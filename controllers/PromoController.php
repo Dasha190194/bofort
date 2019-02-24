@@ -11,9 +11,9 @@ namespace app\controllers;
 
 use app\models\PromoModel;
 use Yii;
-use yii\base\ErrorException;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 class PromoController extends Controller
 {
@@ -57,7 +57,7 @@ class PromoController extends Controller
 
     public function actionUpdate(int $id) {
         $promo = PromoModel::findOne($id);
-        if(!$promo) throw new ErrorException('Not found.');
+        if(!$promo) throw new NotFoundHttpException('Not found.');
 
         $post = Yii::$app->request->post();
         if ($promo->load($post) && $promo->validate()) {
@@ -69,7 +69,7 @@ class PromoController extends Controller
 
     public function actionChangeActive(int $id) {
         $promo = PromoModel::findOne($id);
-        if(!$promo) throw new ErrorException('Not found.');
+        if(!$promo) throw new NotFoundHttpException('Not found.');
 
         $promo->is_active = !$promo->is_active;
         $promo->save();

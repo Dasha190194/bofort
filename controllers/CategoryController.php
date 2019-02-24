@@ -17,6 +17,7 @@ use yii\base\ErrorException;
 use yii\base\Exception;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 
 class CategoryController extends Controller
@@ -56,12 +57,14 @@ class CategoryController extends Controller
 
     public function actionSlug($slug) {
         $category = CategoryModel::find()->where(['slug'=>$slug])->one();
+        if (!$category) throw new NotFoundHttpException('Not found.');
 
-        return $this->render('show', compact('boat', 'model'));
+        $boats = BoatsModel::find()->where(['category_id' => $category->id])->all();
+
+        return $this->render('show', compact('boats', 'model'));
     }
 
     public function actionUpdate(int $id) {
-
         $category = CategoryModel::findOne($id);
         if(!$category) throw new ErrorException('Not found.');
 
@@ -74,7 +77,7 @@ class CategoryController extends Controller
                 $model->images = UploadedFile::getInstances($model, 'images');
                 if (!$model->upload()) throw new Exception('Ошибка сохранения изображения!');
             } catch (Exception $e) {
-                Yii::error($e->getMessage(), 'app.cayegory.create');
+                Yii::error($e->getMessage(), 'app.category.create');
             }
 
             $id = $model->save($category);

@@ -9,7 +9,6 @@
 namespace app\controllers;
 
 
-use app\models\BoatActionsForm;
 use app\models\BoatForm;
 use app\models\BoatsModel;
 use app\models\CategoryModel;
@@ -19,9 +18,9 @@ use app\models\TariffsModel;
 use Yii;
 use yii\base\ErrorException;
 use yii\base\Exception;
-use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 
 class BoatsController extends Controller
@@ -39,7 +38,7 @@ class BoatsController extends Controller
                     [
                         'actions' => ['update', 'create'],
                         'allow' => true,
-                        'roles' => ['admin'],
+                        'roles' => ['admin', 'shipowner'],
                     ],
                     [
                         'actions' => ['index', 'show', 'slug'],
@@ -67,15 +66,21 @@ class BoatsController extends Controller
      * @param int $id
      */
     public function actionShow(int $id) {
-
         $boat = BoatsModel::findOne($id);
+        if (!$boat) throw new NotFoundHttpException('Not found.');
+
         $model = new OrderCreateForm();
 
         return $this->render('show', compact('boat', 'model'));
     }
 
+    /*
+     * Страница лодки через название
+     */
     public function actionSlug($slug) {
         $boat = BoatsModel::find()->where(['slug'=>$slug])->one();
+        if (!$boat) throw new NotFoundHttpException('Not found.');
+
         $model = new OrderCreateForm();
 
         return $this->render('show', compact('boat', 'model'));

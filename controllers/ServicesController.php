@@ -9,16 +9,13 @@
 
 namespace app\controllers;
 
-use app\models\ActionForm;
-use app\models\ActionsModel;
 use app\models\BoatsModel;
 use app\models\ServiceForm;
 use app\models\ServicesModel;
 use Yii;
-use yii\base\ErrorException;
 use yii\filters\AccessControl;
 use yii\web\Controller;
-
+use yii\web\NotFoundHttpException;
 
 
 class ServicesController extends Controller
@@ -68,7 +65,7 @@ class ServicesController extends Controller
         $model = new ServiceForm();
         $service = ServicesModel::findOne($id);
 
-        if(!$service) throw new ErrorException('Not found.');
+        if(!$service) throw new NotFoundHttpException('Not found.');
 
         $post = Yii::$app->request->post();
         if ($model->load($post) && $model->validate()) {

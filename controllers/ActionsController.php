@@ -13,10 +13,9 @@ use app\models\ActionForm;
 use app\models\ActionsModel;
 use app\models\BoatsModel;
 use Yii;
-use yii\base\ErrorException;
 use yii\filters\AccessControl;
 use yii\web\Controller;
-
+use yii\web\NotFoundHttpException;
 
 
 class ActionsController extends Controller
@@ -66,7 +65,7 @@ class ActionsController extends Controller
         $model = new ActionForm();
         $action = ActionsModel::findOne($id);
 
-        if(!$action) throw new ErrorException('Not found.');
+        if(!$action) throw new NotFoundHttpException('Not found.');
 
         $post = Yii::$app->request->post();
         if ($model->load($post) && $model->validate()) {
