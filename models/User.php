@@ -439,6 +439,10 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->role->checkPermission($permissionName);
     }
 
+    public function isAdmin() {
+        return ($this->role_id == 1)?true:false;
+    }
+
     public function isShipowner() {
         return ($this->role_id == 3)?true:false;
     }
