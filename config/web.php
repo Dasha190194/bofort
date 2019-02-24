@@ -14,7 +14,6 @@ $config = [
     ],
     'components' => [
         'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'dua_LLZMx3EyGin1WsXrVydM2eODdC6c',
         ],
         'cache' => [
@@ -23,6 +22,7 @@ $config = [
         'user' => [
             'class' => 'amnah\yii2\user\components\User',
             'identityClass' => 'app\models\User',
+            'loginUrl' => ['site/index']
         ],
         'view' => [
             'theme' => [
