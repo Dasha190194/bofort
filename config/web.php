@@ -92,7 +92,8 @@ $config = [
                 'default' => 'app\controllers\DefaultController',
             ],
             'modelClasses'  => [
-                'Profile' => 'app\models\Profile'
+                'Profile' => 'app\models\Profile',
+                'Role' => 'app\models\Role'
             ],
         ],
         'gridview' =>  [

@@ -50,19 +50,20 @@ class CategoryController extends Controller
         return $this->render('index', compact('categories'));
     }
 
-    public function actionShow(int $id) {
-        $boats = BoatsModel::find()->where(['category_id' => $id])->all();
-        return $this->render('show', compact('boats'));
-    }
-
-    public function actionSlug($slug) {
-        $category = CategoryModel::find()->where(['slug'=>$slug])->one();
-        if (!$category) throw new NotFoundHttpException('Not found.');
-
-        $boats = BoatsModel::find()->where(['category_id' => $category->id])->all();
-
-        return $this->render('show', compact('boats', 'model'));
-    }
+    //TODO возможно удалить
+//    public function actionShow(int $id) {
+//        $boats = BoatsModel::find()->where(['category_id' => $id])->all();
+//        return $this->render('show', compact('boats'));
+//    }
+//
+//    public function actionSlug($slug) {
+//        $category = CategoryModel::find()->where(['slug'=>$slug])->one();
+//        if (!$category) throw new NotFoundHttpException('Not found.');
+//
+//        $boats = BoatsModel::find()->where(['category_id' => $category->id])->all();
+//
+//        return $this->render('show', compact('boats', 'model'));
+//    }
 
     public function actionUpdate(int $id) {
         $category = CategoryModel::findOne($id);
@@ -82,7 +83,7 @@ class CategoryController extends Controller
 
             $id = $model->save($category);
 
-            $this->redirect(['index']);
+            return $this->redirect(['index']);
         }
 
         $model->loadData($category);
@@ -106,7 +107,7 @@ class CategoryController extends Controller
             $category = new CategoryModel();
             $id = $model->save($category);
 
-            $this->redirect(['show', 'id' => $id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', compact('model'));

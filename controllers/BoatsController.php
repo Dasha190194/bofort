@@ -53,6 +53,8 @@ class BoatsController extends Controller
     public function actionIndex($slug = null) {
         if (!is_null($slug)) {
             $category = CategoryModel::find()->where(['slug' => $slug])->one();
+            if (!$category) throw new NotFoundHttpException('Not found.');
+
             $boats = $category->boats;
         } else {
             $boats = BoatsModel::find()->all();

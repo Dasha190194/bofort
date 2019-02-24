@@ -553,7 +553,7 @@ class DefaultController extends Controller
             $user->save();
 
             $userToken = UserToken::findByUser($user->id, 5);
-            $userToken->save();
+            $userToken->delete();
 
             return $this->asJson(['success' => true]);
         }

@@ -45,18 +45,20 @@ class OrderController extends Controller
     }
 
     public function actionCreate() {
-
         $post = Yii::$app->request->post();
         $form = new OrderCreateForm();
 
         $form->load($post);
         $form->user_id = Yii::$app->user->getId();
 
+        Yii::info('Попытка создания заказа ['.json_encode($form).']', 'app.order.create');
+
         if($form->validate()) {
             $order = $form->save();
             return $this->redirect(['/order/confirm-step1', 'id' => $order->id]);
         }
 
+        Yii::error("Заказ не создан [$form->error]", 'app.order.create');
         Yii::$app->session->setFlash("Order-create-error", 'Не удалось создать заказ');
         return $this->redirect(Yii::$app->request->referrer);
     }
@@ -64,8 +66,10 @@ class OrderController extends Controller
     public function actionConfirmStep1(int $id) {
         $order = OrdersModel::findOne($id);
         $model = new OrderConfirmForm();
-
         $post = Yii::$app->request->post();
+
+        Yii::info('Подтверждение заказа ['.json_encode($post).']', 'app.order.step1');
+
         if ($model->load($post)) {
             $order->price = $model->coast;
             $order->datetime_from = $model->datetime_from;
@@ -74,6 +78,7 @@ class OrderController extends Controller
             return $this->redirect(['/order/confirm-step2', 'id' => $order->id]);
         }
 
+        Yii::error("Ошибка формирования заказа [$model->error]", 'app.order.step1');
         return $this->render('confirm-step1', compact('order', 'model'));
     }
 
@@ -85,6 +90,9 @@ class OrderController extends Controller
         return $this->render('confirm-step2', compact('order', 'services', 'model'));
     }
 
+    /*
+     * Страница успешной оплаты
+     */
     public function actionFinal() {
         return $this->render('final');
     }

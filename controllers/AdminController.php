@@ -33,15 +33,14 @@ class AdminController extends Controller
                         'roles' => ['admin'],
                     ],
                     [
-                        'actions' => ['my-boat'],
+                        'actions' => ['my-boat', 'boats'],
                         'allow' => true,
-                        'roles' => ['shipowner', 'admin']
+                        'roles' => ['shipowner']
                     ]
                 ],
             ],
         ];
     }
-
 
     public function actionIndex() {
         return $this->render('index');
@@ -78,5 +77,15 @@ class AdminController extends Controller
         }
 
         return $this->render('my-boat', compact('boat', 'model'));
+    }
+
+    /*
+     * Лодки владельца
+     */
+    public function actionBoats() {
+        $user_id = Yii::$app->user->id;
+        $boats = BoatsModel::find()->where(['user_id' => $user_id])->all();
+
+        return $this->render('/boats/index', compact('boats'));
     }
 }
