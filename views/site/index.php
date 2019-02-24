@@ -104,7 +104,7 @@ $this->title = 'Bofort';
                     <h4><?= $category->name ?></h4>
 
                     <p><?= $category->description ?></p>
-                    <a class="btn btn-primary" href="/boats/<?= $category->slug ?>">Подробно</a>
+                    <a class="btn btn-primary" href="/boats/index/<?= $category->slug ?>">Подробно</a>
                 </div>
             <?php endforeach; ?>
         </div>

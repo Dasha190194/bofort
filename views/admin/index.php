@@ -57,7 +57,7 @@
                     </li>
                 </ul>
             </li>
-            <a href="/admin/my-boats">
+            <a href="/admin/my-boat">
                 <li class="list-group-item">
                     Мои лодки
                 </li>

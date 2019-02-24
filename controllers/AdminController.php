@@ -35,7 +35,7 @@ class AdminController extends Controller
                     [
                         'actions' => ['my-boat'],
                         'allow' => true,
-                        'roles' => ['shipowner']
+                        'roles' => ['shipowner', 'admin']
                     ]
                 ],
             ],
