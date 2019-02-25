@@ -10,7 +10,7 @@ use yii\widgets\ActiveForm;
  * @var amnah\yii2\user\models\forms\LoginForm $model
  */
 
-$this->title = Yii::t('user', 'Login');
+$this->title = Yii::t('user', 'Вход');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-default-login">
@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="">
         <div class="col-md-12">
-            <?= $form->field($model, 'email')->input('text', ['placeholder' => "Ваше email"])->label(false) ?>
+            <?= $form->field($model, 'email')->input('text', ['placeholder' => "Ваш email"])->label(false) ?>
         </div>
         <div class="col-md-12">
             <?= $form->field($model, 'password')->passwordInput()->input('text', ['placeholder' => "Пароль"])->label(false) ?>
@@ -43,11 +43,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="form-group">
         <div class="col-md-offset-3 col-md-7">
-            <?= Html::submitButton('Войти на сайт', ['class' => 'btn btn-primary btn-block']) ?> <br/>
+            <?= Html::submitButton('Войти на сайт', ['class' => 'btn btn-primary btn-block mb-16']) ?>
        </div>
-        <div class="col-md-offset-2 col-md-9 text-center">
-            Еще не зарегестрировался?  <?= Html::a('Создать аккаунт', ["/user/register"]) ?> <br/>
-            <?= Html::a('Забыли пароль?', ["/user/forgot"]) ?>
+        <div class="col-md-offset-2 col-md-9">
+            <p class="small text-center">Еще не зарегистрированы?  <?= Html::a('Создать аккаунт', ["/user/register"]) ?></p>
+            <p class="small text-center"><?= Html::a('Забыли пароль?', ["/user/forgot"]) ?></p>
             <!--            --><?//= Html::a(Yii::t("user", "Resend confirmation email"), ["/user/resend"]) ?>
         </div>
     </div>

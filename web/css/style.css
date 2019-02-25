@@ -210,6 +210,14 @@
 
 	}
 
+/* Forms */
+
+	.form-control {
+		height: 40px;
+		padding: 12px 16px;
+		border-radius: 2px;
+	}
+
 /* Footer */
 
 	.footer {
@@ -219,7 +227,8 @@
 		border-top: none;
 	}
 
-	.footer p {
+	.footer p,
+	.footer p a {
 		color: white;
 	}
 

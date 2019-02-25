@@ -14,11 +14,15 @@ use yii\widgets\ActiveForm;
 
 $module = Yii::$app->getModule("user");
 
-$this->title = 'Форма регистрации';
+$this->title = 'Регистрация';
 ?>
 <div class="user-default-register">
 
-    <h3 class="text-center"><?= Html::encode($this->title) ?></h3>
+    <div class="row mb-16">
+        <div class="col-md-12">
+            <h3 class="text-center"><?= Html::encode($this->title) ?></h3>
+        </div>
+    </div>
 
     <?php if ($flash = Yii::$app->session->getFlash("Register-success")): ?>
 
@@ -41,23 +45,25 @@ $this->title = 'Форма регистрации';
 
         <div class="row">
             <div class="col-md-offset-3 col-md-6">
-                <?= $form->field($user, 'username')->input('text', ['placeholder' => "Ваше имя* Например, Алексей"])->label(false)  ?>
+                <?= $form->field($user, 'username')->input('text', ['placeholder' => "Ваше имя*"])->label(false)  ?>
             </div>
             <div class="col-md-offset-3 col-md-6">
-                <?= $form->field($user, 'email')->input('text', ['placeholder' => "Ваш email* Например, alex@gmail.com"])->label(false)  ?>
+                <?= $form->field($user, 'email')->input('text', ['placeholder' => "Ваш email*"])->label(false)  ?>
             </div>
             <div class="col-md-offset-3 col-md-6">
-                <?= $form->field($user, 'newPassword')->passwordInput(['placeholder' => "Пароль* ............"])->label(false)  ?>
+                <?= $form->field($user, 'newPassword')->passwordInput(['placeholder' => "Пароль*"])->label(false)  ?>
             </div>
 
             <div class="col-md-offset-3 col-md-6 text-center">
-                    <?= $form->field($user, 'personal_data_processing', [
-                        'template' => "{input}   Я соглашаюсь с условиями обработки персональных данных {error}",
+                <?= $form->field($user, 'personal_data_processing', [
+                        'template' => "{input}
+                        <small>&ensp;Я соглашаюсь с условиями обработки персональных данных {error}</small>",
                     ])->checkbox([], false)->label(false) ?>
             </div>
             <div class="col-md-offset-3 col-md-6 text-center">
                 <?= $form->field($user, 'mailing', [
-                    'template' => "{input}      Подписаться на рассылку Bofort.ru",
+                    'template' => "{input}
+                        <small>&ensp;Подписаться на рассылку Bofort.ru</small>",
                 ])->checkbox([], false)->label(false)?>
             </div>
 
@@ -65,12 +71,10 @@ $this->title = 'Форма регистрации';
             <?= $form->field($profile, 'full_name') ?>
             */ ?>
 
-            <div class="col-md-offset-3 col-md-6 text-center">
-                <?= Html::submitButton('Зарегистрироваться', ['class' => 'btn btn-primary']) ?>
+            <div class="col-md-offset-3 col-md-6 text-center mt-8">
+                <?= Html::submitButton('Зарегистрироваться', ['class' => 'btn btn-primary mb-8']) ?>
 
-                <br/><br/>
-                Уже есть аккаунт?
-                <a id="login-register" onclick="return false;">Войти</a>
+                <p class="small text-center">Уже есть аккаунт? <a id="login-register" onclick="return false;">Войти</a></p>
             </div>
         </div>
 
