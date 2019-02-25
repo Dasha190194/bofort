@@ -10,17 +10,17 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <p class="small">О компании Bofort.ru</p>
+                <p class="small"><a href="/site/about/">О компании Bofort.ru</a></p>
                 <p class="small">Тарифы и услуги</p>
             </div>
             <div class="col-md-4">
                 <p class="small">Частые вопросы</p>
-                <p class="small">Контакты</p>
+                <p class="small"><a href="/site/contact/">Контакты</a></p>
             </div>
-            <div class="col-md-4">
+            <!-- <div class="col-md-4">
                 <p class="small">// Здесь будут иконки соцсетей</p>
                 <p class="small">// Здесь будет телефон</p>
-            </div>
+            </div> -->
         </div>
         <div class="row mt-32 mb-32">
             <div class="col-md-4 col-md-offset-4">

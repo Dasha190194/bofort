@@ -80,7 +80,7 @@ $this->title = 'Bofort';
 
         <div class="row">
             <div class="col-sm-12">
-                <div class="divider mt-32 mb-32"><img class="center-block" src="/img/divider.png" alt=""></div>
+                <div class="divider mt-32 mb-16"><img class="center-block" src="/img/divider.png" alt=""></div>
             </div>
         </div>
 
@@ -98,7 +98,7 @@ $this->title = 'Bofort';
                 <div class="col-xs-12 col-sm-6 col-md-3 mb-16">
                     <div class="boats-image">
                         <img class="img-responsive" src="http://bofort.su/uploads/250X150/<?= (isset($category->image->path)?$category->image->path:'index.png') ?>">
-<?php /*                        <span class="label label-default">--><?//= $boat->tariff->weekday ?><!--</span> */?>
+            <?php /*                        <span class="label label-default">--><?//= $boat->tariff->weekday ?><!--</span> */?>
                     </div>
 
                     <h4><?= $category->name ?></h4>
@@ -107,6 +107,12 @@ $this->title = 'Bofort';
                     <a class="btn btn-primary" href="/boats/index/<?= $category->slug ?>">Подробно</a>
                 </div>
             <?php endforeach; ?>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="divider mt-16"><img class="center-block" src="/img/divider.png" alt=""></div>
+            </div>
         </div>
 
         <?php if (Yii::$app->user->isGuest): ?>
