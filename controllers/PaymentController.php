@@ -49,7 +49,7 @@ class PaymentController extends Controller
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['complete'],
+                        'actions' => ['complete', 'fail'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -143,9 +143,9 @@ class PaymentController extends Controller
     {
         if (Yii::$app->getRequest()->getMethod() == 'POST') {
 
+            Yii::info('Cloudpayment answer ['.json_encode($_POST).']', 'app.payment.complete');
             $input = InputPayAnswer::collect();
             try {
-                Yii::info('Cloudpayment answer ['.$input->transactionId.']', 'app.payment.complete');
 
                 $card = CardsModel::createCardIFNoExist($input);
 
