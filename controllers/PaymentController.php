@@ -148,6 +148,7 @@ class PaymentController extends Controller
             try {
 
                 $card = CardsModel::createCardIFNoExist($input);
+                Yii::info('Используется карта ['.$card->id.']', 'app.payment.complete');
 
                 $transaction = new TransactionsModel();
                 $transaction->create($input->invoiceId, $input->amount, $input->accountId, $card->id);
@@ -159,12 +160,14 @@ class PaymentController extends Controller
                 $order->state = 1;
                 $order->save();
 
+                Yii::info('Успешное проведение платежа ['.$transaction->id.']', 'app.payment.complete');
                 return ['code' => 0];
             } catch (Exception $e) {
                 Yii::error($e->getMessage(), 'app.payment.complete');
             }
         }
 
+        Yii::error('Ошибка проведения платежа', 'app.payment.complete');
         return ['code' => -1];
     }
 
@@ -180,6 +183,7 @@ class PaymentController extends Controller
             try {
 
                 $card = CardsModel::createCardIFNoExist($input);
+                Yii::info('Используется карта ['.$card->id.']', 'app.payment.fail');
 
                 $transaction = new TransactionsModel();
                 $transaction->create($input->invoiceId, $input->amount, $input->accountId, $card->id);
@@ -187,12 +191,14 @@ class PaymentController extends Controller
                 $transaction->state = -1;
                 $transaction->save();
 
+                Yii::info('Успешный неудачный платеж ['.$transaction->id.']', 'app.payment.fail');
                 return ['code' => 0];
             } catch (Exception $e) {
                 Yii::error($e->getMessage(), 'app.payment.fail');
             }
         }
 
+        Yii::error('Ошибка проведения неудачного платежа', 'app.payment.fail');
         return ['code' => -1];
     }
 }
