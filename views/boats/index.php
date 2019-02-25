@@ -53,7 +53,7 @@
                     <?php if(Yii::$app->user->can("admin")): ?>
                         <a href="/boats/update?id=<?= $boat->id ?>">Редактировать</a>
                     <?php endif; ?>
-                    <?php if(Yii::$app->user->identity->isShipowner()): ?>
+                    <?php if(!Yii::$app->user->isGuest and Yii::$app->user->identity->isShipowner()): ?>
                         <a href="/admin/my-boat?id=<?= $boat->id ?>">Заблокировать</a>
                     <?php endif; ?>
                 </div>
