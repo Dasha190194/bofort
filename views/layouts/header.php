@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col-sm-12">
 
-        <nav id="w0" class="navbar navbar-default header-vertical-collapse">
+        <nav id="w0" class="navbar navbar-default navbar-background">
           <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
