@@ -120,7 +120,7 @@ class OrderController extends Controller
         $order->transaction->state = 2;
         $order->transaction->save();
 
-        Yii::info("Order [$id] success refund", 'order.refund');
+        Yii::info("Order [$id] success refund", 'app.order.refund');
         return $this->asJson(['result' => true]);
     }
 
