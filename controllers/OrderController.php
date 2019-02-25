@@ -58,7 +58,7 @@ class OrderController extends Controller
             return $this->redirect(['/order/confirm-step1', 'id' => $order->id]);
         }
 
-        Yii::error("Заказ не создан [$form->error]", 'app.order.create');
+      //  Yii::error("Заказ не создан [$form->error]", 'app.order.create');
         Yii::$app->session->setFlash("Order-create-error", 'Не удалось создать заказ');
         return $this->redirect(Yii::$app->request->referrer);
     }
@@ -78,7 +78,7 @@ class OrderController extends Controller
             return $this->redirect(['/order/confirm-step2', 'id' => $order->id]);
         }
 
-        Yii::error("Ошибка формирования заказа [$model->error]", 'app.order.step1');
+       // Yii::error("Ошибка формирования заказа [$model->error]", 'app.order.step1');
         return $this->render('confirm-step1', compact('order', 'model'));
     }
 

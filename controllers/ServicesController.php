@@ -69,6 +69,11 @@ class ServicesController extends Controller
 
         $post = Yii::$app->request->post();
         if ($model->load($post) && $model->validate()) {
+
+            foreach ($service->boats as $boat) {
+                $service->unlink('boats', $boat);
+            }
+
             $model->save($service);
             $this->redirect('index');
         }

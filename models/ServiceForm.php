@@ -22,6 +22,7 @@ class ServiceForm extends Model {
         return [
             'price' => 'Цена',
             'name' => 'Название',
+            'boats' => 'Лодки'
         ];
     }
 
@@ -31,9 +32,10 @@ class ServiceForm extends Model {
         $action->price = $this->price;
         $action->save();
 
-        $boat = BoatsModel::findOne($this->boats);
-        $action->link('boat', $boat);
-
+        foreach ($this->boats as $boat) {
+            $boatS = BoatsModel::findOne($boat);
+            $action->link('boats', $boatS);
+        }
     }
 
     public function loadData($arModel)
@@ -41,6 +43,12 @@ class ServiceForm extends Model {
         foreach (array_keys($this->getAttributes()) as $attribute)
             if (isset($arModel->$attribute)) $this->$attribute = $arModel->$attribute;
 
-        $this->boats = isset($arModel->boat)?$arModel->boat->id:null;
+        $arr = [];
+        if (isset($arModel->boats)) {
+            foreach ($arModel->boats as $boat) {
+                $arr[] = $boat->id;
+            }
+            $this->boats = $arr;
+        }
     }
 }
