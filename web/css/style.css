@@ -85,7 +85,7 @@
 		max-width: 844px;
 	}
 
-/* Buttons */
+/* Buttons & labels */
 
 	.btn {
 		padding: .8em 3.2em;
@@ -94,7 +94,16 @@
 		border: none;
 	}
 
-	.btn-primary {
+	.label {
+		font-size: 14px;
+		font-family: 'Roboto Slab', Helvetica, Arial, sans-serif;
+		font-weight: bold;
+		padding: 12px;
+		display: inline-block;
+	}
+
+	.btn-primary,
+	.label-primary {
 		background: #05345C;
 	}
 	
@@ -102,7 +111,8 @@
   	background: #042A4B;
   }
 
-  .btn-default {
+  .btn-default,
+  .label-default {
   	color: #05345C;
   }
 
@@ -110,7 +120,8 @@
   	color: #F8F9FA;
   }
 
-  .btn-warning {
+  .btn-warning,
+  .label-warning {
 		background: #FFA316; 
   }
 
@@ -208,6 +219,18 @@
 
 	.hero-title-h2 {
 
+	}
+
+/* Categoru & boats */
+
+	.boats-img-container {
+		position: relative;
+	}
+
+	.label-boats {
+		position: absolute;
+		top: 8px;
+		right: -8px;
 	}
 
 /* Forms */
