@@ -153,6 +153,17 @@
 		border-radius: 0;
 	}
 
+	.navbar-background {
+		background: black;
+		background-color: black;
+		background-image: url('/img/footer.jpg');
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: 0 -16px;
+		border: none;
+		border-radius: 0;
+	}
+
 	.header-vertical-collapse {
 		margin-bottom: -80px;
 	}
