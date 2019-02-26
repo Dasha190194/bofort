@@ -20,7 +20,10 @@ $module = Yii::$app->getModule("user");
 
     <div class="row mb-16">
         <div class="col-md-12">
-            <h3 class="text-center"><?= Html::encode($this->title) ?></h3>
+            <h3 class="text-center">
+                <!-- <? //= Html::encode($this->title) ?> -->
+                Регистрация
+            </h3>
         </div>
     </div>
 
@@ -57,15 +60,11 @@ $module = Yii::$app->getModule("user");
             <div class="col-md-offset-3 col-md-6 text-center">
 
 
-                <div class="form-group field-user-personal_data_processing">
+                <div class="form-group mb-0 field-user-personal_data_processing">
                     <input type="hidden" name="User[personal_data_processing]" value="0"><input type="checkbox" id="user-personal_data_processing" name="User[personal_data_processing]" value="1">
                     <small> Я соглашаюсь с условиями обработки персональных данных <div class="help-block"></div></small>
                 </div>
 
-<!--                --><?//= $form->field($user, 'personal_data_processing', [
-//                        'template' => "{input}
-//                        <small>&ensp;Я соглашаюсь с условиями обработки персональных данных {error}</small>",
-//                    ])->checkbox([], false)->label(false) ?>
             </div>
             <div class="col-md-offset-3 col-md-6 text-center">
 
@@ -75,12 +74,6 @@ $module = Yii::$app->getModule("user");
                     <small> Подписаться на рассылку Bofort.ru</small>
                 </div>
 
-
-
-<!--                --><?//= $form->field($user, 'mailing', [
-//                    'template' => "{input}
-//                        <small>&ensp;Подписаться на рассылку Bofort.ru</small>",
-//                ])->checkbox([], false)->label(false)?>
             </div>
 
             <?php /* uncomment if you want to add profile fields here

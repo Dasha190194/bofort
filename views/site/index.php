@@ -4,7 +4,7 @@
 
 /** @var \app\models\BoatsModel $boats */
 
-$this->title = 'Bofort';
+$this->title = 'Бофорт.ру – аренда катеров и яхт в Москве';
 ?>
 <div class="site-index">
 
