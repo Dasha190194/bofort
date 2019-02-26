@@ -19,6 +19,9 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'assetManager' => [
+            'appendTimestamp' => true,
+        ],
         'user' => [
             'class' => 'amnah\yii2\user\components\User',
             'identityClass' => 'app\models\User',
