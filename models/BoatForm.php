@@ -66,6 +66,7 @@ class BoatForm extends Model
             Image::thumbnail($path, 250, 150)->save(Yii::$app->params['uploadsPath']."250X150/{$image->baseName}.{$image->extension}", ['quality' => 80]);
             Image::thumbnail($path, 350, 200)->save(Yii::$app->params['uploadsPath']."350X200/{$image->baseName}.{$image->extension}", ['quality' => 80]);
             Image::thumbnail($path, 550, 350)->save(Yii::$app->params['uploadsPath']."550X350/{$image->baseName}.{$image->extension}", ['quality' => 80]);
+            Image::thumbnail($path, 1080, 720)->save(Yii::$app->params['uploadsPath']."1080X720/{$image->baseName}.{$image->extension}", ['quality' => 80]);
         }
         return true;
     }
