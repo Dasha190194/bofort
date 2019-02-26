@@ -49,4 +49,10 @@ class CategoryModel extends ActiveRecord
     public function getBoats() {
         return $this->hasMany(BoatsModel::className(), ['category_id' => 'id']);
     }
+
+    public function getMinPrice() {
+        $boat = $this->getBoats()->joinWith('tariff')->orderBy(['one_day' => 'SORT_DESC'])->one();
+        if ($boat) return $boat->tariff->one_day;
+        return 0;
+    }
 }

@@ -99,9 +99,7 @@ $this->title = 'Bofort';
                     <div class="boats-img-container">
                         <img class="img-responsive" src="http://bofort.su/uploads/250X150/<?= (isset($category->image->path)?$category->image->path:'index.png') ?>">
 
-                        <?php /*<span class="label label-default">--><?//= $boat->tariff->weekday ?><!--</span> */?>
-
-                        <span class="label label-warning label-boats">от 5 000 руб.</span>
+                        <span class="label label-warning label-boats">от <?= \app\helpers\Utils::userPrice($category->getMinPrice())?></span>
 
                     </div>
 
