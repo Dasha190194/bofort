@@ -51,8 +51,14 @@ class CategoryModel extends ActiveRecord
     }
 
     public function getMinPrice() {
-        $boat = $this->getBoats()->joinWith('tariff')->orderBy(['one_day' => 'SORT_DESC'])->one();
-        if ($boat) return $boat->tariff->one_day;
-        return 0;
+        if (!$boats = $this->getBoats()->all()) return 0;
+        $prices = [];
+        foreach ($boats as &$boat) {
+            $prices[] = $boat->tariff->holiday;
+            $prices[] = $boat->tariff->weekday;
+            $prices[] = $boat->tariff->four_hours;
+            $prices[] = $boat->tariff->one_day;
+        }
+        return min($prices);
     }
 }
