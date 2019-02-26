@@ -1,3 +1,4 @@
+
 <?php
 
 use yii\bootstrap\Modal;
@@ -37,11 +38,11 @@ $this->title = 'Вход';
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-3 col-md-7">
+            <div class="col-md-offset-3 col-md-6">
                 <?= Html::submitButton('Войти на сайт', ['class' => 'btn btn-primary btn-block mb-16']) ?>
             </div>
-            <div class="col-md-offset-2 col-md-9">
-                <p class="small text-center">Еще не зарегистрированы?  <?= Html::a('Создать аккаунт', ["/user/register"]) ?></p>
+            <div class="col-md-12">
+                <p class="small text-center mb-0">Еще не зарегистрированы?  <?= Html::a('Создать аккаунт', ["/user/register"]) ?></p>
                 <p class="small text-center"><?= Html::a('Забыли пароль?', ["/user/forgot"]) ?></p>
                 <!--            --><?//= Html::a(Yii::t("user", "Resend confirmation email"), ["/user/resend"]) ?>
             </div>

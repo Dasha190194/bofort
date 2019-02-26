@@ -44,6 +44,8 @@
 
 /* Dividers */
 
+	/* Positive */
+
 	.mt-8 {
 		margin-top: .48em;
 	}
@@ -74,6 +76,46 @@
 
 	.mb-64 {
 		margin-bottom: 3.84em;
+	}
+
+	/* Clear */
+
+	.mt-0 {
+		margin-top: 0;
+	}
+
+	.mb-0 {
+		margin-bottom: 0;
+	}
+
+	/* Negative */
+
+	.mt--16 {
+		margin-top: -.96em;
+	}
+
+	.mt--32 {
+		margin-top: -1.92em;
+	}
+
+	.mt--64 {
+		margin-top: -3.84em;
+	}
+
+	.mb--8 {
+		margin-bottom: -.48em;
+	}
+
+	.mb--16 {
+		margin-bottom: -.96em;
+	}
+
+	.mb--32 {
+		margin-bottom: -1.92em;
+	}
+
+	.mb--64 {
+		margin-bottom: -3.84em;
 	}
 
 /* Alignment */

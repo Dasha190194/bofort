@@ -15,12 +15,6 @@ $this->title = 'Контакты';
     <h1><?= Html::encode($this->title) ?></h1>
 
     <div class="row">
-        <div class="col-md-12 mb-16">
-            <div class="divider"><img class="center-block" src="/img/divider.png" alt=""></div>
-        </div>
-    </div>
-
-    <div class="row">
     	<div class="col-sm-12">
     		
     		<p>ООО «БОФОРТ»</p>
