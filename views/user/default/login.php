@@ -17,7 +17,7 @@ $this->title = 'Вход';
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">&times;</button>
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h4 class="modal-title"><?= Html::encode($this->title) ?></h1>
 </div>
 <div class="modal-body">
     <div class="user-default-login">

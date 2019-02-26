@@ -95,7 +95,7 @@ $this->title = 'Bofort';
         <div class="row">
 
             <?php foreach ($categories as $category): ?>
-                <div class="col-xs-12 col-sm-6 col-md-3 mb-16">
+                <div class="col-xs-12 col-sm-6 col-md-3 mb-64">
                     <div class="boats-img-container">
                         <img class="img-responsive" src="http://bofort.su/uploads/250X150/<?= (isset($category->image->path)?$category->image->path:'index.png') ?>">
 
@@ -103,7 +103,7 @@ $this->title = 'Bofort';
 
                     </div>
 
-                    <h4><?= $category->name ?></h4>
+                    <h5><?= $category->name ?></h5>
 
                     <p><?= $category->description ?></p>
                     <a class="btn btn-primary mt-8" href="/boats/index/<?= $category->slug ?>">Подробно</a>
