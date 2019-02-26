@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
 $module = Yii::$app->getModule("user");
 
-$this->title = 'Регистрация';
+
 ?>
 <div class="user-default-register">
 
@@ -55,16 +55,32 @@ $this->title = 'Регистрация';
             </div>
 
             <div class="col-md-offset-3 col-md-6 text-center">
-                <?= $form->field($user, 'personal_data_processing', [
-                        'template' => "{input}
-                        <small>&ensp;Я соглашаюсь с условиями обработки персональных данных {error}</small>",
-                    ])->checkbox([], false)->label(false) ?>
+
+
+                <div class="form-group field-user-personal_data_processing">
+                    <input type="hidden" name="User[personal_data_processing]" value="0"><input type="checkbox" id="user-personal_data_processing" name="User[personal_data_processing]" value="1">
+                    <small> Я соглашаюсь с условиями обработки персональных данных <div class="help-block"></div></small>
+                </div>
+
+<!--                --><?//= $form->field($user, 'personal_data_processing', [
+//                        'template' => "{input}
+//                        <small>&ensp;Я соглашаюсь с условиями обработки персональных данных {error}</small>",
+//                    ])->checkbox([], false)->label(false) ?>
             </div>
             <div class="col-md-offset-3 col-md-6 text-center">
-                <?= $form->field($user, 'mailing', [
-                    'template' => "{input}
-                        <small>&ensp;Подписаться на рассылку Bofort.ru</small>",
-                ])->checkbox([], false)->label(false)?>
+
+
+                <div class="form-group field-user-mailing">
+                    <input type="hidden" name="User[mailing]" value="0"><input type="checkbox" id="user-mailing" name="User[mailing]" value="1">
+                    <small> Подписаться на рассылку Bofort.ru</small>
+                </div>
+
+
+
+<!--                --><?//= $form->field($user, 'mailing', [
+//                    'template' => "{input}
+//                        <small>&ensp;Подписаться на рассылку Bofort.ru</small>",
+//                ])->checkbox([], false)->label(false)?>
             </div>
 
             <?php /* uncomment if you want to add profile fields here
