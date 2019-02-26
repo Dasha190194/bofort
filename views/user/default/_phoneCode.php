@@ -11,14 +11,20 @@ use yii\helpers\Html;
 ?>
 
 
-<?php $form = ActiveForm::begin([
-    'id' => 'confirm-phone',
-    'action' => '/default/code-confirm',
-   // 'enableAjaxValidation' => true,
-]); ?>
+
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h4>Подтверждение номера телефона <?= $model->phone ?></h4>
+</div>
+<div class="modal-body">
+    <?php $form = ActiveForm::begin([
+        'id' => 'confirm-phone',
+        'action' => '/default/code-confirm',
+    ]); ?>
     <div class="row">
         <div class="col-md-12">
-            <h4>Подтверждение номера телефона <?= $model->phone ?></h4>
+
             Мы выслали вам SMS с кодом, введите его в это поле, чтобы подтвердить номер телефона:
             <?= $form->field($model, 'code')->input('text', ['class' => 'form-control'])->label(false); ?>
             <?= $form->field($model, 'phone')->hiddenInput()->label(false) ?>
@@ -30,4 +36,5 @@ use yii\helpers\Html;
             <?= Html::submitButton('Подтвердить', ['class' => 'btn btn-primary btn-block']) ?>
         </div>
     </div>
-<?php ActiveForm::end(); ?>
+    <?php ActiveForm::end(); ?>
+</div>

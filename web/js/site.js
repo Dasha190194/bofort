@@ -16,7 +16,7 @@ $(document).ready(function() {
             url: '/user/login',
             type: "GET",
             success: function (data) {
-                $('.modal-body').html(data);
+                $('.modal-content').html(data);
                 $('#my-modal').modal({show:true});
             }
         });
@@ -196,7 +196,7 @@ $(document).ready(function() {
                     url: url,
                     data: $form.serialize(),
                     success: function(data) {
-                        $('#phone-code .modal-body').html(data);
+                        $('#phone-code .modal-content').html(data);
                         $('#phone-code').modal({show:true});
                     }
                 });

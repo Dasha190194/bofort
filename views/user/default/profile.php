@@ -16,7 +16,7 @@ use amnah\yii2\user\helpers\Timezone;
  */
 
 $this->title = 'Личный кабинет';
-//$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="user-default-profile">
 
