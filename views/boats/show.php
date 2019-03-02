@@ -31,6 +31,22 @@ $this->title = $boat->name;
         </div>
     </div>
 
+    <?php
+    /* Вот список характеристик лодки. Пользуй как хочешь через стрелочку $boat->...
+            $name,
+            $description,
+            $engine_power,
+            $spaciousness,
+            $location_name,
+            $lat,
+            $long,
+            $width,
+            $length,
+            $speed,
+            $speed2,
+    */
+    ?>
+
     <div class="row" style="margin-top: 20px">
         <div class="col-md-6">
             <h4>Характеристики</h4>
@@ -57,7 +73,7 @@ $this->title = $boat->name;
             </div>
             <div class="characteristic">
                 <span>Располпжение причала . <a id="showLocation">Показать на карте</a></span>
-                <?= $boat->location ?>
+                <?= $boat->location_name ?>
             </div>
             <div class="characteristic">
                 <span>Доступны дополнительные услуги</span>
@@ -118,13 +134,22 @@ $this->title = $boat->name;
 
             $('#showLocation').click(function () {
 
-                var location = "<?= $boat->location ?>";
-                ymaps.geocode(location).then(function (res) {
-                    myMap = new ymaps.Map('yandex-map', {
-                        center: res.geoObjects.get(0).geometry.getCoordinates(),
-                        zoom : 13
-                    });
+                var lat = "<?= $boat->lat ?>";
+                var long = "<?= $boat->long ?>";
+
+                myMap = new ymaps.Map('yandex-map', {
+                    center: [lat, long],
+                    zoom : 15
                 });
+
+                var myGeoObject = new ymaps.GeoObject({
+                    geometry: {
+                        type: "Point",
+                        coordinates: [lat, long]
+                    }
+                });
+
+                myMap.geoObjects.add(myGeoObject);
 
                 $('#map').modal({show:true});
             });

@@ -35,9 +35,13 @@ if (isset($model->images)) {
     <?= $form->field($model, 'description')->textarea() ?>
     <?= $form->field($model, 'engine_power')->input('text') ?>
     <?= $form->field($model, 'spaciousness')->input('text') ?>
-    <?= $form->field($model, 'certificate')->input('text') ?>
-    <?= $form->field($model, 'location')->input('text') ?>
-    <?= $form->field($model, 'short_description')->textarea() ?>
+    <?= $form->field($model, 'location_name')->input('text') ?>
+    <?= $form->field($model, 'lat')->input('text') ?>
+    <?= $form->field($model, 'long')->input('text') ?>
+    <?= $form->field($model, 'width')->input('text') ?>
+    <?= $form->field($model, 'length')->input('text') ?>
+    <?= $form->field($model, 'speed')->input('text') ?>
+    <?= $form->field($model, 'speed2')->input('text') ?>
     <?= $form->field($model, 'category_id')->dropDownList(ArrayHelper::map(CategoryModel::find()->all(), 'id', 'name')) ?>
 
     <hr>

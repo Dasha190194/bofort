@@ -16,7 +16,19 @@ use yii\web\UploadedFile;
 
 class BoatForm extends Model
 {
-    public $name, $description, $engine_power, $spaciousness, $certificate, $location, $short_description, $category_id, $images;
+    public  $name,
+            $description,
+            $engine_power,
+            $spaciousness,
+            $location_name,
+            $lat,
+            $long,
+            $width,
+            $length,
+            $speed,
+            $speed2,
+            $category_id,
+            $images;
 
     /**
      * @return array the validation rules.
@@ -24,7 +36,7 @@ class BoatForm extends Model
     public function rules()
     {
         return [
-            [['name', 'description', 'engine_power', 'spaciousness', 'certificate', 'location', 'short_description', 'category_id'], 'required'],
+            [['name', 'description', 'engine_power', 'spaciousness', 'location_name', 'lat', 'long', 'width', 'length', 'speed', 'speed2', 'category_id'], 'required'],
             [['images'], 'file', 'maxFiles' => 10, 'extensions' => 'png, jpg, jpeg'],
         ];
     }
@@ -36,9 +48,13 @@ class BoatForm extends Model
             'description' => 'Описание',
             'engine_power' => 'Мощность',
             'spaciousness' => 'Вместимость',
-            'certificate' => 'Сертификаты',
-            'location' => 'Расположение',
-            'short_description' => 'Короткое описание для главной',
+            'location_name' => 'Наименование расположение',
+            'lat' => 'Ширина',
+            'long' => 'Долгота',
+            'width' => 'Ширина',
+            'length' => 'Длина',
+            'speed' => 'Максимальная скорость',
+            'speed2' => 'Крейсерская',
             'category_id' => 'Категория',
             'images' => 'Фотографии'
         ];
