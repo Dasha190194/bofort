@@ -57,6 +57,8 @@ class CategoryModel extends ActiveRecord
             $prices[] = $boat->tariff->holiday;
             $prices[] = $boat->tariff->weekday;
             $prices[] = $boat->tariff->four_hours;
+            $prices[] = $boat->tariff->four_hours_holiday;
+            $prices[] = $boat->tariff->four_hours_weekday;
             $prices[] = $boat->tariff->one_day;
         }
         return min($prices);

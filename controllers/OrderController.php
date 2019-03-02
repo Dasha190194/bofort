@@ -282,14 +282,20 @@ class OrderController extends Controller
                     if ($flag == 0) {
                         $ti = new DateTime($dt);
                         if (count($datetimes2) >= 24) $price += $tariff->one_day;
-                        elseif (count($datetimes2) >= 4) $price += $tariff->four_hours;
+                        elseif (count($datetimes2) >= 4) {
+                            if (in_array($ti->format('D'), ['Sat', 'Sun'])) $price += $tariff->four_hours_holiday;
+                            else $price += $tariff->four_hours_weekday;
+                        }
                         elseif (in_array($ti->format('D'), ['Sat', 'Sun'])) $price += $tariff->holiday;
                         else $price += $tariff->weekday;
                     }
                 }
             } else {
                 if (count($datetimes) >= 24) $price = $tariff->one_day;
-                elseif (count($datetimes) >= 4) $price = $tariff->four_hours;
+                elseif (count($datetimes) >= 4) {
+                    if (in_array($datetimes[0]->format('D'), ['Sat', 'Sun'])) $price += $tariff->four_hours_holiday;
+                    else $price += $tariff->four_hours_weekday;
+                }
                 elseif (in_array($datetimes[0]->format('D'), ['Sat', 'Sun'])) $price = $tariff->holiday;
                 else $price = $tariff->weekday;
                 $price = $price*count($datetimes);

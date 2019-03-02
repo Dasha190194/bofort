@@ -45,18 +45,23 @@ if (isset($model->images)) {
     <?= $form->field($model, 'category_id')->dropDownList(ArrayHelper::map(CategoryModel::find()->all(), 'id', 'name')) ?>
 
     <hr>
-    <h4>Тарифы</h4>
-    <div class="col-md-3">
-        <?= $form->field($modelT, 'holiday')->input('text') ?>
-    </div>
-    <div class="col-md-3">
-        <?= $form->field($modelT, 'weekday')->input('text') ?>
-    </div>
-    <div class="col-md-3">
-        <?= $form->field($modelT, 'four_hours')->input('text') ?>
-    </div>
-    <div class="col-md-3">
-        <?= $form->field($modelT, 'one_day')->input('text') ?>
+    <div class="row">
+        <h4>Тарифы</h4>
+        <div class="col-md-2">
+            <?= $form->field($modelT, 'holiday')->input('text') ?>
+        </div>
+        <div class="col-md-2">
+            <?= $form->field($modelT, 'weekday')->input('text') ?>
+        </div>
+        <div class="col-md-2">
+            <?= $form->field($modelT, 'four_hours_holiday')->input('text') ?>
+        </div>
+        <div class="col-md-2">
+            <?= $form->field($modelT, 'four_hours_weekday')->input('text') ?>
+        </div>
+        <div class="col-md-2">
+            <?= $form->field($modelT, 'one_day')->input('text') ?>
+        </div>
     </div>
 
     <hr>

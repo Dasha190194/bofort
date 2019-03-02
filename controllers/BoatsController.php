@@ -117,7 +117,8 @@ class BoatsController extends Controller
             $tariff->boat_id = $id;
             $tariff->holiday = $modelT->holiday;
             $tariff->weekday = $modelT->weekday;
-            $tariff->four_hours = $modelT->four_hours;
+            $tariff->four_hours_holiday = $modelT->four_hours_holiday;
+            $tariff->four_hours_weekday = $modelT->four_hours_weekday;
             $tariff->one_day = $modelT->one_day;
             $tariff->save();
 
@@ -154,7 +155,8 @@ class BoatsController extends Controller
             $tariff->boat_id = $id;
             $tariff->holiday = $modelT->holiday;
             $tariff->weekday = $modelT->weekday;
-            $tariff->four_hours = $modelT->four_hours;
+            $tariff->four_hours_holiday = $modelT->four_hours_holiday;
+            $tariff->four_hours_weekday = $modelT->four_hours_weekday;
             $tariff->one_day = $modelT->one_day;
             $tariff->save();
 
