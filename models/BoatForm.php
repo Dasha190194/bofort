@@ -49,7 +49,7 @@ class BoatForm extends Model
             'engine_power' => 'Мощность',
             'spaciousness' => 'Вместимость',
             'location_name' => 'Наименование расположение',
-            'lat' => 'Ширина',
+            'lat' => 'Широта',
             'long' => 'Долгота',
             'width' => 'Ширина',
             'length' => 'Длина',
