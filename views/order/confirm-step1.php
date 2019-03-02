@@ -24,7 +24,7 @@ use yii\widgets\ActiveForm; ?>
         </div>
         <div class="col-md-9">
             <h4><?= $order->boat->name ?></h4>
-            <p>От <?= $order->boat->spaciousness ?> человек, мощность <?= $order->boat->engine_power ?>, <?= $order->boat->location ?></p>
+            <p>От <?= $order->boat->spaciousness ?> человек, мощность <?= $order->boat->engine_power ?>, <?= $order->boat->location_name ?></p>
         </div>
     </div>
 

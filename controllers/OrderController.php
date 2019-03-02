@@ -58,7 +58,7 @@ class OrderController extends Controller
             return $this->redirect(['/order/confirm-step1', 'id' => $order->id]);
         }
 
-      //  Yii::error("Заказ не создан [$form->error]", 'app.order.create');
+        Yii::error('Заказ не создан ['.json_encode($form->getErrors()).']', 'app.order.create');
         Yii::$app->session->setFlash("Order-create-error", 'Не удалось создать заказ');
         return $this->redirect(Yii::$app->request->referrer);
     }
@@ -74,11 +74,12 @@ class OrderController extends Controller
             $order->price = $model->coast;
             $order->datetime_from = $model->datetime_from;
             $order->datetime_to = $model->datetime_to;
+            $order->count_hours = count($this->getDateTimeInterval($model->datetime_from, $model->datetime_to));
             $order->save();
             return $this->redirect(['/order/confirm-step2', 'id' => $order->id]);
         }
 
-       // Yii::error("Ошибка формирования заказа [$model->error]", 'app.order.step1');
+        Yii::error('Ошибка формирования заказа ['.json_encode($model->getErrors()).']', 'app.order.step1');
         return $this->render('confirm-step1', compact('order', 'model'));
     }
 
@@ -124,6 +125,12 @@ class OrderController extends Controller
         return $this->asJson(['result' => true]);
     }
 
+    /**
+     * Применение промокода
+     * @param int $order_id
+     * @param string $word
+     * @return bool
+     */
     public function actionApplyPromo(int $order_id, string $word) {
 
         Yii::info("Apply Promo: $word", 'app.order.apply-promo');
@@ -149,6 +156,12 @@ class OrderController extends Controller
         return true;
     }
 
+    /**
+     * Добавление доп.услуг
+     * @param int $order_id
+     * @param int $service_id
+     * @return bool|string
+     */
     public function actionAddService(int $order_id, int $service_id) {
         try {
             $order = OrdersModel::findOne($order_id);
@@ -156,7 +169,7 @@ class OrderController extends Controller
 
             $order->link('services', $service);
         } catch (Exception $e) {
-            Yii::error($e->getMessage(), 'app.order.apply-promo');
+            Yii::error($e->getMessage(), 'app.order.add-service');
             Yii::$app->session->setFlash("order-error", 'Не удалось добавить услугу.');
             return false;
         }
@@ -164,6 +177,9 @@ class OrderController extends Controller
         return $this->renderPartial('_payBlock', compact('order'));   ;
     }
 
+    /*
+     * Удаление доп.услуг
+     */
     public function actionRemoveService(int $order_id, int $service_id) {
         try {
             $order = OrdersModel::findOne($order_id);
@@ -171,7 +187,7 @@ class OrderController extends Controller
 
             $order->unlink('services', $service);
         } catch (Exception $e) {
-            Yii::error($e->getMessage(), 'app.order.apply-promo');
+            Yii::error($e->getMessage(), 'app.order.remove-service');
             Yii::$app->session->setFlash("order-error", 'Не удалось удалить услугу.');
             return false;
         }

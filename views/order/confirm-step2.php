@@ -35,16 +35,12 @@ use yii\widgets\ActiveForm; ?>
                 <?= $order->boat->name ?>
             </div>
             <div class="characteristic">
-                <span>Необходимо удостоверение</span>
-                <?= $order->boat->certificate ?>
-            </div>
-            <div class="characteristic">
                 <span>Аренда</span>
                 <?= $order->datetime_from . ' - ' . $order->datetime_to ?>
             </div>
             <div class="characteristic">
                 <span>Причал выдачи/сдачи</span>
-                <?= $order->boat->location ?>
+                <?= $order->boat->location_name ?>
             </div>
         </div>
     </div>

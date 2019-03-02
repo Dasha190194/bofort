@@ -95,8 +95,9 @@ class OrdersModel extends ActiveRecord
     }
 
     public function getServicesPrice() {
-        return $this->hasMany(ServicesModel::className(), ['id' => 'service_id'])
+        $sum = $this->hasMany(ServicesModel::className(), ['id' => 'service_id'])
             ->viaTable('order_services', ['order_id' => 'id'])->sum('services.price');
+        return $sum*$this->count_hours;
     }
 
     public function getTransaction() {
