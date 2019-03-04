@@ -87,7 +87,10 @@ $this->title = $boat->name;
                     'action' => '/order/create',
              ]); ?>
             <?= $form->field($model, 'boat_id')->hiddenInput(['value' => $boat->id])->label(false)?>
-             <?= Html::submitButton('Забронировать яхту', ['class' => 'btn btn-primary btn-block']) ?>
+
+            <?php if (YII_ENV != 'landing'): ?>
+                <?= Html::submitButton('Забронировать яхту', ['class' => 'btn btn-primary btn-block']) ?>
+            <?php endif; ?>
 
             <?php ActiveForm::end(); ?>
         </div>

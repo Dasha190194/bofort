@@ -1,5 +1,16 @@
 <?php
 
+
+if (YII_ENV == 'landing') {
+    return [
+        'class' => 'yii\db\Connection',
+        'dsn' => 'pgsql:host=95.214.62.173;dbname=bofort_prod',
+        'username' => 'admin',
+        'password' => 'admin',
+        'charset' => 'utf8'
+    ];
+};
+
 return [
     'class' => 'yii\db\Connection',
     'dsn' => 'pgsql:host=95.214.62.173;dbname=bofort',

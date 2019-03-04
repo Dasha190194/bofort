@@ -111,7 +111,7 @@ $this->title = 'Бофорт.ру – аренда катеров и яхт в �
             <?php endforeach; ?>
         </div>
 
-        <?php if (Yii::$app->user->isGuest): ?>
+        <?php if (Yii::$app->user->isGuest and YII_ENV != 'landing'): ?>
             <div class="row">
                 <div class="col-md-12">
                     <div class="divider mt-16"><img class="center-block" src="/img/divider.png" alt=""></div>
