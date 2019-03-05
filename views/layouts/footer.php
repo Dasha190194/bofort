@@ -10,17 +10,17 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <p class="small"><a href="/site/about/">О компании Bofort.ru</a></p>
-                <p class="small">Тарифы и услуги</p>
+                <h5><a href="/site/about/">О компании Bofort.ru</a></h5>
+                <h5><a href="#">Тарифы и услуги</a></h5>
             </div>
             <div class="col-md-4">
-                <p class="small">Частые вопросы</p>
-                <p class="small"><a href="/site/contact/">Контакты</a></p>
+                <h5><a href="#">Частые вопросы</a></h5>
+                <h5><a href="/site/contact/">Контакты</a></h5>
             </div>
-            <!-- <div class="col-md-4">
-                <p class="small">// Здесь будут иконки соцсетей</p>
-                <p class="small">// Здесь будет телефон</p>
-            </div> -->
+            <div class="col-md-4">
+                <h5><a href="tel:74957457494">Круглосуточный Call-центр</a></h5>
+                <h4><a href="tel:74957457494"><span class="prepend">+7 (495)</span> 745 74 94</a></h4>
+            </div>
         </div>
         <div class="row mt-32 mb-32">
             <div class="col-md-4 col-md-offset-4">
