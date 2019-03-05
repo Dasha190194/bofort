@@ -38,6 +38,9 @@ class BoatForm extends Model
         return [
             [['name', 'description', 'engine_power', 'spaciousness', 'location_name', 'lat', 'long', 'width', 'length', 'speed', 'speed2', 'category_id'], 'required'],
             [['images'], 'file', 'maxFiles' => 10, 'extensions' => 'png, jpg, jpeg'],
+            ['description', 'filter', 'filter' => function ($value){
+                return nl2br($value);
+            }]
         ];
     }
 
