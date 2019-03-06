@@ -1,7 +1,5 @@
 $(document).ready(function() {
 
-
-
     $(".list-group-item").on('click', function(){
         $('.active').removeClass('active');
         $(this).addClass('active');
@@ -18,6 +16,20 @@ $(document).ready(function() {
             success: function (data) {
                 $('.modal-content').html(data);
                 $('#my-modal').modal({show:true});
+            }
+        });
+    });
+
+    $('body').on('submit', '#login-form', function (e){
+        e.preventDefault();
+
+        var form = $(this);
+        $.ajax({
+            url: '/user/login',
+            type: "POST",
+            data: form.serialize(),
+            success: function (data) {
+                $('.modal-content').html(data);
             }
         });
     });
