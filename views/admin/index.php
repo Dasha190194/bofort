@@ -47,6 +47,11 @@
                     </li>
                 </ul>
             </li>
+            <a href="/admin/oferta">
+                <li class="list-group-item">
+                    Оферта
+                </li>
+            </a>
         <?php endif; ?>
         <?php if(Yii::$app->user->identity->isShipowner()): ?>
             <li class="list-group-item">

@@ -4,11 +4,14 @@ namespace app\controllers;
 
 use app\models\BlockForm;
 use app\models\BoatsModel;
+use app\models\OfertaForm;
 use app\models\OrdersModel;
+use Exception;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\UploadedFile;
 
 
 class AdminController extends Controller
@@ -28,7 +31,7 @@ class AdminController extends Controller
                         'roles' => ['admin', 'shipowner'],
                     ],
                     [
-                        'actions' => ['orders', 'services'],
+                        'actions' => ['orders', 'services', 'oferta'],
                         'allow' => true,
                         'roles' => ['admin'],
                     ],
@@ -87,5 +90,24 @@ class AdminController extends Controller
         $boats = BoatsModel::find()->where(['user_id' => $user_id])->all();
 
         return $this->render('/boats/index', compact('boats'));
+    }
+
+    /*
+     * Редактор оферты
+     */
+    public function actionOferta() {
+        $model = new OfertaForm();
+
+        $post = Yii::$app->request->post();
+        if ($model->load($post) && $model->validate()) {
+            try {
+                $model->document = UploadedFile::getInstance($model, 'document');
+                if (!$model->upload()) throw new Exception('Ошибка сохранения оферты!');
+            } catch (Exception $e) {
+                Yii::error($e->getMessage(), 'app.admin.oferta');
+            }
+        }
+
+        return $this->render('oferta', compact('model'));
     }
 }
