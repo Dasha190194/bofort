@@ -94,16 +94,18 @@ use yii\widgets\ActiveForm; ?>
             validRange: function(nowDate){
                 return {start: nowDate}
             },
-            dayClick: function(date, jsEvent, view) {
+            dayClick: function(date1, jsEvent, view) {
 
                 daySelect($(this));
 
                 var times = $('#times');
-                times.fullCalendar('gotoDate', date.format());
+                times.fullCalendar('gotoDate', date1.format());
                 times.show();
                 times.fullCalendar('render');
 
                 getTimes();
+
+                numberArray[date] = [];
             }
         });
 
@@ -147,20 +149,19 @@ use yii\widgets\ActiveForm; ?>
             getTimes();
         });
 
-        var datetimeArray = [];
+        var date;
         var numberArray = [];
 
         function selectNumber(number, timeBlock) {
-             numberArray.push(number);
+             numberArray[date].push(number);
              timeBlock.css('background-color', '#ccc');
              timeBlock.addClass('select-time');
 
              fixValue();
-
-         }
+        }
 
         function deselectNumber(number, timeBlock) {
-            numberArray.splice(numberArray.indexOf(number), 1);
+            numberArray[date].splice(numberArray[date].indexOf(number), 1);
             timeBlock.css('background-color', 'white');
             timeBlock.removeClass('select-time');
 
@@ -169,14 +170,14 @@ use yii\widgets\ActiveForm; ?>
 
         function fixValue() {
 
-            let min = Math.min.apply(Math, numberArray);
+            let min = Math.min.apply(Math, numberArray[date]);
             let minBlock = $('div[data-number="'+min+'"]').parent('.fc-major');
             let minDate = minBlock.data('date');
 
             $('#orderconfirmform-datetime_from').val(moment(minDate).format("YYYY-MM-DD HH:00"));
             $('#datetime_from').text(moment(minDate).format("YYYY-MM-DD HH:00"));
 
-            let max = Math.max.apply(Math, numberArray);
+            let max = Math.max.apply(Math, numberArray[date]);
             let maxBlock = $('div[data-number="'+max+'"]').parent('.fc-major');
             let maxDate = maxBlock.data('date');
 
@@ -212,6 +213,7 @@ use yii\widgets\ActiveForm; ?>
         function daySelect(day) {
             $('.fc-day').removeClass('select-time');
             day.addClass('select-time');
+            date = day.attr('data-date');
         }
 
         function getTimes() {
@@ -228,6 +230,11 @@ use yii\widgets\ActiveForm; ?>
                     }
                     for (i=0; i<data.actions.length; i++) {
                         $('[data-date="'+data.actions[i]+'"]').append('<span>Акция!</span>');
+                    }
+                    if (numberArray[date]) {
+                        for (i=0; i<numberArray[date].length; i++){
+                            $('[data-number="'+numberArray[date][i]+'"]').parent('.fc-major').addClass('select-time');
+                        }
                     }
                 }
             });
@@ -262,13 +269,14 @@ use yii\widgets\ActiveForm; ?>
                     if (timeBlock.hasClass('select-time')) {
                         deselectNumber(number, timeBlock);
                     } else {
-                        if (numberArray.length === 0) {
+                        console.log(numberArray)
+                        if (numberArray[date].length === 0) {
                             selectNumber(number, timeBlock);
                         } else {
-                            let max = Math.max.apply(Math, numberArray);
+                            let max = Math.max.apply(Math, numberArray[date]);
                             if (number === max+1) {
                                 selectNumber(number, timeBlock);
-                            } else {
+                            } else if(numberArray2.indexOf(number) !== -1) {
                                 alert('error2');
                             }
                         }
