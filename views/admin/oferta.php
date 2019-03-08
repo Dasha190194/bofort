@@ -16,7 +16,13 @@ use yii\helpers\Html;
         'options' => ['enctype' => 'multipart/form-data']
     ]); ?>
 
-    <?= $form->field($model, 'document')->widget(FileInput::classname()); ?>
+    <?= $form->field($model, 'document')->widget(FileInput::classname(),
+        ['pluginOptions' => [
+                'initialPreview'=>[
+                    "https://bofort.ru/uploads/oferta.pdf"
+                ],
+        'initialPreviewAsData'=>true,
+    ]]); ?>
 
     <div class="col-md-offset-3 col-md-6 text-center">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary btn-block']) ?>

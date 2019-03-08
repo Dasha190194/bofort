@@ -35,7 +35,7 @@ class OfertaForm extends Model
     public function upload()
     {
         if ($this->validate()) {
-            $this->document->saveAs(Yii::$app->params['uploadsPath'].'oferta.'.$this->document->extension);
+            $this->document->saveAs(Yii::$app->params['uploadsPath'].'oferta.pdf');
             return true;
         }
         return false;

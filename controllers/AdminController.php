@@ -108,6 +108,7 @@ class AdminController extends Controller
             }
         }
 
+
         return $this->render('oferta', compact('model'));
     }
 }
