@@ -81,6 +81,7 @@ use yii\widgets\ActiveForm; ?>
     $(function() {
 
         var boat_id = "<?= $order->boat->id ?>";
+        var minimal_rent = "<?= $order->boat->tariff->minimal_rent ?>";
 
         $('#calendar').fullCalendar({
             schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
@@ -236,22 +237,44 @@ use yii\widgets\ActiveForm; ?>
             var timeBlock = $(this);
 
             if (!timeBlock.hasClass('busy-time')) {
+
                 var datetime = timeBlock.data('date');
                 var number = timeBlock.find('.time').data('number');
+                var minimal_rent_counter = minimal_rent;
 
-                if (timeBlock.hasClass('select-time')) {
-                    deselectNumber(number, timeBlock);
-                } else {
-                    if (numberArray.length === 0) {
-                        selectNumber(number, timeBlock);
+                var timesArray = $('.time');
+                var numberArray2 = [];
+                Object.values(timesArray).forEach(function (el) {
+                    if (!$(el).parent('.fc-major').hasClass('busy-time')) {
+                        numberArray2.push(Number($(el).attr('data-number')));
+                    }
+                });
+
+                while (minimal_rent_counter) {
+                    if (numberArray2.indexOf(number) === -1) alert('error1');
+                    minimal_rent_counter --;
+                }
+
+                for (i=0; i < minimal_rent; i++) {
+
+                    timeBlock = $('div[data-number="'+number+'"]').parent('.fc-major');
+
+                    if (timeBlock.hasClass('select-time')) {
+                        deselectNumber(number, timeBlock);
                     } else {
-                        let max = Math.max.apply(Math, numberArray);
-                        if (number === max+1) {
+                        if (numberArray.length === 0) {
                             selectNumber(number, timeBlock);
                         } else {
-                            alert('error');
+                            let max = Math.max.apply(Math, numberArray);
+                            if (number === max+1) {
+                                selectNumber(number, timeBlock);
+                            } else {
+                                alert('error2');
+                            }
                         }
                     }
+
+                    number++;
                 }
             }
         });
