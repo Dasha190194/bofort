@@ -58,7 +58,7 @@ $module = Yii::$app->getModule("user");
 
                 <div class="form-group mb-0 field-user-personal_data_processing">
                     <input type="hidden" name="User[personal_data_processing]" value="0"><input type="checkbox" id="user-personal_data_processing" name="User[personal_data_processing]" value="1">
-                    <small> Я соглашаюсь с <a href="/uploads/oferta.pdf">условиями обработки персональных данных</a> <div class="help-block"></div></small>
+                    <small> Я соглашаюсь с <a target="_blank" href="/uploads/oferta.pdf">условиями обработки персональных данных</a> <div class="help-block"></div></small>
                 </div>
 
             </div>
