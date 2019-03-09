@@ -141,12 +141,14 @@ use yii\widgets\ActiveForm; ?>
             if (start.format('YYYY-MM') < end.format('YYYY-MM')) $('#calendar').fullCalendar('prev');
             daySelect($('#calendar table').find('[data-date="'+start.format('YYYY-MM-DD')+'"]'));
             getTimes();
+            if (!numberArray[date]) numberArray[date] = [];
         });
 
         $('#times .fc-right').click(function(){
             if (start.subtract(1, 'day').format('YYYY-MM') < end.subtract(1, 'day').format('YYYY-MM')) $('#calendar').fullCalendar('next');
             daySelect($('#calendar table').find('[data-date="'+start.add(1, 'day').format('YYYY-MM-DD')+'"]'));
             getTimes();
+            if (!numberArray[date]) numberArray[date] = [];
         });
 
         var date;
@@ -232,6 +234,7 @@ use yii\widgets\ActiveForm; ?>
                         $('[data-date="'+data.actions[i]+'"]').append('<span>Акция!</span>');
                     }
                     if (numberArray[date]) {
+                        console.log(numberArray[date])
                         for (i=0; i<numberArray[date].length; i++){
                             $('[data-number="'+numberArray[date][i]+'"]').parent('.fc-major').addClass('select-time');
                         }
@@ -270,18 +273,22 @@ use yii\widgets\ActiveForm; ?>
                         deselectNumber(number, timeBlock);
                     } else {
                         console.log(numberArray)
-                        if (numberArray[date].length === 0) {
-                            selectNumber(number, timeBlock);
-                        } else {
-                            let max = Math.max.apply(Math, numberArray[date]);
-                            if (number === max+1) {
+                        if (Object.keys(numberArray).length <= 1) {
+                            if (numberArray[date].length === 0) {
                                 selectNumber(number, timeBlock);
-                            } else if(numberArray2.indexOf(number) !== -1) {
-                                alert('error2');
+                            } else {
+                                let max = Math.max.apply(Math, numberArray[date]);
+                                console.log(Object.keys(numberArray).length)
+                                if (number === max+1) {
+                                    selectNumber(number, timeBlock);
+                                } else if(numberArray2.indexOf(number) !== -1) {
+                                    alert('error2');
+                                }
                             }
+                        } else {
+                            alert('error3');
                         }
                     }
-
                     number++;
                 }
             }
