@@ -13,6 +13,19 @@ use yii\db\ActiveRecord;
 
 class NotificationsModel extends ActiveRecord
 {
+    public $type;
+
+    /**
+     * @return array the validation rules.
+     */
+    public function rules()
+    {
+        return [
+            [['text', 'type'], 'safe'],
+        ];
+    }
+
+
     public static function tableName()
     {
         return 'notifications';

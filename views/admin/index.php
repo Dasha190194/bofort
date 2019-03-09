@@ -52,6 +52,11 @@
                     Оферта
                 </li>
             </a>
+            <a href="/admin/notifications/index">
+                <li class="list-group-item">
+                    Уведомления
+                </li>
+            </a>
         <?php endif; ?>
         <?php if(Yii::$app->user->identity->isShipowner()): ?>
             <li class="list-group-item">

@@ -10,8 +10,11 @@ namespace app\controllers;
 
 
 use app\models\NotificationsModel;
+use app\models\OrdersModel;
+use app\models\User;
 use Exception;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 
 class NotificationsController extends Controller
@@ -51,6 +54,53 @@ class NotificationsController extends Controller
         }
 
         return json_encode($response);
+    }
+
+    public function actionIndex() {
+        $notifications = NotificationsModel::find();
+        $dataProvider = new ActiveDataProvider([
+            'query' => $notifications,
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+        return $this->render('index', compact('dataProvider'));
+    }
+
+    public function actionCreate() {
+        $model = new NotificationsModel();
+        $post = Yii::$app->request->post();
+
+        if ($model->load($post) && $model->validate()) {
+            foreach ($model->type as $type) {
+                switch ($type):
+                    case 0:
+                        foreach (User::find()->all() as &$user) {
+                            $notify = new NotificationsModel();
+                            $notify->user_id = $user->id;
+                            $notify->text = $model->text;
+                            $notify->save();
+                        }
+                        break;
+                    case 1000:
+                        foreach (OrdersModel::find()->where(['state' => 1])->andWhere(['<', 'datetime_from', 'now()'])->all() as &$order) {
+                            $notify = new NotificationsModel();
+                            $notify->user_id = $order->user_id;
+                            $notify->text = $model->text;
+                            $notify->save();
+                        }
+                        break;
+                    default:
+                        $notify = new NotificationsModel();
+                        $notify->user_id = $type;
+                        $notify->text = $model->text;
+                        $notify->save();
+                endswitch;
+            }
+            $this->redirect('index');
+        }
+
+        return $this->render('create', compact('model'));
     }
 
 }

@@ -107,8 +107,6 @@ class AdminController extends Controller
                 Yii::error($e->getMessage(), 'app.admin.oferta');
             }
         }
-
-
         return $this->render('oferta', compact('model'));
     }
 }
