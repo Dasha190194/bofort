@@ -34,6 +34,11 @@ $(document).ready(function() {
         });
     });
 
+    $('#my-modal').on('click', '#registration', function(){
+        $('#my-modal').modal('hide');
+        $('html,body').animate({scrollTop: document.body.scrollHeight},"slow");
+    });
+
     $('.service').on('click', function(){
         var thiss = $(this);
         var id = thiss.data('id');

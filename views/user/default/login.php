@@ -48,7 +48,7 @@ $this->title = 'Вход';
                 <?= Html::submitButton('Войти на сайт', ['class' => 'btn btn-primary btn-block mb-16', 'id' => 'submit-login']) ?>
             </div>
             <div class="col-md-12">
-                <p class="small text-center mb-0">Еще не зарегистрированы?  <?= Html::a('Создать аккаунт', ["/user/register"]) ?></p>
+                <p id="registration" class="small text-center mb-0">Еще не зарегистрированы?  <?= Html::a('Создать аккаунт') ?></p>
                 <p class="small text-center"><?= Html::a('Забыли пароль?', ["/user/forgot"]) ?></p>
             </div>
         </div>
