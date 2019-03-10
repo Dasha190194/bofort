@@ -65,6 +65,12 @@ if (isset($model->images)) {
     </div>
 
     <hr>
+    <div class="row">
+        <h4>Время</h4>
+        <?= $form->field($modelT, 'minimal_rent')->input('text') ?>
+    </div>
+
+    <hr>
     <h4>Картинки</h4>
     <?= $form->field($model, 'images[]')->widget(FileInput::classname(),
         [
