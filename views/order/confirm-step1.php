@@ -83,6 +83,18 @@ use yii\widgets\ActiveForm; ?>
         var boat_id = "<?= $order->boat->id ?>";
         var minimal_rent = "<?= $order->boat->tariff->minimal_rent ?>";
 
+        $.ajax( {
+           url: '/order/get-dates',
+           type: 'GET',
+           data: {
+                boat_id: boat_id,
+                date: moment().format("YYYY-MM-01")
+            },
+           success: function (data) {
+
+           }
+        });
+
         $('#calendar').fullCalendar({
             schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
             locale: 'ru',

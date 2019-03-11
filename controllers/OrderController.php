@@ -35,7 +35,7 @@ class OrderController extends Controller
                 'rules' => [
                     [
                         'actions' => ['create', 'confirm-step1', 'confirm-step2', 'apply-promo', 'add-service',
-                                      'remove-service', 'info', 'get-times', 'final', 'refund', 'price'],
+                                      'remove-service', 'info', 'get-times', 'final', 'refund', 'price', 'get-dates'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -70,7 +70,7 @@ class OrderController extends Controller
 
         Yii::info('Подтверждение заказа ['.json_encode($post).']', 'app.order.step1');
 
-        if ($model->load($post)) {
+        if ($model->load($post) && $model->validate()) {
             $order->price = $model->coast;
             $order->datetime_from = $model->datetime_from;
             $order->datetime_to = $model->datetime_to;
@@ -246,6 +246,41 @@ class OrderController extends Controller
                                'actions' => $datetimes2
         ]);
     }
+
+    public function actionGetDates(int $boat_id, $date) {
+
+        $date1 = new DateTime($date);
+        $date3 = new DateTime($date);
+        $date2 = $date1->modify('+ 1 month')->format('Y-m-d');
+
+        $busyBoats = OrdersModel::find()
+            ->where(['boat_id' => $boat_id, 'state' => [1,3]])
+            ->andWhere(['>=', 'datetime_from', $date3->format('Y-m-d')])
+            ->andWhere(['<=',  'datetime_from', $date2])
+            ->all();
+
+        $period = new DatePeriod(
+            new DateTime('2019-03-01'),
+            new DateInterval('P1D'),
+            new DateTime('2019-04-01')
+        );
+        foreach ($period as $key => $value) {
+            $dates[] = $value->format('Y-m-d');
+        }
+
+        $datescnt = [];
+        foreach ($dates as $date) {
+            foreach ($busyBoats as &$busyBoat) {
+                $begin = new DateTime($busyBoat->datetime_from);
+                $end = new DateTime($busyBoat->datetime_to);
+                if ($date >= $begin->format('Y-m-d') and $date <= $end->format('Y-m-d'))
+                    $datescnt[$date] = $busyBoat->count_hours;
+            }
+        }
+
+        return $this->asJson(['dates' => $datescnt]);
+    }
+
 
     /**
      * Расчет стоимости заказа
