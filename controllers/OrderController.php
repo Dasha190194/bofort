@@ -278,7 +278,21 @@ class OrderController extends Controller
             }
         }
 
-        return $this->asJson(['dates' => $datescnt]);
+        $actions = ActionsModel::find()->joinWith('boat')->where(['boat_id' => $boat_id])->andWhere(['>=', 'datetime_from', $date3->format('Y-m-d')])
+            ->andWhere(['<=',  'datetime_from', $date2])->all();
+
+        $datescnt2 = [];
+        foreach ($dates as $date) {
+            foreach ($actions as &$action) {
+                $begin = new DateTime($action->datetime_from);
+                $end = new DateTime( $action->datetime_to);
+                if ($date >= $begin->format('Y-m-d') and $date <= $end->format('Y-m-d')) {
+                    $datescnt2[$date] = 1;
+                }
+            }
+        }
+
+        return $this->asJson(['dates' => $datescnt, 'actions' => $datescnt2]);
     }
 
 
