@@ -249,21 +249,23 @@ class OrderController extends Controller
 
     public function actionGetDates(int $boat_id, $date) {
 
-        $date1 = new DateTime($date);
-        $date3 = new DateTime($date);
-        $date2 = $date1->modify('+ 1 month')->format('Y-m-d');
+        $firstMonthDay = new DateTime($date);
+        $cloneFirstMonthDay = clone $firstMonthDay;
+
+        $lastMonthDay = $firstMonthDay->modify('+ 1 month');
 
         $busyBoats = OrdersModel::find()
             ->where(['boat_id' => $boat_id, 'state' => [1,3]])
-            ->andWhere(['>=', 'datetime_from', $date3->format('Y-m-d')])
-            ->andWhere(['<=',  'datetime_from', $date2])
+            ->andWhere(['>=', 'datetime_from', $cloneFirstMonthDay->format('Y-m-d')])
+            ->andWhere(['<=',  'datetime_from', $lastMonthDay->format('Y-m-d')])
             ->all();
 
         $period = new DatePeriod(
-            new DateTime('2019-03-01'),
+            $cloneFirstMonthDay,
             new DateInterval('P1D'),
-            new DateTime('2019-04-01')
+            $lastMonthDay
         );
+
         foreach ($period as $key => $value) {
             $dates[] = $value->format('Y-m-d');
         }
@@ -278,8 +280,11 @@ class OrderController extends Controller
             }
         }
 
-        $actions = ActionsModel::find()->joinWith('boat')->where(['boat_id' => $boat_id])->andWhere(['>=', 'datetime_from', $date3->format('Y-m-d')])
-            ->andWhere(['<=',  'datetime_from', $date2])->all();
+        $actions = ActionsModel::find()->joinWith('boat')
+            ->where(['boat_id' => $boat_id])
+            ->andWhere(['>=', 'datetime_from', $cloneFirstMonthDay->format('Y-m-d')])
+            ->andWhere(['<=',  'datetime_from', $lastMonthDay->format('Y-m-d')])
+            ->all();
 
         $datescnt2 = [];
         foreach ($dates as $date) {
@@ -294,7 +299,6 @@ class OrderController extends Controller
 
         return $this->asJson(['dates' => $datescnt, 'actions' => $datescnt2]);
     }
-
 
     /**
      * Расчет стоимости заказа
