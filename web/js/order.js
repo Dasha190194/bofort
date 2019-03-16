@@ -454,8 +454,7 @@ var app = new Vue({
     }
   },
   created() {
-    var url = new URL(document.location.href);
-    this.boat_id = url.searchParams.get("id");
+    this.boat_id = boat_id;
     this.getTimes(this.currentYear, this.currentMonth);
   }
 })
