@@ -27,6 +27,11 @@ $this->registerAssetBundle($file);
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.min.js"></script>
 
+<script>
+    var boat_id = "<?= $order->boat->id ?>";
+    var minimal_rent = "<?= $order->boat->tariff->minimal_rent ?>";
+</script>
+
 <div class="confirm-order">
     <h1>Бронирование катера</h1>
 
