@@ -4,7 +4,8 @@ today.setHours(0, 0, 0, 0)
 var app = new Vue({
   el: '#order',
   data: {
-    boat_id: 30,
+    boat_id: 0,
+    minimal_rent: 1,
     showTimes: true,
 
     currentMonth: today.getMonth(),
@@ -178,6 +179,16 @@ var app = new Vue({
         to = (this.choosenTimeTo.getHours() + 1) + ':00';
       }
       return from + ' - ' + to;
+    },
+    notMinimalOrder() {
+      var choosenHours = 0;
+      if (this.choosenTimeFrom && !this.choosenTimeTo) {
+        choosenHours = 1;
+      }
+      if (this.choosenTimeFrom && this.choosenTimeTo) {
+        choosenHours = (this.choosenTimeTo.getTime() - this.choosenTimeFrom.getTime()) / 3600000 + 1;
+      }
+      return choosenHours < this.minimal_rent;
     }
   },
   methods: {
@@ -453,8 +464,9 @@ var app = new Vue({
       });
     }
   },
-  created() {
-    this.boat_id = boat_id;
+  mounted() {
+    this.boat_id = window.boat_id;
+    this.minimal_rent = window.minimal_rent;
     this.getTimes(this.currentYear, this.currentMonth);
   }
 })

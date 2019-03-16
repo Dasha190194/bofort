@@ -49,6 +49,8 @@ $this->registerAssetBundle($file);
         </div>
     </div>
 
+
+
     <div id="order">
         <div class="row">
             <div class="col-sm-offset-1 col-sm-10">
@@ -93,12 +95,12 @@ $this->registerAssetBundle($file);
                         <div
                                 class="month-day"
                                 :class="{
-                                'other-month': day.otherMonth,
-                                'selected': day.selected || day.choosen,
-                                'today': day.today,
-                                'past-date': day.pastDate,
-                                'holyday': (index % 7) > 4
-                            }"
+                                    'other-month': day.otherMonth,
+                                    'selected': day.selected || day.choosen,
+                                    'today': day.today,
+                                    'past-date': day.pastDate,
+                                    'holyday': (index % 7) > 4
+                                }"
                                 @click="select(day)"
                         >
                             {{ day.day }}
@@ -107,9 +109,9 @@ $this->registerAssetBundle($file);
                                 <div v-if="day.hasOwnProperty('busy')" class="availability">
                                     <div
                                             :class="{
-                                            'green': day.busy < 50,
-                                            'yellow': day.busy >= 50,
-                                        }"
+                                                'green': day.busy < 50,
+                                                'yellow': day.busy >= 50,
+                                            }"
                                             :style="{width: day.busy + '%'}"
                                     ></div>
                                 </div>
@@ -122,9 +124,9 @@ $this->registerAssetBundle($file);
         <div v-if="selectedDate" class="row">
             <div class="col-md-offset-2 col-md-8">
                 <div class="m20 text-center">
-                    <span class="round-arrow vertical">
-                        <i class="glyphicon glyphicon-chevron-down"></i>
-                    </span>
+                        <span class="round-arrow vertical">
+                            <i class="glyphicon glyphicon-chevron-down"></i>
+                        </span>
                 </div>
             </div>
         </div>
@@ -134,8 +136,11 @@ $this->registerAssetBundle($file);
                     <i class="glyphicon glyphicon-chevron-left"></i> {{ prevDate }}
                 </a>
             </div>
-            <div class="col-md-4 month-year">
-                <h4>Выберите время начала аренды</h4>
+            <div class="col-md-4 text-center">
+                <h4 class="mb-0">Выберите время начала аренды</h4>
+                <span v-if="minimal_rent > 1" class="minimal-rent">
+                        Минимальное время аренды {{ minimal_rent }} часа
+                    </span>
             </div>
             <div class="col-md-2 text-right">
                 <a href @click.prevent="nextDay" class="day-nav">
@@ -152,9 +157,9 @@ $this->registerAssetBundle($file);
                             class="time-col"
                             v-for="(time, index) in times"
                             :class="{
-                            'busy': time.busy,
-                            'selected': time.selected
-                        }"
+                                'busy': time.busy,
+                                'selected': time.selected
+                            }"
                             @click="chooseTime(time)"
                     >
                         <i v-if="time.selected" class="glyphicon glyphicon-ok"></i>
@@ -196,10 +201,10 @@ $this->registerAssetBundle($file);
                     <div class="row text-right big-blue">{{ price }} руб.</div>
                 </div>
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-yellow">Далее</button>
+                    <button type="submit" :disabled="notMinimalOrder" class="btn btn-yellow">Далее</button>
                 </div>
             <?php ActiveForm::end(); ?>
         </div>
     </div>
-</div>
 
+</div>

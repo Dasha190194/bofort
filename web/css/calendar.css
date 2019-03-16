@@ -249,3 +249,9 @@
   height: 50px;
   width: 100%;
 }
+
+.minimal-rent {
+  font-size: 12px;
+  color: #3e4349;
+  font-family: 'Roboto Slab', Helvetica, Arial, sans-serif;
+}
