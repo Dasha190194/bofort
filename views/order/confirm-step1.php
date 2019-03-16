@@ -4,8 +4,25 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-$this->registerCssFile('/css/calendar.css');
-$this->registerJsFile('/js/order.js');
+//$this->registerCssFile('/css/calendar.css');
+//$this->registerJsFile('/js/order.js');
+
+$file = '/js/order.js';
+$asset = new \yii\web\AssetBundle([
+    'js' => [ltrim($file, '/')],
+    'basePath' => '@webroot',
+    'baseUrl' => '/'
+]);
+$this->getAssetManager()->bundles[$file] = $asset;
+$this->registerAssetBundle($file);
+$file = '/css/calendar.css';
+$asset = new \yii\web\AssetBundle([
+    'css' => [ltrim($file, '/')],
+    'basePath' => '@webroot',
+    'baseUrl' => '/'
+]);
+$this->getAssetManager()->bundles[$file] = $asset;
+$this->registerAssetBundle($file);
 ?>
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.min.js"></script>
@@ -72,17 +89,24 @@ $this->registerJsFile('/js/order.js');
                                 class="month-day"
                                 :class="{
                                 'other-month': day.otherMonth,
-                                'selected': day.selected,
+                                'selected': day.selected || day.choosen,
                                 'today': day.today,
-                                'past-date': day.pastDate
+                                'past-date': day.pastDate,
+                                'holyday': (index % 7) > 4
                             }"
                                 @click="select(day)"
                         >
                             {{ day.day }}
                             <template v-if="!day.otherMonth && !day.pastDate">
-                                <div class="discount">%</div>
-                                <div class="availability">
-                                    <div class="green"></div>
+                                <div v-if="day.action" class="discount">%</div>
+                                <div v-if="day.hasOwnProperty('busy')" class="availability">
+                                    <div
+                                            :class="{
+                                            'green': day.busy < 50,
+                                            'yellow': day.busy >= 50,
+                                        }"
+                                            :style="{width: day.busy + '%'}"
+                                    ></div>
                                 </div>
                             </template>
                         </div>
@@ -140,7 +164,7 @@ $this->registerJsFile('/js/order.js');
                 <hr class="line">
             </div>
         </div>
-        <div v-if="choosenTimeFrom || 1" class="row">
+        <div v-if="choosenTimeFrom" class="row">
             <?php $form = ActiveForm::begin([
                 'id' => 'order-confirm-form',
                 'action' => '/order/confirm-step1?id='.$order->id,
@@ -172,7 +196,5 @@ $this->registerJsFile('/js/order.js');
             <?php ActiveForm::end(); ?>
         </div>
     </div>
-
-
 </div>
 

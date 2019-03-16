@@ -53,14 +53,14 @@ var app = new Vue({
     },
     prevDate() {
       if (!this.selectedDate) {
-        return ''
+        return '';
       }
       var prevDay = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), this.selectedDate.getDate() - 1);
       return prevDay.getDate() + ' ' + this.months1[prevDay.getMonth()];
     },
     nextDate() {
       if (!this.selectedDate) {
-        return ''
+        return '';
       }
       var nextDay = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), this.selectedDate.getDate() + 1);
       return nextDay.getDate() + ' ' + this.months1[nextDay.getMonth()];
@@ -89,8 +89,9 @@ var app = new Vue({
             otherMonth: true,
             selected: this.isSelected(date),
             today: this.isCurrentDate(date),
-            pastDate: this.isPastDate(date)
-          })
+            pastDate: this.isPastDate(date),
+            choosen: this.isChoosenDate(date)
+          });
         }
       }
 
@@ -104,8 +105,11 @@ var app = new Vue({
           otherMonth: false,
           selected: this.isSelected(date),
           today: this.isCurrentDate(date),
-          pastDate: this.isPastDate(date)
-        })
+          pastDate: this.isPastDate(date),
+          action: this.isActionDate(date),
+          choosen: this.isChoosenDate(date),
+          busy: this.busyDate(date)
+        });
       }
 
       // add next month days
@@ -120,78 +124,75 @@ var app = new Vue({
             otherMonth: true,
             selected: this.isSelected(date),
             today: this.isCurrentDate(date),
-            pastDate: false
-          })
+            pastDate: false,
+            action: this.isActionDate(date),
+            choosen: this.isChoosenDate(date)
+          });
         }
       }
-
-      //if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {}
 
       return days;
     },
     choosenTimeFromValue() {
       if (!this.choosenTimeFrom) {
-        return ''
+        return '';
       }
-      return ( 
-        this.choosenTimeFrom.getFullYear() + '-' + 
-        this.choosenTimeFrom.getMonth() + '-' +
-        this.choosenTimeFrom.getDate() + ' ' +
-        this.choosenTimeFrom.getHours() + ':00'
-      )
+      return this.formatDate(this.choosenTimeFrom);
     },
     choosenTimeToValue() {
       if (!this.choosenTimeFrom) {
-        return ''
+        return '';
       }
       if (!this.choosenTimeTo) {
         var timeTo = new Date(
-          this.choosenTimeFrom.getFullYear(),
-          this.choosenTimeFrom.getMonth(),
-          this.choosenTimeFrom.getDate(),
-          this.choosenTimeFrom.getHours() + 1
+            this.choosenTimeFrom.getFullYear(),
+            this.choosenTimeFrom.getMonth(),
+            this.choosenTimeFrom.getDate(),
+            this.choosenTimeFrom.getHours() + 1
         );
 
-        return ( 
-          timeTo.getFullYear() + '-' + 
-          timeTo.getMonth() + '-' +
-          timeTo.getDate() + ' ' +
-          timeTo.getHours() + ':00'
-        )
+        return this.formatDate(timeTo);
       }
-      return ( 
-        this.choosenTimeTo.getFullYear() + '-' + 
-        this.choosenTimeTo.getMonth() + '-' +
-        this.choosenTimeTo.getDate() + ' ' +
-        this.choosenTimeTo.getHours() + ':00'
-      )
+      return this.formatDate(this.choosenTimeTo);
     },
     dateFromTo() {
       if (!this.choosenTimeFrom) {
-        return ''
+        return '';
       }
-      var from = this.choosenTimeFrom.getDate() + ' ' + this.months1[this.choosenTimeFrom.getMonth()] + ' ' + this.choosenTimeFrom.getFullYear()
+      var from = this.choosenTimeFrom.getDate() + ' ' + this.months1[this.choosenTimeFrom.getMonth()] + ' ' + this.choosenTimeFrom.getFullYear();
       if (!this.choosenTimeTo) {
-        return from
+        return from;
       }
-      var to = this.choosenTimeTo.getDate() + ' ' + this.months1[this.choosenTimeTo.getMonth()] + ' ' + this.choosenTimeTo.getFullYear()
-      return from === to ? from : from + ' - ' + to
+      var to = this.choosenTimeTo.getDate() + ' ' + this.months1[this.choosenTimeTo.getMonth()] + ' ' + this.choosenTimeTo.getFullYear();
+      return from === to ? from : from + ' - ' + to;
     },
     timeFromTo() {
       if (!this.choosenTimeFrom) {
-        return ''
+        return '';
       }
-      var from = this.choosenTimeFrom.getHours() + ':00'
-      var to = ''
+      var from = this.choosenTimeFrom.getHours() + ':00';
+      var to = '';
       if (!this.choosenTimeTo) {
-        to = (this.choosenTimeFrom.getHours() + 1) + ':00'
+        to = (this.choosenTimeFrom.getHours() + 1) + ':00';
       } else {
-        to = this.choosenTimeTo.getHours() + ':00'
+        to = (this.choosenTimeTo.getHours() + 1) + ':00';
       }
-      return from + ' - ' + to
+      return from + ' - ' + to;
     }
   },
   methods: {
+    formatMonth(month) {
+      month++;
+      return month < 10 ? '0' + month : month;
+    },
+    formatDate(date) {
+      return (
+          date.getFullYear() + '-' +
+          this.formatMonth(date.getMonth()) + '-' +
+          date.getDate() + ' ' +
+          date.getHours() + ':00'
+      )
+    },
     isBusyTime(date) {
       for (var i = 0; i < this.dateTimes.calendar.length; i++) {
         if (this.dateTimes.calendar[i].getTime() === date.getTime()) {
@@ -210,7 +211,7 @@ var app = new Vue({
     },
     isSelectTime(date) {
       if (!this.choosenTimeFrom) {
-        return false
+        return false;
       }
       if (!this.choosenTimeTo) {
         return this.choosenTimeFrom.getTime() === date.getTime()
@@ -220,33 +221,87 @@ var app = new Vue({
       }
       return false;
     },
+    isActionDate(date) {
+      for (var i = 0; i < this.dateTimes.actions.length; i++) {
+        if (
+            this.dateTimes.actions[i].getFullYear() === date.getFullYear() &&
+            this.dateTimes.actions[i].getMonth() === date.getMonth() &&
+            this.dateTimes.actions[i].getDate() === date.getDate()
+        ) {
+          return true;
+        }
+      }
+      return false;
+    },
     isPastDate(date) {
       return date < today;
     },
     isCurrentDate(date) {
-      return date.getTime() === today.getTime()
+      return date.getTime() === today.getTime();
     },
     isSelected(date) {
       if (!this.selectedDate) {
-        return false
+        return false;
       }
-      return date.getTime() === this.selectedDate.getTime()
+      return date.getTime() === this.selectedDate.getTime();
+    },
+    isChoosenDate(date) {
+      if (!this.choosenTimeFrom) {
+        return false;
+      }
+      var from = new Date(this.choosenTimeFrom.getFullYear(), this.choosenTimeFrom.getMonth(), this.choosenTimeFrom.getDate())
+
+      if (
+          from.getFullYear() === date.getFullYear() &&
+          from.getMonth() === date.getMonth() &&
+          from.getDate() === date.getDate()
+      ) {
+        return true;
+      }
+
+      if (!this.choosenTimeTo) {
+        return false;
+      }
+      var to = new Date(this.choosenTimeTo.getFullYear(), this.choosenTimeTo.getMonth(), this.choosenTimeTo.getDate())
+
+      if (
+          to.getFullYear() === date.getFullYear() &&
+          to.getMonth() === date.getMonth() &&
+          to.getDate() === date.getDate()
+      ) {
+        return true;
+      }
+
+      return from < date && date < to;
+    },
+    busyDate(date) {
+      var busyHours = 0;
+      for (var i = 0; i < this.dateTimes.calendar.length; i++) {
+        if (
+            this.dateTimes.calendar[i].getFullYear() === date.getFullYear() &&
+            this.dateTimes.calendar[i].getMonth() === date.getMonth() &&
+            this.dateTimes.calendar[i].getDate() === date.getDate()
+        ) {
+          busyHours++;
+        }
+      }
+      return busyHours * 6.25;
     },
     daysInMonth(year, month) {
       return 32 - new Date(year, month, 32).getDate();
     },
     getPrevMonth(year, month) {
       if (month === 0) {
-        return { year: year - 1, month: 11 }
+        return { year: year - 1, month: 11 };
       } else {
-        return { year: year, month: month - 1 }
+        return { year: year, month: month - 1 };
       }
     },
     getNextMonth(year, month) {
       if (month === 11) {
-        return { year: year + 1, month: 0 }
+        return { year: year + 1, month: 0 };
       } else {
-        return { year: year, month: month + 1 }
+        return { year: year, month: month + 1 };
       }
     },
     prevDay() {
@@ -266,9 +321,9 @@ var app = new Vue({
 
     daysInlastMonth(year, month) {
       if (month === 0) {
-        return this.daysInMonth(--year, 11)
+        return this.daysInMonth(--year, 11);
       } else {
-        return this.daysInMonth(year, --month)
+        return this.daysInMonth(year, --month);
       }
     },
     prevMonth() {
@@ -290,18 +345,18 @@ var app = new Vue({
       }
 
       this.selectedDate = day.date;
-      this.getTimes();
+      this.getTimes(this.selectedDate.getFullYear(), this.selectedDate.getMonth());
     },
     canChooseTime(from, to) {
       for (var i = 0; i < this.dateTimes.calendar.length; i++) {
         if (!to && this.dateTimes.calendar[i].getTime() === from.getTime()) {
-          return false
+          return false;
         }
 
         if (
-          to &&
-          this.dateTimes.calendar[i].getTime() > from.getTime() &&
-          this.dateTimes.calendar[i].getTime() < to.getTime()
+            to &&
+            this.dateTimes.calendar[i].getTime() > from.getTime() &&
+            this.dateTimes.calendar[i].getTime() < to.getTime()
         ) {
           return false;
         }
@@ -332,23 +387,50 @@ var app = new Vue({
       this.choosenTimeFrom = null;
       this.choosenTimeTo = null;
     },
-    getTimes() {
+    addToCalendar(date) {
+      var inCalendar = false;
+      this.dateTimes.calendar.forEach(function(item) {
+        if (item.getTime() === date.getTime()) {
+          inCalendar = true;
+        }
+      });
+
+      if (!inCalendar) {
+        this.dateTimes.calendar.push(date);
+      }
+    },
+    addToActions(date) {
+      var inActions = false;
+      this.dateTimes.actions.forEach(function(item) {
+        if (item.getTime() === date.getTime()) {
+          inActions = true;
+        }
+      });
+
+      if (!inActions) {
+        this.dateTimes.actions.push(date);
+      }
+    },
+    getTimes(year, month) {
       var _this = this;
       var success = function(data) {
-        _this.dateTimes.calendar = data.calendar.map(function(date) {
-          return new Date(date);
+        data.calendar.forEach(function(date) {
+          var newDate = new Date(date);
+          _this.addToCalendar(newDate);
         })
-        _this.dateTimes.actions = data.actions.map(function(date) {
-          return new Date(date);
+        data.actions.forEach(function(date) {
+          var newDate = new Date(date);
+          _this.addToActions(newDate);
         })
       };
 
+      var yearMonth = year + '-' + this.formatMonth(month)
       $.ajax({
         url: '/order/get-times',
         type: 'GET',
         data: {
-            'date': start.format('YYYY-MM'),
-            'boat_id': this.boat_id
+          'date': yearMonth,
+          'boat_id': this.boat_id
         },
         success: success
       });
@@ -371,6 +453,9 @@ var app = new Vue({
       });
     }
   },
-  mounted() {
+  created() {
+    var url = new URL(document.location.href);
+    this.boat_id = url.searchParams.get("id");
+    this.getTimes(this.currentYear, this.currentMonth);
   }
 })

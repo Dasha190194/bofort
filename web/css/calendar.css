@@ -1,9 +1,9 @@
 .line {
   border: none;
-  background: linear-gradient(-45deg, rgba(0, 0, 0, 0) 49.9%, #cccdd1 49.9%, #cccdd1 60%, rgba(0, 0, 0, 0) 60%) 
-              fixed,
-              linear-gradient(-45deg, #cccdd1 10%, rgba(0, 0, 0, 0) 10%) 
-              fixed;
+  background: linear-gradient(-45deg, rgba(0, 0, 0, 0) 49.9%, #cccdd1 49.9%, #cccdd1 60%, rgba(0, 0, 0, 0) 60%)
+  fixed,
+  linear-gradient(-45deg, #cccdd1 10%, rgba(0, 0, 0, 0) 10%)
+  fixed;
   border: none;
   background-size: 13px 13px;
   height: 13px;
@@ -104,12 +104,19 @@
   padding: 15px;
   position: relative;
   cursor: pointer;
+  transition: 0.1s;
+}
+
+.month-day:not(.past-date):hover {
+  box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
 }
 
 .month-day.other-month {
   background: #f8f9fb;
 }
-
+.month-day.holyday {
+  color: #db3445;
+}
 .month-day.today {
   color: #29a746;
 }
@@ -150,14 +157,12 @@
   height: 4px;
   background: #25a743;
   border-radius: 2px;
-  width: 30%;
 }
 
 .month-day .availability .yellow {
   height: 4px;
   background: #ffaf1a;
   border-radius: 2px;
-  width: 60%;
 }
 
 .time-col {
@@ -174,7 +179,7 @@
 
   font-size: 16px;
   font-weight: bold;
-  color: #05355d; 
+  color: #05355d;
   cursor: pointer;
 }
 .time-col:nth-child(4n) {
