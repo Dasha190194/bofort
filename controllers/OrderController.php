@@ -309,11 +309,12 @@ class OrderController extends Controller
      */
     public function actionPrice(int $boat_id, $datetime_from, $datetime_to) {
 
+
         try {
             $boat = BoatsModel::findOne($boat_id);
-            if (!$boat) throw new Exception('Лодка не найдена!');
-
+            if (empty($boat)) throw new Exception('Лодка не найдена!');
             $price = 0;
+
             $tariff = $boat->tariff;
             $datetimes = $this->getDateTimeInterval($datetime_from, $datetime_to);
 
