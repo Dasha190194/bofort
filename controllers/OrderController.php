@@ -309,10 +309,10 @@ class OrderController extends Controller
      */
     public function actionPrice(int $boat_id, $datetime_from, $datetime_to) {
 
-
         try {
             $boat = BoatsModel::findOne($boat_id);
             if (empty($boat)) throw new Exception('Лодка не найдена!');
+
             $price = 0;
 
             $tariff = $boat->tariff;
@@ -356,6 +356,10 @@ class OrderController extends Controller
             }
         } catch (Exception $e) {
             Yii::error("Произошла ошибка при расчете тарифа boat_i[$boat_id]", 'app.order.price');
+
+            return $this->asJson([
+                'success' => false
+            ]);
         }
 
         return $this->asJson([
