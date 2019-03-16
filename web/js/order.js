@@ -344,7 +344,7 @@ var app = new Vue({
       };
 
       $.ajax({
-        url: 'https://bofort.su/order/get-times',
+        url: '/order/get-times',
         type: 'GET',
         data: {
             'date': start.format('YYYY-MM'),
@@ -356,7 +356,7 @@ var app = new Vue({
     getPrice() {
       var _this = this;
       $.ajax({
-        url: 'https://bofort.su/order/price',
+        url: '/order/price',
         type: 'GET',
         data: {
           boat_id: this.boat_id,
