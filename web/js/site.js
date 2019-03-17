@@ -9,7 +9,7 @@ $(document).ready(function() {
 
     });
 
-    $('#login, #login-register').on('click', function(){
+    $('#login, #login-register, #login-button').on('click', function(){
         $.ajax({
             url: '/user/login',
             type: "GET",
@@ -35,9 +35,20 @@ $(document).ready(function() {
     });
 
     $('#my-modal').on('click', '#registration', function(){
-        $('#my-modal').modal('hide');
-        $('html,body').animate({scrollTop: document.body.scrollHeight},"slow");
+        var pathname = window.location.pathname;
+        if (pathname != '/') {
+            localStorage.setItem('makeRegistration', true);
+            window.location.replace('/');
+        } else {
+            $('#my-modal').modal('hide');
+            $('html,body').animate({scrollTop: document.body.scrollHeight},"slow");
+        }
     });
+
+    if (localStorage.getItem('makeRegistration') != null) {
+        $('html,body').animate({scrollTop: document.body.scrollHeight},"slow");
+        localStorage.removeItem('makeRegistration');
+    }
 
     $('.service').on('click', function(){
         var thiss = $(this);
