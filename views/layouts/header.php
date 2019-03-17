@@ -23,9 +23,7 @@
 
         <li>
             <?php  if (Yii::$app->user->isGuest): ?>
-                <?php  if (YII_ENV != 'landing'): ?>
-                    <a id="login" class="btn btn-default" onclick="return false;">Войти</a>
-                <?php endif; ?>
+                <a id="login" class="btn btn-default" onclick="return false;">Войти</a>
             <?php else: ?>
                 <a class="btn btn-default" href="/user/profile"><?= Yii::$app->user->identity->username?></a>
             <?php endif; ?>

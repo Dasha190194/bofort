@@ -88,12 +88,10 @@ $this->title = $boat->name;
              ]); ?>
             <?= $form->field($model, 'boat_id')->hiddenInput(['value' => $boat->id])->label(false)?>
 
-            <?php if (YII_ENV != 'landing'): ?>
-                <?php if (Yii::$app->user->isGuest) : ?>
-                    <?= Html::button('Забронировать яхту', ['class' => 'btn btn-primary btn-block', 'id' => 'login-button']) ?>
-                <?php else: ?>
-                    <?= Html::submitButton('Забронировать яхту', ['class' => 'btn btn-primary btn-block']) ?>
-                <?php endif; ?>
+            <?php if (Yii::$app->user->isGuest) : ?>
+                <?= Html::button('Забронировать яхту', ['class' => 'btn btn-primary btn-block', 'id' => 'login-button']) ?>
+            <?php else: ?>
+                <?= Html::submitButton('Забронировать яхту', ['class' => 'btn btn-primary btn-block']) ?>
             <?php endif; ?>
 
             <?php ActiveForm::end(); ?>
