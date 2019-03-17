@@ -49,7 +49,7 @@ $config = [
                 'encryption' => 'tls',
             ],
             'messageConfig' => [
-                'from' => (YII_ENV == 'production') ? 'reply@bofrot.ru' : 'reply@bofort.su'
+                'from' => (YII_ENV == 'production') ? 'reply@bofort.ru' : 'reply@bofort.su'
             ]
         ],
         'log' => [
