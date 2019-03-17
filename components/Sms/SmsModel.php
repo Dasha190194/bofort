@@ -22,6 +22,6 @@ class SmsModel {
     public function __construct($number, $text) {
         $this->to = $number;
         $this->msg = $text;
-        $this->test = 0;
+        $this->test = 1;
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 
-if (YII_ENV == 'prod') {
+if (YII_ENV == 'production') {
     return [
         'class' => 'yii\db\Connection',
         'dsn' => 'pgsql:host=95.214.62.173;dbname=bofort_prod',
