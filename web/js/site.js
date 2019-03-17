@@ -161,14 +161,28 @@ $(document).ready(function() {
                 'id': id
             },
             success: function(result) {
-                $('#order-info-modal .modal-body').html(result);
+                $('#order-info-modal .modal-content').html(result);
                 $('#order-info-modal').modal({show:true});
             }
         });
     });
 
-    $('.order-refund').on('click', function(){
+    $('.order-refund-modal').on('click', function() {
+        var id = $(this).data('id');
+        $.ajax({
+            url: '/order/refund-modal',
+            type: 'GET',
+            data: {
+                'id': id
+            },
+            success: function(result) {
+                $('#order-info-modal .modal-content').html(result);
+                $('#order-info-modal').modal({show:true});
+            }
+        });
+    });
 
+    $('#order-info-modal').on('click', '.order-refund', function(){
         var id = $(this).data('id');
         $.ajax({
             url: '/order/refund',
@@ -180,6 +194,10 @@ $(document).ready(function() {
                 location.reload();
             }
         });
+    });
+
+    $('#order-info-modal').on('click', '.order-refund-no', function(){
+        $('#order-info-modal').modal('hide');
     });
 
     function arrayRemove(arr, value) {

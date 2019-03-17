@@ -33,7 +33,7 @@ $date_now = date_create();
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <a data-id="<?= $order->id?>" class="btn btn-default btn-block order-refund">Отменить бронирование</a>
+                            <a data-id="<?= $order->id?>" class="btn btn-default btn-block order-refund-modal">Отменить бронирование</a>
                         </div>
                         <div class="col-md-6">
                             <a data-id="<?= $order->id?>" class="btn btn-primary btn-block order-more-info">Подробнее</a>
@@ -87,12 +87,7 @@ $date_now = date_create();
 <div class="modal fade" id="order-info-modal" role="dialog">
     <div class="modal-dialog" style="width: 780px;">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
 
-            </div>
         </div>
     </div>
 </div>

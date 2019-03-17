@@ -35,7 +35,7 @@ class OrderController extends Controller
                 'rules' => [
                     [
                         'actions' => ['create', 'confirm-step1', 'confirm-step2', 'apply-promo', 'add-service',
-                                      'remove-service', 'info', 'get-times', 'final', 'refund', 'price', 'get-dates'],
+                                      'remove-service', 'info', 'get-times', 'final', 'refund', 'price', 'get-dates', 'refund-modal'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -108,8 +108,10 @@ class OrderController extends Controller
 
         $order = OrdersModel::findOne($id);
         try {
+            $money = $order->transaction->total_price - ($order->transaction->total_price * 0.5);
+
             $client = new \CloudPayments\Manager(Yii::$app->params['cloud_id'], Yii::$app->params['cloud_private_key']);
-            $client->refundPayment($order->transaction->cloud_transaction_id, $order->transaction->total_price);
+            $client->refundPayment($order->transaction->cloud_transaction_id, $money);
         } catch (Exception $e){
             Yii::error($e->getMessage(), 'app.order.refund');
             return $this->asJson(['result' => false]);
@@ -199,6 +201,21 @@ class OrderController extends Controller
         $order = OrdersModel::findOne($id);
 
         return $this->renderPartial('_orderInfo', compact('order'));
+    }
+
+    public function actionRefundModal(int $id) {
+
+        Yii::info("Попытка вернуть заказ [$id]", 'app.order.refund-modal');
+        try {
+            $order = OrdersModel::findOne($id);
+            if (!$order) throw new Exception('Заказ не найден.');
+
+            $money = $order->transaction->total_price - ($order->transaction->total_price * 0.5);
+        } catch (Exception $e) {
+            Yii::error("Попытка вернуть несуществующий заказ [$id]", 'app.order.refund-modal');
+        }
+
+        return $this->renderPartial('_orderRefund', compact('order', 'money'));
     }
 
     /**
