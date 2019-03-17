@@ -43,7 +43,7 @@ $config = [
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.beget.com',
-                'username' => (YII_ENV == 'production') ? 'reply@bofrot.ru' : 'reply@bofort.su',
+                'username' => (YII_ENV == 'production') ? 'reply@bofort.ru' : 'reply@bofort.su',
                 'password' => (YII_ENV == 'production') ? 'o96Mv*Aa' : 'Qwerty123',
                 'port' => '25',
                 'encryption' => 'tls',
