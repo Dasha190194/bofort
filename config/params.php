@@ -4,8 +4,8 @@
 if (YII_ENV == 'production') {
     return [
         'adminEmail' => 'dariyogienko@gmail.com',
-        'uploadsUrl' => (YII_ENV == 'prod')?'https://bofort.ru/uploads/':'http://localhost:8080/uploads/',
-        'uploadsPath' => (YII_ENV == 'prod')?'/srv/bofort/web/uploads/':'/home/dasha/PhpShtormProjects/bofort/web/uploads/',
+        'uploadsUrl' => 'https://bofort.ru/uploads/',
+        'uploadsPath' => '/srv/bofort/web/uploads/',
 
         // CloudPayment
         'cloud_id' => 'pk_7a4b78c1d5facfe91309b9e7a93ee',
