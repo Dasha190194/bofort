@@ -52,10 +52,6 @@ $this->title = $boat->name;
             <h4>Характеристики</h4>
             <hr>
             <div class="characteristic">
-                <span>Имя катера</span>
-                <?= $boat->name ?>
-            </div>
-            <div class="characteristic">
                 <span>Мощность двигателей</span>
                 <?= $boat->engine_power ?>
             </div>
@@ -63,24 +59,38 @@ $this->title = $boat->name;
                 <span>Количество пассажиров</span>
                 <?= $boat->spaciousness ?>
             </div>
+            <div class="characteristic">
+                <span>Длина</span>
+                <?= $boat->length ?>
+            </div>
+            <div class="characteristic">
+                <span>Ширина</span>
+                <?= $boat->width ?>
+            </div>
         </div>
         <div class="col-md-6">
             <h4>Условия аренды</h4>
             <hr>
             <div class="characteristic">
-                <span>Необходимое удостоверение</span>
-                <?= $boat->name ?>
+                <span>Крейсерская скорость</span>
+                <?= $boat->speed ?>
+            </div>
+            <div class="characteristic">
+                <span>Макс. скорость</span>
+                <?= $boat->speed2 ?>
             </div>
             <div class="characteristic">
                 <span>Располпжение причала . <a id="showLocation">Показать на карте</a></span>
                 <?= $boat->location_name ?>
             </div>
+            <?php /*
             <div class="characteristic">
                 <span>Доступны дополнительные услуги</span>
                 <?php if($boat->services):
                         echo implode(', ', $boat->getServicesName());
                 endif; ?>
             </div>
+            */?>
 
              <?php $form = ActiveForm::begin([
                     'id' => 'order-create-form',
