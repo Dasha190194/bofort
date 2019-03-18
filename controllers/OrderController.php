@@ -70,7 +70,10 @@ class OrderController extends Controller
 
         Yii::info('Подтверждение заказа ['.json_encode($post).']', 'app.order.step1');
 
-        if ($model->load($post) && $model->validate()) {
+        $model->load($post);
+        $model->user_id = Yii::$app->user->getId();
+
+        if ($model->validate()) {
             $order->price = $model->coast;
             $order->datetime_from = $model->datetime_from;
             $order->datetime_to = $model->datetime_to;

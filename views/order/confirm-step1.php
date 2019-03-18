@@ -182,6 +182,7 @@ $this->registerAssetBundle($file);
                 <input type="hidden" name="OrderConfirmForm[boat_id]" :value="boat_id">
                 <input type="hidden" name="OrderConfirmForm[datetime_from]" :value="choosenTimeFromValue">
                 <input type="hidden" name="OrderConfirmForm[datetime_to]" :value="choosenTimeToValue">
+                <input type="hidden" name="OrderConfirmForm[coast]" :value="price">
 
                 <div class="col-md-offset-2 col-md-3">
                     <div class="row">
