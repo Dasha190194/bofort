@@ -53,6 +53,7 @@ $module = Yii::$app->getModule("user");
                 <?= $form->field($user, 'newPassword')->passwordInput(['placeholder' => "Пароль*"])->label(false)  ?>
             </div>
 
+            <?php /*
             <div class="col-md-offset-3 col-md-6 text-center">
 
 
@@ -62,6 +63,15 @@ $module = Yii::$app->getModule("user");
                 </div>
 
             </div>
+            */?>
+
+            <div class="col-md-offset-3 col-md-6 text-center">
+                <?= $form->field($user, 'personal_data_processing', [
+                    'template' => "{input}
+                        <small>&ensp;Я соглашаюсь с <a target='_blank' href='/uploads/oferta.pdf'>условиями обработки персональных данных</a> {error}</small>",
+                ])->checkbox([], false)->label(false) ?>
+            </div>
+
             <div class="col-md-offset-3 col-md-6 text-center">
 
 
