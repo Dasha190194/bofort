@@ -42,7 +42,7 @@ class DefaultController extends Controller
                         'roles' => ['?', '@'],
                     ],
                     [
-                        'actions' => ['account', 'profile', 'resend-change', 'cancel', 'change-card-state', 'reset', 'account-edit', 'code-confirm'],
+                        'actions' => ['account', 'profile', 'resend-change', 'cancel', 'change-card-state', 'reset', 'account-edit', 'code-confirm', 'confirm-phone'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -558,5 +558,31 @@ class DefaultController extends Controller
             return $this->asJson(['success' => true]);
         }
         return $this->asJson(['success' => false]);
+    }
+
+    public function actionConfirmPhone() {
+        $model = new PhoneConfirmForm();
+
+        if ($post = Yii::$app->request->post()) {
+            $phone = trim(strip_tags($post['phone']));
+            $user = Yii::$app->user->identity;
+
+            $accessToken = new UserToken();
+            $accessToken->user_id = $user->id;
+            $accessToken->type = 5;
+            $accessToken->token = rand(1000, 9999);
+            $accessToken->save();
+
+            $model->phone = $phone;
+
+            //$result = $user->sendSmsConfirmation($phone, $accessToken->token);
+            //if (!$result) throw new Exception('Сообщение не было отправлено.');
+
+            return $this->asJson(['success' => true,
+                'phone' => $phone
+            ]);
+        }
+
+        return $this->renderPartial('/user/default/_phoneConfirm', compact('model'));
     }
 }

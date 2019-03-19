@@ -227,6 +227,28 @@ $(document).ready(function() {
 
     }));
 
+    $("#phone-confirm-order").on('submit', '#confirm-phone', (function(e) {
+        e.preventDefault();
+
+        var form = $(this);
+        var url = form.attr('action');
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: form.serialize(),
+            success: function(data) {
+                if (data.success === true) {
+                    $('#phone-confirm-order').modal('hide');
+                    $('#pay-form').submit();
+                } else {
+                    $('#code-error').html('Неверный код!');
+                }
+            }
+        });
+
+    }));
+
     jQuery.fn.preventDoubleSubmission = function() {
         $(this).on('submit',function(e){
             var $form = $(this);

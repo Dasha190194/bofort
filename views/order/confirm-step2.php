@@ -118,6 +118,7 @@ use yii\widgets\ActiveForm; ?>
         $(document).ready(function () {
 
             const cloud_id = "<?= Yii::$app->params['cloud_id'] ?>";
+            var isset_phone = "<?= (empty(Yii::$app->user->identity->phone))?0:1 ?>";
 
             function pay(order_id, total_price, user_id) {
                 var widget = new cp.CloudPayments();
@@ -138,10 +139,23 @@ use yii\widgets\ActiveForm; ?>
                     });
             };
 
-            // $('#pay-form').on('beforeValidate', function (event, messages, deferreds) {
-            //     // Вызывается до валидации всей формы сразу после нажатия submit.
-            //     // Тут можно провести дополнительные проверки.
-            // });
+            $('#pay-form').on('afterValidate', function (event, messages) {
+console.log(messages);
+                if (isset_phone === '0' && messages.length == 0) {
+                    $.ajax({
+                        url: '/default/confirm-phone',
+                        type: 'GET',
+                        async: false,
+                        success: function (data) {
+                            $('#phone-confirm-order .modal-content').html(data);
+                            $('#phone-confirm-order').modal({show:true});
+                        }
+                    });
+
+                }
+
+                return false;
+            });
 
             $('#pay-form').on('beforeSubmit', function () {
                 var data = $(this).serialize();
@@ -168,45 +182,32 @@ use yii\widgets\ActiveForm; ?>
                 return false;
             });
 
-            // jQuery.fn.preventDoubleSubmission = function() {
-            //     $(this).on('submit',function(e){
-            //         var $form = $(this);
-            //
-            //         if ($form.data('submitted') === true) {
-            //             e.preventDefault();
-            //         } else {
-            //             $form.data('submitted', true);
-            //             var data = $(this).serialize();
-            //
-            //             $.ajax({
-            //                 url: '/payment/pay',
-            //                 data: data,
-            //                 type: 'POST',
-            //                 async: false,
-            //                 success: function (request) {
-            //                     if (request.success) {
-            //                         switch (request.action) {
-            //                             case 'charge': location.replace('/order/final'); break;
-            //                             case 'frame':  pay(request.data.order_id, request.data.total_price, request.data.user_id); break;
-            //                         }
-            //                     } else {
-            //                         if (request.action === 'charge') {
-            //                             alert(request.data);
-            //                         }
-            //                     }
-            //                 }
-            //             });
-            //
-            //         }
-            //     });
-            //
-            //     // Keep chainability
-            //     return this;
-            // };
-            //
-            // $('#pay-form').preventDoubleSubmission();
+            $('body').on('click', '#send-code', function(){
+
+                $.ajax({
+                    url: '/default/confirm-phone',
+                    type: 'POST',
+                    data: {'phone': $('#phone').val() },
+                    success: function (request) {
+                        if (request.success == true) {
+                            $('#phoneconfirmform-phone').val(request.phone);
+                        }
+                    }
+                });
+            });
+
         });
 
     </script>
 
+
+
+
+    <div class="modal fade" id="phone-confirm-order" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+            </div>
+        </div>
+    </div>
 </div>
