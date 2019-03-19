@@ -138,43 +138,73 @@ use yii\widgets\ActiveForm; ?>
                     });
             };
 
-            jQuery.fn.preventDoubleSubmission = function() {
-                $(this).on('submit',function(e){
-                    var $form = $(this);
+            // $('#pay-form').on('beforeValidate', function (event, messages, deferreds) {
+            //     // Вызывается до валидации всей формы сразу после нажатия submit.
+            //     // Тут можно провести дополнительные проверки.
+            // });
 
-                    if ($form.data('submitted') === true) {
-                        e.preventDefault();
-                    } else {
-                        $form.data('submitted', true);
-                        var data = $(this).serialize();
+            $('#pay-form').on('beforeSubmit', function () {
+                var data = $(this).serialize();
 
-                        $.ajax({
-                            url: '/payment/pay',
-                            data: data,
-                            type: 'POST',
-                            async: false,
-                            success: function (request) {
-                                if (request.success) {
-                                    switch (request.action) {
-                                        case 'charge': location.replace('/order/final'); break;
-                                        case 'frame':  pay(request.data.order_id, request.data.total_price, request.data.user_id); break;
-                                    }
-                                } else {
-                                    if (request.action === 'charge') {
-                                        alert(request.data);
-                                    }
-                                }
+                $.ajax({
+                    url: '/payment/pay',
+                    data: data,
+                    type: 'POST',
+                    async: false,
+                    success: function (request) {
+                        if (request.success) {
+                            switch (request.action) {
+                                case 'charge': location.replace('/order/final'); break;
+                                case 'frame':  pay(request.data.order_id, request.data.total_price, request.data.user_id); break;
                             }
-                        });
-
+                        } else {
+                            if (request.action === 'charge') {
+                                alert(request.data);
+                            }
+                        }
                     }
                 });
 
-                // Keep chainability
-                return this;
-            };
+                return false;
+            });
 
-            $('#pay-form').preventDoubleSubmission();
+            // jQuery.fn.preventDoubleSubmission = function() {
+            //     $(this).on('submit',function(e){
+            //         var $form = $(this);
+            //
+            //         if ($form.data('submitted') === true) {
+            //             e.preventDefault();
+            //         } else {
+            //             $form.data('submitted', true);
+            //             var data = $(this).serialize();
+            //
+            //             $.ajax({
+            //                 url: '/payment/pay',
+            //                 data: data,
+            //                 type: 'POST',
+            //                 async: false,
+            //                 success: function (request) {
+            //                     if (request.success) {
+            //                         switch (request.action) {
+            //                             case 'charge': location.replace('/order/final'); break;
+            //                             case 'frame':  pay(request.data.order_id, request.data.total_price, request.data.user_id); break;
+            //                         }
+            //                     } else {
+            //                         if (request.action === 'charge') {
+            //                             alert(request.data);
+            //                         }
+            //                     }
+            //                 }
+            //             });
+            //
+            //         }
+            //     });
+            //
+            //     // Keep chainability
+            //     return this;
+            // };
+            //
+            // $('#pay-form').preventDoubleSubmission();
         });
 
     </script>

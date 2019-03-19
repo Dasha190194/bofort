@@ -79,10 +79,10 @@ class PaymentController extends Controller
                    $client = new \CloudPayments\Manager(Yii::$app->params['cloud_id'], Yii::$app->params['cloud_private_key']);
                    $response = $client->chargeToken($transaction->total_price, 'RUB', Yii::$app->user->getId(), $card->token, ['InvoiceId' => $form->order_id]);
 
-                   $transaction->card_id = $card->id;
-                   $transaction->state = 1;
-                   $transaction->cloud_transaction_id = $response->getId();
-                   $transaction->save();
+//                   $transaction->card_id = $card->id;
+//                   $transaction->state = 1;
+//                   $transaction->cloud_transaction_id = $response->getId();
+//                   $transaction->save();
 
                    return $this->asJson(
                        [
