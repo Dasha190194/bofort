@@ -35,7 +35,7 @@ var app = new Vue({
         return [];
       }
       let times = [];
-      for (var i = 6; i < 22; i++) {
+      for (var i = 7; i < 20; i++) {
         var date = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), this.selectedDate.getDate(), i);
         times.push({
           from: i + ':00',
