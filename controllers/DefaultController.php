@@ -575,8 +575,8 @@ class DefaultController extends Controller
 
             $model->phone = $phone;
 
-            //$result = $user->sendSmsConfirmation($phone, $accessToken->token);
-            //if (!$result) throw new Exception('Сообщение не было отправлено.');
+            $result = $user->sendSmsConfirmation($phone, $accessToken->token);
+            if (!$result) throw new Exception('Сообщение не было отправлено.');
 
             return $this->asJson(['success' => true,
                 'phone' => $phone
