@@ -140,8 +140,8 @@ use yii\widgets\ActiveForm; ?>
             };
 
             $('#pay-form').on('afterValidate', function (event, messages) {
-console.log(messages);
-                if (isset_phone === '0' && messages.length == 0) {
+
+                if (isset_phone === '0' && messages['payform-offer_processing'].length == 0) {
                     $.ajax({
                         url: '/default/confirm-phone',
                         type: 'GET',
@@ -151,14 +151,51 @@ console.log(messages);
                             $('#phone-confirm-order').modal({show:true});
                         }
                     });
-
+                } else {
+                    submit($('#pay-form'));
                 }
 
                 return false;
             });
 
-            $('#pay-form').on('beforeSubmit', function () {
-                var data = $(this).serialize();
+            $('body').on('click', '#send-code', function(){
+
+                $.ajax({
+                    url: '/default/confirm-phone',
+                    type: 'POST',
+                    data: {'phone': $('#phone').val() },
+                    success: function (request) {
+                        if (request.success == true) {
+                            $('#phoneconfirmform-phone').val(request.phone);
+                        }
+                    }
+                });
+            });
+
+            $("#phone-confirm-order").on('submit', '#confirm-phone', (function(e) {
+                e.preventDefault();
+
+                var form = $(this);
+                var url = form.attr('action');
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: form.serialize(),
+                    success: function(data) {
+                        if (data.success === true) {
+                            $('#phone-confirm-order').modal('hide');
+                            submit($('#pay-form'));
+                        } else {
+                            $('#code-error').html('Неверный код!');
+                        }
+                    }
+                });
+            }));
+
+
+            function submit(el) {
+                var data = el.serialize();
 
                 $.ajax({
                     url: '/payment/pay',
@@ -178,23 +215,13 @@ console.log(messages);
                         }
                     }
                 });
+            }
 
+
+            $('#pay-form').on('beforeSubmit', function () {
                 return false;
             });
 
-            $('body').on('click', '#send-code', function(){
-
-                $.ajax({
-                    url: '/default/confirm-phone',
-                    type: 'POST',
-                    data: {'phone': $('#phone').val() },
-                    success: function (request) {
-                        if (request.success == true) {
-                            $('#phoneconfirmform-phone').val(request.phone);
-                        }
-                    }
-                });
-            });
 
         });
 
