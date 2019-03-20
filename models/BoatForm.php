@@ -30,6 +30,7 @@ class BoatForm extends Model
             $category_id,
             $images;
 
+    protected $time;
     /**
      * @return array the validation rules.
      */
@@ -71,7 +72,7 @@ class BoatForm extends Model
 
         foreach ($this->images as $img) {
             $image = new ImagesModel();
-            $image->path = "{$img->baseName}.{$img->extension}";
+            $image->path = "{$img->baseName}$this->time.{$img->extension}";
             $boat->link('images', $image);
         }
 
@@ -79,14 +80,14 @@ class BoatForm extends Model
     }
 
     public function upload(){
-        $time = time();
+        $this->time = time();
         foreach ($this->images as $image) {
-            $path = Yii::$app->params['uploadsPath']."origin/{$image->baseName}$time.{$image->extension}";
+            $path = Yii::$app->params['uploadsPath']."origin/{$image->baseName}$this->time.{$image->extension}";
             $image->saveAs($path);
-            Image::thumbnail($path, 250, 150)->save(Yii::$app->params['uploadsPath']."250X150/{$image->baseName}$time.{$image->extension}", ['quality' => 80]);
-            Image::thumbnail($path, 350, 200)->save(Yii::$app->params['uploadsPath']."350X200/{$image->baseName}$time.{$image->extension}", ['quality' => 80]);
-            Image::thumbnail($path, 550, 350)->save(Yii::$app->params['uploadsPath']."550X350/{$image->baseName}$time.{$image->extension}", ['quality' => 80]);
-            Image::thumbnail($path, 1080, 720)->save(Yii::$app->params['uploadsPath']."1080X720/{$image->baseName}$time.{$image->extension}", ['quality' => 80]);
+            Image::thumbnail($path, 250, 150)->save(Yii::$app->params['uploadsPath']."250X150/{$image->baseName}$this->time.{$image->extension}", ['quality' => 80]);
+            Image::thumbnail($path, 350, 200)->save(Yii::$app->params['uploadsPath']."350X200/{$image->baseName}$this->time.{$image->extension}", ['quality' => 80]);
+            Image::thumbnail($path, 550, 350)->save(Yii::$app->params['uploadsPath']."550X350/{$image->baseName}$this->time.{$image->extension}", ['quality' => 80]);
+            Image::thumbnail($path, 1080, 720)->save(Yii::$app->params['uploadsPath']."1080X720/{$image->baseName}$this->time.{$image->extension}", ['quality' => 80]);
         }
         return true;
     }
