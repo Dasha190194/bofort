@@ -125,8 +125,7 @@ $this->title = $boat->name;
                                $items = 'active';
                             foreach ($boat->images as $image) {
                                  echo "<div class='item $items'>
-                                      <img src='http://bofort.test/uploads/550X350/$image->path'>
-                                    </div>";
+                                      <img src='".Yii::$app->params['uploadsUrl']."550X350/$image->path'></div>";
                                  $items = '';
                            }
                                                         ?>
