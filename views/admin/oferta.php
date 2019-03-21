@@ -18,16 +18,23 @@ use yii\helpers\Html;
 
     <?= $form->field($model, 'document')->widget(FileInput::classname(),
         [    'pluginOptions' => [
-        'showPreview' => false,
-        'showCaption' => true,
-        'showRemove' => true,
-        'showUpload' => false
+                        'showPreview' => false,
+                        'showCaption' => true,
+                        'showRemove' => true,
+                        'showUpload' => false
     ]]); ?>
 
     <div class="col-md-offset-3 col-md-6 text-center">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary btn-block']) ?>
     </div>
     <?php ActiveForm::end(); ?>
+</div>
+
+<br>
+<br>
+<div class="row">
+    <label class="form-group">Просмотр</label>
+    <a target="_blank" href="/uploads/oferta.pdf">https://bofort.ru/uploads/oferta.pdf</a>
 </div>
 
 
