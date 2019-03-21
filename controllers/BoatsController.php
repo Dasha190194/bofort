@@ -120,6 +120,7 @@ class BoatsController extends Controller
             $tariff->four_hours_holiday = $modelT->four_hours_holiday;
             $tariff->four_hours_weekday = $modelT->four_hours_weekday;
             $tariff->one_day = $modelT->one_day;
+            $tariff->minimal_rent = $modelT->minimal_rent;
             $tariff->save();
 
             $this->redirect(['slug', 'slug' => $boat->slug]);
