@@ -15,13 +15,20 @@ use yii\helpers\ArrayHelper;use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 $images = [];
+$initialConfig = [];
 if (isset($model->images)) {
     foreach ($model->images as $image) {
-        if ($image instanceof ImagesModel) $images[] = Yii::$app->params['uploadsUrl'].'origin/'.$image->path;
+        if ($image instanceof ImagesModel) {
+            $images[] = Yii::$app->params['uploadsUrl'].'origin/'.$image->path;
+            $initialConfig[] = [
+                'url' => "/boats/file-delete", 'key'=> $image->id
+            ];
+        }
     }
 }
 
 ?>
+
 
 
 <div class="row">
@@ -81,6 +88,7 @@ if (isset($model->images)) {
                                 'removeLabel' => ' ',
                                 'initialPreview' => $images,
                                 'initialPreviewAsData' => true,
+                                        'initialPreviewConfig' =>$initialConfig,
                                 'overwriteInitial' => true,
                                 'maxFileSize' => 2800
                                ],

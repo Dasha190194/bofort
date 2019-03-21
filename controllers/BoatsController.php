@@ -12,6 +12,7 @@ namespace app\controllers;
 use app\models\BoatForm;
 use app\models\BoatsModel;
 use app\models\CategoryModel;
+use app\models\ImagesModel;
 use app\models\OrderCreateForm;
 use app\models\TariffForm;
 use app\models\TariffsModel;
@@ -19,6 +20,7 @@ use Yii;
 use yii\base\ErrorException;
 use yii\base\Exception;
 use yii\filters\AccessControl;
+use yii\imagine\Image;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
@@ -36,7 +38,7 @@ class BoatsController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['update', 'create'],
+                        'actions' => ['update', 'create', 'file-delete'],
                         'allow' => true,
                         'roles' => ['admin', 'shipowner'],
                     ],
@@ -165,5 +167,12 @@ class BoatsController extends Controller
         }
 
         return $this->render('create', compact('model', 'modelT'));
+    }
+
+    public function actionFileDelete() {
+        $key = Yii::$app->request->post('key');
+        $image = ImagesModel::findOne($key);
+        $image->delete();
+        return true;
     }
 }
