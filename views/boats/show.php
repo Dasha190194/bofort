@@ -115,23 +115,34 @@ $this->title = $boat->name;
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <?php
-                        $items = [];
-                        foreach ($boat->images as $image) {
-                            $items[] = [
-                                'content' => '<img src="'.Yii::$app->params['uploadsUrl'].'550X350/'.$image->path.'">',
-                            ];
-                        }
 
-                        echo Carousel::widget([
-                            'items' => $items,
-                            'options' => [
-                                'style' => 'width:100%;',
-                                'interval' => false
-                            ]
-                        ]);
-                    ?>
+                    <div id="carousel" class="carousel slide" data-ride="carousel">
 
+
+                        <div class="carousel-inner">
+
+                            <?php
+                               $items = 'active';
+                            foreach ($boat->images as $image) {
+                                 echo "<div class='item $items'>
+                                      <img src='http://bofort.test/uploads/550X350/$image->path'>
+                                    </div>";
+                                 $items = '';
+                           }
+                                                        ?>
+
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#carousel" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -176,3 +187,4 @@ $this->title = $boat->name;
     });
 
 </script>
+

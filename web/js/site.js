@@ -149,6 +149,7 @@ $(document).ready(function() {
 
     $('#show-carousel-modal').on('click', function(){
         $('#carousel-modal').modal({show:true});
+        $("#carousel").carousel();
     });
 
     $('.order-more-info').on('click', function() {
