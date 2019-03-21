@@ -17,11 +17,11 @@ use yii\helpers\Html;
     ]); ?>
 
     <?= $form->field($model, 'document')->widget(FileInput::classname(),
-        ['pluginOptions' => [
-                'initialPreview'=>[
-                    "https://bofort.ru/uploads/oferta.pdf"
-                ],
-        'initialPreviewAsData'=>true,
+        [    'pluginOptions' => [
+        'showPreview' => false,
+        'showCaption' => true,
+        'showRemove' => true,
+        'showUpload' => false
     ]]); ?>
 
     <div class="col-md-offset-3 col-md-6 text-center">

@@ -22,7 +22,7 @@ class OfertaForm extends Model
      */
     public function rules()
     {
-        return [[['document'], 'file']];
+        return [[['document'], 'file', 'extensions' => 'pdf']];
     }
 
     public function attributeLabels()
