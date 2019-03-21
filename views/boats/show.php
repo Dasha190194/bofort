@@ -73,11 +73,11 @@ $this->title = $boat->name;
             <hr>
             <div class="characteristic">
                 <span>Крейсерская скорость</span>
-                <?= $boat->speed ?>
+                <?= $boat->speed2 ?>
             </div>
             <div class="characteristic">
                 <span>Макс. скорость</span>
-                <?= $boat->speed2 ?>
+                <?= $boat->speed ?>
             </div>
             <div class="characteristic">
                 <span>Располпжение причала . <a id="showLocation">Показать на карте</a></span>
