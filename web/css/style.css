@@ -1,5 +1,8 @@
 
 /* Global type fixes  */
+body {
+	font-family: 'Roboto Slab', Helvetica, Arial, sans-serif;
+}
 
 p,
 h1,
@@ -160,6 +163,12 @@ h6 {
 
 .btn-default:hover {
 	color: #F8F9FA;
+}
+
+.container .btn-default  {
+	color: #05345C;
+	background: #f8f9fb;
+	border: 1px solid #e2e5ea;
 }
 
 .btn-warning,
@@ -329,17 +338,90 @@ hr.one {
 }
 
 .boat-character-title {
-	font-size: 14px;
+	font-size: 16px;
 	color: #6c757c;
 }
 .boat-character-value {
-	font-size: 14px;
+	font-size: 16px;
 	font-weight: bold;
 	color: #3e4347;
 	margin-bottom: 10px;
 }
 .boat-details-button .btn {
 	width: 100%;
+}
+
+/* Boat detail */
+.carousel-indicators {
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	z-index: 15;
+	width: 90%;
+	padding-left: 0;
+	margin-left: 0;
+	text-align: left;
+	list-style: none;
+}
+.carousel-indicators li {
+	width: 100px;
+	height: 50px;
+	overflow: hidden;
+	text-indent: 0px;
+	margin: 0;
+	opacity: 0.6;
+	border-radius: 0px;
+}
+.carousel-indicators li img {
+	max-width: 100%!important;
+}
+.carousel-indicators .active {
+	width: 100px;
+	height: 50px;
+	opacity: 1;
+}
+.carousel-inner .item img {
+	width: 100%;
+}
+
+#carousel-modal .modal-dialog,
+#map .modal-dialog {
+	width: 60%;
+}
+
+#carousel-modal .modal-dialog .close,
+#map .modal-dialog .close {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	color: #000000;
+	font-size: 23px;
+	z-index: 1000;
+	font-weight: bold;
+	cursor: pointer;
+	opacity: 1;
+}
+#carousel-modal .modal-dialog .carousel-control,
+#map .modal-dialog .carousel-control {
+	background-image: none;
+}
+
+
+@media screen and (max-width: 576px) {
+	#carousel-modal .modal-dialog,
+	#map .modal-dialog {
+		width: 100%;
+	}
+	#carousel-modal .carousel-indicators {
+		display: none;
+	}
+}
+.boat-photo-icon {
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+}
+.boat-photo-icon svg {
 }
 
 /* Footer */
