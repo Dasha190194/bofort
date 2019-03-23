@@ -51,7 +51,7 @@ $date_now = date_create();
             <?php if(($order->state === 1 and $order->datetime_from > $date_now) or ($order->state === 2)): ?>
                 <div class="panel-orders-history panel panel-default">
                     <div class="panel-title">
-                        <img src="<?= isset($order->boat->image)?Yii::$app->params['uploadsUrl'].'550X350/'.$order->boat->image->path:'/index.png' ?>" width="748px" height="340px">
+                        <img src="<?= isset($order->boat->image)?Yii::$app->params['uploadsUrl'].'1080X720/'.$order->boat->image->path:'/index.png' ?>" width="748px" height="340px">
 
                         <?php if ($order->state === 1): ?>
                             <span class="order-state">Заказ выполнен</span>
