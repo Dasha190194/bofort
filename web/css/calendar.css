@@ -1,3 +1,22 @@
+body {
+  font-family: 'Roboto Slab', Helvetica, Arial, sans-serif;
+}
+.boat-pic {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.boat-pic a {
+  min-width: 32px;
+  margin-right: 10px;
+  margin-top: 59px;
+}
+.boat-pic img {
+  width: 250px;
+  height: 150px;
+  margin-right: 10px;
+}
+
 .line {
   border: none;
   background: linear-gradient(-45deg, rgba(0, 0, 0, 0) 49.9%, #cccdd1 49.9%, #cccdd1 60%, rgba(0, 0, 0, 0) 60%)
@@ -12,9 +31,17 @@
 .m20 {
   margin: 20px 0;
 }
+.mb20 {
+  margin-bottom: 20px;
+}
+
+.width-70 {
+  width: 70%;
+  margin: 0 auto;
+}
 
 .month-year-wrapper {
-  margin: 20px 0 0;
+  margin: 20px auto 0;
 }
 .month-year {
   color: #05355d;
@@ -72,6 +99,7 @@
   border-top: 1px solid #eeeff1;
   border-bottom: 1px solid #eeeff1;
   height: 1px;
+  margin-top: 10px;
 }
 .calendar-col {
   width: 14.285714285714285714285714285714%;
@@ -96,12 +124,12 @@
   border: 1px solid #e2e5ea;
   border-radius: 3px;
   color: #05355d;
-  height: 90px;
+  height: 60px;
   font-family: 'Roboto Slab', Helvetica, Arial, sans-serif;
   font-weight: bold;
   font-size: 16px;
   margin: 1.5px;
-  padding: 15px;
+  padding: 10px;
   position: relative;
   cursor: pointer;
   transition: 0.1s;
@@ -136,11 +164,11 @@
   background: linear-gradient(180deg, #feac1c, #ff9d14);
   box-sizing: border-box;
   border-radius: 5px;
-  width: 48px;
-  height: 48px;
+  width: 24px;
+  height: 24px;
   color: #ffffff;
   text-align: center;
-  padding: 13px 0;
+  padding: 1px 0;
 }
 
 .month-day .availability {
@@ -150,7 +178,7 @@
   height: 4px;
   background: #e2e5ea;
   border-radius: 2px;
-  bottom: 15px;
+  bottom: 10px;
 }
 
 .month-day .availability .green {
@@ -165,8 +193,14 @@
   border-radius: 2px;
 }
 
+.month-day .availability .red {
+  height: 4px;
+  background: #db3445;
+  border-radius: 2px;
+}
+
 .time-col {
-  width: calc(25% - 12px);
+  width: calc(33% - 11px);
   float: left;
   height: 45px;
   border: 1px solid #e2e5ea;
@@ -182,7 +216,7 @@
   color: #05355d;
   cursor: pointer;
 }
-.time-col:nth-child(4n) {
+.time-col:nth-child(3n) {
   margin-right: 0px;
 }
 
@@ -222,14 +256,13 @@
 
 .cancel {
   display: inline-block;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   box-sizing: border-box;
-  padding: 7px;
+  padding: 5px;
   border-radius: 16px;
   background: #dc3546;
   color: #ffffff;
-  margin-top: 8px;
   text-align: center;
 }
 .cancel .glyphicon {
@@ -249,9 +282,188 @@
   height: 50px;
   width: 100%;
 }
+.btn-yellow .disabled {
+  opacity: 0.65;
+}
 
 .minimal-rent {
-  font-size: 12px;
+  font-size: 14px;
   color: #3e4349;
   font-family: 'Roboto Slab', Helvetica, Arial, sans-serif;
+  margin: 4px 0;
+  display: inline-block;
+}
+
+.nav-button {
+  position: relative;
+}
+
+@media screen and (max-width: 1200px) {
+  .width-70 {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .width-70 {
+    width: 100%;
+  }
+
+  h4 {
+    font-size: 16px;
+  }
+
+  .order-time,
+  .order-price {
+    float: left;
+    width: 50%;
+  }
+  .time-col .glyphicon {
+    font-size: 16px;
+    margin: 0 10px 2px 12px;
+  }
+  .time-col .glyphicon-ok {
+    font-size: 12px;
+    margin-left: 14px;
+  }
+
+  .order-button {
+    float: left;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .order-time {
+    margin-left: 8.66666667%;
+  }
+
+  .order-time,
+  .order-price {
+    float: left;
+    width: calc(50% - 8.66666667%);
+  }
+
+  .order-button {
+    float: left;
+    width: calc(100% - 16.66666667%);
+    margin: 10px 8.66666667% 0;
+  }
+
+  .time-col {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .nav-button {
+    float: left;
+    width: 25%;
+  }
+  .nav-title {
+    float: left;
+    width: 50%;
+    padding: 0;
+  }
+  .nav-button-min {
+    float: left;
+    width: 15%;
+  }
+  .nav-title-min {
+    float: left;
+    width: 70%;
+    padding: 0;
+  }
+
+  .cancel {
+    top: 36px;
+    right: 14px;
+    width: 24px;
+    height: 24px;
+    padding: 3px;
+  }
+
+  .order-time,
+  .order-price {
+    float: left;
+    width: 50%;
+  }
+
+  .order-button {
+    float: left;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .month-day .discount {
+    right: 0px;
+    top: -2px;
+    width: 22px;
+    height: 22px;
+    padding: 1px 0;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .container.confirm-order {
+    padding: 0;
+  }
+  h2, h3, .month-year {
+    font-size: 16px;
+  }
+  .line {
+    height: 8px;
+    background-size: 8px 8px;
+  }
+
+  .month-day {
+    padding: 5px;
+    font-size: 14px;
+    height: 45px;
+  }
+  .month-day .availability {
+    left: 4px;
+    right: 4px;
+    bottom: 5px;
+  }
+
+  .day-nav {
+    font-size: 11px;
+  }
+  h4 {
+    font-size: 12px;
+    margin: 15px 0 0;
+    line-height: 1.3em;
+  }
+  .minimal-rent {
+    font-size: 11px;
+  }
+
+  .time-col {
+    width: calc(33% - 6px);
+    margin: 0 6px 6px 0;
+    font-size: 12px;
+    height: 30px;
+  }
+
+  .time-col .glyphicon {
+    font-size: 12px;
+    margin: 0 5px 3px 5px;
+  }
+  .time-col .glyphicon-ok {
+    font-size: 10px;
+    margin-left: 6px;
+  }
+
+  .row.order-form {
+    padding: 0 15px;
+  }
+
+  .order-time,
+  .order-price {
+    font-size: 12px;
+  }
+  .big-blue {
+    font-size: 14px;
+  }
+
 }

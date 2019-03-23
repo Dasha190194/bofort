@@ -36,7 +36,7 @@ var app = new Vue({
       }
       let times = [];
       for (var i = 7; i < 20; i++) {
-        var date = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), this.selectedDate.getDate(), i);
+        var date = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), this.selectedDate.getDate(), i, 0, 0, 0);
         times.push({
           from: i + ':00',
           to: (i + 1) + ':00',
@@ -144,8 +144,9 @@ var app = new Vue({
       if (!this.choosenTimeFrom) {
         return '';
       }
+      var timeTo = ''
       if (!this.choosenTimeTo) {
-        var timeTo = new Date(
+        timeTo = new Date(
             this.choosenTimeFrom.getFullYear(),
             this.choosenTimeFrom.getMonth(),
             this.choosenTimeFrom.getDate(),
@@ -154,7 +155,15 @@ var app = new Vue({
 
         return this.formatDate(timeTo);
       }
-      return this.formatDate(this.choosenTimeTo);
+
+      timeTo = new Date(
+          this.choosenTimeTo.getFullYear(),
+          this.choosenTimeTo.getMonth(),
+          this.choosenTimeTo.getDate(),
+          this.choosenTimeTo.getHours() + 1
+      );
+
+      return this.formatDate(timeTo);
     },
     dateFromTo() {
       if (!this.choosenTimeFrom) {
@@ -296,7 +305,7 @@ var app = new Vue({
           busyHours++;
         }
       }
-      return busyHours * 6.25;
+      return busyHours * (100 / 13);
     },
     daysInMonth(year, month) {
       return 32 - new Date(year, month, 32).getDate();
@@ -425,12 +434,21 @@ var app = new Vue({
     getTimes(year, month) {
       var _this = this;
       var success = function(data) {
+        var timezone = '+0' + (-today.getTimezoneOffset()/60) + ':00';
         data.calendar.forEach(function(date) {
-          var newDate = new Date(date);
+          var newDate = new Date(date+timezone);
           _this.addToCalendar(newDate);
+          // add date after
+          var nextDate = new Date(date+timezone);
+          nextDate.setHours(nextDate.getHours() + 1);
+          _this.addToCalendar(nextDate);
+          // add date before
+          var prevDate = new Date(date+timezone);
+          prevDate.setHours(prevDate.getHours() - 1);
+          _this.addToCalendar(prevDate);
         })
         data.actions.forEach(function(date) {
-          var newDate = new Date(date);
+          var newDate = new Date(date+timezone);
           _this.addToActions(newDate);
         })
       };
@@ -462,11 +480,23 @@ var app = new Vue({
           }
         }
       });
+    },
+    checkOrder() {
+      if (this.notMinimalOrder) {
+        $('#orderButton').popover('show');
+        setTimeout(function() {
+          $('#orderButton').popover('hide');
+        }, 5000);
+        return false;
+      } else {
+        this.$refs['orderForm'].submit();
+      }
     }
   },
   mounted() {
     this.boat_id = window.boat_id;
     this.minimal_rent = window.minimal_rent;
     this.getTimes(this.currentYear, this.currentMonth);
+    this.$el.style.display = 'block';
   }
 })
