@@ -111,7 +111,7 @@ use yii\widgets\ActiveForm; ?>
         ])->checkbox([], false)->label(false) ?>
     </div>
     <div class="col-md-offset-3 col-md-6 text-center">
-        <?= Html::submitButton('Привязать карту', ['class' => 'btn btn-warning btn-block']) ?>
+        <?= Html::submitButton('Оплата банковской картой', ['class' => 'btn btn-warning btn-block']) ?>
     </div>
     <?php ActiveForm::end(); ?>
 </div>
