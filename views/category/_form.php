@@ -13,9 +13,15 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 $images = [];
+$initialConfig = [];
 if (isset($model->images)) {
     foreach ($model->images as $image) {
-        if ($image instanceof ImagesModel) $images[] = Yii::$app->params['uploadsUrl'].'origin/'.$image->path;
+        if ($image instanceof ImagesModel) {
+            $images[] = Yii::$app->params['uploadsUrl'].'origin/'.$image->path;
+            $initialConfig[] = [
+                'url' => "/boats/file-delete", 'key'=> $image->id
+            ];
+        }
     }
 }
 
@@ -37,21 +43,23 @@ if (isset($model->images)) {
     <?= $form->field($model, 'images[]')->widget(FileInput::classname(),
         [
             'pluginOptions' => [
-                                'showRemove' => true,
-                                'showPreview' => true,
-                                'browseLabel' => ' ',
-                                'removeLabel' => ' ',
-                                'initialPreview' => $images,
-                                'initialPreviewAsData' => true,
-                                'overwriteInitial' => true,
-                                'maxFileSize' => 2800
-                               ],
+                'showRemove' => true,
+                'showPreview' => true,
+                'browseLabel' => ' ',
+                'removeLabel' => ' ',
+                'initialPreview' => $images,
+                'initialPreviewAsData' => true,
+                'initialPreviewConfig' =>$initialConfig,
+                'overwriteInitial' => true,
+                'maxFileSize' => 5000
+            ],
             'options' => [
-                            'accept' => 'image/*',
-                            'multiple' => true,
-                         ]
+                'accept' => 'image/*',
+                'multiple' => true,
+            ]
         ]
     ); ?>
+
 
     <div class="col-md-offset-3 col-md-6 text-center">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary btn-block']) ?>
