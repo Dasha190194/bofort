@@ -15,7 +15,7 @@ $date_now = date_create();
         <?php if($order->state === 1 and $order->datetime_from < $date_now): ?>
             <div class="panel panel-default">
                 <div class="panel-title">
-                    <img class="card-img-top" src="/index.png" width="748px" height="340px">
+                    <img src="<?= isset($order->boat->image)?Yii::$app->params['uploadsUrl'].'1080X720/'.$order->boat->image->path:'/index.png' ?>" width="748px" height="340px">
                 </div>
                 <div class="panel-body">
                     <div class="row">
