@@ -96,7 +96,7 @@ $this->title = 'Бофорт.ру – аренда катеров и яхт в �
                         <a href="/boats/index/<?= $category->slug ?>">
                             <img class="img-responsive" src="http://bofort.su/uploads/250X150/<?= (isset($category->image->path)?$category->image->path:'index.png') ?>">
                         </a>
-                        <span class="label label-warning label-boats">от <?= \app\helpers\Utils::userPrice($category->getMinPrice())?></span>
+                        <span class="label label-warning label-boats">от <?= \app\helpers\Utils::boatMinPrice($category->getMinPrice())?></span>
 
                     </div>
 
