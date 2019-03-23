@@ -8,14 +8,10 @@ $this->title = 'Бофорт.ру – аренда катеров и яхт в �
 ?>
 <div class="site-index">
 
-    <!-- <div class="jumbotron"></div> -->
-
     <div class="body-content">
 
         <div class="row hero">
             <div class="col-sm-12">
-                
-                <!-- <img src="/img/content/hero.jpg" alt="" class="img-responsive"> -->
 
                 <div class="hero-img-container">
                 
@@ -97,8 +93,9 @@ $this->title = 'Бофорт.ру – аренда катеров и яхт в �
             <?php foreach ($categories as $category): ?>
                 <div class="col-xs-12 col-sm-6 col-md-3 mb-64">
                     <div class="boats-img-container">
-                        <img class="img-responsive" src="http://bofort.su/uploads/250X150/<?= (isset($category->image->path)?$category->image->path:'index.png') ?>">
-
+                        <a href="/boats/index/<?= $category->slug ?>">
+                            <img class="img-responsive" src="http://bofort.su/uploads/250X150/<?= (isset($category->image->path)?$category->image->path:'index.png') ?>">
+                        </a>
                         <span class="label label-warning label-boats">от <?= \app\helpers\Utils::userPrice($category->getMinPrice())?></span>
 
                     </div>
