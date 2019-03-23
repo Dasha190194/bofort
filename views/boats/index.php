@@ -69,7 +69,7 @@
             <div class="col-xs-12 col-sm-4">
                 <div class="boat-photo">
                     <img src="<?= (isset($boat->image))?Yii::$app->params['uploadsUrl'].'250X150/'. $boat->image->path:'/index.png'?>">
-                    <div class="boat-price"><?= $boat->tariff->weekday ?></div>
+                    <div class="boat-price">От <?= \app\helpers\Utils::boatMinPrice($boat->tariff->weekday) ?></div>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-8">
