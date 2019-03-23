@@ -90,7 +90,7 @@ if (isset($model->images)) {
                                 'initialPreviewAsData' => true,
                                         'initialPreviewConfig' =>$initialConfig,
                                 'overwriteInitial' => true,
-                                'maxFileSize' => 2800
+                                'maxFileSize' => 5000
                                ],
             'options' => [
                             'accept' => 'image/*',
