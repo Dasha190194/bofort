@@ -45,7 +45,7 @@ use yii\helpers\Html;
         'options' => ['enctype' => 'multipart/form-data']
     ]); ?>
 
-    <?= $form->field($model, 'document')->widget(FileInput::classname(),
+    <?= $form->field($modelConfirmData, 'document')->widget(FileInput::classname(),
         [    'pluginOptions' => [
             'showPreview' => false,
             'showCaption' => true,
