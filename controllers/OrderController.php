@@ -114,7 +114,7 @@ class OrderController extends Controller
             if (Yii::$app->user->identity->isAdmin()) {
                 $money = $order->transaction->total_price;
             } else {
-                $money = $order->transaction->refundPrice();
+                $money = $order->transaction->total_price - $order->transaction->fine();
                 if (!$money) throw new Exception('Не удалось расчитать сумму возврата.');
             }
 
@@ -219,10 +219,10 @@ class OrderController extends Controller
             $order = OrdersModel::findOne($id);
             if (!$order) throw new Exception('Заказ не найден.');
 
-            $money = $order->transaction->refundPrice();
+            $money = $order->transaction->fine();
             if (!$money) throw new Exception('Не удалось расчитать сумму возврата.');
         } catch (Exception $e) {
-            Yii::error("Попытка вернуть несуществующий заказ [$id]", 'app.order.refund-modal');
+            Yii::error("Попытка вернуть заказ [$id]:". $e->getMessage(), 'app.order.refund-modal');
         }
 
         return $this->renderPartial('_orderRefund', compact('order', 'money'));

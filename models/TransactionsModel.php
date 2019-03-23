@@ -43,18 +43,18 @@ class TransactionsModel extends ActiveRecord
         return $this->hasOne(CardsModel::className(), ['id' => 'card_id']);
     }
 
-    public function refundPrice() {
+    public function fine() {
         try {
-            $days = date_diff(new DateTime(), new DateTime($this->datetime_create))->days;
+            $days = date_diff(new DateTime(), new DateTime($this->order->datetime_from))->days;
 
             if ($days < 15) {
                 $pic = (14-$days)/14;
-                $money =  $this->total_price - $this->total_price*$pic;
+                $money =  $this->total_price*$pic;
             } else {
-                $money = $this->total_price;
+                $money = 0;
             }
 
-            Yii::info("Расчет суммы возврата транзакции [$this->id] разница в днях [$days] деньги [$money]", 'app.transaction.refund-price');
+            Yii::info("Расчет суммы возврата транзакции [$this->id] разница в днях [$days] штраф [$money]", 'app.transaction.refund-price');
             return $money;
         } catch (\Exception $e) {
             Yii::error("Ошибка при расчете суммы возврата: ". $e->getMessage(), 'app.transaction.refund-price');
