@@ -29,7 +29,7 @@
             <?php endif; ?>
         </li>
 
-        <li><a class="btn btn-primary" href="/boats/index">Забронировать катер</a></li>
+        <li><a class="btn btn-warning" href="/boats/index">Забронировать катер</a></li>
 
       </ul>
     </div><!-- /.navbar-collapse -->
