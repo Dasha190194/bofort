@@ -15,4 +15,8 @@ class Utils
         return $price . ' руб.';
     }
 
+    public static function boatMinPrice($price) {
+        return $price . ' руб./час';
+    }
+
 }
