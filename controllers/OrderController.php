@@ -111,7 +111,12 @@ class OrderController extends Controller
 
         $order = OrdersModel::findOne($id);
         try {
-            $money = $order->transaction->total_price - ($order->transaction->total_price * 0.5);
+            if (Yii::$app->user->identity->isAdmin()) {
+                $money = $order->transaction->total_price;
+            } else {
+                $money = $order->transaction->refundPrice();
+                if (!$money) throw new Exception('Не удалось расчитать сумму возврата.');
+            }
 
             $client = new \CloudPayments\Manager(Yii::$app->params['cloud_id'], Yii::$app->params['cloud_private_key']);
             $client->refundPayment($order->transaction->cloud_transaction_id, $money);
@@ -124,6 +129,7 @@ class OrderController extends Controller
         $order->save();
 
         $order->transaction->state = 2;
+        $order->transaction->refund_price = $money;
         $order->transaction->save();
 
         Yii::info("Order [$id] success refund", 'app.order.refund');
@@ -213,7 +219,8 @@ class OrderController extends Controller
             $order = OrdersModel::findOne($id);
             if (!$order) throw new Exception('Заказ не найден.');
 
-            $money = $order->transaction->total_price - ($order->transaction->total_price * 0.5);
+            $money = $order->transaction->refundPrice();
+            if (!$money) throw new Exception('Не удалось расчитать сумму возврата.');
         } catch (Exception $e) {
             Yii::error("Попытка вернуть несуществующий заказ [$id]", 'app.order.refund-modal');
         }
