@@ -15,16 +15,17 @@ $asset = new \yii\web\AssetBundle([
 ]);
 $this->getAssetManager()->bundles[$file] = $asset;
 $this->registerAssetBundle($file);
-$file = '/css/calendar.css';
-$asset = new \yii\web\AssetBundle([
-    'css' => [ltrim($file, '/')],
-    'basePath' => '@webroot',
-    'baseUrl' => '/'
-]);
-$this->getAssetManager()->bundles[$file] = $asset;
-$this->registerAssetBundle($file);
+//$file = '/css/calendar.css';
+//$asset = new \yii\web\AssetBundle([
+//    'css' => [ltrim($file, '/')],
+//    'basePath' => '@webroot',
+//    'baseUrl' => '/'
+//]);
+//$this->getAssetManager()->bundles[$file] = $asset;
+//$this->registerAssetBundle($file);
 ?>
 
+<link href="/css/calendar.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.min.js"></script>
 
 <script>
