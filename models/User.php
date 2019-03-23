@@ -519,7 +519,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function sendSmsConfirmation($phone, $token) {
         try {
             $smsService = new SMSRU(Yii::$app->params['sms_key']);
-            $sms = new SmsModel($phone, $token);
+            $sms = new SmsModel($phone, 'Введите данный код подтверждения - '.$token);
             $result = $smsService->send_one($sms);
 
             if ($result->status == "OK") return 1;
