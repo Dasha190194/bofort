@@ -41,12 +41,10 @@ $this->title = 'О компании Бофорт';
 					<strong>Мы уверены, что с нами вы измените представление об аренде маломерных судов!</strong>
 				</p>
 
-				<a href="../boats/index" class="btn btn-warning mt-16">Выбрать судно</a>
+				<a href="/boats/index" class="btn btn-warning mt-16">Выбрать судно</a>
 
 			</div>
 	</div>
 
 
-
-    <!-- <code><?= __FILE__ ?></code> -->
 </div>
