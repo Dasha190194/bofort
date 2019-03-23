@@ -68,12 +68,11 @@ use yii\helpers\Html;
                     ],
                     'datetime_create',
                     [
-                        'label' => 'Ссылка',
+                        'label' => '',
                         'format' => 'raw',
                         'value' => function($data){
-                                    return Html::a('Отменить заказ и вернуть деньги',
-                                        '/order/refund?id='.$data->id,
-                                        ['class' => 'order-refund', 'data-id' => $data->id, 'onClick' => 'return false;']);
+                                    return Html::button('Отменить заказ и вернуть деньги',
+                                        ['class' => 'order-refund', 'data-id' => $data->id]);
                                   }
                     ],
                 ],

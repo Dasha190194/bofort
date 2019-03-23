@@ -183,8 +183,7 @@ $(document).ready(function() {
         });
     });
 
-    $('#order-info-modal').on('click', '.order-refund', function(){
-        var id = $(this).data('id');
+    function orderRefund(id) {
         $.ajax({
             url: '/order/refund',
             type: 'GET',
@@ -195,6 +194,18 @@ $(document).ready(function() {
                 location.reload();
             }
         });
+    }
+
+    $('#order-info-modal').on('click', '.order-refund', function(){
+        var id = $(this).data('id');
+        orderRefund(id);
+    });
+
+    $('.order-refund').on('click', function () {
+        if (confirm('Вы уверены, что хотите вернуть заказ?')) {
+            var id = $(this).data('id');
+            orderRefund(id);
+        }
     });
 
     $('#order-info-modal').on('click', '.order-refund-no', function(){
