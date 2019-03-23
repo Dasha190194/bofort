@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\BlockForm;
 use app\models\BoatsModel;
+use app\models\ConfirmDataForm;
 use app\models\OfertaForm;
 use app\models\OrdersModel;
 use Exception;
@@ -31,7 +32,7 @@ class AdminController extends Controller
                         'roles' => ['admin', 'shipowner'],
                     ],
                     [
-                        'actions' => ['orders', 'services', 'oferta'],
+                        'actions' => ['orders', 'services', 'documents'],
                         'allow' => true,
                         'roles' => ['admin'],
                     ],
@@ -95,18 +96,30 @@ class AdminController extends Controller
     /*
      * Редактор оферты
      */
-    public function actionOferta() {
+    public function actionDocuments() {
         $model = new OfertaForm();
+        $modelConfirmData = new ConfirmDataForm();
 
         $post = Yii::$app->request->post();
+
         if ($model->load($post) && $model->validate()) {
             try {
                 $model->document = UploadedFile::getInstance($model, 'document');
                 if (!$model->upload()) throw new Exception('Ошибка сохранения оферты!');
             } catch (Exception $e) {
-                Yii::error($e->getMessage(), 'app.admin.oferta');
+                Yii::error($e->getMessage(), 'app.admin.documents');
             }
         }
-        return $this->render('oferta', compact('model'));
+
+        if ($modelConfirmData->load($post) && $modelConfirmData->validate()) {
+            try {
+                $modelConfirmData->document = UploadedFile::getInstance($modelConfirmData, 'document');
+                if (!$modelConfirmData->upload()) throw new Exception('Ошибка сохранения пользовательского соглашения!');
+            } catch (Exception $e) {
+                Yii::error($e->getMessage(), 'app.admin.documents');
+            }
+        }
+
+        return $this->render('documents', compact('model', 'modelConfirmData'));
     }
 }

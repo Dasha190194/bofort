@@ -47,7 +47,7 @@
                     </li>
                 </ul>
             </li>
-            <a href="/admin/oferta">
+            <a href="/admin/documents">
                 <li class="list-group-item">
                     Оферта
                 </li>

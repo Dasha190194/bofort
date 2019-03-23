@@ -345,7 +345,7 @@ hr.one {
 	font-size: 16px;
 	font-weight: bold;
 	color: #3e4347;
-	margin-bottom: 10px;
+	margin-bottom: 20px;
 }
 .boat-details-button .btn {
 	width: 100%;
@@ -421,8 +421,120 @@ hr.one {
 	bottom: 10px;
 	left: 10px;
 }
-.boat-photo-icon svg {
+
+/* Order summary */
+hr.margin-10 {
+	margin: 10px 0;
 }
+hr.margin-bottom-0 {
+	margin-bottom: 0;
+}
+hr.line {
+	border: none;
+	background: linear-gradient(-45deg, rgba(0, 0, 0, 0) 49.9%, #cccdd1 49.9%, #cccdd1 60%, rgba(0, 0, 0, 0) 60%)
+	fixed,
+	linear-gradient(-45deg, #cccdd1 10%, rgba(0, 0, 0, 0) 10%)
+	fixed;
+	border: none;
+	background-size: 13px 13px;
+	height: 13px;
+}
+
+.services .popover.top {
+	background: #05355d;
+	color: #ffffff;
+}
+.services .popover.top > .arrow:after {
+	border-top-color: #05355d;
+}
+
+.service.btn {
+	width: 100%;
+	text-align: left;
+	margin-bottom: 16px;
+	position: relative;
+}
+
+.service.btn .info {
+	position: absolute;
+	right: 10px;
+	top: 14px;
+}
+
+.service.btn .chechbox {
+	border: 1px solid #05355d;
+	border-radius: 2px;
+	width: 16px;
+	height: 16px;
+	position: absolute;
+	margin-left: -26px;
+	margin-top: 1px;
+	font-size: 12px;
+	color: #ffffff;
+}
+.service.btn .chechbox .glyphicon {
+	display: none;
+}
+
+.service.btn.active {
+	width: 100%;
+	text-align: left;
+	color: #ffffff;
+	background: #032a4b;
+	box-shadow: none;
+}
+
+.service.btn.active .chechbox {
+	background: #05355d;
+}
+
+.service.btn.active .chechbox .glyphicon {
+	display: block;
+}
+
+.order-summary .table .width-20 {
+	width: 30%;
+}
+
+.order-summary .table tr:nth-child(1) th,
+.order-summary .table tr:nth-child(1) td {
+	border: none;
+}
+
+.order-summary .table th,
+.order-summary .table td {
+	line-height: 60px;
+}
+
+.order-summary .table td {
+	color: #6b747d;
+}
+
+.order-summary .table td.coast {
+	color: #05355d;
+	font-weight: bold;
+}
+
+.order-summary .table td.coast.red {
+	color: #dd3b4a;
+}
+
+.offer {
+	color: #6c757e
+}
+
+.chechbox {
+	border: 1px solid #05355d;
+	border-radius: 2px;
+	width: 16px;
+	height: 16px;
+	position: absolute;
+	margin-left: -26px;
+	margin-top: 1px;
+	font-size: 12px;
+	color: #ffffff;
+}
+
 
 /* Footer */
 

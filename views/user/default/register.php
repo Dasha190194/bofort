@@ -68,7 +68,7 @@ $module = Yii::$app->getModule("user");
             <div class="col-md-offset-3 col-md-6 text-center">
                 <?= $form->field($user, 'personal_data_processing', [
                     'template' => "{input}
-                        <small>&ensp;Я соглашаюсь с <a target='_blank' href='/uploads/oferta.pdf'>условиями обработки персональных данных</a> {error}</small>",
+                        <small>&ensp;Я соглашаюсь с <a target='_blank' href='/uploads/confirm-data.pdf'>условиями обработки персональных данных</a> {error}</small>",
                 ])->checkbox([], false)->label(false) ?>
             </div>
 
