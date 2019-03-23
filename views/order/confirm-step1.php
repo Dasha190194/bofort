@@ -193,10 +193,8 @@ $this->registerAssetBundle($file);
         </div>
 
 
-        <?php $form = ActiveForm::begin([
-            'id' => 'order-confirm-form',
-            'action' => '/order/confirm-step1?id='.$order->id,
-        ]); ?>
+        <form id="order-confirm-form" ref="orderForm" action="/order/confirm-step1?id=<?=$order->id ?>" method="post">
+        <?= Html :: hiddenInput(Yii::$app->getRequest()->csrfParam, Yii::$app->getRequest()->getCsrfToken(), []); ?>
             <input type="hidden" name="OrderConfirmForm[boat_id]" :value="boat_id">
             <input type="hidden" name="OrderConfirmForm[datetime_from]" :value="choosenTimeFromValue">
             <input type="hidden" name="OrderConfirmForm[datetime_to]" :value="choosenTimeToValue">
@@ -229,7 +227,7 @@ $this->registerAssetBundle($file);
                 </span>
             </div>
         </div>
-        <?php ActiveForm::end(); ?>
+        </form>
     </div>
 
 </div>
