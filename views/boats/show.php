@@ -83,14 +83,14 @@ $this->title = $boat->name;
                 <span>Располпжение причала . <a id="showLocation">Показать на карте</a></span>
                 <?= $boat->location_name ?>
             </div>
-            <?php /*
+
             <div class="characteristic">
                 <span>Доступны дополнительные услуги</span>
                 <?php if($boat->services):
                         echo implode(', ', $boat->getServicesName());
                 endif; ?>
             </div>
-            */?>
+
 
              <?php $form = ActiveForm::begin([
                     'id' => 'order-create-form',
