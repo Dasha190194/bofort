@@ -31,7 +31,7 @@
                     <td class="text-center">
                         <h4><?= $boat->name ?></h4>
                         <div class="boat-photo">
-                            <img src="<?= (isset($boat->image))?Yii::$app->params['uploadsUrl'].'550X350/'. $boat->image->path:'/index.png'?>">
+                            <img src="<?= (isset($boat->image))?Yii::$app->params['uploadsUrl'].'250X150/'. $boat->image->path:'/index.png'?>">
                         </div>
                         <span>Минимальная аренда <?= $boat->tariff->minimal_rent ?> часа</span>
                     </td>
