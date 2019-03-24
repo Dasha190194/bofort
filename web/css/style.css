@@ -841,6 +841,16 @@ hr.line {
 	font-weight: bold;
 }
 
+.faq h4 {
+	border-bottom: 1px dashed;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.faq p {
+	font-size: 16px;
+}
+
 /* Footer */
 
 .footer {
