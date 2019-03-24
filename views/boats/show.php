@@ -17,7 +17,7 @@ $this->title = $boat->name;
         <h1><?= Html::encode($this->title) ?></h1>
     </div>
     <div class="col-md-3" style="margin-top: 20px">
-        <a class="btn btn-default" href="/boats/index">Посмотреть другие</a>
+        <a class="btn btn-primary" href="/boats/index">Посмотреть другие</a>
     </div>
 </div>
 <hr>
