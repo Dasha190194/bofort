@@ -77,7 +77,7 @@ $this->title = 'Бофорт.ру – аренда катеров и яхт в �
                 <div class="col-xs-12 col-sm-6 col-md-4 mb-64 boat-item">
                     <div class="boat-photo">
                         <a href="/boats/index/<?= $category->slug ?>">
-                            <img src="http://bofort.su/uploads/250X150/<?= (isset($category->image->path)?$category->image->path:'index.png') ?>">
+                            <img src="http://bofort.su/uploads/550X350/<?= (isset($category->image->path)?$category->image->path:'index.png') ?>">
                         </a>
                         <div class="boat-price">от <?= \app\helpers\Utils::boatMinPrice($category->getMinPrice())?></div>
                     </div>
