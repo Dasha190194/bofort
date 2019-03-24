@@ -67,7 +67,7 @@
                     </li>
                 </ul>
             </li>
-            <a href="/boats/index">
+            <a href="/boats/index?shipowner=<?= Yii::$app->user->getId()?>">
                 <li class="list-group-item">
                     Мои лодки
                 </li>
