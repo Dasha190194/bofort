@@ -115,8 +115,8 @@ $(document).ready(function() {
     });
 
     profileBlock.on('click', '.order-more-info', function() {
-
         var id = $(this).data('id');
+
         $.ajax({
             url: '/order/info',
             type: 'GET',
@@ -126,6 +126,41 @@ $(document).ready(function() {
             success: function(result) {
                 $('#order-info-modal .modal-content').html(result);
                 $('#order-info-modal').modal({show:true});
+            }
+        });
+    });
+
+    profileBlock.on('click', '.notification-panel',function () {
+        var id = $(this).data('id');
+        var panel = $(this);
+
+        $.ajax({
+            url: '/notifications/open',
+            type: 'GET',
+            data: {
+                'id': id
+            },
+            success: function (result) {
+                result = JSON.parse(result);
+                if (result.success === true) {
+                    $('.badge').text(result.result.count);
+                    $('#count').text(result.result.count);
+                    panel.removeClass('noOpen');
+                }
+            }
+        });
+    });
+
+    profileBlock.on('click', '#clear-notifications', function(){
+        $.ajax({
+            url: '/notifications/clear-all',
+            type: 'GET',
+            success: function (result) {
+                result = JSON.parse(result);
+                if (result.success === true) {
+                    $('.badge').remove();
+                    updateContainer('notifications');
+                }
             }
         });
     });

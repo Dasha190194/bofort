@@ -103,39 +103,7 @@ $(document).ready(function() {
         });
     });
 
-    $('.notification-panel').on('click', function () {
-        var id = $(this).data('id');
-        var panel = $(this);
 
-        $.ajax({
-            url: '/notifications/open',
-            type: 'GET',
-            data: {
-                'id': id
-            },
-            success: function (result) {
-                result = JSON.parse(result);
-                if (result.success === true) {
-                    $('.badge').text(result.result.count);
-                    panel.removeClass('noOpen');
-                }
-            }
-        });
-    });
-
-    $('#clear-notifications').on('click', function(){
-        $.ajax({
-            url: '/notifications/clear-all',
-            type: 'GET',
-            success: function (result) {
-                result = JSON.parse(result);
-                if (result.success === true) {
-                    $('.badge').remove();
-                    $('.notifications-container').html('<strong>У вас нет новых уведомлений</strong>');
-                }
-            }
-        });
-    });
 
     $('#show-carousel-modal').on('click', function(){
         $('#carousel-modal').modal({show:true});
