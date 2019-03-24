@@ -32,15 +32,28 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/jpeg', 'href' => Url::
 
     <?php if (Yii::$app->controller->id.'/'.Yii::$app->controller->action->id == 'site/index'): ?>
         <?= $this->render('mainHeader') ?>
+
+        <div class="row hero">
+            <div class="hero-img-container">
+                <img
+                        src="https://bofort.ru/img/content/hero.jpg"
+                        alt=""
+                        class="img-responsive"
+                />
+
+                <div class="hero-title visible-sm visible-md visible-lg">
+                    <h1 class="hero-title-h1">Аренда катеров и яхт в Москве</h1>
+                    <p class="hero-title-h2">с нами – это просто!</p>
+                    <a href="/boats/index" class="btn btn-warning mt-8">Выбрать судно&ensp;&ensp;<span>›</span></a>
+                </div>
+            </div>
+        </div>
+
     <?php else: ?>
         <?= $this->render('header') ?>
     <?php endif; ?>
 
     <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
         <?= $content ?>
     </div>
 </div>
