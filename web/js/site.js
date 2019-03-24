@@ -72,7 +72,6 @@ $(document).ready(function() {
                         array = (array.length === 0)?'':array.join(',');
                         payform_services.val(array);
                         thiss.removeClass('active');
-                        thiss.find('i').addClass('hidden');
                         $('#toPay').html(data);
                 //    }
                 }
@@ -265,5 +264,11 @@ $(document).ready(function() {
     };
 
     $("#account-form").preventDoubleSubmission();
+
+    $('#addNewCard').on('click', function(){
+        $('#add-new-card-modal').modal('show');
+    });
+
+
 });
 
