@@ -53,10 +53,6 @@ $(document).ready(function() {
         });
     });
 
-    profileBlock.on('click', '#addNewCard', function() {
-        $('#add-new-card-modal').modal('show');
-    });
-
     profileBlock.on('click', '#confirm-add-new-card', function() {
         $('#add-new-card-modal').modal('hide');
 

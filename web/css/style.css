@@ -699,6 +699,52 @@ hr.line {
 	color: #037cfe;
 }
 
+.cards-container .card-image {
+	float: left;
+	width: 80px;
+	margin-right: 20px;
+}
+
+.cards-container .card-title {
+	color: #032a4b;
+	margin-bottom: 3px;
+}
+
+.cards-container .main-card {
+	color: #9aa3aa;
+}
+
+.cards-container .card-remove {
+	color: #9ba6ac;
+	padding-top: 30px;
+}
+
+.cards-container .make-main {
+	color: #1383ff;
+	cursor: pointer;
+}
+
+.cards-container .btn {
+	width: 100%;
+}
+
+.cards-container .history {
+	margin-top: 40px;
+}
+
+.cards-container .grey {
+	color: #959ba7;
+}
+.cards-container .date-price {
+	color: #3e4349;
+	font-weight: bold;
+}
+
+.cards-container .red {
+	color: #dc3546;
+}
+
+
 
 
 #phone-code h4 {
@@ -744,4 +790,20 @@ hr.line {
 .footer span.prepend {
 	opacity: .64;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

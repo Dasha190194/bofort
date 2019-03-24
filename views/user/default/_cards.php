@@ -8,85 +8,105 @@ use app\models\TransactionsModel;
 <script src="https://widget.cloudpayments.ru/bundles/cloudpayments"></script>
 
 <div class="profile-container cards-container">
-    <div>
-        <h2>Сохраненный карты</h2>
-        <?php foreach($cards as $card): ?>
+    <h2>Сохраненные карты</h2>
+
+    <?php foreach($cards as $card): ?>
+
+        <div class="row">
+            <div class="col-xs-8">
+                <?php if($card->type == 'VISA'): ?>
+                    <img class="card-image" src="/visa.png">
+                <?php else: ?>
+                    <img class="card-image" src="/mastercard.png">
+                <?php endif; ?>
+                <h4 class="card-title">
+                    <?= $card->type?> ****<?= $card->last_four?>
+                </h4>
+                <?php if($card->state == 1): ?>
+                    <div class="main-card">
+                        <i class="glyphicon glyphicon-ok"></i> Основная карта
+                    </div>
+                <?php else: ?>
+                    <div class="make-main mainCard" data-id="<?= $card->id ?>">
+                        <span>Сделать основной</span>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <div class="col-xs-4 text-right card-remove">
+                <?php if($card->state == 1): ?>
+                    Карту нельзя удалить
+                <?php else: ?>
+                    <span class="red removeCard" data-id="<?= $card->id ?>">
+                        <i class="glyphicon glyphicon-remove"></i> Удалить карту
+                    </span>
+                <?php endif; ?>
+            </div>
+        </div>
+
+    <?php endforeach; ?>
+
+    <div class="row">
+        <div class="col-md-6">
+            <span class="btn btn-primary" data-toggle="modal" data-target="#add-new-card-modal" id="addNewCard">Добавить новую карту</span>
+        </div>
+    </div>
+
+    <?php if(!empty($transactions)): ?>
+
+        <h3 class="history">История списаний</h3>
+
+        <?php foreach($transactions as $transaction): ?>
+
+            <hr class="one">
             <div class="row">
-                <div class="col-md-2">
-                    <?php if($card->type == 'VISA'): ?>
-                        <img width="80px" src="/visa.png">
-                    <?php else: ?>
-                        <img width="80px" src="/mastercard.png">
-                    <?php endif; ?>
-                </div>
-                <div class="col-md-4" style="padding-top: 14px;">
-                    <div>
-                        <?= $card->type?> ****<?= $card->last_four?>
+                <div class="col-md-6">
+                    <div class="date-price">
+                        <?= $transaction->datetime_create ?>
                     </div>
-                    <div>
-                        <?php if($card->state == 1): ?>
-                            <i class="glyphicon glyphicon-ok"></i> Основная карта
-                        <?php else: ?>
-                            <a class="mainCard" data-id="<?= $card->id ?>">Сделать основной</a>
-                        <?php endif; ?>
+                    <div class="gray">
+                        <?= $transaction->card->type ?>
+                        <?= $transaction->card->last_four ?>
                     </div>
                 </div>
-                <div class="col-md-offset-3 col-md-3">
-                    <?php if($card->state == 1): ?>
-                        Карту нельзя удалить
-                    <?php else: ?>
-                        <a class="removeCard" data-id="<?= $card->id ?>">Удалить карту</a>
-                    <?php endif; ?>
+                <div class="col-md-offset-3 col-md-3 text-right">
+                    <div class="date-price">
+                        <?= \app\helpers\Utils::userPrice($transaction->total_price) ?>
+                    </div>
+                    <div class="gray">
+                        <?= TransactionsModel::$transactionsState[$transaction->state] ?>
+                    </div>
                 </div>
             </div>
         <?php endforeach; ?>
-        <span class="btn btn-default" id="addNewCard">Добавить новую карту</span>
-    </div>
-    <?php if(!empty($transactions)): ?>
-        <div>
-            <h2>История списаний</h2>
-            <hr>
-            <?php foreach($transactions as $transaction): ?>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div>
-                            <?= $transaction->datetime_create ?>
+
+        <hr class="one">
+
+    <?php endif; ?>
+
+    <div class="modal fade" id="add-new-card-modal" role="dialog" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4>Добавить новую карту</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center">При добавлении новой карты мы спишем с нее 1 рубль. После аторизации деньгу будут возвращены на ваш счет</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button data-dismiss="modal" class="btn btn-default">Отмена</button>
                         </div>
-                        <div>
-                            <?= $transaction->card->type ?>
-                            <?= $transaction->card->last_four ?>
-                        </div>
-                    </div>
-                    <div class="col-md-offset-3 col-md-3">
-                        <div>
-                            <?= $transaction->total_price ?>
-                        </div>
-                        <div>
-                            <?= TransactionsModel::$transactionsState[$transaction->state] ?>
+                        <div class="col-md-6">
+                            <button class="btn btn-primary" id="confirm-add-new-card">Списать</button>
                         </div>
                     </div>
                 </div>
-                <hr>
-            <?php endforeach; ?>
-        </div>
-    <?php endif; ?>
-
-
-    <div class="modal fade" id="add-new-card-modal" role="dialog">
-        <div class="modal-dialog" style="width: 780px;">
-            <div class="modal-content">
-                <p>С Вашей карты спишется 1 руб.</p>
-                <button class="btn btn-default" id="confirm-add-new-card">Списать</button>
-                <button class="btn btn-default">Отмена</button>
             </div>
         </div>
     </div>
-
 </div>
 
 <script>
-
     const cloud_id = "<?= Yii::$app->params['cloud_id'] ?>";
     var user_id = "<?= Yii::$app->user->getId() ?>";
-
 </script>
