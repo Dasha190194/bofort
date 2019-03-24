@@ -11,20 +11,18 @@ $this->title = 'Бофорт.ру – аренда катеров и яхт в �
     <div class="body-content">
 
         <div class="row hero">
-            <div class="col-sm-12">
+            <div class="hero-img-container">
+                <img
+                        src="https://bofort.ru/img/content/hero.jpg"
+                        alt=""
+                        class="img-responsive"
+                />
 
-                <div class="hero-img-container">
-                
-                    <img src="/img/content/hero.jpg" alt="" class="img-responsive">
-
-                    <div class="hero-title visible-sm visible-md visible-lg">
-                        <p class="hero-title-h1">Аренда катеров и яхт в Москве</p>
-                        <p class="hero-title-h2">с нами – это просто!</p>
-                        <a href="/boats/index" class="btn btn-warning mt-8">Выбрать судно&ensp;&ensp;<span>›</span></a>
-                    </div>
-
+                <div class="hero-title visible-sm visible-md visible-lg">
+                    <h1 class="hero-title-h1">Аренда катеров и яхт в Москве</h1>
+                    <p class="hero-title-h2">с нами – это просто!</p>
+                    <a href="/boats/index" class="btn btn-warning mt-8">Выбрать судно&ensp;&ensp;<span>›</span></a>
                 </div>
-
             </div>
         </div>
 
@@ -91,13 +89,13 @@ $this->title = 'Бофорт.ру – аренда катеров и яхт в �
         <div class="row">
 
             <?php foreach ($categories as $category): ?>
-                <div class="col-xs-12 col-sm-6 col-md-3 mb-64">
-                    <div class="boats-img-container">
-                        <a href="/boats/index/<?= $category->slug ?>">
-                            <img class="img-responsive" src="http://bofort.su/uploads/250X150/<?= (isset($category->image->path)?$category->image->path:'index.png') ?>">
-                        </a>
-                        <span class="label label-warning label-boats">от <?= \app\helpers\Utils::boatMinPrice($category->getMinPrice())?></span>
 
+                <div class="col-xs-12 col-sm-6 col-md-4 mb-64 boat-item">
+                    <div class="boat-photo">
+                        <a href="/boats/index/<?= $category->slug ?>">
+                            <img src="http://bofort.su/uploads/250X150/<?= (isset($category->image->path)?$category->image->path:'index.png') ?>">
+                        </a>
+                        <div class="boat-price">от <?= \app\helpers\Utils::boatMinPrice($category->getMinPrice())?></div>
                     </div>
 
                     <h5><?= $category->name ?></h5>
@@ -105,6 +103,8 @@ $this->title = 'Бофорт.ру – аренда катеров и яхт в �
                     <p><?= $category->description ?></p>
                     <a class="btn btn-primary mt-8" href="/boats/index/<?= $category->slug ?>">Подробно</a>
                 </div>
+
+
             <?php endforeach; ?>
         </div>
 

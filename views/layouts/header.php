@@ -1,8 +1,5 @@
-<!-- Newer -->
-
 <nav id="w0" class="navbar navbar-default navbar-background">
   <div class="container">
-    <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#w0-collapse" aria-expanded="false">
         <span class="sr-only">Навигация</span>
@@ -13,7 +10,6 @@
       <a class="navbar-brand" href="<?= Yii::$app->homeUrl?>"><img src="/img/web-logo.svg" alt="Бофорт"></a>
     </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="w0-collapse">
       <ul id="w1" class="nav navbar-nav navbar-right mt-16 mb-16">
 
@@ -32,7 +28,7 @@
         <li><a class="btn btn-warning" href="/boats/index">Забронировать катер</a></li>
 
       </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+    </div>
+  </div>
 </nav>
 

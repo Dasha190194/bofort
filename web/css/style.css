@@ -233,7 +233,17 @@ h6 {
 }
 
 .header-vertical-collapse {
-	margin-bottom: -80px;
+	position: absolute;
+	width: 100%;
+	max-width: 1366px;
+	margin: 0 auto;
+	left: 0;
+}
+
+@media screen and (min-width: 1366px) {
+	.header-vertical-collapse {
+		left: calc((100% - 1366px) / 2);
+	}
 }
 
 .navbar-brand {
@@ -274,6 +284,8 @@ h6 {
 
 .hero {
 	z-index: -10;
+	max-width: 1366px;
+	margin: 0 auto;
 }
 
 .hero-img-container {
@@ -292,6 +304,7 @@ h6 {
 	color: #fff;
 	font-size: 2.56rem;
 	line-height: 2.40rem;
+	margin: 0;
 }
 
 .hero-title-h1 p,
