@@ -10,32 +10,33 @@ $date_now = date_create();
 
 <div class="profile-container booking-container">
 
-    <h2>Текущее бронирование</h2>
+    <h3>Текущее бронирование</h3>
     <?php foreach ($orders as $order): ?>
         <?php if($order->state === 1 and $order->datetime_from < $date_now): ?>
             <div class="panel panel-default">
-                <div class="panel-title">
-                    <img src="<?= isset($order->boat->image)?Yii::$app->params['uploadsUrl'].'1080X720/'.$order->boat->image->path:'/index.png' ?>" width="748px" height="340px">
+                <?php $path = isset($order->boat->image)?Yii::$app->params['uploadsUrl'].'1080X720/'.$order->boat->image->path:'/index.png'; ?>
+                <div class="panel-title" style="background-image: url('<?= $path ?>')">
+                    <span class="btn btn-danger">Катер забронирован</span>
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 date-price">
                             <span><?= $order->datetime_from .' - '. $order->datetime_to ?></span>
                         </div>
-                        <div class="col-md-6">
-                            <span class="pull-right"> <?= $order->price ?></span>
+                        <div class="col-md-6 date-price text-right">
+                            <span> <?= Utils::userPrice($order->price) ?></span>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-offset-6 col-md-6">
-                            <span class="pull-right">Карта VISA</span>
+                        <div class="col-md-offset-6 col-md-6 grey text-right">
+                            <span>Карта VISA</span>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
+                    <div class="row buttons">
+                        <div class="col-xs-6">
                             <a data-id="<?= $order->id?>" class="btn btn-default btn-block order-refund-modal">Отменить бронирование</a>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-xs-6">
                             <a data-id="<?= $order->id?>" class="btn btn-primary btn-block order-more-info">Подробнее</a>
                         </div>
                     </div>
@@ -44,44 +45,44 @@ $date_now = date_create();
         <?php endif; ?>
     <?php endforeach; ?>
 
-    <hr>
+    <hr />
 
-    <h2>История аренды</h2>
-        <?php foreach ($orders as $order): ?>
-            <?php if(($order->state === 1 and $order->datetime_from > $date_now) or ($order->state === 2)): ?>
-                <div class="panel-orders-history panel panel-default">
-                    <div class="panel-title">
-                        <img src="<?= isset($order->boat->image)?Yii::$app->params['uploadsUrl'].'1080X720/'.$order->boat->image->path:'/index.png' ?>" width="748px" height="340px">
-
-                        <?php if ($order->state === 1): ?>
-                            <span class="order-state">Заказ выполнен</span>
-                        <?php else: ?>
-                            <span class="order-state">Заказ отменен</span>
-                        <?php endif; ?>
+    <h3>История аренды</h3>
+    <?php foreach ($orders as $order): ?>
+        <?php if(($order->state === 1 and $order->datetime_from > $date_now) or ($order->state === 2)): ?>
+            <div class="panel-orders-history panel panel-default">
+                <?php $path = isset($order->boat->image)?Yii::$app->params["uploadsUrl"].'1080X720/'.$order->boat->image->path:'/index.png'; ?>
+                <div class="panel-title" style="background-image: url('<?=  $path ?>')">
+                    <?php if ($order->state === 1): ?>
+                        <span class="order-state btn btn-default">Заказ выполнен</span>
+                    <?php else: ?>
+                        <span class="order-state btn btn-default">Заказ отменен</span>
+                    <?php endif; ?>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6 date-price">
+                            <span><?= $order->datetime_from .' - '. $order->datetime_to ?></span>
+                        </div>
+                        <div class="col-md-6 date-price text-right">
+                            <span> <?= Utils::userPrice($order->price) ?></span>
+                        </div>
                     </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <span><?= $order->datetime_from .' - '. $order->datetime_to ?></span>
-                            </div>
-                            <div class="col-md-6">
-                                <span class="pull-right"> <?= Utils::userPrice($order->price) ?></span>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-offset-6 col-md-6 grey text-right">
+                            <span>Карта Mastercard</span>
                         </div>
-                        <div class="row">
-                            <div class="col-md-offset-6 col-md-6">
-                                <span class="pull-right">Карта VISA</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <a data-id="<?= $order->id?>" class="btn btn-primary btn-block order-more-info">Подробнее</a>
-                            </div>
+                    </div>
+                    <div class="row buttons">
+                        <div class="col-md-12">
+                            <a data-id="<?= $order->id?>" data-toggle="modal" data-target="#order-info-modal" class="btn btn-primary btn-block order-more-info">Подробнее</a>
                         </div>
                     </div>
                 </div>
-            <?php endif; ?>
-        <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+    <?php endforeach; ?>
+
 </div>
 
 
@@ -92,3 +93,5 @@ $date_now = date_create();
         </div>
     </div>
 </div>
+
+
