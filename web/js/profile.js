@@ -58,6 +58,8 @@ $(document).ready(function() {
     });
 
     profileBlock.on('click', '#confirm-add-new-card', function() {
+        $('#add-new-card-modal').modal('hide');
+
         var widget = new cp.CloudPayments();
         widget.charge({
                 publicId: cloud_id,
