@@ -11,8 +11,6 @@ use yii\helpers\Html;
 ?>
 
 
-
-
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">&times;</button>
     <h4>Подтверждение номера телефона <?= $model->phone ?></h4>
@@ -24,17 +22,20 @@ use yii\helpers\Html;
     ]); ?>
     <div class="row">
         <div class="col-md-12">
-
-            Мы выслали вам SMS с кодом, введите его в это поле, чтобы подтвердить номер телефона:
+            <p class="text-center">Мы выслали вам SMS с кодом, введите его в это поле, чтобы подтвердить номер телефона:</p>
             <?= $form->field($model, 'code')->input('text', ['class' => 'form-control'])->label(false); ?>
             <?= $form->field($model, 'phone')->hiddenInput()->label(false) ?>
             <span id="code-error" style="color:red;"></span>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6 col-md-offset-6">
+        <div class="col-md-6">
+            <button type="reset" data-dismiss="modal" class="btn btn-default btn-block">Отменить</button>
+        </div>
+        <div class="col-md-6">
             <?= Html::submitButton('Подтвердить', ['class' => 'btn btn-primary btn-block']) ?>
         </div>
     </div>
     <?php ActiveForm::end(); ?>
 </div>
+

@@ -15,19 +15,28 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="profile-container security-container">
-    <h2>Изменить пароль</h2>
+    <h3>Изменить пароль</h3>
+
+    <?php $form = ActiveForm::begin(['id' => 'reset-form', 'action' => '/default/reset']); ?>
+
     <div class="row">
-        <div class="col-md-12">
-
-            <?php $form = ActiveForm::begin(['id' => 'reset-form', 'action' => '/default/reset']); ?>
-
-            <?= $form->field($user, 'newPassword')->passwordInput()->label(false) ?>
-            <?= $form->field($user, 'newPasswordConfirm')->passwordInput()->label(false) ?>
-            <div class="form-group">
-                <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary']) ?>
+            <div class="col-md-6">
+                <?= $form->field($user, 'newPassword')->passwordInput(['placeholder' => "Новый пароль"])->label(false) ?>
             </div>
-            <?php ActiveForm::end(); ?>
+            <div class="col-md-6">
+                <?= $form->field($user, 'newPasswordConfirm')->passwordInput(['placeholder' => "Подтвердите пароль"])->label(false) ?>
+            </div>
         </div>
-    </div>
-</div>
 
+        <div class="row form-group buttons">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+                <button type="reset" class="btn btn-default">Отменить изменения</button>
+            </div>
+            <div class="col-md-4">
+                <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary update-account']) ?>
+            </div>
+        </div>
+    <?php ActiveForm::end(); ?>
+</div>

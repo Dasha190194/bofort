@@ -16,7 +16,7 @@ $module = $this->context->module;
 ?>
 <div class="profile-container account-container">
 
-    <h2>Персональные данные</h2>
+    <h3>Персональные данные</h3>
 
     <?php $form = ActiveForm::begin([
         'id' => 'account-form',
@@ -37,8 +37,13 @@ $module = $this->context->module;
         </div>
     </div>
 
-    <div class="form-group">
-        <div class="col-md-2 col-md-offset-9">
+    <div class="row form-group buttons">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <button type="reset" class="btn btn-default">Отменить изменения</button>
+        </div>
+        <div class="col-md-4">
             <?= Html::submitButton(Yii::t('user', 'Сохранить'), ['class' => 'btn btn-primary update-account']) ?>
         </div>
     </div>

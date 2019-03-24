@@ -207,53 +207,5 @@ $(document).ready(function() {
             return ele != value;
         });
     };
-
-    $("#phone-code").on('submit', '#confirm-phone', (function(e) {
-        e.preventDefault();
-
-        var form = $(this);
-        var url = form.attr('action');
-
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: form.serialize(),
-            success: function(data) {
-                if (data.success === true) {
-                    location.reload();
-                } else {
-                    $('#code-error').html('Неверный код!');
-                }
-            }
-        });
-
-    }));
-
-    jQuery.fn.preventDoubleSubmission = function() {
-        $(this).on('submit',function(e){
-            var $form = $(this);
-
-            if ($form.data('submitted') === true) {
-                e.preventDefault();
-            } else {
-                $form.data('submitted', true);
-                var url = $form.attr('action');
-
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: $form.serialize(),
-                    success: function(data) {
-                        $('#phone-code .modal-content').html(data);
-                        $('#phone-code').modal({show:true});
-                    }
-                });
-            }
-        });
-
-        return this;
-    };
-
-    $("#account-form").preventDoubleSubmission();
 });
 

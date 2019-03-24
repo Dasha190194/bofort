@@ -603,6 +603,116 @@ hr.line {
 	color: #ffffff;
 }
 
+/* Summary */
+
+.profileMenu .list-group-item {
+	background: #f8f9fb;
+	font-weight: bold;
+	color: #032a4b;
+	cursor: pointer;
+}
+
+.profileMenu .list-group-item .badge {
+	background-color: #032a4b;
+	padding: 2px 7px;
+	box-sizing: border-box;
+	height: 18px;
+}
+
+.profileMenu .list-group-item.active {
+	background: #05355d;
+	border-color: #05355d;
+	color: #ffffff;
+}
+
+.profile-container h3 {
+	margin-top: 0px;
+}
+
+.profile-container .form-group button {
+	width: 100%;
+	padding-left: 10px;
+	padding-right: 10px;
+	text-align: center;
+}
+
+.profile-container .form-group .placeholder {
+	position: absolute;
+	top: 0px;
+	left: 32px;
+	top: 11px;
+	color: #939ca5;
+}
+
+.profile-container .form-group.field-user-username input,
+.profile-container .form-group.field-user-email input {
+	padding-left: 100px;
+}
+
+.profile-container .form-group.field-user-phone input {
+	padding-left: 40px;
+}
+
+.profile-container .form-group.field-user-newpassword input {
+	padding-left: 125px;
+}
+
+.profile-container .form-group.field-user-newpasswordconfirm input {
+	padding-left: 170px;
+}
+
+.profile-container .clear-all {
+	color: #6c757e;
+	margin-top: 10px;
+	display: inline-block;
+}
+.notifications-container .notification-panel {
+	color: #40454b;
+	line-height: 180%;
+	position: relative;
+}
+.notifications-container .notification-panel .panel-title {
+	padding: 15px 15px 5px 30px;
+}
+.notifications-container .notification-panel .panel-body {
+	padding: 0px 15px 15px;
+}
+.notifications-container .notification-panel .panel-title .bull {
+	font-size: 32px;
+	line-height: 32px;
+	color: #c9ccd1;
+	position: absolute;
+	top: 12px;
+	left: 15px;
+	font-weight: bold;
+}
+
+.notifications-container .notification-panel.noOpen {
+	background: #f8f9fb;
+	color: #40454b;
+}
+.notifications-container .notification-panel.noOpen .panel-title {
+	color: #3e4349;
+	font-weight: bold;
+}
+.notifications-container .notification-panel.noOpen .panel-title .bull {
+	color: #037cfe;
+}
+
+
+
+#phone-code h4 {
+	margin: 0;
+}
+
+.field-phoneconfirmform-code {
+	width: 50%;
+	margin: 0 auto;
+}
+
+.field-phoneconfirmform-code input {
+	text-align: center;
+}
 
 /* Footer */
 
@@ -634,20 +744,4 @@ hr.line {
 .footer span.prepend {
 	opacity: .64;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

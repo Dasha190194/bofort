@@ -28,22 +28,14 @@ $this->title = 'Личный кабинет';
             <?php echo Html::beginForm(['/user/logout'], 'post')
             . Html::submitButton(
             'Выход',
-            ['class' => 'btn btn-default btn-block']
+            ['class' => 'btn btn-primary btn-block']
             )
             . Html::endForm()
             ?>
         </div>
     </div>
 
-    <hr>
-
-    <?php if ($flash = Yii::$app->session->getFlash("Profile-success")): ?>
-
-        <div class="alert alert-success">
-            <p><?= $flash ?></p>
-        </div>
-
-    <?php endif; ?>
+    <hr />
 
     <div class="row">
         <div class="col-md-4 profileMenu">
