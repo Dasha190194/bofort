@@ -21,10 +21,20 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
             <div class="col-md-6">
-                <?= $form->field($user, 'newPassword')->passwordInput(['placeholder' => "Новый пароль"])->label(false) ?>
+                <div class="form-group field-user-newpassword">
+                    <input type="password" id="user-newpassword" class="form-control" name="User[newPassword]">
+                    <span class="placeholder">Новый пароль</span>
+
+                    <div class="help-block"></div>
+                </div>
             </div>
             <div class="col-md-6">
-                <?= $form->field($user, 'newPasswordConfirm')->passwordInput(['placeholder' => "Подтвердите пароль"])->label(false) ?>
+                <div class="form-group field-user-newpasswordconfirm">
+                    <input type="password" id="user-newpasswordconfirm" class="form-control" name="User[newPasswordConfirm]">
+                    <span class="placeholder">Подтвердите пароль</span>
+
+                    <div class="help-block"></div>
+                </div>
             </div>
         </div>
 
