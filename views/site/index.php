@@ -10,22 +10,6 @@ $this->title = 'Бофорт.ру – аренда катеров и яхт в �
 
     <div class="body-content">
 
-        <div class="row hero">
-            <div class="hero-img-container">
-                <img
-                        src="https://bofort.ru/img/content/hero.jpg"
-                        alt=""
-                        class="img-responsive"
-                />
-
-                <div class="hero-title visible-sm visible-md visible-lg">
-                    <h1 class="hero-title-h1">Аренда катеров и яхт в Москве</h1>
-                    <p class="hero-title-h2">с нами – это просто!</p>
-                    <a href="/boats/index" class="btn btn-warning mt-8">Выбрать судно&ensp;&ensp;<span>›</span></a>
-                </div>
-            </div>
-        </div>
-
         <div class="row mt-32">
             <div class="col-md-12">
                 <p>

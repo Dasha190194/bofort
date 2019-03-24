@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm; ?>
 <div class="row boat-item">
     <div class="col-xs-12 col-sm-6">
         <div class="boat-photo">
-            <img src="<?= (isset($order->boat->image))?Yii::$app->params['uploadsUrl'].'250X150/'.$order->boat->image->path:'/index.png' ?>">
+            <img src="<?= (isset($order->boat->image))?Yii::$app->params['uploadsUrl'].'550X350/'.$order->boat->image->path:'/index.png' ?>">
         </div>
     </div>
     <div class="col-xs-12 col-sm-6">
