@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 
+use app\models\BoatsModel;
 use app\models\CategoryModel;
 use Yii;
 use yii\filters\AccessControl;
@@ -125,7 +126,8 @@ class SiteController extends Controller
 
     public function actionTariffs()
     {
-        return $this->render('tariffs');
+        $boats = BoatsModel::find()->all();
+        return $this->render('tariffs', compact('boats'));
     }
 
     public function actionFaq()

@@ -800,6 +800,47 @@ hr.line {
 	text-align: center;
 }
 
+
+/* Tarifs */
+
+.tarif .table .width-20 {
+	width: 30%;
+}
+
+.tarif .table tr.no-border th,
+.tarif .table tr.no-border td {
+	border: none;
+}
+
+.tarif .table th,
+.tarif .table td {
+	height: 60px;
+	vertical-align: middle;
+	font-size: 16px;
+}
+
+.tarif .table th h4 {
+	margin: 0;
+}
+
+.tarif .table td {
+	color: #6b747d;
+}
+
+.tarif .table td.coast {
+	color: #05355d;
+	font-weight: bold;
+}
+
+.tarif .table h4.red {
+	color: #dd3b4a;
+}
+
+.tarif .table td.green {
+	color: #28a847;
+	font-weight: bold;
+}
+
 /* Footer */
 
 .footer {
