@@ -512,12 +512,13 @@ class DefaultController extends Controller
             $card = CardsModel::findOne($id);
             $card->state = $state;
             $card->save();
+            return $this->actionGetcards();
         } catch (Exception $e) {
             Yii::error($e->getMessage(), 'app.default.change-card-state');
         }
 
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        return ['result' => true];
+        return ['result' => false];
     }
 
     public function actionAccountEdit() {
@@ -598,9 +599,17 @@ class DefaultController extends Controller
     }
 
     public function actionRemoveCard($id) {
-        $card = CardsModel::findOne($id);
-        $card->state = 2;
-        $card->save();
-        $this->redirect('/user/profile');
+        Yii::info("Удаление карты [$id]", 'app.default.remove-card');
+        try {
+            $card = CardsModel::findOne($id);
+            $card->state = 2;
+            $card->save();
+            return $this->actionGetcards();
+        } catch (Exception $e) {
+            Yii::error($e->getMessage(), 'app.default.remove-card');
+        }
+
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return ['result' => false];
     }
 }

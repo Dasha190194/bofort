@@ -1,14 +1,5 @@
 $(document).ready(function() {
 
-    $(".list-group-item").on('click', function(){
-        $('.active').removeClass('active');
-        $(this).addClass('active');
-        // var container = $(this).data('container');
-        // $('.profile-container').addClass('hidden');
-        // $('.'+container+'-container').removeClass('hidden');
-
-    });
-
     $('#login, #login-register, #login-button').on('click', function(){
         $.ajax({
             url: '/user/login',
@@ -269,16 +260,5 @@ $(document).ready(function() {
         $('#add-new-card-modal').modal('show');
     });
 
-    $('.profileMenu li').on('click', function(){
-        var actionName = $(this).data('container');
-
-        $.ajax({
-            url: '/user/get'+actionName,
-            type: 'GET',
-            success: function (data) {
-                $('.profileBlock').html(data);
-            }
-        })
-    });
 });
 

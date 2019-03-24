@@ -27,7 +27,7 @@ use app\models\TransactionsModel;
                         <?php if($card->state == 1): ?>
                             <i class="glyphicon glyphicon-ok"></i> Основная карта
                         <?php else: ?>
-                            <a href="/user/change-card-state?id=<?=$card->id?>&state=1">Сделать основной</a>
+                            <a class="mainCard" data-id="<?= $card->id ?>">Сделать основной</a>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -35,7 +35,7 @@ use app\models\TransactionsModel;
                     <?php if($card->state == 1): ?>
                         Карту нельзя удалить
                     <?php else: ?>
-                        <a href="/user/remove-card?id=<?=$card->id?>">Удалить карту</a>
+                        <a class="removeCard" data-id="<?= $card->id ?>">Удалить карту</a>
                     <?php endif; ?>
                 </div>
             </div>

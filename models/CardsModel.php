@@ -14,6 +14,11 @@ use yii\db\ActiveRecord;
 
 class CardsModel extends ActiveRecord
 {
+    static $cardsState = [
+        0 => 'Не основная',
+        1 => 'Основная',
+        2 => 'Удаленная'
+    ];
 
     public static function tableName()
     {
