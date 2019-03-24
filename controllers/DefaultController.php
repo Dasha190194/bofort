@@ -544,8 +544,8 @@ class DefaultController extends Controller
                 $model = new PhoneConfirmForm();
                 $model->phone = $phone;
 
-//                $result = $user->sendSmsConfirmation($phone, $accessToken->token);
-//                if (!$result) throw new Exception('Сообщение не было отправлено.');
+                $result = $user->sendSmsConfirmation($phone, $accessToken->token);
+                if (!$result) throw new Exception('Сообщение не было отправлено.');
 
                 return $this->renderPartial('/user/default/_phoneCode', compact('model'));
             }
