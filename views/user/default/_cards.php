@@ -5,6 +5,8 @@ use app\models\TransactionsModel;
 /** @var TransactionsModel $transactions */
 ?>
 
+<script src="https://widget.cloudpayments.ru/bundles/cloudpayments"></script>
+
 <div class="profile-container cards-container hidden">
     <div>
         <h2>Сохраненный карты</h2>
@@ -33,12 +35,12 @@ use app\models\TransactionsModel;
                     <?php if($card->state == 1): ?>
                         Карту нельзя удалить
                     <?php else: ?>
-                        <a>Удалить карту</a>
+                        <a href="/user/remove-card?id=<?=$card->id?>">Удалить карту</a>
                     <?php endif; ?>
                 </div>
             </div>
         <?php endforeach; ?>
-<!--        <a class="btn btn-default">Добавить новую карту</a>-->
+        <span class="btn btn-default" id="addNewCard">Добавить новую карту</span>
     </div>
     <?php if(!empty($transactions)): ?>
         <div>
@@ -57,7 +59,7 @@ use app\models\TransactionsModel;
                     </div>
                     <div class="col-md-offset-3 col-md-3">
                         <div>
-                            <?= $transaction->order->price ?>
+                            <?= $transaction->total_price ?>
                         </div>
                         <div>
                             <?= TransactionsModel::$transactionsState[$transaction->state] ?>
@@ -68,4 +70,50 @@ use app\models\TransactionsModel;
             <?php endforeach; ?>
         </div>
     <?php endif; ?>
+
+
+    <div class="modal fade" id="add-new-card-modal" role="dialog">
+        <div class="modal-dialog" style="width: 780px;">
+            <div class="modal-content">
+                <p>С Вашей карты спишется 1 руб.</p>
+                <button class="btn btn-default" id="confirm-add-new-card">Списать</button>
+                <button class="btn btn-default">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+
 </div>
+
+
+
+
+<script>
+
+    $(document).ready(function () {
+
+        const cloud_id = "<?= Yii::$app->params['cloud_id'] ?>";
+        var user_id = "<?= Yii::$app->user->getId() ?>";
+
+        $('#confirm-add-new-card').on('click', function(){
+
+            var widget = new cp.CloudPayments();
+            widget.charge({
+                    publicId: cloud_id,
+                    description: 'Привязка карты',
+                    amount: 1,
+                    currency: 'RUB',
+                    invoiceId: 111111,
+                    accountId: user_id,
+                },
+                function (options) {
+                    location.reload();
+                },
+                function (reason, options) {
+                    alert(reason);
+                    location.reload();
+                });
+        });
+    });
+
+</script>

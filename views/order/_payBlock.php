@@ -13,46 +13,33 @@ $total = $order->totalPrice();
 
 ?>
 
-<div class="row">
-        <h2>К оплате</h2>
-
-        <hr>
-
-        <div class="col-md-12">
-            <div class="row total-row">
-                <div class="col-md-6"><span>Стоимость аренды яхты</span></div>
-                <div class="col-md-6 text-right"><span><?=Utils::userPrice($order->price) ?></span></div>
-            </div>
-        </div>
-
+<div class="col-md-12 order-summary">
+    <table class="table">
+        <tr>
+            <th class="width-20">Стоимость аренды яхты</th>
+            <td>71 час</td>
+            <td class="text-right coast"><?=Utils::userPrice($order->price) ?></td>
+        </tr>
         <?php if(!empty($order->services)): ?>
-            <div class="col-md-12">
-                <div class="row total-row">
-                    <div class="col-md-3"><span>Дополнительные услуги</span></div>
-                    <div class="col-md-6">
-                        <?php foreach ($order->services as $service) :?>
-                            <?= $service->name . ' '?>
-                        <?php endforeach; ?>
-                    </div>
-                    <div class="col-md-3 text-right"><span><?= Utils::userPrice($order->getServicesPrice()) ?></span></div>
-                </div>
-            </div>
+            <tr>
+                <th class="width-20">Дополнительные услуги</th>
+                <?php foreach ($order->services as $service) :?>
+                    <td><?= $service->name . ' '?></td>
+                <?php endforeach; ?>
+                <td class="text-right coast"><?= Utils::userPrice($order->getServicesPrice()) ?></td>
+            </tr>
         <?php endif; ?>
-
         <?php if($order->discount != 0): ?>
-            <div class="col-md-12">
-                <div class="row total-row">
-                    <div class="col-md-6"><span> Скидки по акциям и промокодам</span></div>
-                    <div class="col-md-6 text-right"><span>- <?= Utils::userPrice($order->discount) ?></span></div>
-                </div>
-            </div>
+            <tr>
+                <th class="width-20">Скидки по акциям и промокодам</th>
+<!--                <td>Промокод: yacapitan</td>-->
+                <td class="text-right coast red">- <?= Utils::userPrice($order->discount) ?></td>
+            </tr>
         <?php endif; ?>
-
-        <div class="col-md-12">
-            <div class="row total-row">
-                <div class="col-md-6"><span> Итого</span></div>
-                <div class="col-md-6 text-right"><span><?= Utils::userPrice($total) ?></span></div>
-            </div>
-        </div>
+        <tr>
+            <th class="width-20">Итого</th>
+            <td></td>
+            <td class="text-right coast"><?= Utils::userPrice($total) ?></td>
+        </tr>
+    </table>
 </div>
-

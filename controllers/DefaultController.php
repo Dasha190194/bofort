@@ -42,7 +42,7 @@ class DefaultController extends Controller
                         'roles' => ['?', '@'],
                     ],
                     [
-                        'actions' => ['account', 'profile', 'resend-change', 'cancel', 'change-card-state', 'reset', 'account-edit', 'code-confirm', 'confirm-phone'],
+                        'actions' => ['account', 'profile', 'resend-change', 'cancel', 'change-card-state', 'reset', 'account-edit', 'code-confirm', 'confirm-phone', 'remove-card'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -368,7 +368,7 @@ class DefaultController extends Controller
         $user = Yii::$app->user->identity;
         $profile = Yii::$app->user->identity->profile;
         $orders = OrdersModel::find()->where(['user_id' => $user->getId()])->all();
-        $cards = CardsModel::find()->where(['user_id' => $user->getId()])->all();
+        $cards = CardsModel::find()->where(['user_id' => $user->getId()])->andWhere(['!=', 'state', 2])->all();
         $transactions = TransactionsModel::find()->where(['user_id' => $user->getId()])->andWhere(['IS NOT', 'card_id', null])->all();
         $notifications = NotificationsModel::find()->where(['user_id' => $user->getId()])->all();
         $new_notifications = NotificationsModel::find()->where(['user_id' => $user->getId(), 'is_open' => 0])->count();
@@ -584,5 +584,12 @@ class DefaultController extends Controller
         }
 
         return $this->renderPartial('/user/default/_phoneConfirm', compact('model'));
+    }
+
+    public function actionRemoveCard($id) {
+        $card = CardsModel::findOne($id);
+        $card->state = 2;
+        $card->save();
+        $this->redirect('/user/profile');
     }
 }
