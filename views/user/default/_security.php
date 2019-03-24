@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
 ?>
 
-<div class="profile-container security-container hidden">
+<div class="profile-container security-container">
     <h2>Изменить пароль</h2>
     <div class="row">
         <div class="col-md-12">

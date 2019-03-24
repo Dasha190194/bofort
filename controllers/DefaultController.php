@@ -42,7 +42,8 @@ class DefaultController extends Controller
                         'roles' => ['?', '@'],
                     ],
                     [
-                        'actions' => ['account', 'profile', 'resend-change', 'cancel', 'change-card-state', 'reset', 'account-edit', 'code-confirm', 'confirm-phone', 'remove-card'],
+                        'actions' => ['account', 'profile', 'resend-change', 'cancel', 'change-card-state', 'reset', 'account-edit', 'code-confirm', 'confirm-phone', 'remove-card',
+                                            'getcards', 'getnotifications', 'getbooking', 'getaccount', 'getsecurity'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -367,28 +368,38 @@ class DefaultController extends Controller
         // set up profile and load post data
         $user = Yii::$app->user->identity;
         $profile = Yii::$app->user->identity->profile;
-        $orders = OrdersModel::find()->where(['user_id' => $user->getId()])->all();
-        $cards = CardsModel::find()->where(['user_id' => $user->getId()])->andWhere(['!=', 'state', 2])->all();
-        $transactions = TransactionsModel::find()->where(['user_id' => $user->getId()])->andWhere(['IS NOT', 'card_id', null])->all();
-        $notifications = NotificationsModel::find()->where(['user_id' => $user->getId()])->all();
         $new_notifications = NotificationsModel::find()->where(['user_id' => $user->getId(), 'is_open' => 0])->count();
-//
-//        $loadedPost = $profile->load(Yii::$app->request->post());
-
-//        // validate for ajax request
-//        if ($loadedPost && Yii::$app->request->isAjax) {
-//            Yii::$app->response->format = Response::FORMAT_JSON;
-//            return ActiveForm::validate($profile);
-//        }
-//
-//        // validate for normal request
-//        if ($loadedPost && $profile->validate()) {
-//            $profile->save(false);
-//            Yii::$app->session->setFlash("Profile-success", Yii::t("user", "Profile updated"));
-//            return $this->refresh();
-//        }
 
         return $this->render("profile", compact("profile", "user", "orders", "cards", "transactions", "notifications", 'new_notifications'));
+    }
+
+    public function actionGetcards() {
+        $user = Yii::$app->user->identity;
+        $cards = CardsModel::find()->where(['user_id' => $user->getId()])->andWhere(['!=', 'state', 2])->all();
+        $transactions = TransactionsModel::find()->where(['user_id' => $user->getId()])->andWhere(['IS NOT', 'card_id', null])->all();
+        return $this->renderPartial('_cards', compact('cards', 'transactions'));
+    }
+
+    public function actionGetnotifications() {
+        $user = Yii::$app->user->identity;
+        $notifications = NotificationsModel::find()->where(['user_id' => $user->getId()])->all();
+        return $this->renderPartial('_notifications', compact('notifications'));
+    }
+
+    public function actionGetbooking() {
+        $user = Yii::$app->user->identity;
+        $orders = OrdersModel::find()->where(['user_id' => $user->getId()])->all();
+        return $this->renderPartial('_booking', compact('orders'));
+    }
+
+    public function actionGetaccount() {
+        $user = Yii::$app->user->identity;
+        return $this->renderPartial('_account', compact('user'));
+    }
+
+    public function actionGetsecurity() {
+        $user = Yii::$app->user->identity;
+        return $this->renderPartial('_security', compact('user'));
     }
 
     /**

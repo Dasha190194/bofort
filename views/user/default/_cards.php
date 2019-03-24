@@ -7,7 +7,7 @@ use app\models\TransactionsModel;
 
 <script src="https://widget.cloudpayments.ru/bundles/cloudpayments"></script>
 
-<div class="profile-container cards-container hidden">
+<div class="profile-container cards-container">
     <div>
         <h2>Сохраненный карты</h2>
         <?php foreach($cards as $card): ?>

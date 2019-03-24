@@ -8,7 +8,7 @@ $date_now = date_create();
 //echo date_format($date, 'Y-m-d');
 ?>
 
-<div class="profile-container booking-container hidden">
+<div class="profile-container booking-container">
 
     <h2>Текущее бронирование</h2>
     <?php foreach ($orders as $order): ?>
