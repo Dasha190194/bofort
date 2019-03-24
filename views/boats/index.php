@@ -39,6 +39,22 @@
                                 <div class="boat-character-title">Пассажиров</div>
                                 <div class="boat-character-value">  <?= $boat->spaciousness ?> чел.</div>
                             </div>
+                            <div class="col-xs-6">
+                                <div class="boat-character-title">Крейсерская скорость</div>
+                                <div class="boat-character-value"><?= $boat->speed2 ?> км/ч</div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="boat-character-title">Макс. скорость</div>
+                                <div class="boat-character-value"><?= $boat->speed ?> км/ч</div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="boat-character-title">Длина</div>
+                                <div class="boat-character-value"><?= $boat->length ?> м.</div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="boat-character-title">Ширина</div>
+                                <div class="boat-character-value"><?= $boat->width ?> м.</div>
+                            </div>
                         </div>
                     </div>
                 </div>
