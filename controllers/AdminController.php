@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\ActForm;
 use app\models\BlockForm;
 use app\models\BoatsModel;
 use app\models\ConfirmDataForm;
@@ -99,6 +100,7 @@ class AdminController extends Controller
     public function actionDocuments() {
         $model = new OfertaForm();
         $modelConfirmData = new ConfirmDataForm();
+        $modelAct = new ActForm();
 
         $post = Yii::$app->request->post();
 
@@ -120,6 +122,15 @@ class AdminController extends Controller
             }
         }
 
-        return $this->render('documents', compact('model', 'modelConfirmData'));
+        if ($modelAct->load($post) && $modelAct->validate()) {
+            try {
+                $modelAct->document = UploadedFile::getInstance($modelAct, 'document');
+                if (!$modelAct->upload()) throw new Exception('Ошибка сохранения акта приёма-передачи!');
+            } catch (Exception $e) {
+                Yii::error($e->getMessage(), 'app.admin.documents');
+            }
+        }
+
+        return $this->render('documents', compact('model', 'modelConfirmData', 'modelAct'));
     }
 }

@@ -67,3 +67,31 @@ use yii\helpers\Html;
 </div>
 
 
+<div class="row">
+    <h4>Загрузка акта приема-передачи</h4>
+
+    <?php $form = ActiveForm::begin([
+        'id' => 'act-form',
+        'options' => ['enctype' => 'multipart/form-data']
+    ]); ?>
+
+    <?= $form->field($modelAct, 'document')->widget(FileInput::classname(),
+        [    'pluginOptions' => [
+            'showPreview' => false,
+            'showCaption' => true,
+            'showRemove' => true,
+            'showUpload' => false
+        ]]); ?>
+
+    <div class="col-md-offset-3 col-md-6 text-center">
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary btn-block']) ?>
+    </div>
+    <?php ActiveForm::end(); ?>
+</div>
+
+<br>
+<br>
+<div class="row">
+    <label class="form-group">Просмотр</label>
+    <a target="_blank" href="/uploads/act.pdf">https://bofort.ru/uploads/act.pdf</a>
+</div>
