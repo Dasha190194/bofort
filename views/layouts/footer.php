@@ -11,10 +11,10 @@
         <div class="row">
             <div class="col-md-4">
                 <h5><a href="/site/about/">О компании Bofort.ru</a></h5>
-                <h5><a href="#">Тарифы и услуги</a></h5>
+                <h5><a href="/site/tariffs">Тарифы и услуги</a></h5>
             </div>
             <div class="col-md-4">
-                <h5><a href="#">Частые вопросы</a></h5>
+                <h5><a href="/site/faq">Частые вопросы</a></h5>
                 <h5><a href="/site/contact/">Контакты</a></h5>
             </div>
             <div class="col-md-4">
