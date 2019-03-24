@@ -17,7 +17,6 @@ use app\models\TransactionsModel;
 use CloudPayments\Exception\PaymentException;
 use Exception;
 use Yii;
-use yii\debug\models\search\Log;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
@@ -150,19 +149,26 @@ class PaymentController extends Controller
                 $card = CardsModel::createCardIFNoExist($input);
                 Yii::info('Используется карта ['.$card->id.']', 'app.payment.complete');
 
-                $transaction = new TransactionsModel();
-                $transaction->create($input->invoiceId, $input->amount, $input->accountId, $card->id);
-                $transaction->cloud_transaction_id = $input->transactionId;
-                $transaction->state = 1;
-                $transaction->save();
+                $transactionDB = TransactionsModel::getDb()->beginTransaction();
+                    $transaction = new TransactionsModel();
+                    $transaction->create($input->invoiceId, $input->amount, $input->accountId, $card->id);
+                    $transaction->cloud_transaction_id = $input->transactionId;
+                    $transaction->state = 1;
+                    $transaction->save();
 
-                $order = OrdersModel::findOne($input->invoiceId);
-                $order->state = 1;
-                $order->save();
+                    // TODO подумать как сделать по другому
+                    // для случаев, когда привязываем карту нет заказа
+                    $order = OrdersModel::findOne($input->invoiceId);
+                    if ($order) {
+                        $order->state = 1;
+                        $order->save();
+                    }
+                $transactionDB->commit();
 
                 Yii::info('Успешное проведение платежа ['.$transaction->id.']', 'app.payment.complete');
                 return ['code' => 0];
             } catch (Exception $e) {
+                $transactionDB->rollBack();
                 Yii::error($e->getMessage(), 'app.payment.complete');
             }
         }
