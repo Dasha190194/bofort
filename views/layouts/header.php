@@ -14,7 +14,7 @@
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="w0-collapse">
+    <div class="collapse navbar-collapse" id="#w0-collapse">
       <ul id="w1" class="nav navbar-nav navbar-right mt-16 mb-16">
 
         <?php if (Yii::$app->user->can("admin")): ?>
