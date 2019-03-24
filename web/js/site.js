@@ -255,10 +255,5 @@ $(document).ready(function() {
     };
 
     $("#account-form").preventDoubleSubmission();
-
-    $('#addNewCard').on('click', function(){
-        $('#add-new-card-modal').modal('show');
-    });
-
 });
 

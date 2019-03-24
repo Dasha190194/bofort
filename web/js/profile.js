@@ -2,16 +2,7 @@ $(document).ready(function() {
 
     var profileBlock = $('.profileBlock');
 
-    $(".list-group-item").on('click', function(){
-        $('.active').removeClass('active');
-        $(this).addClass('active');
-
-
-    });
-
-    $('.profileMenu li').on('click', function(){
-        var actionName = $(this).data('container');
-
+    function updateContainer(actionName) {
         $.ajax({
             url: '/user/get'+actionName,
             type: 'GET',
@@ -19,6 +10,16 @@ $(document).ready(function() {
                 $('.profileBlock').html(data);
             }
         })
+    }
+
+    $(".list-group-item").on('click', function(){
+        $('.active').removeClass('active');
+        $(this).addClass('active');
+    });
+
+    $('.profileMenu li').on('click', function(){
+        var actionName = $(this).data('container');
+        updateContainer(actionName);
     });
 
     profileBlock.on('click', '.mainCard', function(){
@@ -50,6 +51,28 @@ $(document).ready(function() {
                 else profileBlock.html(data);
             }
         });
+    });
+
+    profileBlock.on('click', '#addNewCard', function() {
+        $('#add-new-card-modal').modal('show');
+    });
+
+    profileBlock.on('click', '#confirm-add-new-card', function() {
+        var widget = new cp.CloudPayments();
+        widget.charge({
+                publicId: cloud_id,
+                description: 'Привязка карты',
+                amount: 1,
+                currency: 'RUB',
+                invoiceId: 111111,
+                accountId: user_id,
+            },
+            function (options) {
+                updateContainer('cards');
+            },
+            function (reason, options) {
+                alert(reason);
+            });
     });
 });
 

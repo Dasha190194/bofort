@@ -82,38 +82,11 @@ use app\models\TransactionsModel;
         </div>
     </div>
 
-
 </div>
-
-
-
 
 <script>
 
-    $(document).ready(function () {
-
-        const cloud_id = "<?= Yii::$app->params['cloud_id'] ?>";
-        var user_id = "<?= Yii::$app->user->getId() ?>";
-
-        $('#confirm-add-new-card').on('click', function(){
-
-            var widget = new cp.CloudPayments();
-            widget.charge({
-                    publicId: cloud_id,
-                    description: 'Привязка карты',
-                    amount: 1,
-                    currency: 'RUB',
-                    invoiceId: 111111,
-                    accountId: user_id,
-                },
-                function (options) {
-                    location.reload();
-                },
-                function (reason, options) {
-                    alert(reason);
-                    location.reload();
-                });
-        });
-    });
+    const cloud_id = "<?= Yii::$app->params['cloud_id'] ?>";
+    var user_id = "<?= Yii::$app->user->getId() ?>";
 
 </script>
