@@ -43,7 +43,7 @@ $this->registerAssetBundle($file);
                 <i class="glyphicon glyphicon-chevron-left"></i>
             </a>
             <img src="<?= (isset($order->boat->image))?Yii::$app->params['uploadsUrl'].'250X150/'.$order->boat->image->path:'/index.png' ?>">
-            <div>
+            <div class="col-sm-8">
                 <h4><?= $order->boat->name ?></h4>
                 <p>От <?= $order->boat->spaciousness ?> человек, мощность <?= $order->boat->engine_power ?>, <?= $order->boat->location_name ?></p>
             </div>
@@ -82,7 +82,7 @@ $this->registerAssetBundle($file);
                     <div
                             class="calendar-col week-day"
                             v-for="(day, index) in weekDays"
-                            :key="day"
+                            :key="day+'title'"
                             :class="{holyday: index > 4}"
                     >{{ day }}</div>
                 </div>
@@ -90,7 +90,7 @@ $this->registerAssetBundle($file);
                     <div
                             class="calendar-col"
                             v-for="(day, index) in monthDays"
-                            :key="day"
+                            :key="day.date.getTime()"
                     >
                         <div
                                 class="month-day"
@@ -99,7 +99,7 @@ $this->registerAssetBundle($file);
                                 'selected': day.selected || day.choosen,
                                 'today': day.today,
                                 'past-date': day.pastDate,
-                                'holyday': (index % 7) > 4
+                                'holyday': (index % 7) > 4 || day.holyday
                             }"
                                 @click="select(day)"
                         >
@@ -151,7 +151,7 @@ $this->registerAssetBundle($file);
             </div>
             <div class="col-sm-6 text-center nav-title-min">
                 <span v-if="minimal_rent > 1" class="minimal-rent">
-                    Минимальное время аренды {{ minimal_rent }} часа
+                    Минимальное время аренды {{ minimalRentTitle }}
                 </span>
             </div>
             <div class="col-sm-1 text-right nav-button-min">
@@ -194,7 +194,7 @@ $this->registerAssetBundle($file);
 
 
         <form id="order-confirm-form" ref="orderForm" action="/order/confirm-step1?id=<?=$order->id ?>" method="post">
-        <?= Html :: hiddenInput(Yii::$app->getRequest()->csrfParam, Yii::$app->getRequest()->getCsrfToken(), []); ?>
+        <?= Html::hiddenInput(Yii::$app->getRequest()->csrfParam, Yii::$app->getRequest()->getCsrfToken(), []); ?>
             <input type="hidden" name="OrderConfirmForm[boat_id]" :value="boat_id">
             <input type="hidden" name="OrderConfirmForm[datetime_from]" :value="choosenTimeFromValue">
             <input type="hidden" name="OrderConfirmForm[datetime_to]" :value="choosenTimeToValue">
@@ -222,7 +222,7 @@ $this->registerAssetBundle($file);
                             data-container="body"
                             data-toggle="popover"
                             data-placement="top"
-                            :data-content="'Минимальное время аренды ' + minimal_rent + ' часа'"
+                            :data-content="'Минимальное время аренды ' + minimalRentTitle"
                     >Далее</button>
                 </span>
             </div>

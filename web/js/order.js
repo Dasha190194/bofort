@@ -1,11 +1,14 @@
 var today = new Date();
 today.setHours(0, 0, 0, 0)
+var now = new Date();
+// minutes
+var timeToRouteToBoat = 30;
 
 var app = new Vue({
   el: '#order',
   data: {
     boat_id: 0,
-    minimal_rent: 1,
+    minimal_rent_in_day: 1,
     showTimes: true,
 
     currentMonth: today.getMonth(),
@@ -91,7 +94,8 @@ var app = new Vue({
             selected: this.isSelected(date),
             today: this.isCurrentDate(date),
             pastDate: this.isPastDate(date),
-            choosen: this.isChoosenDate(date)
+            choosen: this.isChoosenDate(date),
+            holyday: false
           });
         }
       }
@@ -109,7 +113,8 @@ var app = new Vue({
           pastDate: this.isPastDate(date),
           action: this.isActionDate(date),
           choosen: this.isChoosenDate(date),
-          busy: this.busyDate(date)
+          busy: this.busyDate(date),
+          holyday: this.isHolyday(date)
         });
       }
 
@@ -127,7 +132,8 @@ var app = new Vue({
             today: this.isCurrentDate(date),
             pastDate: false,
             action: this.isActionDate(date),
-            choosen: this.isChoosenDate(date)
+            choosen: this.isChoosenDate(date),
+            holyday: this.isHolyday(date)
           });
         }
       }
@@ -189,6 +195,24 @@ var app = new Vue({
       }
       return from + ' - ' + to;
     },
+    nightInOrder() {
+      return (
+          this.choosenTimeFrom &&
+          this.choosenTimeTo &&
+          this.choosenTimeFrom.getDate() !== this.choosenTimeTo.getDate() &&
+          Math.round((this.choosenTimeTo.getTime() - this.choosenTimeFrom.getTime()) / (3600000 * 24)) * 24
+      )
+    },
+    minimal_rent() {
+      return this.nightInOrder || this.minimal_rent_in_day
+    },
+    minimalRentTitle() {
+      if (this.nightInOrder) {
+        var rentDays = Math.round(this.minimal_rent / 24);
+        return (rentDays === 1 ? '' : rentDays) + ' ' + this.declOfNum(rentDays, ['сутки', 'суток', 'суток'])
+      }
+      return this.minimal_rent + ' ' + this.declOfNum(this.minimal_rent, ['час', 'часа', 'часов'])
+    },
     notMinimalOrder() {
       var choosenHours = 0;
       if (this.choosenTimeFrom && !this.choosenTimeTo) {
@@ -213,7 +237,37 @@ var app = new Vue({
           date.getHours() + ':00'
       )
     },
+    declOfNum(number, titles)
+    {
+      cases = [2, 0, 1, 1, 1, 2];
+      return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];
+    },
+    isHolyday(date) {
+      var may1 = new Date(now.getFullYear(), 4, 1);
+      var may3 = new Date(now.getFullYear(), 4, 3);
+      if (may1.getTime() <= date.getTime() && date.getTime() <= may3.getTime()) {
+        return true;
+      }
+
+      var may9 = new Date(now.getFullYear(), 4, 9);
+      var may10 = new Date(now.getFullYear(), 4, 10);
+      if (may9.getTime() <= date.getTime() && date.getTime() <= may10.getTime()) {
+        return true;
+      }
+
+      var june12 = new Date(now.getFullYear(), 5, 12);
+      if (june12.getTime() === date.getTime()) {
+        return true;
+      }
+
+      return false;
+    },
     isBusyTime(date) {
+      var nextHour = new Date(now.getTime());
+      nextHour.setMinutes(nextHour.getMinutes() + timeToRouteToBoat)
+      if (date < nextHour) {
+        return true;
+      }
       for (var i = 0; i < this.dateTimes.calendar.length; i++) {
         if (this.dateTimes.calendar[i].getTime() === date.getTime()) {
           return true;
@@ -326,6 +380,9 @@ var app = new Vue({
     },
     prevDay() {
       if (!this.selectedDate) {
+        return;
+      }
+      if (this.isPastDate(this.selectedDate) || this.isCurrentDate(this.selectedDate)) {
         return;
       }
       this.selectedDate = new Date(this.currentYear, this.currentMonth, this.selectedDate.getDate() - 1);
@@ -495,7 +552,7 @@ var app = new Vue({
   },
   mounted() {
     this.boat_id = window.boat_id;
-    this.minimal_rent = window.minimal_rent;
+    this.minimal_rent_in_day = window.minimal_rent;
     this.getTimes(this.currentYear, this.currentMonth);
     this.$el.style.display = 'block';
   }

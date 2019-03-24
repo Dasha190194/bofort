@@ -3,17 +3,18 @@ body {
 }
 .boat-pic {
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: center;
 }
 .boat-pic a {
   min-width: 32px;
   margin-right: 10px;
-  margin-top: 59px;
+  /* margin-top: 59px; */
 }
 .boat-pic img {
-  width: 250px;
-  height: 150px;
+  width: 100%;
+  max-width: 250px;
+  height: auto;
   margin-right: 10px;
 }
 
@@ -385,13 +386,14 @@ body {
   .order-time,
   .order-price {
     float: left;
-    width: calc(50% - 8.66666667%);
+    margin: 0;
+    width: 50%;
   }
 
   .order-button {
     float: left;
-    width: calc(100% - 16.66666667%);
-    margin: 10px 8.66666667% 0;
+    width: 100%;
+    margin: 10px 0 0;
     margin-top: 10px;
   }
 
