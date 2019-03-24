@@ -23,13 +23,14 @@
                     <li><a class="btn btn-default" href="/admin">Админка</a></li>
                 <?php endif; ?>
 
+                <?php if (!Yii::$app->user->isGuest and Yii::$app->user->identity->isShipowner()): ?>
+                    <li><a class="btn btn-default" href="/admin">Админка</a></li>
+                <?php endif; ?>
+
                 <li>
                     <?php  if (Yii::$app->user->isGuest): ?>
                         <a id="login" class="btn btn-default" onclick="return false;">Войти</a>
                     <?php else: ?>
-                        <?php if (Yii::$app->user->identity->isShipowner()): ?>
-                            <li><a class="btn btn-default" href="/admin">Админка</a></li>
-                        <?php endif; ?>
                         <a class="btn btn-default" href="/user/profile"><?= Yii::$app->user->identity->username?></a>
                     <?php endif; ?>
                 </li>
