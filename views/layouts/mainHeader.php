@@ -7,7 +7,7 @@
           <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="w0-collapse" aria-expanded="false">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#w0-collapse" aria-expanded="false">
                 <span class="sr-only">Навигация</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -17,7 +17,7 @@
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="#w0-collapse">
+            <div class="collapse navbar-collapse" id="w0-collapse">
               <ul id="w1" class="nav navbar-nav navbar-right mt-16 mb-16">
 
                 <?php if (Yii::$app->user->can("admin")): ?>
