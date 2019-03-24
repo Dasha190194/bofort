@@ -69,11 +69,14 @@ use yii\widgets\ActiveForm; ?>
 </div>
 
 <div class="row">
-    <div class="col-xs-8 col-md-6">
+    <div class="col-xs-12 col-md-6 promo">
         <input id="word" class="form-control" value="<?= (isset($order->promo->word))?$order->promo->word:'' ?>" placeholder="Промокод" style="height: 44px;">
+        <?php if(isset($order->promo->word)): ?>
+            <i class="glyphicon glyphicon-ok"></i>
+        <?php endif; ?>
     </div>
-    <div class="col-xs-4 col-md-3">
-        <i class="glyphicon glyphicon-ok" style="margin-top: 12px;"></i>
+    <div class="col-xs-12 col-md-3 promo-button">
+        <button id="promo-apply" class="btn btn-default">Применить</button>
     </div>
 </div>
 

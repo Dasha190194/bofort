@@ -479,6 +479,10 @@ hr.line {
 	height: 13px;
 }
 
+.services .col-md-6 {
+	position: initial;
+}
+
 .services .popover.top {
 	background: #05355d;
 	color: #ffffff;
@@ -491,13 +495,11 @@ hr.line {
 	width: 100%;
 	text-align: left;
 	margin-bottom: 16px;
-	position: relative;
 }
 
 .service.btn .info {
-	position: absolute;
-	right: 10px;
-	top: 14px;
+	float: right;
+	margin-right: -25px;
 }
 
 .service.btn .chechbox {
@@ -529,6 +531,20 @@ hr.line {
 
 .service.btn.active .chechbox .glyphicon {
 	display: block;
+}
+
+.promo {
+	margin-bottom: 10px;
+}
+
+.promo .glyphicon {
+	position: absolute;
+	right: 30px;
+	top: 15px;
+}
+
+.promo-button button {
+	width: 100%;
 }
 
 .order-summary .table .width-20 {

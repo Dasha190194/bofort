@@ -32,7 +32,11 @@ $total = $order->totalPrice();
         <?php if($order->discount != 0): ?>
             <tr>
                 <th class="width-20">Скидки по акциям и промокодам</th>
-<!--                <td>Промокод: yacapitan</td>-->
+                <td>
+                    <?php if(isset($order->promo->word)): ?>
+                        <?= $order->promo->word ?>
+                    <?php endif; ?>
+                </td>
                 <td class="text-right coast red">- <?= Utils::userPrice($order->discount) ?></td>
             </tr>
         <?php endif; ?>
