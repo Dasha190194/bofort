@@ -104,7 +104,7 @@ $this->title = $boat->name;
                     <?php
                     $items = 'active';
                     foreach ($boat->images as $key => $image) {
-                        echo "<li data-target='#myCarousel' data-slide-to='$key' class='$items'>
+                        echo "<li data-target='#carousel' data-slide-to='$key' class='$items'>
                                   <img src='".Yii::$app->params['uploadsUrl']."550X350/$image->path'></li>";
                         $items = '';
                     }
