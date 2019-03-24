@@ -17,7 +17,7 @@ $total = $order->totalPrice();
     <table class="table">
         <tr>
             <th class="width-20">Стоимость аренды яхты</th>
-            <td>71 час</td>
+            <td><?= $order->count_hours ?> ч.</td>
             <td class="text-right coast"><?=Utils::userPrice($order->price) ?></td>
         </tr>
         <?php if(!empty($order->services)): ?>

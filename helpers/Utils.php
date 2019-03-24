@@ -19,4 +19,8 @@ class Utils
         return $price . ' руб./час';
     }
 
+    public static function userDate($date) {
+        $months = array( 1 => 'января' , 'февраля' , 'марта' , 'апреля' , 'мая' , 'июня' , 'июля' , 'августа' , 'сентября' , 'октября' , 'ноября' , 'декабря' );
+        return date('d '. $months[date( 'n' )] . ' h:i', $date);
+    }
 }

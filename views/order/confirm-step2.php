@@ -27,7 +27,7 @@ use yii\widgets\ActiveForm; ?>
         <div class="boat-character-value"><?= $order->boat->name ?></div>
 
         <div class="boat-character-title">Аренда</div>
-        <div class="boat-character-value"><?= $order->datetime_from . ' - ' . $order->datetime_to ?></div>
+        <div class="boat-character-value"><?= Utils::userDate(strtotime($order->datetime_from)) . ' - ' . Utils::userDate(strtotime($order->datetime_to)) ?></div>
 
         <div class="boat-character-title">Причал выдачи/сдачи</div>
         <div class="boat-character-value"><?= $order->boat->location_name ?></div>
