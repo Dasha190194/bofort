@@ -142,21 +142,7 @@ $(document).ready(function() {
         $("#carousel").carousel();
     });
 
-    $('.order-more-info').on('click', function() {
 
-        var id = $(this).data('id');
-        $.ajax({
-            url: '/order/info',
-            type: 'GET',
-            data: {
-                'id': id
-            },
-            success: function(result) {
-                $('#order-info-modal .modal-content').html(result);
-                $('#order-info-modal').modal({show:true});
-            }
-        });
-    });
 
     $('.order-refund-modal').on('click', function() {
         var id = $(this).data('id');

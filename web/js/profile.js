@@ -114,6 +114,22 @@ $(document).ready(function() {
         });
     });
 
+    profileBlock.on('click', '.order-more-info', function() {
+
+        var id = $(this).data('id');
+        $.ajax({
+            url: '/order/info',
+            type: 'GET',
+            data: {
+                'id': id
+            },
+            success: function(result) {
+                $('#order-info-modal .modal-content').html(result);
+                $('#order-info-modal').modal({show:true});
+            }
+        });
+    });
+
     // jQuery.fn.preventDoubleSubmission = function() {
     //     $(this).on('submit',function(e){
     //         var $form = $(this);

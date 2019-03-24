@@ -368,6 +368,7 @@ class DefaultController extends Controller
         // set up profile and load post data
         $user = Yii::$app->user->identity;
         $profile = Yii::$app->user->identity->profile;
+        $notifications = NotificationsModel::find()->where(['user_id' => $user->getId()])->all();
         $new_notifications = NotificationsModel::find()->where(['user_id' => $user->getId(), 'is_open' => 0])->count();
 
         return $this->render("profile", compact("profile", "user", "orders", "cards", "transactions", "notifications", 'new_notifications'));
@@ -543,8 +544,8 @@ class DefaultController extends Controller
                 $model = new PhoneConfirmForm();
                 $model->phone = $phone;
 
-                $result = $user->sendSmsConfirmation($phone, $accessToken->token);
-                if (!$result) throw new Exception('Сообщение не было отправлено.');
+//                $result = $user->sendSmsConfirmation($phone, $accessToken->token);
+//                if (!$result) throw new Exception('Сообщение не было отправлено.');
 
                 return $this->renderPartial('/user/default/_phoneCode', compact('model'));
             }

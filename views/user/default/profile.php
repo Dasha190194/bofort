@@ -42,6 +42,7 @@ $this->title = 'Личный кабинет';
             <?= $this->render('_profileMenu', ['new_notifications' => $new_notifications]) ?>
         </div>
         <div class="col-md-8 profileBlock">
+            <?= $this->render('_notifications', ['notifications' => $notifications]) ?>
         </div>
     </div>
 
