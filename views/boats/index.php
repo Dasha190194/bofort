@@ -51,7 +51,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-6">
+                                <div class="col-xs-6">
                                     <div class="boat-character-title">Длина</div>
                                     <div class="boat-character-value"><?= $boat->length ?> м.</div>
                                 </div>
@@ -59,7 +59,6 @@
                                     <div class="boat-character-title">Ширина</div>
                                     <div class="boat-character-value"><?= $boat->width ?> м.</div>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -79,8 +78,6 @@
             </div>
         </div>
         <hr class="one">
-
-
 
     <?php endforeach; ?>
 </div>
