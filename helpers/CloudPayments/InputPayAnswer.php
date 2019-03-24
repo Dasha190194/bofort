@@ -49,7 +49,6 @@ class InputPayAnswer extends Model
         $out->status = $data['Status'];
         $out->invoiceId = $data['InvoiceId'];
         $out->accountId = $data['AccountId'];
-        $out->token = $data['Token'];
         return $out;
     }
 
