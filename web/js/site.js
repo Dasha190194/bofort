@@ -103,28 +103,9 @@ $(document).ready(function() {
         });
     });
 
-
-
     $('#show-carousel-modal').on('click', function(){
         $('#carousel-modal').modal({show:true});
         $("#carousel").carousel();
-    });
-
-
-
-    $('.order-refund-modal').on('click', function() {
-        var id = $(this).data('id');
-        $.ajax({
-            url: '/order/refund-modal',
-            type: 'GET',
-            data: {
-                'id': id
-            },
-            success: function(result) {
-                $('#order-info-modal .modal-content').html(result);
-                $('#order-info-modal').modal({show:true});
-            }
-        });
     });
 
     function orderRefund(id) {
@@ -140,11 +121,6 @@ $(document).ready(function() {
         });
     }
 
-    $('#order-info-modal').on('click', '.order-refund', function(){
-        var id = $(this).data('id');
-        orderRefund(id);
-    });
-
     $('.order-refund').on('click', function () {
         if (confirm('Вы уверены, что хотите вернуть заказ?')) {
             var id = $(this).data('id');
@@ -152,9 +128,6 @@ $(document).ready(function() {
         }
     });
 
-    $('#order-info-modal').on('click', '.order-refund-no', function(){
-        $('#order-info-modal').modal('hide');
-    });
 
     function arrayRemove(arr, value) {
         return arr.filter(function(ele){

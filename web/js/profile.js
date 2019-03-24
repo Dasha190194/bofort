@@ -161,6 +161,43 @@ $(document).ready(function() {
         });
     });
 
+    profileBlock.on('click', '.order-refund-modal', function() {
+        var id = $(this).data('id');
+        $.ajax({
+            url: '/order/refund-modal',
+            type: 'GET',
+            data: {
+                'id': id
+            },
+            success: function(result) {
+                $('#order-info-modal .modal-content').html(result);
+                $('#order-info-modal').modal({show:true});
+            }
+        });
+    });
+
+    function orderRefund(id) {
+        $.ajax({
+            url: '/order/refund',
+            type: 'GET',
+            data: {
+                'id': id
+            },
+            success: function(result) {
+                updateContainer('booking');
+            }
+        });
+    }
+
+    profileBlock.on('click', '.order-refund', function(){
+        var id = $(this).data('id');
+        orderRefund(id);
+    });
+
+    profileBlock.on('click', '.order-refund-no', function(){
+        $('#order-info-modal').modal('hide');
+    });
+
     // jQuery.fn.preventDoubleSubmission = function() {
     //     $(this).on('submit',function(e){
     //         var $form = $(this);
