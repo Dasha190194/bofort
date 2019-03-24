@@ -241,6 +241,35 @@ h6 {
 }
 
 
+.navbar-collapse {
+	border: none;
+}
+
+@media screen and (max-width: 768px) {
+	.navbar-background {
+		background-position: 0 0;
+	}
+
+	.navbar-toggle {
+		margin-top: 18px;
+		margin-bottom: 18px;
+	}
+
+	.navbar-collapse {
+		box-shadow: none;
+	}
+
+	.navbar-collapse.collapse ul li,
+	.navbar-collapse.collapsing ul li {
+		margin-top: 10px;
+	}
+
+	.navbar-brand {
+		height: 70px;
+	}
+}
+
+
 /* Hero */
 
 .hero {
@@ -352,12 +381,15 @@ hr.one {
 }
 
 /* Boat detail */
+.show-carousel-modal {
+	cursor: pointer;
+}
 .carousel-indicators {
 	position: absolute;
 	bottom: 10px;
 	left: 10px;
 	z-index: 15;
-	width: 90%;
+	width: calc(100% - 20px);
 	padding-left: 0;
 	margin-left: 0;
 	text-align: left;
@@ -368,7 +400,6 @@ hr.one {
 	height: 50px;
 	overflow: hidden;
 	text-indent: 0px;
-	margin: 0;
 	opacity: 0.6;
 	border-radius: 0px;
 }
@@ -379,6 +410,7 @@ hr.one {
 	width: 100px;
 	height: 50px;
 	opacity: 1;
+	margin: 1px;
 }
 .carousel-inner .item img {
 	width: 100%;
@@ -392,14 +424,21 @@ hr.one {
 #carousel-modal .modal-dialog .close,
 #map .modal-dialog .close {
 	position: absolute;
-	right: 10px;
-	top: 10px;
+	right: -60px;
+	top: 0px;
 	color: #000000;
-	font-size: 23px;
+	font-size: 40px;
 	z-index: 1000;
-	font-weight: bold;
 	cursor: pointer;
-	opacity: 1;
+	opacity: 0.4;
+	width: 50px;
+	height: 50px;
+	background: #ffffff;
+	line-height: 50px;
+}
+#carousel-modal .modal-dialog .close:hover,
+#map .modal-dialog .close:hover {
+	opacity: 0.8;
 }
 #carousel-modal .modal-dialog .carousel-control,
 #map .modal-dialog .carousel-control {
