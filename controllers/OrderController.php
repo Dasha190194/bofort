@@ -67,22 +67,24 @@ class OrderController extends Controller
         $order = OrdersModel::findOne($id);
         $model = new OrderConfirmForm();
         $post = Yii::$app->request->post();
-
-        Yii::info('Подтверждение заказа ['.json_encode($post).']', 'app.order.step1');
-
-        $model->load($post);
         $model->user_id = Yii::$app->user->getId();
 
-        if ($model->validate()) {
-            $order->price = $model->coast;
-            $order->datetime_from = $model->datetime_from;
-            $order->datetime_to = $model->datetime_to;
-            $order->count_hours = count($this->getDateTimeInterval($model->datetime_from, $model->datetime_to));
-            $order->save();
-            return $this->redirect(['/order/confirm-step2', 'id' => $order->id]);
+        if ($post) {
+            Yii::info('Подтверждение заказа ['.json_encode($post).']', 'app.order.step1');
+            $model->load($post);
+
+            if ($model->validate()) {
+                $order->price = $model->coast;
+                $order->datetime_from = $model->datetime_from;
+                $order->datetime_to = $model->datetime_to;
+                $order->count_hours = count($this->getDateTimeInterval($model->datetime_from, $model->datetime_to));
+                $order->save();
+                return $this->redirect(['/order/confirm-step2', 'id' => $order->id]);
+            }
+
+            Yii::error('Ошибка формирования заказа ['.json_encode($model->getErrors()).']', 'app.order.step1');
         }
 
-        Yii::error('Ошибка формирования заказа ['.json_encode($model->getErrors()).']', 'app.order.step1');
         return $this->render('confirm-step1', compact('order', 'model'));
     }
 
