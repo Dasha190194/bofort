@@ -14,7 +14,7 @@ $date_now = date_create();
     <?php foreach ($orders as $order): ?>
         <?php if($order->state === 1 and $order->datetime_from < $date_now): ?>
             <div class="panel panel-default">
-                <?php $path = isset($order->boat->image)?Yii::$app->params['uploadsUrl'].'1080X720/'.$order->boat->image->path:'/index.png'; ?>
+                <?php $path = isset($order->boat->image)?Yii::$app->params['uploadsUrl'].'550X350/'.$order->boat->image->path:'/index.png'; ?>
                 <div class="panel-title" style="background-image: url('<?= $path ?>')">
                     <span class="btn btn-danger">Катер забронирован</span>
                 </div>
@@ -51,7 +51,7 @@ $date_now = date_create();
     <?php foreach ($orders as $order): ?>
         <?php if(($order->state === 1 and $order->datetime_from > $date_now) or ($order->state === 2)): ?>
             <div class="panel-orders-history panel panel-default">
-                <?php $path = isset($order->boat->image)?Yii::$app->params["uploadsUrl"].'1080X720/'.$order->boat->image->path:'/index.png'; ?>
+                <?php $path = isset($order->boat->image)?Yii::$app->params["uploadsUrl"].'550X350/'.$order->boat->image->path:'/index.png'; ?>
                 <div class="panel-title" style="background-image: url('<?=  $path ?>')">
                     <?php if ($order->state === 1): ?>
                         <span class="order-state btn btn-default">Заказ выполнен</span>

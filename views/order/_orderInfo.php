@@ -12,7 +12,7 @@ use app\helpers\Utils; ?>
 
 
 <button type="button" class="close" data-dismiss="modal">×</button>
-<?php $path = isset($order->boat->image)?Yii::$app->params['uploadsUrl'].'1080X720/'.$order->boat->image->path:'/index.png' ?>
+<?php $path = isset($order->boat->image)?Yii::$app->params['uploadsUrl'].'550X350/'.$order->boat->image->path:'/index.png' ?>
 <div class="cover" style="background-image: url('<?= $path?>')">
     <?php if ($order->state === 1): ?>
         <span class="order-state btn btn-default">Заказ выполнен</span>
