@@ -86,6 +86,7 @@ $(document).ready(function() {
             data: form.serialize(),
             success: function(data) {
                 if (data.success === true) {
+                    $('#phone-code').modal('hide');
                     updateContainer('account');
                 } else {
                     $('#code-error').html('Неверный код!');
