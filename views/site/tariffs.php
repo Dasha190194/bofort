@@ -5,6 +5,9 @@
  * Date: 24.03.19
  * Time: 15:31
  */
+
+use app\helpers\Utils;
+
 ?>
 
 <div class="row">
@@ -53,21 +56,21 @@
 
             <tr class="no-border">
                 <th class="width-20">От 1 до 3х часов</th>
-                <td class="text-center">17500 руб./час</td>
-                <td  class="text-center">17500 руб./час</td>
-                <td class="text-center">17500 руб./час</td>
+                <?php foreach ($boats as $boat): ?>
+                    <td class="text-center"><?= Utils::boatMinPrice($boat->tariff->weekday)?></td>
+                <?php endforeach; ?>
             </tr>
             <tr>
                 <th class="width-20">От 3х часов</th>
-                <td class="text-center green">17500 руб./час</td>
-                <td  class="text-center green">17500 руб./час</td>
-                <td class="text-center green">17500 руб./час</td>
+                <?php foreach ($boats as $boat): ?>
+                    <td class="text-center green"><?= Utils::boatMinPrice($boat->tariff->four_hours_weekday)?></td>
+                <?php endforeach; ?>
             </tr>
             <tr>
                 <th class="width-20">Сутки</th>
-                <td class="text-center">17500 руб./сутки</td>
-                <td  class="text-center">17500 руб./сутки</td>
-                <td class="text-center">17500 руб./сутки</td>
+                <?php foreach ($boats as $boat): ?>
+                    <td class="text-center"><?= $boat->tariff->one_day ?> руб./сутки</td>
+                <?php endforeach; ?>
             </tr>
 
             <tr class="no-border">
@@ -81,21 +84,21 @@
             </tr>
             <tr class="no-border">
                 <th class="width-20">От 1 до 3х часов</th>
-                <td class="text-center">17500 руб./час</td>
-                <td  class="text-center">17500 руб./час</td>
-                <td class="text-center">17500 руб./час</td>
+                <?php foreach ($boats as $boat): ?>
+                    <td class="text-center"><?= Utils::boatMinPrice($boat->tariff->holiday)?></td>
+                <?php endforeach; ?>
             </tr>
             <tr>
                 <th class="width-20">От 3х часов</th>
-                <td class="text-center">17500 руб./час</td>
-                <td  class="text-center">17500 руб./час</td>
-                <td class="text-center">17500 руб./час</td>
+                <?php foreach ($boats as $boat): ?>
+                    <td class="text-center"><?= Utils::boatMinPrice($boat->tariff->four_hours_holiday)?></td>
+                <?php endforeach; ?>
             </tr>
             <tr>
                 <th class="width-20">Сутки</th>
-                <td class="text-center">17500 руб./сутки</td>
-                <td  class="text-center">17500 руб./сутки</td>
-                <td class="text-center">17500 руб./сутки</td>
+                <?php foreach ($boats as $boat): ?>
+                    <td class="text-center"><?= $boat->tariff->one_day ?> руб./сутки</td>
+                <?php endforeach; ?>
             </tr>
 
             <tr class="no-border">
@@ -108,9 +111,9 @@
             </tr>
             <tr>
                 <th class="width-20">Услуга "Мой капитан"</th>
-                <td class="text-center">17500 руб./час</td>
-                <td  class="text-center">17500 руб./час</td>
-                <td class="text-center">17500 руб./час</td>
+                <?php foreach ($boats as $boat): ?>
+                    <td class="text-center"><?= isset($boat->services[0])?Utils::boatMinPrice($boat->services[0]->price):'-' ?></td>
+                <?php endforeach; ?>
             </tr>
         </table>
     </div>
