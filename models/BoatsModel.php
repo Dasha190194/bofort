@@ -60,6 +60,18 @@ class BoatsModel extends ActiveRecord
         return $this->hasOne(TariffsModel::className(), ['boat_id' => 'id']);
     }
 
+    public function getMinTariff() {
+        $prices = [];
+
+        $prices[] = $this->tariff->holiday;
+        $prices[] = $this->tariff->weekday;
+        $prices[] = $this->tariff->four_hours_holiday;
+        $prices[] = $this->tariff->four_hours_weekday;
+        $prices[] = $this->tariff->one_day;
+
+        return min($prices);
+    }
+
     public function getServicesName() {
         $services = $this->getServices()->all();
         $servicesId = [];

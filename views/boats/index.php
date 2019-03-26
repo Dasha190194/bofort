@@ -23,7 +23,7 @@
                     <a href="/boats/show/<?= $boat->slug ?>">
                         <img src="<?= (isset($boat->image))?Yii::$app->params['uploadsUrl'].'550X350/'. $boat->image->path:'/index.png'?>">
                     </a>
-                    <div class="boat-price">От <?= \app\helpers\Utils::boatMinPrice($boat->tariff->weekday) ?></div>
+                    <div class="boat-price">От <?= \app\helpers\Utils::boatMinPrice($boat->getMinTariff()) ?></div>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-8">
