@@ -23,6 +23,7 @@ use Yii;
 use yii\base\Exception;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 
 class OrderController extends Controller
 {
@@ -65,6 +66,9 @@ class OrderController extends Controller
 
     public function actionConfirmStep1(int $id) {
         $order = OrdersModel::findOne($id);
+
+        if (Yii::$app->user->getId() != $order->user_id) throw new ForbiddenHttpException('Чужой заказ!');
+
         $model = new OrderConfirmForm();
         $post = Yii::$app->request->post();
         $model->user_id = Yii::$app->user->getId();
@@ -90,6 +94,9 @@ class OrderController extends Controller
 
     public function actionConfirmStep2(int $id) {
         $order = OrdersModel::findOne($id);
+
+        if (Yii::$app->user->getId() != $order->user_id) throw new ForbiddenHttpException('Чужой заказ!');
+
         $services = $order->boat->services;
         $model = new PayForm();
 
@@ -210,6 +217,8 @@ class OrderController extends Controller
 
     public function actionInfo($id) {
         $order = OrdersModel::findOne($id);
+
+        if (Yii::$app->user->getId() != $order->user_id) throw new ForbiddenHttpException('Чужой заказ!');
 
         return $this->renderPartial('_orderInfo', compact('order'));
     }
