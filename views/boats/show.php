@@ -52,7 +52,7 @@ $this->title = $boat->name;
         <div class="boat-character-value"><?= $boat->spaciousness ?> чел.</div>
 
         <div class="boat-character-title">Длина</div>
-        <div class="boat-character-value"><?= $boat->spaciousness ?></div>
+        <div class="boat-character-value"><?= $boat->length ?> </div>
 
         <div class="boat-character-title">Ширина</div>
         <div class="boat-character-value"><?= $boat->width ?></div>
