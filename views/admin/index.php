@@ -60,7 +60,7 @@
         <?php endif; ?>
         <?php if(Yii::$app->user->identity->isShipowner()): ?>
             <li class="list-group-item">
-                <a href="/boats/index">Катера</a>
+                <a href="/boats/index?shipowner=<?= Yii::$app->user->getId() ?>">Катера</a>
                 <ul>
                     <li>
                         <a href="/admin/boats/create">Создать катер</a>
