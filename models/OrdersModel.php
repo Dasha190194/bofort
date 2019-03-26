@@ -51,7 +51,7 @@ class OrdersModel extends ActiveRecord
       //  $this->discount = $promocode->count;
 
         if ($promocode->count_to_use == 1) {
-            $promoHistoryCnt = $promocode->getPromoHistoryByUser(Yii::$app->user->getId()) > 1;
+            $promoHistoryCnt = $promocode->getPromoHistoryByUser(Yii::$app->user->getId()) > 0;
             if ($promoHistoryCnt) throw new Exception('Промокод уже был использован!');
         }
         $this->promo_id = $promocode->id;
