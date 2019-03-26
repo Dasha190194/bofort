@@ -381,6 +381,7 @@ class OrderController extends Controller
                     else $price += $tariff->four_hours_weekday;
                 }
                 elseif (in_array($datetimes[0]->format('D'), ['Sat', 'Sun'])) $price = $tariff->holiday;
+                elseif (in_array($datetimes[0]->format('d-m'), ['01-05', '02-05', '03-05', '09-05', '10-05', '12-06'])) $price += $tariff->holiday;
                 else $price = $tariff->weekday;
                 $price = $price*count($datetimes);
             }
