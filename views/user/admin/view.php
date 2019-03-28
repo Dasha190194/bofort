@@ -73,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
         var money = $('.write-money-text').val();
 
         $.ajax({
-            'url': '/default/write-money',
+            'url': '/admin/write-money',
             'type': 'POST',
             'data': {
                 'money': money,
