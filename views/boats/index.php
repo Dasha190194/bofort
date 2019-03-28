@@ -43,21 +43,21 @@
                         <div class="row">
                             <div class="col-xs-6">
                                 <div class="boat-character-title">Крейсерская скорость</div>
-                                <div class="boat-character-value"><?= $boat->speed2 ?> км/ч</div>
+                                <div class="boat-character-value"><?= $boat->speed2 ?> </div>
                             </div>
                             <div class="col-xs-6">
                                 <div class="boat-character-title">Макс. скорость</div>
-                                <div class="boat-character-value"><?= $boat->speed ?> км/ч</div>
+                                <div class="boat-character-value"><?= $boat->speed ?> </div>
                             </div>
                         </div>
                         <div class="row">
                                 <div class="col-xs-6">
                                     <div class="boat-character-title">Длина</div>
-                                    <div class="boat-character-value"><?= $boat->length ?> м.</div>
+                                    <div class="boat-character-value"><?= $boat->length ?> </div>
                                 </div>
                                 <div class="col-xs-6">
                                     <div class="boat-character-title">Ширина</div>
-                                    <div class="boat-character-value"><?= $boat->width ?> м.</div>
+                                    <div class="boat-character-value"><?= $boat->width ?> </div>
                                 </div>
                         </div>
                     </div>
