@@ -50,3 +50,39 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
 </div>
+
+<div class="card-view">
+
+    <?= DetailView::widget([
+        'model' => $user->cards[0],
+        'attributes' => [
+            'id',
+            'first_six',
+            'last_four',
+            'exp_date'
+        ],
+    ]) ?>
+
+    <input type="text" class="form-control write-money-input">
+    <button id="writeMoney" class="btn bnt-primary" onclick="confirm('Вы уверены что хотите списать деньги?')">Списать</button>
+</div>
+
+
+<script>
+    $('#writeMoney').on('click', function () {
+        var money = $('.write-money-text').val();
+
+        $.ajax({
+            'url': '/default/write-money',
+            'type': 'POST',
+            'data': {
+                'money': money,
+                'card_id': <?= $user->card[0]->id ?>
+            },
+            success: function (result) {
+                if (result.success == true) alert('Деньги успешно списаны!');
+                else alert('Произошла ошибка! '+ result.message);
+            }
+        });
+    });
+</script>

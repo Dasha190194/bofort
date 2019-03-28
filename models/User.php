@@ -534,4 +534,8 @@ class User extends ActiveRecord implements IdentityInterface
     public function getBoats() {
         return $this->hasMany(BoatsModel::className(), ['user_id' => 'id']);
     }
+
+    public function getCards() {
+        return $this->hasMany(CardsModel::className(), ['user_id' => 'id']);
+    }
 }

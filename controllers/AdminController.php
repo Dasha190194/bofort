@@ -5,9 +5,11 @@ namespace app\controllers;
 use app\models\ActForm;
 use app\models\BlockForm;
 use app\models\BoatsModel;
+use app\models\CardsModel;
 use app\models\ConfirmDataForm;
 use app\models\OfertaForm;
 use app\models\OrdersModel;
+use app\models\TransactionsModel;
 use Exception;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -33,7 +35,7 @@ class AdminController extends Controller
                         'roles' => ['admin', 'shipowner'],
                     ],
                     [
-                        'actions' => ['orders', 'services', 'documents'],
+                        'actions' => ['orders', 'services', 'documents', 'write-money'],
                         'allow' => true,
                         'roles' => ['admin'],
                     ],
@@ -132,5 +134,36 @@ class AdminController extends Controller
         }
 
         return $this->render('documents', compact('model', 'modelConfirmData', 'modelAct'));
+    }
+
+
+    public function actionWriteMoney() {
+        $post = Yii::$app->request->post();
+        $card_id = $post['card_id'];
+        $money = $post['money'];
+
+        try {
+            $card = CardsModel::findOne($card_id);
+
+            $transaction = new TransactionsModel();
+            $transaction->create(null, $money, Yii::$app->user->getId(), $card_id);
+
+            $client = new \CloudPayments\Manager(Yii::$app->params['cloud_id'], Yii::$app->params['cloud_private_key']);
+            $response = $client->chargeToken($money, 'RUB', Yii::$app->user->getId(), $card->token, null);
+
+            return $this->asJson(
+                [
+                    'success' => true,
+                    'data' => $response->getId()
+                ]);
+
+        } catch (Exception $e) {
+            Yii::error("Не удалаось списать деньги [".$e->getMessage()."]", 'app.default.write-money');
+            return $this->asJson(
+                [
+                    'success' => false,
+                    'message' => $e->getMessage()
+                ]);
+        }
     }
 }
