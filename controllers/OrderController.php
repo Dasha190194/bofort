@@ -48,9 +48,9 @@ class OrderController extends Controller
 
     public function beforeAction($action)
     {
-        if ($action == 'confirm-step1' || $action == 'confirm-step2') {
+        if ($action->id == 'confirm-step1' || $action->id == 'confirm-step2') {
             $this->order = OrdersModel::findOne(Yii::$app->request->get('id'));
-            if (Yii::$app->user->getId() != $this->order) throw new ForbiddenHttpException('Чужой заказ!');
+            if (Yii::$app->user->getId() != $this->order->user_id) throw new ForbiddenHttpException('Чужой заказ!');
             if ($this->order->state != 0) throw new Exception('Заказ находится в некорректном статусе!');
         }
 
