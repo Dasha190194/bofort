@@ -24,7 +24,7 @@ $date_now = date_create();
                             <span><?= $order->datetime_from .' - '. $order->datetime_to ?></span>
                         </div>
                         <div class="col-md-6 date-price text-right">
-                            <span> <?= Utils::userPrice($order->price) ?></span>
+                            <span> <?= Utils::userPrice($order->transaction->total_price) ?></span>
                         </div>
                     </div>
                     <div class="row">
@@ -65,7 +65,7 @@ $date_now = date_create();
                             <span><?= $order->datetime_from .' - '. $order->datetime_to ?></span>
                         </div>
                         <div class="col-md-6 date-price text-right">
-                            <span> <?= Utils::userPrice($order->price) ?></span>
+                            <span> <?= Utils::userPrice($order->transaction->total_price) ?></span>
                         </div>
                     </div>
                     <div class="row">

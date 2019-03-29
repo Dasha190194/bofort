@@ -185,6 +185,7 @@ $(document).ready(function() {
                 'id': id
             },
             success: function(result) {
+                $('#order-info-modal').modal('hide')
                 updateContainer('booking');
             }
         });

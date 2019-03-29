@@ -49,7 +49,7 @@ class TransactionsModel extends ActiveRecord
 
             if ($days < 15) {
                 $pic = (14-$days)/14;
-                $money =  $this->total_price*$pic;
+                $money =  round($this->total_price*$pic, 1);
             } else {
                 $money = 0;
             }
