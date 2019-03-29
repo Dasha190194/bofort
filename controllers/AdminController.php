@@ -148,7 +148,7 @@ class AdminController extends Controller
             $transaction->create(null, $money, Yii::$app->user->getId(), $card_id);
 
             $client = new \CloudPayments\Manager(Yii::$app->params['cloud_id'], Yii::$app->params['cloud_private_key']);
-            $response = $client->chargeToken($money, 'RUB', Yii::$app->user->getId(), $card->token,  []);
+            $response = $client->chargeToken($money, 'RUB', Yii::$app->user->getId(), $card->token, ['InvoiceId' => 111111]);
 
             return $this->asJson(
                 [
