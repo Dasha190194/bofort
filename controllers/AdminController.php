@@ -138,9 +138,8 @@ class AdminController extends Controller
 
 
     public function actionWriteMoney() {
-        $post = Yii::$app->request->post();
-        $card_id = $post['card_id'];
-        $money = $post['money'];
+        $card_id = Yii::$app->request->post('card_id');
+        $money = Yii::$app->request->post('money');
 
         try {
             $card = CardsModel::findOne($card_id);
@@ -149,7 +148,7 @@ class AdminController extends Controller
             $transaction->create(null, $money, Yii::$app->user->getId(), $card_id);
 
             $client = new \CloudPayments\Manager(Yii::$app->params['cloud_id'], Yii::$app->params['cloud_private_key']);
-            $response = $client->chargeToken($money, 'RUB', Yii::$app->user->getId(), $card->token, null);
+            $response = $client->chargeToken($money, 'RUB', Yii::$app->user->getId(), $card->token,  []);
 
             return $this->asJson(
                 [

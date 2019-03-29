@@ -63,21 +63,27 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
-    <input type="text" class="form-control write-money-input">
-    <button id="writeMoney" class="btn bnt-primary" onclick="confirm('Вы уверены что хотите списать деньги?')">Списать</button>
+    <div class="row">
+        <div class="col-md-2">
+            <input type="text" class="form-control write-money-input">
+        </div>
+        <div class="col-md-2">
+            <button id="writeMoney" class="btn btn-warning" onclick="confirm('Вы уверены что хотите списать деньги?')">Списать</button>
+        </div>
+    </div>
 </div>
 
 
 <script>
     $('#writeMoney').on('click', function () {
-        var money = $('.write-money-text').val();
+        var money = $('.write-money-input').val();
 
         $.ajax({
             'url': '/admin/write-money',
             'type': 'POST',
             'data': {
                 'money': money,
-                'card_id': <?= $user->card[0]->id ?>
+                'card_id': <?= $user->cards[0]->id ?>
             },
             success: function (result) {
                 if (result.success == true) alert('Деньги успешно списаны!');
