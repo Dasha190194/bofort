@@ -8,6 +8,8 @@
 
 /** @var \app\models\BoatsModel $boats */
 
+$this->title = 'Аренда катеров в Москве';
+
 ?>
 
 <div class="all-boats">

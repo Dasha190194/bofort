@@ -8,8 +8,8 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\captcha\Captcha;
 
-$this->title = 'Контакты';
-// $this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Контакты Bofort.ru';
+
 ?>
 <div class="site-contact">
     <h1><?= Html::encode($this->title) ?></h1>
