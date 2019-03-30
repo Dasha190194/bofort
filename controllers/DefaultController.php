@@ -227,7 +227,7 @@ class DefaultController extends Controller
 
             // validate for normal request
             if ($user->validate() && $profile->validate()) {
-
+                Yii::info('Попытка регистрации ['.json_encode($post).']', 'app.default.register');
                 // perform registration
                 $role = $this->module->model("Role");
                 $user->setRegisterAttributes($role::ROLE_USER)->save();
@@ -242,6 +242,7 @@ class DefaultController extends Controller
                     $guestText = Yii::t("user", " - Please check your email to confirm your account");
                 }
                 Yii::$app->session->setFlash("Register-success", $user->username);
+                Yii::info("Пользователь $user->id успешно зарегестрирован", 'app.default.register');
             }
         }
 

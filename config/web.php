@@ -62,13 +62,24 @@ $config = [
                     'levels' => ['error', 'warning', 'info'],
                     'logVars' => [],
                     'exportInterval' => 1,
+                    'logFile' => '@runtime/logs/app'.date('Y-m-d').'.log'
                 ],
                 [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error'],
                     'logVars' => [],
                     'exportInterval' => 1,
-                    'logFile' => '@runtime/logs/errors.log'
+                    'logFile' => '@runtime/logs/errors'.date('Y-m-d').'.log'
+                ],
+                [
+                    'class' => 'yii\log\EmailTarget',
+                    'levels' => ['error'],
+                    'categories' => ['app.payment.*'],
+                    'message' => [
+                        'from' => [(YII_ENV == 'production') ? 'reply@bofort.ru' : 'reply@bofort.su'],
+                        'to' => ['dariyogienko@gmail.com'],
+                        'subject' => 'Ошибка проведения платежа',
+                    ],
                 ],
             ],
         ],
