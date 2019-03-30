@@ -97,7 +97,8 @@ $config = [
             ],
             'modelClasses'  => [
                 'Profile' => 'app\models\Profile',
-                'Role' => 'app\models\Role'
+                'Role' => 'app\models\Role',
+                'LoginForm' => 'app\models\LoginForm'
             ],
         ],
         'gridview' =>  [

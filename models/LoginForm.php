@@ -7,18 +7,43 @@ use yii\base\Model;
 
 /**
  * LoginForm is the model behind the login form.
- *
- * @property User|null $user This property is read-only.
- *
  */
 class LoginForm extends Model
 {
-    public $username;
+    /**
+     * @var string Email and/or username
+     */
+    public $email;
+
+    /**
+     * @var string Password
+     */
     public $password;
+
+    /**
+     * @var bool If true, users will be logged in for $loginDuration
+     */
     public $rememberMe = true;
 
-    private $_user = false;
+    /**
+     * @var \amnah\yii2\user\models\User
+     */
+    protected $user = false;
 
+    /**
+     * @var \amnah\yii2\user\Module
+     */
+    public $module;
+
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        if (!$this->module) {
+            $this->module = Yii::$app->getModule("user");
+        }
+    }
 
     /**
      * @return array the validation rules.
@@ -26,56 +51,106 @@ class LoginForm extends Model
     public function rules()
     {
         return [
-            // username and password are both required
-            [['username', 'password'], 'required'],
-            // rememberMe must be a boolean value
-            ['rememberMe', 'boolean'],
-            // password is validated by validatePassword()
-            ['password', 'validatePassword'],
+            [["email", "password"], "required", 'message' => 'Не может быть пустым'],
+            ["email", "validateUser"],
+            ["password", "validatePassword"],
+            ["rememberMe", "boolean"],
         ];
     }
 
     /**
-     * Validates the password.
-     * This method serves as the inline validation for password.
-     *
-     * @param string $attribute the attribute currently being validated
-     * @param array $params the additional name-value pairs given in the rule
+     * Validate user
      */
-    public function validatePassword($attribute, $params)
+    public function validateUser()
     {
-        if (!$this->hasErrors()) {
-            $user = $this->getUser();
-
-            if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+        // check for valid user or if user registered using social auth
+        $user = $this->getUser();
+        if (!$user || !$user->password) {
+            if ($this->module->loginEmail && $this->module->loginUsername) {
+                $attribute = "Email / Username";
+            } else {
+                $attribute = $this->module->loginEmail ? "Email" : "Username";
             }
+            $this->addError("email", "Email не найден");
+
+            // do we need to check $user->userAuths ???
+        }
+
+        // check if user is banned
+        if ($user && $user->banned_at) {
+            $this->addError("email", Yii::t("user", "User is banned - {banReason}", [
+                "banReason" => $user->banned_reason,
+            ]));
+        }
+
+        // check status and resend email if inactive
+        if ($user && $user->status == $user::STATUS_INACTIVE) {
+            /** @var \amnah\yii2\user\models\UserToken $userToken */
+            $userToken = $this->module->model("UserToken");
+            $userToken = $userToken::generate($user->id, $userToken::TYPE_EMAIL_ACTIVATE);
+            $user->sendEmailConfirmation($userToken);
+            $this->addError("email", Yii::t("user", "Confirmation email resent"));
         }
     }
 
     /**
-     * Logs in a user using the provided username and password.
-     * @return bool whether the user is logged in successfully
+     * Validate password
      */
-    public function login()
+    public function validatePassword()
     {
-        if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
+        // skip if there are already errors
+        if ($this->hasErrors()) {
+            return;
         }
-        return false;
+
+        /** @var \amnah\yii2\user\models\User $user */
+
+        // check if password is correct
+        $user = $this->getUser();
+        if (!$user->validatePassword($this->password)) {
+            $this->addError("password",'Неверный пароль');
+        }
     }
 
     /**
-     * Finds user by [[username]]
-     *
-     * @return User|null
+     * Get user based on email and/or username
+     * @return \amnah\yii2\user\models\User|null
      */
     public function getUser()
     {
-        if ($this->_user === false) {
-            $this->_user = User::findByUsername($this->username);
+        // check if we need to get user
+        if ($this->user === false) {
+
+            // build query based on email and/or username login properties
+            $user = $this->module->model("User");
+            $user = $user::find();
+            if ($this->module->loginEmail) {
+                $user->orWhere(["email" => $this->email]);
+            }
+            if ($this->module->loginUsername) {
+                $user->orWhere(["username" => $this->email]);
+            }
+            $this->user = $user->one();
+        }
+        return $this->user;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        // calculate attribute label for "email"
+        if ($this->module->loginEmail && $this->module->loginUsername) {
+            $attribute = "Email / Username";
+        } else {
+            $attribute = $this->module->loginEmail ? "Email" : "Username";
         }
 
-        return $this->_user;
+        return [
+            "email" => Yii::t("user", $attribute),
+            "password" => Yii::t("user", "Password"),
+            "rememberMe" => Yii::t("user", "Remember Me"),
+        ];
     }
 }
