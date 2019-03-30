@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </div>
 
-<?php if (isset($user->cars)) :?>
+<?php if (isset($user->cards)) :?>
     <div class="card-view">
 
         <?= DetailView::widget([
