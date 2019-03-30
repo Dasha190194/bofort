@@ -157,7 +157,7 @@ use yii\widgets\ActiveForm; ?>
                             accountId: user_id,
                         },
                         function (options) {
-                            location.replace('/order/final');
+                            location.replace('/order/final?id='+order_id);
                         },
                         function (reason, options) {
                             alert(reason);
@@ -231,7 +231,7 @@ use yii\widgets\ActiveForm; ?>
                         success: function (request) {
                             if (request.success) {
                                 switch (request.action) {
-                                    case 'charge': location.replace('/order/final'); break;
+                                    case 'charge': location.replace('/order/final?id=<?= $order->id ?>'); break;
                                     case 'frame':  pay(request.data.order_id, request.data.total_price, request.data.user_id); break;
                                 }
                             } else {
