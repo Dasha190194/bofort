@@ -51,27 +51,29 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </div>
 
-<div class="card-view">
+<?php if (isset($user->cars)) :?>
+    <div class="card-view">
 
-    <?= DetailView::widget([
-        'model' => $user->cards[0],
-        'attributes' => [
-            'id',
-            'first_six',
-            'last_four',
-            'exp_date'
-        ],
-    ]) ?>
+        <?= DetailView::widget([
+            'model' => $user->cards[0],
+            'attributes' => [
+                'id',
+                'first_six',
+                'last_four',
+                'exp_date'
+            ],
+        ]) ?>
 
-    <div class="row">
-        <div class="col-md-2">
-            <input type="text" class="form-control write-money-input">
-        </div>
-        <div class="col-md-2">
-            <button id="writeMoney" class="btn btn-warning" onclick="confirm('Вы уверены что хотите списать деньги?')">Списать</button>
+        <div class="row">
+            <div class="col-md-2">
+                <input type="text" class="form-control write-money-input">
+            </div>
+            <div class="col-md-2">
+                <button id="writeMoney" class="btn btn-warning" onclick="confirm('Вы уверены что хотите списать деньги?')">Списать</button>
+            </div>
         </div>
     </div>
-</div>
+<?php endif; ?>
 
 
 <script>
