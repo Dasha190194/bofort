@@ -69,7 +69,7 @@ use app\helpers\Utils;
             <tr>
                 <th class="width-20">Сутки</th>
                 <?php foreach ($boats as $boat): ?>
-                    <td class="text-center"><?= $boat->tariff->one_day ?> руб./сутки</td>
+                    <td class="text-center"><?= $boat->tariff->one_day*24 ?> руб./сутки</td>
                 <?php endforeach; ?>
             </tr>
 
@@ -97,7 +97,7 @@ use app\helpers\Utils;
             <tr>
                 <th class="width-20">Сутки</th>
                 <?php foreach ($boats as $boat): ?>
-                    <td class="text-center"><?= $boat->tariff->one_day ?> руб./сутки</td>
+                    <td class="text-center"><?= $boat->tariff->one_day*24 ?> руб./сутки</td>
                 <?php endforeach; ?>
             </tr>
 
