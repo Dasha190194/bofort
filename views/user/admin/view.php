@@ -73,24 +73,24 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
     </div>
+    <script>
+        $('#writeMoney').on('click', function () {
+            var money = $('.write-money-input').val();
+
+            $.ajax({
+                'url': '/admin/write-money',
+                'type': 'POST',
+                'data': {
+                    'money': money,
+                    'card_id': <?= $user->cards[0]->id ?>
+                },
+                success: function (result) {
+                    if (result.success == true) alert('Деньги успешно списаны!');
+                    else alert('Произошла ошибка! '+ result.message);
+                }
+            });
+        });
+    </script>
 <?php endif; ?>
 
 
-<script>
-    $('#writeMoney').on('click', function () {
-        var money = $('.write-money-input').val();
-
-        $.ajax({
-            'url': '/admin/write-money',
-            'type': 'POST',
-            'data': {
-                'money': money,
-                'card_id': <?= $user->cards[0]->id ?>
-            },
-            success: function (result) {
-                if (result.success == true) alert('Деньги успешно списаны!');
-                else alert('Произошла ошибка! '+ result.message);
-            }
-        });
-    });
-</script>
