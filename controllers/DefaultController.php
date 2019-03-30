@@ -241,7 +241,7 @@ class DefaultController extends Controller
                 if (Yii::$app->user->isGuest) {
                     $guestText = Yii::t("user", " - Please check your email to confirm your account");
                 }
-                Yii::$app->session->setFlash("Register-success", $successText . $guestText);
+                Yii::$app->session->setFlash("Register-success", $user->username);
             }
         }
 

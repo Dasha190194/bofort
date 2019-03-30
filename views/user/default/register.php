@@ -18,22 +18,38 @@ $module = Yii::$app->getModule("user");
 ?>
 <div class="user-default-register">
 
-    <div class="row mb-16">
-        <div class="col-md-12">
-            <h3 class="text-center">
-                <!-- <? //= Html::encode($this->title) ?> -->
-                Регистрация
-            </h3>
-        </div>
-    </div>
+    <?php if ($username = Yii::$app->session->getFlash("Register-success")): ?>
 
-    <?php if ($flash = Yii::$app->session->getFlash("Register-success")): ?>
-
-        <div class="alert alert-success">
-            <p><?= $flash ?></p>
+        <div class="modal fade" id="register-modal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        Регистрация
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>Добро пожаловать, <?= $username ?> </h5>
+                        <p>Вы успешно зарегистрированы, проверьте ваш email для подтверждения аккаунта.</p>
+                    </div>
+                </div>
+            </div>
         </div>
+        <script>
+            $(document).ready(function() {
+                $('#register-modal').modal('show')
+            })
+        </script>
 
     <?php else: ?>
+
+
+        <div class="row mb-16">
+            <div class="col-md-12">
+                <h3 class="text-center">
+                    Регистрация
+                </h3>
+            </div>
+        </div>
 
         <?php $form = ActiveForm::begin([
             'id' => 'register-form',
