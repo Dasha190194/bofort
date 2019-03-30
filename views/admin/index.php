@@ -49,7 +49,7 @@
             </li>
             <a href="/admin/documents">
                 <li class="list-group-item">
-                    Оферта
+                    Документы
                 </li>
             </a>
             <a href="/admin/notifications/index">
