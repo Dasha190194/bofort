@@ -108,6 +108,8 @@ class User extends ActiveRecord implements IdentityInterface
             [['newPassword'], 'required', 'on' => ['register', 'reset'], 'message' => 'Пароль не может быть пустым'],
             [['newPasswordConfirm'], 'required', 'on' => ['reset']],
             [['newPasswordConfirm'], 'compare', 'compareAttribute' => 'newPassword', 'message' => Yii::t('user', 'Passwords do not match')],
+            [['newPassword'], 'match', 'pattern' => '^\S*(?=\S{3,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$', 'message' => "Пароль должен содержать хотябы одну маленькую букву, заглавную и цифру"],
+
 
             // account page
             [['currentPassword'], 'validateCurrentPassword', 'on' => ['account']],
