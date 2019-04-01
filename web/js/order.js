@@ -163,10 +163,10 @@ var app = new Vue({
       }
 
       timeTo = new Date(
-        this.choosenTimeTo.getFullYear(),
-        this.choosenTimeTo.getMonth(),
-        this.choosenTimeTo.getDate(),
-        this.choosenTimeTo.getHours() + 1
+          this.choosenTimeTo.getFullYear(),
+          this.choosenTimeTo.getMonth(),
+          this.choosenTimeTo.getDate(),
+          this.choosenTimeTo.getHours() + 1
       );
 
       return this.formatDate(timeTo);
@@ -197,10 +197,10 @@ var app = new Vue({
     },
     nightInOrder() {
       return (
-        this.choosenTimeFrom &&
-        this.choosenTimeTo &&
-        this.choosenTimeFrom.getDate() !== this.choosenTimeTo.getDate() &&
-        Math.round((this.choosenTimeTo.getTime() - this.choosenTimeFrom.getTime()) / (3600000 * 24)) * 24
+          this.choosenTimeFrom &&
+          this.choosenTimeTo &&
+          this.choosenTimeFrom.getDate() !== this.choosenTimeTo.getDate() &&
+          Math.round((this.choosenTimeTo.getTime() - this.choosenTimeFrom.getTime()) / (3600000 * 24)) * 24
       )
     },
     minimal_rent() {
@@ -237,10 +237,10 @@ var app = new Vue({
           date.getHours() + ':00'
       )
     },
-    declOfNum(number, titles)  
-    {  
-        cases = [2, 0, 1, 1, 1, 2];  
-        return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];  
+    declOfNum(number, titles)
+    {
+      cases = [2, 0, 1, 1, 1, 2];
+      return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];
     },
     isHolyday(date) {
       var may1 = new Date(now.getFullYear(), 4, 1);
