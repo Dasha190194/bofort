@@ -65,7 +65,7 @@ class SiteController extends Controller
     {
         $user = Yii::$app->getModule("user")->model("User", ["scenario" => "register"]);
         $profile = Yii::$app->getModule("user")->model("Profile");
-        $categories = CategoryModel::find()->limit(4)->all();
+        $categories = CategoryModel::find()->limit(4)->orderBy(['id' => SORT_ASC])->all();
 
         return $this->render('index', compact("user", "profile", "categories"));
     }
