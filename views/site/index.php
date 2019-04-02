@@ -36,7 +36,7 @@ $this->title = 'Бофорт.ру – аренда катеров и яхт в �
             </div>
         </div>
 
-        <div class="row">
+        <div class="row service-list">
             <div class="col-md-offset-2 col-md-4">
                 <ul>
                     <li>Быстрое онлайн-бронирование</li>
