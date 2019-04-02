@@ -21,7 +21,7 @@ $this->title = Yii::t('user', $success ? 'Confirmed' : 'Error');
             <?php if (Yii::$app->user->isLoggedIn): ?>
 
                 <p><?= Html::a('Перейти в мой аккаунт', ["/user/profile"]) ?></p>
-                <p><?= Html::a(Yii::t("user", "Go home"), Yii::$app->getHomeUrl()) ?></p>
+                <p><?= Html::a('Перейти на главную', Yii::$app->getHomeUrl()) ?></p>
 
             <?php else: ?>
 
