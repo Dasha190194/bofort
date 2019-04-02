@@ -8,7 +8,7 @@
 
 /** @var \app\models\BoatsModel $boats */
 
-$this->title = 'Аренда катеров в Москве';
+$this->title = 'Аренда наших катеров';
 
 ?>
 

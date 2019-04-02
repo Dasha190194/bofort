@@ -4,7 +4,7 @@
 
 use yii\helpers\Html;
 
-$this->title = 'Bofort.ru. О компании';
+$this->title = 'О компании "Бофорт"';
 
 ?>
 <div class="site-about">
