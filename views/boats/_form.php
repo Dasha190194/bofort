@@ -50,6 +50,7 @@ if (isset($model->images)) {
     <?= $form->field($model, 'speed')->input('text') ?>
     <?= $form->field($model, 'speed2')->input('text') ?>
     <?= $form->field($model, 'category_id')->dropDownList(ArrayHelper::map(CategoryModel::find()->all(), 'id', 'name')) ?>
+    <?= $form->field($model, 'h1')->input('text') ?>
 
     <hr>
     <div class="row">

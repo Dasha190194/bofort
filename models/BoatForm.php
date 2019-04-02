@@ -28,7 +28,9 @@ class BoatForm extends Model
             $speed,
             $speed2,
             $category_id,
-            $images;
+            $images,
+            $h1;
+
 
     protected $time;
     /**
@@ -37,7 +39,7 @@ class BoatForm extends Model
     public function rules()
     {
         return [
-            [['name', 'description', 'engine_power', 'spaciousness', 'location_name', 'lat', 'long', 'width', 'length', 'speed', 'speed2', 'category_id'], 'required'],
+            [['name', 'description', 'engine_power', 'spaciousness', 'location_name', 'lat', 'long', 'width', 'length', 'speed', 'speed2', 'category_id', 'h1'], 'required'],
             [['images'], 'file', 'maxFiles' => 10, 'extensions' => 'png, jpg, jpeg'],
             ['description', 'filter', 'filter' => function ($value){
                 return nl2br($value);
@@ -60,7 +62,8 @@ class BoatForm extends Model
             'speed' => 'Максимальная скорость',
             'speed2' => 'Крейсерская',
             'category_id' => 'Категория',
-            'images' => 'Фотографии'
+            'images' => 'Фотографии',
+            'h1' => 'Заголовок h1'
         ];
     }
 
