@@ -5,7 +5,7 @@ use yii\helpers\Html;use yii\widgets\ActiveForm;
 
 /** @var \app\models\BoatsModel $boat */
 /** @var OrderCreateForm $model */
-$this->title = $boat->h1;
+$this->title = $boat->name;
 
  ?>
 <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=2aeecb33-cd8c-4662-b7bf-9f211f9c4896" type="text/javascript"></script>
@@ -14,7 +14,7 @@ $this->title = $boat->h1;
 
 <div class="row">
     <div class="col-md-9">
-        <h1><?= Html::encode($this->h1) ?></h1>
+        <h1><?= $boat->h1 ?></h1>
     </div>
     <div class="col-md-3" style="margin-top: 20px">
         <a class="btn btn-primary" href="/boats/index">Посмотреть другие</a>
