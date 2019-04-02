@@ -91,7 +91,7 @@ use app\models\TransactionsModel;
                     <h4>Добавить новую карту</h4>
                 </div>
                 <div class="modal-body">
-                    <p class="text-center">При добавлении новой карты мы спишем с нее 1 рубль. После аторизации деньгу будут возвращены на ваш счет</p>
+                    <p class="text-center">При добавлении новой карты мы спишем с нее 1 рубль. После авторизации деньгу будут возвращены на ваш счет</p>
                     <div class="row">
                         <div class="col-md-6">
                             <button data-dismiss="modal" class="btn btn-default">Отмена</button>
