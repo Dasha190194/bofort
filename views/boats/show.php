@@ -5,7 +5,7 @@ use yii\helpers\Html;use yii\widgets\ActiveForm;
 
 /** @var \app\models\BoatsModel $boat */
 /** @var OrderCreateForm $model */
-$this->title = 'Лодка '. $boat->name;
+$this->title = $boat->name;
 
  ?>
 <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=2aeecb33-cd8c-4662-b7bf-9f211f9c4896" type="text/javascript"></script>
