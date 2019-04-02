@@ -20,7 +20,7 @@ $url = Url::toRoute(["/user/confirm", "token" => $userToken->token], true);
 <head>
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Bofort.ru Registration</title>
+    <title>Подтверждение Email</title>
     <style>
         /* -------------------------------------
             GLOBAL RESETS
@@ -287,7 +287,7 @@ $url = Url::toRoute(["/user/confirm", "token" => $userToken->token], true);
                             <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td style="color: #05355d;">
-                                        <h2>Email confirmation</h2>
+                                        <h2>Бофорт - подтверждение Email</h2>
 
                                         <p>Пожалуйста подствердите ваш email перейдя по ссылке ниже</p>
 
