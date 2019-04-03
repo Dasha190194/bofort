@@ -103,12 +103,12 @@ class User extends ActiveRecord implements IdentityInterface
           //  [['username'], 'match', 'pattern' => '/^\w+$/u', 'except' => 'social', 'message' => Yii::t('user', '{attribute} может содержать только буквы, цифры и знак "_"')],
 
             // password rules
-            [['newPassword'], 'string', 'min' => 3, 'message' => 'Пароль не может быть короче трех символов'],
+            [['newPassword'], 'string', 'min' => 8, 'message' => 'Пароль не может быть короче трех символов'],
             [['newPassword'], 'filter', 'filter' => 'trim'],
             [['newPassword'], 'required', 'on' => ['register', 'reset'], 'message' => 'Пароль не может быть пустым'],
             [['newPasswordConfirm'], 'required', 'on' => ['reset']],
             [['newPasswordConfirm'], 'compare', 'compareAttribute' => 'newPassword', 'message' => Yii::t('user', 'Passwords do not match')],
-          //  [['newPassword'], 'match', 'pattern' => '^\S*(?=\S{3,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$', 'message' => "Пароль должен содержать хотябы одну маленькую букву, заглавную и цифру"],
+            [['newPassword'], 'match', 'pattern' => '/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,})$/', 'message' => "Пароль должен содержать хотябы одну маленькую букву, заглавную, цифру и быть не менее 8 символов"],
 
 
             // account page
@@ -477,7 +477,7 @@ class User extends ActiveRecord implements IdentityInterface
         $user = $this;
         $profile = $user->profile;
         $email = $userToken->data ?: $user->email;
-        $subject = Yii::$app->id . " - " . Yii::t("user", "Email Confirmation");
+        $subject = Yii::$app->id . " - " . Yii::t("user", "Подтверждение Email");
         $result = $mailer->compose('confirmEmail', compact("subject", "user", "profile", "userToken"))
             ->setTo($email)
             ->setSubject($subject)
