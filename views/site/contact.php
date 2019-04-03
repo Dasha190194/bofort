@@ -26,7 +26,7 @@ $this->title = 'Контакты Bofort.ru';
 
 			<p>Служба поддержки 24/7 готова всегда ответить на ваши вопросы по телефону <a href="tel:+74957457494">+7 (495) 745 74 94</a> или по электронной почте - <a href="mailto:info@bofort.ru">info@bofort.ru</a>.</p>
 
-			<p>По вопросам сотрудничествам и предложениям обращайтесь по электронной почте - <a href="mailto:feedback@bofort.ru">feedback@bofort.ru</a></p>
+			<p>По вопросам сотрудничества и предложениям обращайтесь по электронной почте - <a href="mailto:feedback@bofort.ru">feedback@bofort.ru</a></p>
 
     	</div>
     </div>
