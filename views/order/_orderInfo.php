@@ -14,9 +14,9 @@ use app\helpers\Utils; ?>
 <button type="button" class="close" data-dismiss="modal">×</button>
 <?php $path = isset($order->boat->image)?Yii::$app->params['uploadsUrl'].'550X350/'.$order->boat->image->path:'/index.png' ?>
 <div class="cover" style="background-image: url('<?= $path?>')">
-    <?php if ($order->state === 1): ?>
+    <?php if ($order->state === 1 and $date_now > $order->datetime_to): ?>
         <span class="order-state btn btn-default">Заказ выполнен</span>
-    <?php else: ?>
+    <?php elseif ($order->state === 2): ?>
         <span class="order-state btn btn-default">Заказ отменен</span>
     <?php endif; ?>
 </div>
@@ -90,11 +90,13 @@ use app\helpers\Utils; ?>
         </div>
     </div>
 
-    <div class="row buttons">
-        <div class="col-xs-12">
-            <a data-id="<?=$order->id?>" class="btn btn-default btn-block order-refund-modal">Отменить бронирование</a>
+    <?php if ($order->state === 1 and $order->datetime_from >= $date_now): ?>
+        <div class="row buttons">
+            <div class="col-xs-12">
+                <a data-id="<?=$order->id?>" class="btn btn-default btn-block order-refund-modal">Отменить бронирование</a>
+            </div>
         </div>
-    </div>
+    <?php endif; ?>
 
 </div>
 
