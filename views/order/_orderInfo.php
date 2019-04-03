@@ -16,7 +16,7 @@ $date_now = date_create();
 <button type="button" class="close" data-dismiss="modal">×</button>
 <?php $path = isset($order->boat->image)?Yii::$app->params['uploadsUrl'].'550X350/'.$order->boat->image->path:'/index.png' ?>
 <div class="cover" style="background-image: url('<?= $path?>')">
-    <?php if ($order->state === 1 and $date_now > $order->datetime_to): ?>
+    <?php if ($order->state === 1 and $date_now < $order->datetime_to): ?>
         <span class="order-state btn btn-default">Заказ выполнен</span>
     <?php elseif ($order->state === 2): ?>
         <span class="order-state btn btn-default">Заказ отменен</span>
