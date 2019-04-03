@@ -14,7 +14,7 @@ $date_now = date_create();
 
     <h3>Текущее бронирование</h3>
     <?php foreach ($orders as $order): ?>
-        <?php if($order->state === 1 and $date_now < $order->datetime_to ): ?>
+        <?php if($order->state === 1 and $date_now > $order->datetime_to ): ?>
             <div class="panel panel-default" data-order_id="<?= $order->id ?>">
                 <?php $path = isset($order->boat->image)?Yii::$app->params['uploadsUrl'].'550X350/'.$order->boat->image->path:'/index.png'; ?>
                 <div class="panel-title" style="background-image: url('<?= $path ?>')">
