@@ -92,7 +92,7 @@ $date_now = date_create();
         </div>
     </div>
 
-    <?php if ($order->state === 1 and $order->datetime_from >= $date_now): ?>
+    <?php if ($order->state === 1 and $order->datetime_from <= $date_now): ?>
         <div class="row buttons">
             <div class="col-xs-12">
                 <a data-id="<?=$order->id?>" class="btn btn-default btn-block order-refund-modal">Отменить бронирование</a>
