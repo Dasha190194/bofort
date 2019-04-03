@@ -8,7 +8,9 @@
 
 /** @var \app\models\OrdersModel $order */
 
-use app\helpers\Utils; ?>
+use app\helpers\Utils;
+$date_now = date_create();
+?>
 
 
 <button type="button" class="close" data-dismiss="modal">×</button>
