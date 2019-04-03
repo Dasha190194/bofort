@@ -39,7 +39,7 @@ $date_now = date_create();
             <div class="boat-character-value"><?= $order->boat->spaciousness ?> чел.</div>
 
             <div class="boat-character-title">Длина</div>
-            <div class="boat-character-value"><?= $order->boat->spaciousness ?></div>
+            <div class="boat-character-value"><?= $order->boat->length ?></div>
 
             <div class="boat-character-title">Ширина</div>
             <div class="boat-character-value"><?= $order->boat->width ?></div>
