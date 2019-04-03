@@ -83,7 +83,7 @@ use yii\widgets\ActiveForm; ?>
                     </tr>
                 <?php endif; ?>
                 <tr>
-                    <?php if ($order->transaction->state == 1): ?>
+                    <?php if (isset($order->transaction) and $order->transaction->state == 1): ?>
                         <th class="width-20">Итого</th>
                         <td>
                             <span class="green">Оплачено</span>
@@ -109,150 +109,154 @@ use yii\widgets\ActiveForm; ?>
         </div>
     </div>
 
+    <?php if (isset($order->transaction)): ?>
 
-    <?php if ($order->transaction->state != 1): ?>
+        <?php if ($order->transaction->state != 1): ?>
 
-        <div class="row">
-            <?php $form = ActiveForm::begin([
-                'id' => 'pay-form',
-                'action' => '/payment/pay-validate',
-                'enableAjaxValidation' => true,
-            ]); ?>
-            <?= $form->field($model, 'order_id')->hiddenInput(['value' => $order->id])->label(false)?>
-            <?= $form->field($model, 'services')->hiddenInput(['value' => implode(',', $order->getServicesId())])->label(false)?>
+            <div class="row">
+                <?php $form = ActiveForm::begin([
+                    'id' => 'pay-form',
+                    'action' => '/payment/pay-validate',
+                    'enableAjaxValidation' => true,
+                ]); ?>
+                <?= $form->field($model, 'order_id')->hiddenInput(['value' => $order->id])->label(false)?>
+                <?= $form->field($model, 'services')->hiddenInput(['value' => implode(',', $order->getServicesId())])->label(false)?>
 
-            <div class="col-md-offset-3 col-md-6 text-center offer">
-                <?= $form->field($model, 'offer_processing', [
-                    'template' => "{input}   Бронируя яхту, я принимаю <a target='_blank' href='/uploads/oferta.pdf'>договор оферты Bofort.ru </a> {error}",
-                ])->checkbox([], false)->label(false) ?>
+                <div class="col-md-offset-3 col-md-6 text-center offer">
+                    <?= $form->field($model, 'offer_processing', [
+                        'template' => "{input}   Бронируя яхту, я принимаю <a target='_blank' href='/uploads/oferta.pdf'>договор оферты Bofort.ru </a> {error}",
+                    ])->checkbox([], false)->label(false) ?>
+                </div>
+                <div class="col-md-offset-3 col-md-6 text-center">
+                    <?= Html::submitButton('Оплата банковской картой', ['class' => 'btn btn-warning btn-block']) ?>
+                </div>
+                <?php ActiveForm::end(); ?>
             </div>
-            <div class="col-md-offset-3 col-md-6 text-center">
-                <?= Html::submitButton('Оплата банковской картой', ['class' => 'btn btn-warning btn-block']) ?>
-            </div>
-            <?php ActiveForm::end(); ?>
-        </div>
 
-        <script>
-            $(function() {
-                $('[data-toggle="popover"]').popover();
-            })
-        </script>
+            <script>
+                $(function() {
+                    $('[data-toggle="popover"]').popover();
+                })
+            </script>
 
 
-        <script>
+            <script>
 
-            $(document).ready(function () {
+                $(document).ready(function () {
 
-                const cloud_id = "<?= Yii::$app->params['cloud_id'] ?>";
-                var isset_phone = "<?= (empty(Yii::$app->user->identity->phone))?0:1 ?>";
+                    const cloud_id = "<?= Yii::$app->params['cloud_id'] ?>";
+                    var isset_phone = "<?= (empty(Yii::$app->user->identity->phone))?0:1 ?>";
 
-                function pay(order_id, total_price, user_id) {
-                    var widget = new cp.CloudPayments();
-                    widget.charge({
-                            publicId: cloud_id,
-                            description: 'Оплата заказа',
-                            amount: total_price,
-                            currency: 'RUB',
-                            invoiceId: order_id,
-                            accountId: user_id,
-                        },
-                        function (options) {
-                            location.replace('/order/final?id='+order_id);
-                        },
-                        function (reason, options) {
-                            alert(reason);
-                            location.reload();
-                        });
-                };
+                    function pay(order_id, total_price, user_id) {
+                        var widget = new cp.CloudPayments();
+                        widget.charge({
+                                publicId: cloud_id,
+                                description: 'Оплата заказа',
+                                amount: total_price,
+                                currency: 'RUB',
+                                invoiceId: order_id,
+                                accountId: user_id,
+                            },
+                            function (options) {
+                                location.replace('/order/final?id='+order_id);
+                            },
+                            function (reason, options) {
+                                alert(reason);
+                                location.reload();
+                            });
+                    };
 
-                $('#pay-form').on('afterValidate', function (event, messages) {
+                    $('#pay-form').on('afterValidate', function (event, messages) {
 
-                    if (isset_phone === '0' && messages['payform-offer_processing'].length == 0) {
+                        if (isset_phone === '0' && messages['payform-offer_processing'].length == 0) {
+                            $.ajax({
+                                url: '/default/confirm-phone',
+                                type: 'GET',
+                                async: false,
+                                success: function (data) {
+                                    $('#phone-confirm-order .modal-content').html(data);
+                                    $('#phone-confirm-order').modal({show:true});
+                                }
+                            });
+                        } else {
+                            submit($('#pay-form'));
+                        }
+
+                        return false;
+                    });
+
+                    $('body').on('click', '#send-code', function(){
+
                         $.ajax({
                             url: '/default/confirm-phone',
-                            type: 'GET',
-                            async: false,
-                            success: function (data) {
-                                $('#phone-confirm-order .modal-content').html(data);
-                                $('#phone-confirm-order').modal({show:true});
+                            type: 'POST',
+                            data: {'phone': $('#phone').val() },
+                            success: function (request) {
+                                if (request.success == true) {
+                                    $('#phoneconfirmform-phone').val(request.phone);
+                                }
                             }
                         });
-                    } else {
-                        submit($('#pay-form'));
+                    });
+
+                    $("#phone-confirm-order").on('submit', '#confirm-phone', (function(e) {
+                        e.preventDefault();
+
+                        var form = $(this);
+                        var url = form.attr('action');
+
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: form.serialize(),
+                            success: function(data) {
+                                if (data.success === true) {
+                                    $('#phone-confirm-order').modal('hide');
+                                    submit($('#pay-form'));
+                                } else {
+                                    $('#code-error').html('Неверный код!');
+                                }
+                            }
+                        });
+                    }));
+
+
+                    function submit(el) {
+                        var data = el.serialize();
+
+                        $.ajax({
+                            url: '/payment/pay',
+                            data: data,
+                            type: 'POST',
+                            async: false,
+                            success: function (request) {
+                                if (request.success) {
+                                    switch (request.action) {
+                                        case 'charge': location.replace('/order/final?id=<?= $order->id ?>'); break;
+                                        case 'frame':  pay(request.data.order_id, request.data.total_price, request.data.user_id); break;
+                                    }
+                                } else {
+                                    if (request.action === 'charge') {
+                                        alert(request.data);
+                                    }
+                                }
+                            }
+                        });
                     }
 
-                    return false;
+
+                    $('#pay-form').on('beforeSubmit', function () {
+                        return false;
+                    });
+
+
                 });
 
-                $('body').on('click', '#send-code', function(){
+            </script>
 
-                    $.ajax({
-                        url: '/default/confirm-phone',
-                        type: 'POST',
-                        data: {'phone': $('#phone').val() },
-                        success: function (request) {
-                            if (request.success == true) {
-                                $('#phoneconfirmform-phone').val(request.phone);
-                            }
-                        }
-                    });
-                });
-
-                $("#phone-confirm-order").on('submit', '#confirm-phone', (function(e) {
-                    e.preventDefault();
-
-                    var form = $(this);
-                    var url = form.attr('action');
-
-                    $.ajax({
-                        type: "POST",
-                        url: url,
-                        data: form.serialize(),
-                        success: function(data) {
-                            if (data.success === true) {
-                                $('#phone-confirm-order').modal('hide');
-                                submit($('#pay-form'));
-                            } else {
-                                $('#code-error').html('Неверный код!');
-                            }
-                        }
-                    });
-                }));
-
-
-                function submit(el) {
-                    var data = el.serialize();
-
-                    $.ajax({
-                        url: '/payment/pay',
-                        data: data,
-                        type: 'POST',
-                        async: false,
-                        success: function (request) {
-                            if (request.success) {
-                                switch (request.action) {
-                                    case 'charge': location.replace('/order/final?id=<?= $order->id ?>'); break;
-                                    case 'frame':  pay(request.data.order_id, request.data.total_price, request.data.user_id); break;
-                                }
-                            } else {
-                                if (request.action === 'charge') {
-                                    alert(request.data);
-                                }
-                            }
-                        }
-                    });
-                }
-
-
-                $('#pay-form').on('beforeSubmit', function () {
-                    return false;
-                });
-
-
-            });
-
-        </script>
-
+        <?php endif; ?>
+    <?php else: ?>
+        <p>К сожалению, оплата в банке еще не прошла. </p>
     <?php endif; ?>
 </div>
 

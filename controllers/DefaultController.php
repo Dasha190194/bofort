@@ -372,7 +372,7 @@ class DefaultController extends Controller
         $notifications = NotificationsModel::find()->where(['user_id' => $user->getId()])->all();
         $new_notifications = NotificationsModel::find()->where(['user_id' => $user->getId(), 'is_open' => 0])->count();
 
-        return $this->render("profile", compact("profile", "user", "orders", "cards", "transactions", "notifications", 'new_notifications'));
+        return $this->render("profile", compact("profile", "user", "notifications", 'new_notifications'));
     }
 
     public function actionGetcards() {
