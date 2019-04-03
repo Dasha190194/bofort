@@ -99,4 +99,39 @@ use app\helpers\Utils; ?>
 </div>
 
 
+<script>
+    $(document).ready(function(){
+        ymaps.ready(init);
 
+        function init () {
+            var myMap;
+
+            $('#showLocation').click(function () {
+
+                var lat = "<?= $order->boat->lat ?>";
+                var long = "<?= $order->boat->long ?>";
+
+                myMap = new ymaps.Map('yandex-map', {
+                    center: [lat, long],
+                    zoom : 15
+                });
+
+                var myGeoObject = new ymaps.GeoObject({
+                    geometry: {
+                        type: "Point",
+                        coordinates: [lat, long]
+                    }
+                });
+
+                myMap.geoObjects.add(myGeoObject);
+
+                $('#map').modal({show:true});
+            });
+
+            $('#map .close').on('click', function(){
+                myMap.destroy();
+            });
+        }
+    });
+
+</script>

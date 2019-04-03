@@ -7,7 +7,7 @@
  */
 ?>
 
-<div class="modal fade" id="map" role="dialog">
+<div class="modal fade" id="map" role="dialog" style="z-index: 1060;">
     <div class="modal-dialog">
         <div class="modal-content">
             <button type="button" class="close" data-dismiss="modal">×</button>
