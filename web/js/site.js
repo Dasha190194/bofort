@@ -121,7 +121,7 @@ $(document).ready(function() {
         });
     }
 
-    $('.order-refund').on('click', function () {
+    $('.admin-orders-container .order-refund').on('click', function () {
         if (confirm('Вы уверены, что хотите вернуть заказ?')) {
             var id = $(this).data('id');
             orderRefund(id);

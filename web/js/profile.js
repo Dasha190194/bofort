@@ -73,7 +73,6 @@ $(document).ready(function() {
             });
     });
 
-
     profileBlock.on('submit', '#confirm-phone', (function(e) {
         e.preventDefault();
 
@@ -185,7 +184,7 @@ $(document).ready(function() {
                 'id': id
             },
             success: function(result) {
-                $('#order-info-modal').modal('hide')
+                $('#order-info-modal').modal('hide');
                 updateContainer('booking');
             }
         });
