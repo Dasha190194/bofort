@@ -897,6 +897,9 @@ span.red {
     border-radius: 2px;
     background: #ffaf1c;
 }
+.service-list div {
+    padding: 0;
+}
 
 .soon {
     opacity: 0.5;
