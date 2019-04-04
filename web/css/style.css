@@ -900,6 +900,10 @@ span.red {
 .service-list div {
     padding: 0;
 }
+.service-list ul {
+    padding: 0;
+}
+
 
 .soon {
     opacity: 0.5;
