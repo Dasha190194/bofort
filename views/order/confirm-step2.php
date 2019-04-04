@@ -222,7 +222,8 @@ use yii\widgets\ActiveForm; ?>
                         }
                     } else {
                         if (request.action === 'charge') {
-                            alert(request.data);
+                            $('#error-modal .modal-body').html(request.data);
+                            $('#error-modal').modal('show');
                         }
                     }
                 }
@@ -244,6 +245,19 @@ use yii\widgets\ActiveForm; ?>
     <div class="modal-dialog">
         <div class="modal-content">
 
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="error-modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                Ошибка
+            </div>
+            <div class="modal-body">
+            </div>
         </div>
     </div>
 </div>
