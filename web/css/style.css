@@ -870,10 +870,14 @@ span.red {
 }
 
 /* Main */
+.service-list ul {
+    padding: 0 0 0px 15px;
+}
 .service-list li {
     list-style: none;
     position: relative;
     padding-left: 20px;
+    padding-bottom: 16px;
 }
 .service-list li:before {
     content: ' ';
@@ -889,7 +893,7 @@ span.red {
 .service-list li:after {
     content: ' ';
     position: absolute;
-    left: 4.5px;
+    left: 5px;
     top: 9px;
     width: 4px;
     height: 4px;
@@ -900,6 +904,11 @@ span.red {
 
 .soon {
     opacity: 0.5;
+}
+
+.user-default-register .form-horizontal .form-group {
+    margin-right: 15px!important;
+    margin-left: 15px!important;
 }
 /* Footer */
 
