@@ -56,7 +56,9 @@ $this->title = 'Бофорт.ру – аренда катеров и яхт в �
 
         <div class="row">
             <div class="col-sm-12">
-                <div class="divider mt-32 mb-16"><img class="center-block" src="/img/divider.png" alt=""></div>
+                <div class="divider mb-16">
+                    <img class="center-block" src="/img/divider.png" alt="" />
+                </div>
             </div>
         </div>
 
