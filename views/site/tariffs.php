@@ -8,7 +8,7 @@
 
 use app\helpers\Utils;
 
-$this->title = 'Тарифы и услуги нашей компании'
+$this->title = 'Стоимость аренды катера'
 ?>
 
 <div class="row">
