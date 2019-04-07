@@ -57,7 +57,7 @@ $this->title = 'Бофорт.ру – аренда катеров и яхт в �
         <div class="row">
             <div class="col-sm-12">
                 <div class="divider mb-16">
-                    <img class="center-block" src="/img/divider.png" alt="" />
+                    <img class="center-block" src="/img/divider.png" alt="аренда катеров и яхт" />
                 </div>
             </div>
         </div>
@@ -78,10 +78,10 @@ $this->title = 'Бофорт.ру – аренда катеров и яхт в �
                 <div class="col-xs-12 col-sm-6 col-md-3 mb-64 boat-item <?= ($category->id == 4)?'soon':'' ?>">
                     <div class="boat-photo">
                         <?php if ($category->id == 4):?>
-                            <img src="/uploads/550X350/<?= (isset($category->image->path)?$category->image->path:'index.png') ?>">
+                            <img src="/uploads/550X350/<?= (isset($category->image->path)?$category->image->path:'index.png') ?>" alt="аренда <?= $category->name?>">
                         <?php else: ?>
                             <a href="/boats/index/<?= $category->slug ?>">
-                                <img src="/uploads/550X350/<?= (isset($category->image->path)?$category->image->path:'index.png') ?>">
+                                <img src="/uploads/550X350/<?= (isset($category->image->path)?$category->image->path:'index.png') ?>" alt="аренда <?= $category->name?>">
                             </a>
                         <?php endif; ?>
 
