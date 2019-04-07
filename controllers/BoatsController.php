@@ -59,7 +59,11 @@ class BoatsController extends Controller
 
             $boats = $category->boats;
         } else {
-            if ($shipowner) $boats = BoatsModel::find()->where(['user_id' => $shipowner])->all();
+            if ($shipowner) {
+                if (Yii::$app->user->identity->isShipowner()) {
+                    $boats = BoatsModel::find()->where(['user_id' => $shipowner])->all();
+                }
+            }
             else $boats = BoatsModel::find()->all();
         }
 
