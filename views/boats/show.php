@@ -53,7 +53,6 @@ $this->title = $boat->name;
                 </div>
             <?php endif; ?>
         </div>
-        </div>
     </div>
     <div class="col-xs-12 col-sm-6">
         <?= $boat->description ?>
