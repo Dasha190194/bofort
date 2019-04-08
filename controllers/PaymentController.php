@@ -69,8 +69,13 @@ class PaymentController extends Controller
             $order->isOfferProcessing();
             $card = CardsModel::find()->where(['user_id' => Yii::$app->user->getId(), 'state' => 1])->one();
 
+            Yii::info('Попытка оплатить заказ ['.$order->id.']', 'app.payment.pay');
+            Yii::info('Попытка оплатить заказ ['.$order->id.']', 'app.sendMail');
+
             if ($card) {
                try {
+
+                   Yii::info('Привязана карта ['.$card->id.']', 'app.payment.pay');
 
                    $transaction = new TransactionsModel();
                    $transaction->create($form->order_id, $order->totalPrice(), Yii::$app->user->getId(), $card->id);
@@ -82,6 +87,9 @@ class PaymentController extends Controller
 //                   $transaction->state = 1;
 //                   $transaction->cloud_transaction_id = $response->getId();
 //                   $transaction->save();
+
+
+                   Yii::info('Успешное списание денег ['.$transaction->id.']', 'app.payment.pay');
 
                    return $this->asJson(
                        [
@@ -106,6 +114,9 @@ class PaymentController extends Controller
                        ]);
                }
             }
+
+
+            Yii::info('Переход на платежный фрейм ['.$order->id.']', 'app.payment.pay');
 
             return $this->asJson(
                 [
@@ -143,6 +154,8 @@ class PaymentController extends Controller
         if (Yii::$app->getRequest()->getMethod() == 'POST') {
 
             Yii::info('Cloudpayment answer ['.json_encode($_POST).']', 'app.payment.complete');
+            Yii::info('Cloudpayment answer ['.json_encode($_POST).']', 'app.sendMail');
+
             $input = InputPayAnswer::collect();
             try {
 
@@ -185,6 +198,8 @@ class PaymentController extends Controller
         if (Yii::$app->getRequest()->getMethod() == 'POST') {
 
             Yii::info('Cloudpayment answer ['.json_encode($_POST).']', 'app.payment.fail');
+            Yii::info('Cloudpayment answer fail ['.json_encode($_POST).']', 'app.sendMail');
+
             $input = InputPayAnswer::collect();
             try {
 

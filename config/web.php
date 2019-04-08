@@ -74,11 +74,21 @@ $config = [
                 [
                     'class' => 'yii\log\EmailTarget',
                     'levels' => ['error'],
-                    'categories' => ['app.payment.*'],
+                    'categories' => ['app.payment.*', 'app.order.*'],
                     'message' => [
                         'from' => [(YII_ENV == 'production') ? 'reply@bofort.ru' : 'reply@bofort.su'],
                         'to' => ['dariyogienko@gmail.com'],
                         'subject' => 'Ошибка проведения платежа',
+                    ],
+                ],
+                [
+                    'class' => 'yii\log\EmailTarget',
+                    'levels' => ['info'],
+                    'categories' => ['app.sendMail'],
+                    'message' => [
+                        'from' => [(YII_ENV == 'production') ? 'reply@bofort.ru' : 'reply@bofort.su'],
+                        'to' => ['dariyogienko@gmail.com'],
+                        'subject' => 'Создание заказа!',
                     ],
                 ],
             ],
