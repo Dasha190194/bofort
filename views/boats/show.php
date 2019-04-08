@@ -128,7 +128,7 @@ $this->title = $boat->name;
                     $items = 'active';
                     foreach ($boat->images as $key => $image) {
                         echo "<li data-target='#carousel' data-slide-to='$key' class='$items'>
-                                  <img src='".Yii::$app->params['uploadsUrl']."550X350/$image->path'></li>";
+                                  <img src='".Yii::$app->params['uploadsUrl']."1080X720/$image->path'></li>";
                         $items = '';
                     }
                     ?>
@@ -141,7 +141,7 @@ $this->title = $boat->name;
                     $items = 'active';
                     foreach ($boat->images as $image) {
                         echo "<div class='item $items'>
-                                  <img src='".Yii::$app->params['uploadsUrl']."550X350/$image->path'></div>";
+                                  <img src='".Yii::$app->params['uploadsUrl']."1080X720/$image->path'></div>";
                         $items = '';
                     }
                     ?>
