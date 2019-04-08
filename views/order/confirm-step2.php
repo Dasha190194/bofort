@@ -230,12 +230,19 @@ use yii\widgets\ActiveForm; ?>
             });
         }
 
-
         $('#pay-form').on('beforeSubmit', function () {
             return false;
         });
 
-
+        $('#word').on('input', function() {
+            if ($('#word').val()) {
+                $('#promo-apply').addClass('btn-primary');
+                $('#promo-apply').removeClass('btn-default');
+            } else {
+                $('#promo-apply').addClass('btn-default');
+                $('#promo-apply').removeClass('btn-primary');
+            }
+        })
     });
 
 </script>
