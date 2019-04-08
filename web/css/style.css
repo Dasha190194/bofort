@@ -480,6 +480,26 @@ hr.one {
     left: 10px;
 }
 
+.boat-photo-buttons {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.boat-photo-button {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border: 2px solid #ffffff;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin: 0 5px;
+}
+
+.boat-photo-button:hover {
+    border-color: #FFA316;
+}
+
 /* Order summary */
 hr.margin-10 {
     margin: 10px 0;

@@ -27,8 +27,32 @@ $this->title = $boat->name;
             <img  src="<?= (isset($boat->image))?Yii::$app->params['uploadsUrl'].'550X350/'.$boat->image->path:'/index.png' ?>" class="show-carousel-modal">
             <div class="boat-price">от <?= \app\helpers\Utils::boatMinPrice($boat->getMinTariff()) ?></div>
             <div class="boat-photo-icon show-carousel-modal">
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1.72em" height="1.7em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1040 1024"><path d="M1031 969L748 684q97-116 97-267 0-85-33-162t-88.5-133T591 33 429 0Q316 0 220 55.5T68.5 207 13 416.5 68.5 626 220 777.5 429 833q156 0 274-103l282 284q4 4 8.5 6.5t9.5 3 10 0 9.5-3 8.5-6.5q9-9 9-22.5t-9-22.5zM429 768q-96 0-177-47.5T124 592 77 416t47-176 128-128.5T428.5 64 605 111.5 733.5 240 781 416q0 141-98 243-97 101-236 109h-18zm160-384H461V256q0-13-9.5-22.5t-23-9.5-22.5 9.5-9 22.5v128H269q-14 0-23 9.5t-9 22.5 9 22.5 23 9.5h128v128q0 13 9 22.5t22.5 9.5 23-9.5T461 576V448h128q13 0 22.5-9.5T621 416t-9.5-22.5T589 384z" fill="#ffffff"/></svg>
+                <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        aria-hidden="true"
+                        focusable="false"
+                        width="1.72em"
+                        height="1.7em"
+                        style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);"
+                        preserveAspectRatio="xMidYMid meet"
+                        viewBox="0 0 1040 1024"
+                >
+                    <path
+                            d="M1031 969L748 684q97-116 97-267 0-85-33-162t-88.5-133T591 33 429 0Q316 0 220 55.5T68.5 207 13 416.5 68.5 626 220 777.5 429 833q156 0 274-103l282 284q4 4 8.5 6.5t9.5 3 10 0 9.5-3 8.5-6.5q9-9 9-22.5t-9-22.5zM429 768q-96 0-177-47.5T124 592 77 416t47-176 128-128.5T428.5 64 605 111.5 733.5 240 781 416q0 141-98 243-97 101-236 109h-18zm160-384H461V256q0-13-9.5-22.5t-23-9.5-22.5 9.5-9 22.5v128H269q-14 0-23 9.5t-9 22.5 9 22.5 23 9.5h128v128q0 13 9 22.5t22.5 9.5 23-9.5T461 576V448h128q13 0 22.5-9.5T621 416t-9.5-22.5T589 384z"
+                            fill="#ffffff"
+                    />
+                </svg>
             </div>
+            <?php if (count($boat->images) > 1):?>
+                <div class="boat-photo-buttons show-carousel-modal">
+                    <?php foreach ($boat->images as $image): ?>
+                        <div class="boat-photo-button">
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+        </div>
         </div>
     </div>
     <div class="col-xs-12 col-sm-6">
