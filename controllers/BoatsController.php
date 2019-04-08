@@ -64,7 +64,7 @@ class BoatsController extends Controller
                     $boats = BoatsModel::find()->where(['user_id' => $shipowner])->all();
                 }
             }
-            else $boats = BoatsModel::find()->where(['!=', 'id', 2])->all();
+            else $boats = BoatsModel::find()->where(['!=', 'category_id', 2])->all();
         }
 
         return $this->render('index', compact('boats'));
