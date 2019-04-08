@@ -85,7 +85,7 @@ $this->title = 'Бофорт.ру – аренда катеров и яхт в �
                             </a>
                         <?php endif; ?>
 
-                        <?php if (in_array($category->id, [2,4])):?>
+                        <?php if (!in_array($category->id, [2,4])):?>
                             <div class="boat-price">от <?= \app\helpers\Utils::boatMinPrice($category->getMinPrice())?></div>
                         <?php endif; ?>
                     </div>
