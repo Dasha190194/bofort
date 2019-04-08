@@ -54,7 +54,7 @@ class BoatsController extends Controller
 
     public function actionIndex($slug = null, $shipowner = null) {
         if (!is_null($slug)) {
-            $category = CategoryModel::find()->where(['slug' => $slug])->andWhere(['!=', 'id', 2])->one();
+            $category = CategoryModel::find()->where(['slug' => $slug])->one();
             if (!$category) throw new NotFoundHttpException('Not found.');
 
             $boats = $category->boats;
@@ -64,7 +64,7 @@ class BoatsController extends Controller
                     $boats = BoatsModel::find()->where(['user_id' => $shipowner])->all();
                 }
             }
-            else $boats = BoatsModel::find()->all();
+            else $boats = BoatsModel::find()->where(['!=', 'id', 2])->all();
         }
 
         return $this->render('index', compact('boats'));
