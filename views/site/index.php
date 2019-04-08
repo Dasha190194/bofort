@@ -94,7 +94,7 @@ $this->title = 'Бофорт.ру – аренда катеров и яхт в �
 
                     <p><?= $category->description ?></p>
 
-                    <?php if ($category->id == 4):?>
+                    <?php if (in_array($category->id, [2,4])):?>
                         <a class="btn btn-primary mt-8">Скоро</a>
                     <?php else: ?>
                         <a class="btn btn-primary mt-8" href="/boats/index/<?= $category->slug ?>">Подробно</a>
