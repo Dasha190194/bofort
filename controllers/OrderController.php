@@ -210,7 +210,7 @@ class OrderController extends Controller
             return false;
         }
 
-        return $this->renderPartial('_payBlock', compact('order'));   ;
+        return $this->renderPartial('_payBlock', compact('order'));
     }
 
     /*
