@@ -140,7 +140,7 @@ class OrderController extends Controller
                 $money = $order->transaction->total_price;
             } else {
                 $money = $order->transaction->total_price - $order->transaction->fine();
-                if (!$money) throw new Exception('Не удалось расчитать сумму возврата.');
+                //if (!$money) throw new Exception('Не удалось расчитать сумму возврата.');
             }
 
             $client = new \CloudPayments\Manager(Yii::$app->params['cloud_id'], Yii::$app->params['cloud_private_key']);
@@ -247,7 +247,7 @@ class OrderController extends Controller
             if (!$order) throw new Exception('Заказ не найден.');
 
             $money = $order->transaction->fine();
-            if (!$money) throw new Exception('Не удалось расчитать сумму возврата.');
+            //if (!$money) throw new Exception('Не удалось расчитать сумму возврата.');
         } catch (Exception $e) {
             Yii::error("Попытка вернуть заказ [$id]:". $e->getMessage(), 'app.order.refund-modal');
         }

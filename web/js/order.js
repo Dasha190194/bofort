@@ -11,7 +11,7 @@ var app = new Vue({
     minimal_rent_in_day: 1,
     showTimes: true,
 
-    currentMonth: today.getMonth(),
+    currentMonth: today.getMonth() === 3 ? 4 : today.getMonth(),
     currentYear: today.getFullYear(),
 
     selectedDate: null,
