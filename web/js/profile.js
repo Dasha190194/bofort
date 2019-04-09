@@ -185,8 +185,8 @@ $(document).ready(function() {
             },
             success: function(result) {
                 $('#order-info-modal').modal('hide');
-                $('.modal-backdrop').removeClass('in');
-                updateContainer('booking');
+                location.reload();
+                //updateContainer('booking');
             }
         });
     }
