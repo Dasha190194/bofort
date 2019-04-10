@@ -1,7 +1,7 @@
 User-agent: *
 Disallow: /admin
 Disallow: /user
-Disallow /uploads/*
-Disallow /order
+Disallow: /uploads/*
+Disallow: /order
 
 Sitemap: https://bofort.ru/sitemap.xml
