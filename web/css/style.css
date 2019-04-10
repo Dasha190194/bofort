@@ -480,6 +480,26 @@ hr.one {
     left: 10px;
 }
 
+.boat-photo-buttons {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.boat-photo-button {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border: 2px solid #ffffff;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin: 0 5px;
+}
+
+.boat-photo-button:hover {
+    border-color: #FFA316;
+}
+
 /* Order summary */
 hr.margin-10 {
     margin: 10px 0;
@@ -870,10 +890,14 @@ span.red {
 }
 
 /* Main */
+.service-list ul {
+    padding: 0 0 0px 15px;
+}
 .service-list li {
     list-style: none;
     position: relative;
     padding-left: 20px;
+    padding-bottom: 16px;
 }
 .service-list li:before {
     content: ' ';
@@ -889,7 +913,7 @@ span.red {
 .service-list li:after {
     content: ' ';
     position: absolute;
-    left: 4.5px;
+    left: 5px;
     top: 9px;
     width: 4px;
     height: 4px;
@@ -897,16 +921,14 @@ span.red {
     border-radius: 2px;
     background: #ffaf1c;
 }
-.service-list div {
-    padding: 0;
-}
-.service-list ul {
-    padding: 0;
-}
-
 
 .soon {
     opacity: 0.5;
+}
+
+.user-default-register .form-horizontal .form-group {
+    margin-right: 15px!important;
+    margin-left: 15px!important;
 }
 /* Footer */
 

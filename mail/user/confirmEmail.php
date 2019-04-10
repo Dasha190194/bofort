@@ -289,7 +289,7 @@ $url = Url::toRoute(["/user/confirm", "token" => $userToken->token], true);
                                     <td style="color: #05355d;">
                                         <h2>Бофорт - подтверждение Email</h2>
 
-                                        <p>Пожалуйста подствердите ваш email перейдя по ссылке ниже</p>
+                                        <p>Пожалуйста, подтвердите ваш email, перейдя по ссылке ниже:</p>
 
                                         <p><?= Html::a($url, $url) ?></p>
                                     </td>

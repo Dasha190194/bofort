@@ -126,7 +126,7 @@ class SiteController extends Controller
 
     public function actionTariffs()
     {
-        $boats = BoatsModel::find()->all();
+        $boats = BoatsModel::find()->where(['!=', 'category_id', 2])->all();
         return $this->render('tariffs', compact('boats'));
     }
 

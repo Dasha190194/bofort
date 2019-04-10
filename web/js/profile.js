@@ -185,8 +185,8 @@ $(document).ready(function() {
             },
             success: function(result) {
                 $('#order-info-modal').modal('hide');
-                $('.order-refund-modal').modal('hide');
-                updateContainer('booking');
+                location.reload();
+                //updateContainer('booking');
             }
         });
     }
@@ -198,7 +198,6 @@ $(document).ready(function() {
 
     profileBlock.on('click', '.order-refund-no', function(){
         $('#order-info-modal').modal('hide');
-        $('.order-refund-modal').modal('hide');
     });
 
     // jQuery.fn.preventDoubleSubmission = function() {

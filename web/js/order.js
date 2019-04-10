@@ -11,7 +11,7 @@ var app = new Vue({
     minimal_rent_in_day: 1,
     showTimes: true,
 
-    currentMonth: today.getMonth(),
+    currentMonth: today.getMonth() === 3 ? 4 : today.getMonth(),
     currentYear: today.getFullYear(),
 
     selectedDate: null,
@@ -70,7 +70,7 @@ var app = new Vue({
       return nextDay.getDate() + ' ' + this.months1[nextDay.getMonth()];
     },
     isFirstMonth() {
-      return this.currentMonth === today.getMonth();
+      return this.currentMonth === today.getMonth() && this.currentYear == today.getFullYear();
     },
     isFirstDay() {
       return this.selectedDate && this.isCurrentDate(this.selectedDate);
@@ -308,8 +308,8 @@ var app = new Vue({
       return false;
     },
     isPastDate(date) {
-      var april1 = new Date(now.getFullYear(), 3, 1);
-      if (date < april1) {
+      var may1 = new Date(now.getFullYear(), 4, 1);
+      if (date < may1) {
         return true;
       }
 
@@ -402,7 +402,11 @@ var app = new Vue({
       if (!this.selectedDate) {
         return;
       }
-      this.selectedDate = new Date(this.currentYear, this.currentMonth, this.selectedDate.getDate() + 1);
+      var nextSelectedDate = new Date(this.currentYear, this.currentMonth, this.selectedDate.getDate() + 1);
+      if (this.isPastDate(nextSelectedDate)) {
+        return;
+      }
+      this.selectedDate = nextSelectedDate;
       this.currentMonth = this.selectedDate.getMonth();
     },
 

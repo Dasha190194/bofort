@@ -62,7 +62,7 @@ $date_now = date_create();
             <table class="table">
                 <tr>
                     <th class="width-20">Стоимость аренды яхты</th>
-                    <td><?= $order->count_hours?> ч.</td>
+                    <td><?= $order->count_hours?> час(а)</td>
                     <td class="text-right coast"><?=Utils::userPrice($order->price) ?></td>
                 </tr>
                 <?php if(!empty($order->services)): ?>
