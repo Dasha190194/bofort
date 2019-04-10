@@ -21,6 +21,6 @@ class Utils
 
     public static function userDate($date) {
         $months = array( 1 => 'января' , 'февраля' , 'марта' , 'апреля' , 'мая' , 'июня' , 'июля' , 'августа' , 'сентября' , 'октября' , 'ноября' , 'декабря' );
-        return date('d '. $months[date( 'n' )+1] . ' h:i', $date);
+        return date('d '. $months[date( 'n' )+1] . ' H:i', $date);
     }
 }
