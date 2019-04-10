@@ -69,7 +69,7 @@ $this->title = 'Аренда наших катеров';
                         <a class="btn btn-primary" href="/boats/show/<?= $boat->slug ?>">
                             Подробнее
                         </a>
-                        <?php if(Yii::$app->user->can("admin")): ?>
+                        <?php if(!Yii::$app->user->isGuest and Yii::$app->user->can("admin")): ?>
                             <a href="/boats/update?id=<?= $boat->id ?>">Редактировать</a>
                         <?php endif; ?>
                         <?php if(!Yii::$app->user->isGuest and Yii::$app->user->identity->isShipowner()): ?>
