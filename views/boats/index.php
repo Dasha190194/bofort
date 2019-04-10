@@ -14,7 +14,7 @@ $this->title = 'Аренда катера';
 
 <div class="all-boats">
     <div class="row">
-        <h1>Наши катера</h1>
+        <h1>наши катера в аренду</h1>
         <hr>
     </div>
 
