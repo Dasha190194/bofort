@@ -36,6 +36,16 @@ use yii\helpers\Html;
                     'price',
                     'discount',
                     'promo.word',
+                    [
+                      'label' => 'Сервисы',
+                      'value' => function($data) {
+                            $services = null;
+                            foreach ($data->services as &$service) {
+                                $services = $services . ' '. $service->name;
+                            }
+                            return $services;
+                      }
+                    ],
                     'services.name',
                     [
                         'class' => 'kartik\grid\EditableColumn',
