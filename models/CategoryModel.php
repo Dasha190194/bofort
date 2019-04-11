@@ -53,7 +53,8 @@ class CategoryModel extends ActiveRecord
     public function getMinPrice() {
         if (!$boats = $this->getBoats()->all()) return 0;
         $prices = [];
-        foreach ($boats as &$boat) $prices[] = $boat->getMinTariff();
+        foreach ($boats as &$boat)
+            $prices[] = $boat->getMinTariff();
         return min($prices);
     }
 }
