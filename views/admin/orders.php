@@ -40,13 +40,12 @@ use yii\helpers\Html;
                       'label' => 'Сервисы',
                       'value' => function($data) {
                             $services = null;
-                            foreach ($data->services as &$service) {
+                            foreach ($data->services as $service) {
                                 $services = $services . ' '. $service->name;
                             }
                             return $services;
                       }
                     ],
-                    'services.name',
                     [
                         'class' => 'kartik\grid\EditableColumn',
                         'attribute' => 'datetime_from',
