@@ -67,7 +67,7 @@ class BoatsModel extends ActiveRecord
         $prices[] = $this->tariff->weekday;
         $prices[] = $this->tariff->four_hours_holiday;
         $prices[] = $this->tariff->four_hours_weekday;
-        $prices[] = $this->tariff->one_day;
+        //$prices[] = $this->tariff->one_day;
 
         return min($prices);
     }
