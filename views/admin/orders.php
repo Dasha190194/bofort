@@ -33,19 +33,28 @@ use yii\helpers\Html;
                             );
                         }
                     ],
-                    'price',
-                    'discount',
-                    'promo.word',
+                    [
+                        'label' => 'Цена только за лодку',
+                        'value' => 'price'
+                    ],
                     [
                       'label' => 'Сервисы',
                       'value' => function($data) {
                             $services = null;
                             foreach ($data->services as $service) {
-                                $services = $services . ' '. $service->name;
+                                $services = $services . ' '. $service->name . ' + ' . $service->price . 'р.';
                             }
                             return $services;
                       }
                     ],
+                    'discount',
+                    [
+                        'label' => 'Итоговая стоимость',
+                        'value' => function($data) {
+                            return $data->transaction->total_price;
+                        }
+                    ],
+                    'promo.word',
                     [
                         'class' => 'kartik\grid\EditableColumn',
                         'attribute' => 'datetime_from',
