@@ -36,6 +36,7 @@ use yii\helpers\Html;
                     'price',
                     'discount',
                     'promo.word',
+                    'services.name',
                     [
                         'class' => 'kartik\grid\EditableColumn',
                         'attribute' => 'datetime_from',
