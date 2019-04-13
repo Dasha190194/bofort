@@ -1,5 +1,6 @@
 <?php
 
+use app\helpers\Utils;
 use yii\bootstrap\Carousel;
 use yii\helpers\Html;use yii\widgets\ActiveForm;
 
@@ -58,6 +59,70 @@ $this->title = $boat->name;
         <?= $boat->description ?>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Тарифная сетка</h2>
+    </div>
+</div>
+<hr>
+
+
+<div class="row">
+    <div class="col-md-6 tarif">
+        <table class="table">
+            <tr class="no-border">
+                <td colspan="2">
+                    <h4>Будние дни</h4>
+                    с 7:00 до 20:00
+                </td>
+            </tr>
+            <tr class="no-border">
+                <th class="width-20">От 1 до 3х часов</th>
+                <td class="text-center"><?= Utils::boatMinPrice($boat->tariff->weekday)?></td>
+            </tr>
+            <tr>
+                <th class="width-20">От 3х часов</th>
+                    <td class="text-center green"><?= Utils::boatMinPrice($boat->tariff->four_hours_weekday)?></td>
+            </tr>
+            <tr>
+                <th class="width-20">Сутки</th>
+
+                    <td class="text-center"><?= $boat->tariff->one_day*24 ?> руб./сутки</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-6 tarif">
+        <table class="table">
+            <tr class="no-border">
+                <td colspan="2">
+                    <h4 class="red">Выходные и праздничные дни</h4>
+                    с 7:00 до 20:00
+                </td>
+            </tr>
+            <tr class="no-border">
+                <th class="width-20">От 1 до 3х часов</th>
+
+                <td class="text-center"><?= Utils::boatMinPrice($boat->tariff->holiday)?></td>
+
+            </tr>
+            <tr>
+                <th class="width-20">От 3х часов</th>
+
+                <td class="text-center"><?= Utils::boatMinPrice($boat->tariff->four_hours_holiday)?></td>
+
+            </tr>
+            <tr>
+                <th class="width-20">Сутки</th>
+
+                <td class="text-center"><?= $boat->tariff->one_day*24 ?> руб./сутки</td>
+
+            </tr>
+        </table>
+    </div>
+</div>
+
+
 
 <div class="row">
     <div class="col-md-12">
