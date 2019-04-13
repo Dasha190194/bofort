@@ -164,7 +164,7 @@ use yii\widgets\ActiveForm; ?>
                     }
                 });
             } else {
-                <?php /*if (<?= isset(Yii::$app->user->identity->cards) ?>) {
+                if (<?= isset(Yii::$app->user->identity->cards) ?>) {
                     $('#phone-confirm-order .modal-content').html('' +
                         '<div class="modal-header">'+
                                 '<button type="button" class="close" data-dismiss="modal">&times;</button>'+
@@ -172,18 +172,18 @@ use yii\widgets\ActiveForm; ?>
                         '<div class="modal-body">'+
                             '<div class="row">'+
                                 '<div class="col-md-12">'+
-                                    'Сейчас с вашей карты будет списана сумма заказа.'+
+                                    'Сейчас мы произведем оплату с ранее привязанной карты.'+
                                 '</div>'+
                             '</div>'+
                             '<br />'+
                             '<div class="row">' +
                                 '<div class="col-md-offset-5">'+
-                                    '<button class="btn btn-primary">Да</button>' +
+                                    '<button class="btn btn-primary" id="confirm-charge">Да</button>' +
                                  '</div>' +
                                '</div>'+
                         '</div>');
                     $('#phone-confirm-order').modal({show:true});
-                } else { */?>
+                } else {
                     submit($('#pay-form'));
                 }
             }
@@ -226,6 +226,10 @@ use yii\widgets\ActiveForm; ?>
             });
         }));
 
+        $("#phone-confirm-order").on('click', '#confirm-charge', (function(e) {
+            $('#phone-confirm-order').modal('hide');
+            submit($('#pay-form'));
+        }));
 
         function submit(el) {
             var data = el.serialize();
