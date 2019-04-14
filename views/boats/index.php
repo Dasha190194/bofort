@@ -63,6 +63,14 @@ $this->title = 'Аренда катера';
                                 </div>
                         </div>
                     </div>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="boat-character-title">Расположение причала &bull; <a data-lat="<?= $boat->lat ?>" data-long="<?= $boat->long ?>" class="showLocation">Показать на карте</a></div>
+                                <div class="boat-character-value"><?= $boat->location_name ?></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="row boat-details-button">
                     <div class="col-xs-12 col-sm-offset-6 col-sm-6 col-md-offset-7 col-md-5">
@@ -82,4 +90,6 @@ $this->title = 'Аренда катера';
         <hr class="one">
 
     <?php endforeach; ?>
+
+    <?= $this->render('_map') ?>
 </div>

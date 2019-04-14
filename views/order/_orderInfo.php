@@ -51,7 +51,7 @@ $date_now = date_create();
             <div class="boat-character-title">Макс. скорость</div>
             <div class="boat-character-value"><?= $order->boat->speed ?></div>
 
-            <div class="boat-character-title">Расположение причала &bull; <a id="showLocation">Показать на карте</a></div>
+            <div class="boat-character-title">Расположение причала &bull; <a data-lat="<?= $order->boat->lat ?>" data-long="<?= $order->boat->long ?>" class="showLocation">Показать на карте</a></div>
             <div class="boat-character-value"><?= $order->boat->location_name ?></div>
     </div>
 

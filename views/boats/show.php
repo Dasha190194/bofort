@@ -9,8 +9,6 @@ use yii\helpers\Html;use yii\widgets\ActiveForm;
 $this->title = $boat->name;
 
  ?>
-<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=2aeecb33-cd8c-4662-b7bf-9f211f9c4896" type="text/javascript"></script>
-
 
 
 <div class="row">
@@ -152,7 +150,7 @@ $this->title = $boat->name;
         <div class="boat-character-title">Макс. скорость</div>
         <div class="boat-character-value"><?= $boat->speed ?></div>
 
-        <div class="boat-character-title">Расположение причала &bull; <a id="showLocation">Показать на карте</a></div>
+        <div class="boat-character-title">Расположение причала &bull; <a data-lat="<?= $boat->lat ?>" data-long="<?= $boat->long ?>" class="showLocation">Показать на карте</a></div>
         <div class="boat-character-value"><?= $boat->location_name ?></div>
 
         <?php
@@ -251,40 +249,4 @@ $this->title = $boat->name;
     })
 </script>
 
-<script>
-    $(document).ready(function(){
-        ymaps.ready(init);
-
-        function init () {
-            var myMap;
-
-            $('#showLocation').click(function () {
-
-                var lat = "<?= $boat->lat ?>";
-                var long = "<?= $boat->long ?>";
-
-                myMap = new ymaps.Map('yandex-map', {
-                    center: [lat, long],
-                    zoom : 15
-                });
-
-                var myGeoObject = new ymaps.GeoObject({
-                    geometry: {
-                        type: "Point",
-                        coordinates: [lat, long]
-                    }
-                });
-
-                myMap.geoObjects.add(myGeoObject);
-
-                $('#map').modal({show:true});
-            });
-
-            $('#map .close').on('click', function(){
-                myMap.destroy();
-            });
-        }
-    });
-
-</script>
 

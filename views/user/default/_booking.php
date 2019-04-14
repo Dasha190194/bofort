@@ -8,8 +8,6 @@ $date_now = date_create();
 //echo date_format($date, 'Y-m-d');
 ?>
 
-<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=2aeecb33-cd8c-4662-b7bf-9f211f9c4896" type="text/javascript"></script>
-
 <div class="profile-container booking-container">
 
     <h3>Текущее бронирование</h3>
