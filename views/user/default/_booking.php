@@ -87,7 +87,6 @@ $date_now = date_create();
 
 </div>
 
-<?= $this->render('//boats/_map') ?>
 
 <div class="modal fade" id="order-info-modal" role="dialog">
     <div class="modal-dialog" style="width: 780px;">

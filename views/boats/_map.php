@@ -27,7 +27,7 @@
         function init () {
             var myMap;
 
-            $('.showLocation').click(function () {
+            $('body').on('click', '.showLocation', function (e){
 
                 var lat = $(this).data('lat');
                 var long = $(this).data('long');
