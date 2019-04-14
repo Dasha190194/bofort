@@ -167,7 +167,7 @@ $cardEmpty = (empty(Yii::$app->user->identity->cards))?0:1;
                     }
                 });
             } else {
-                if (!<?=  $cardEmpty ?>) {
+                if (<?=  $cardEmpty ?>) {
                     $('#phone-confirm-order .modal-content').html('' +
                         '<div class="modal-header">'+
                                 '<button type="button" class="close" data-dismiss="modal">&times;</button>'+
