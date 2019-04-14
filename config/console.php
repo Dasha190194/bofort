@@ -22,7 +22,8 @@ $config = [
                 [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning', 'info'],
-                    'logFile' => '@runtime/logs/console'.date('Y-m-d').'.log'
+                    'logFile' => '@runtime/logs/console'.date('Y-m-d').'.log',
+                    'logVars' => []
                 ],
             ],
         ],
