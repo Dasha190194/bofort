@@ -18,6 +18,8 @@ use amnah\yii2\user\helpers\Timezone;
 $this->title = 'Личный кабинет';
 
 ?>
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=2aeecb33-cd8c-4662-b7bf-9f211f9c4896" type="text/javascript"></script>
+
 <div class="user-default-profile">
 
     <div class="row">
