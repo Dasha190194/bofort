@@ -39,5 +39,7 @@ class PaymentController extends Controller
                 Yii::error($e->getMessage(), 'app.payment.refund');
             }
         }
+
+        Yii::info("End refund process", 'app.payment.refund');
     }
 }
