@@ -164,7 +164,7 @@ use yii\widgets\ActiveForm; ?>
                     }
                 });
             } else {
-                if (<?= isset(Yii::$app->user->identity->cards) ?>) {
+                if (<?= !empty(Yii::$app->user->identity->cards) ?>) {
                     $('#phone-confirm-order .modal-content').html('' +
                         '<div class="modal-header">'+
                                 '<button type="button" class="close" data-dismiss="modal">&times;</button>'+
