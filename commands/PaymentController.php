@@ -17,10 +17,14 @@ use yii\console\ExitCode;
 class PaymentController extends Controller
 {
     public function actionRefund() {
+
+        Yii::info("Start refund process", 'app.payment.refund');
+
         $transactions = TransactionsModel::find()->where(['order_id' => 111111, 'state' => 1])->all();
 
-        foreach ($transactions as $transaction) {
+        foreach ($transactions as &$transaction) {
 
+            Yii::info("Start refund transaction [$transaction->id]", 'app.payment.refund');
             try {
                 $client = new \CloudPayments\Manager(Yii::$app->params['cloud_id'], Yii::$app->params['cloud_private_key']);
                 $client->refundPayment($transaction->cloud_transaction_id, 1);
