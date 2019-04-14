@@ -33,15 +33,9 @@ $this->title = 'Вход';
                 <?= $form->field($model, 'email')->input('text', ['placeholder' => "Ваш email"])->label(false) ?>
             </div>
             <div class="col-md-12">
-                <?= $form->field($model, 'password')->passwordInput()->input('text', ['placeholder' => "Пароль"])->label(false) ?>
+                <?= $form->field($model, 'password')->passwordInput()->input('password', ['placeholder' => "Пароль"])->label(false) ?>
             </div>
         </div>
-
-        <?php /*if ($model->hasErrors()): ?>
-            <div class="alert alert-success">
-                <p><?= current($model->getFirstErrors()) ?></p>
-            </div>
-        <?php endif; */?>
 
         <div class="form-group">
             <div class="col-md-offset-3 col-md-6">
