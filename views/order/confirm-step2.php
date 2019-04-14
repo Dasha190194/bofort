@@ -180,10 +180,13 @@ $cardEmpty = (empty(Yii::$app->user->identity->cards))?0:1;
                             '</div>'+
                             '<br />'+
                             '<div class="row">' +
-                                '<div class="col-md-offset-5">'+
+                                '<div class="col-md-5">'+
                                     '<button class="btn btn-primary" id="confirm-charge">Да</button>' +
                                  '</div>' +
-                               '</div>'+
+                                '<div class="col-md-5">'+
+                                    '<button class="btn btn-default close" data-dismiss="modal">Нет</button>' +
+                                '</div>' +
+                            '</div>'+
                         '</div>');
                     $('#phone-confirm-order').modal({show:true});
                 } else {
