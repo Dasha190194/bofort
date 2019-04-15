@@ -20,6 +20,8 @@ use yii\web\UploadedFile;
 
 class AdminController extends Controller
 {
+    public $layout = '@app/views/admin/layouts/main';
+
     /**
      * @inheritdoc
      */

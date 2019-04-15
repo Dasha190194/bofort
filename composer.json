@@ -25,7 +25,8 @@
         "troytft/cloud-payments-client": "^0.1.0",
         "kartik-v/yii2-editable": "@dev",
         "kartik-v/yii2-grid": "@dev",
-        "zelenin/yii2-slug-behavior": "~1.5.1"
+        "zelenin/yii2-slug-behavior": "~1.5.1",
+        "dmstr/yii2-adminlte-asset": "^2.1"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
