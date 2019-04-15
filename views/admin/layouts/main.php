@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
-$this->title = $this->title . ' [Backend]';
+
 dmstr\web\AdminLteAsset::register($this);
 ?>
 
@@ -36,87 +36,17 @@ dmstr\web\AdminLteAsset::register($this);
 
     <header class="main-header">
         <!-- Logo -->
-        <a href="<?= \Yii::$app->homeUrl ?>" class="logo"><?= getenv('APP_TITLE') ?></a>
-        <!-- Header Navbar: style can be found in header.less -->
+        <a href="<?= \Yii::$app->homeUrl ?>" class="logo">Bofort.ru</a>
         <nav class="navbar navbar-static-top" role="navigation">
-            <!-- Sidebar toggle button-->
             <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-                <span class="sr-only">Toggle navigation</span>
+                <i class="fa fa-bars" aria-hidden="true"></i>
             </a>
 
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                        <!-- Messages: style can be found in dropdown.less-->
-                        <li class="dropdown messages-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-envelope-o"></i>
-                                <span class="label label-success">1</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="header">You have 1 notification(s)</li>
-                                <li>
-                                    <!-- inner menu: contains the actual data -->
-                                    <ul class="menu">
-                                        <li>
-                                            <a href="#">
-                                                <i class="ion ion-ios7-people info"></i> Welcome to Phundament 4!
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown tasks-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-flag"></i>
-                                <span class="label label-default">n/a</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="header">Languages</li>
-                                <li>
-                                    <!-- inner menu: contains the actual data -->
-                                    <ul class="menu">
-                                        languages
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- User Account: style can be found in dropdown.less -->
-                        <li class="dropdown user user-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="glyphicon glyphicon-user"></i>
-                                <span>Username <i class="caret"></i></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <!-- User image -->
-                                <li class="user-header bg-light-blue">
-                                    <?php echo \cebe\gravatar\Gravatar::widget(
-                                        [
-                                            'email'   => 'username@example.com',
-                                            'options' => [
-                                                'alt' => 'username'
-                                            ],
-                                            'size'    => 128
-                                        ]
-                                    ); ?>
-                                    <p>
-                                        username
-                                        <small>username@example.com</small>
-                                    </p>
-                                </li>
-                                <!-- Menu Footer-->
-                                <li class="user-footer">
-                                    <div class="pull-left">
-                                        <a href="<?= \yii\helpers\Url::to(['/user/settings/profile']) ?>"
-                                           class="btn btn-default btn-flat">Profile</a>
-                                    </div>
-                                    <div class="pull-right">
-                                        <a href="<?= \yii\helpers\Url::to(['/user/security/logout']) ?>"
-                                           class="btn btn-default btn-flat" data-method="post">Sign out</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
+                    <li>
+                        <a href="<?= \Yii::$app->homeUrl ?>" class="btn btn-primary">Вернуться на главную</a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -132,18 +62,6 @@ dmstr\web\AdminLteAsset::register($this);
 
     <!-- Right side column. Contains the navbar and content of the page -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                <small><?= $this->title ?></small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Dashboard</li>
-            </ol>
-        </section>
-
-        <!-- Main content -->
 
         <section class="content">
             <?= Alert::widget() ?>

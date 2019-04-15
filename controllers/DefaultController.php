@@ -27,6 +27,8 @@ class DefaultController extends Controller
      */
     public $module;
 
+    public $layout = '@app/views/layouts/main';
+
     /**
      * @inheritdoc
      */

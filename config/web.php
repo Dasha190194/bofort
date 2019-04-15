@@ -121,7 +121,8 @@ $config = [
                 'Role' => 'app\models\Role',
                 'LoginForm' => 'app\models\LoginForm'
             ],
-            'emailViewPath' => '@app/mail/user', // example: @app/mail/user/confirmEmail.php
+            'emailViewPath' => '@app/mail/user',
+            'layout' => '@app/views/admin/layouts/main',
         ],
         'gridview' =>  [
             'class' => '\kartik\grid\Module'

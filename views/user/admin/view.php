@@ -53,6 +53,9 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 <?php if (!empty($user->cards)) :?>
+
+
+    <h3>Данные карты</h3>
     <div class="card-view">
 
         <?= DetailView::widget([
