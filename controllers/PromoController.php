@@ -18,6 +18,8 @@ use yii\web\NotFoundHttpException;
 class PromoController extends Controller
 {
 
+    public $layout = '@app/views/admin/layouts/main';
+
     /**
      * @inheritdoc
      */

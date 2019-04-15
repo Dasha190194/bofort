@@ -20,6 +20,9 @@ use yii\web\NotFoundHttpException;
 
 class ServicesController extends Controller
 {
+
+    public $layout = '@app/views/admin/layouts/main';
+
     /**
      * @inheritdoc
      */

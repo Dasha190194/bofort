@@ -107,17 +107,18 @@ if(Yii::$app->user->identity->isAdmin()):
         'label' => 'Пользователи',
     ];
 
-
-
-
     $developerMenuItems = [];
+    $developerMenuItems[] = [
+        'url' => ['/boats/index'],
+        'icon' => 'cog',
+        'label' => 'Все катера',
+    ];
     $developerMenuItems[] = [
         'url' => ['/admin/boats/create'],
         'icon' => 'cog',
         'label' => 'Создать катер',
     ];
     $menuItems[] = [
-        #'url' => '#',
         'icon' => 'cog',
         'label' => 'Катера',
         'items' => $developerMenuItems,
@@ -134,16 +135,25 @@ if(Yii::$app->user->identity->isAdmin()):
         'label' => 'Уведомления',
     ];
 
+endif;
 
-//            <li class="list-group-item">
-//                <a href="/boats/index">Катера</a>
-//                <ul>
-//                    <li>
-//                        <a href="/admin/boats/create">Создать катер</a>
-//                    </li>
-//                </ul>
-//            </li>
-
+if(Yii::$app->user->identity->isShipowner()):
+    $developerMenuItems = [];
+    $developerMenuItems[] = [
+        'url' => ['/boats/index?shipowner='.Yii::$app->user->getId()],
+        'icon' => 'cog',
+        'label' => 'Мои катера',
+    ];
+    $developerMenuItems[] = [
+        'url' => ['/admin/boats/create'],
+        'icon' => 'cog',
+        'label' => 'Создать катер',
+    ];
+    $menuItems[] = [
+        'icon' => 'cog',
+        'label' => 'Катера',
+        'items' => $developerMenuItems,
+    ];
 endif;
 
 
@@ -151,25 +161,3 @@ echo dmstr\widgets\Menu::widget([
     'items' => \yii\helpers\ArrayHelper::merge($favouriteMenuItems, $menuItems),
 ]);
 ?>
-
-
-<!--<div class="admin-container">-->
-<!--    <ul class="list-group">-->
-<!---->
-<!--        --><?php //if(Yii::$app->user->identity->isShipowner()): ?>
-<!--            <li class="list-group-item">-->
-<!--                <a href="/boats/index?shipowner=--><?//= Yii::$app->user->getId() ?><!--">Катера</a>-->
-<!--                <ul>-->
-<!--                    <li>-->
-<!--                        <a href="/admin/boats/create">Создать катер</a>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </li>-->
-<!--            <a href="/boats/index?shipowner=--><?//= Yii::$app->user->getId()?><!--">-->
-<!--                <li class="list-group-item">-->
-<!--                    Мои лодки-->
-<!--                </li>-->
-<!--            </a>-->
-<!--        --><?php //endif; ?>
-<!--    </ul>-->
-<!--</div>-->

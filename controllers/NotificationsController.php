@@ -15,10 +15,30 @@ use app\models\User;
 use Exception;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 
 class NotificationsController extends Controller
 {
+    public $layout = '@app/views/admin/layouts/main';
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index', 'create'],
+                        'allow' => true,
+                        'roles' => ['admin'],
+                    ],
+                ],
+            ],
+        ];
+
+    }
+
     public function actionOpen($id) {
 
         $response = [

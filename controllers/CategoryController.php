@@ -22,6 +22,7 @@ use yii\web\UploadedFile;
 
 class CategoryController extends Controller
 {
+    public $layout = '@app/views/admin/layouts/main';
 
     public function behaviors()
     {
