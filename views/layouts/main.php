@@ -21,6 +21,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/jpeg', 'href' => Url::
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="18Rz_Ef5loodBV1jcBX3RU8lrYIL5C">
     <meta name="Description" content="Аренда катеров и яхт в Москве. Быстрое онлайн-бронирование катера. Без посредников. Без депозита.">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
