@@ -77,6 +77,9 @@ class AdminController extends Controller
     }
 
     public function actionMyBoat(int $id) {
+
+        $this->layout = '@app/views/layouts/main';
+
         $boat = BoatsModel::findOne($id);
         $model = new BlockForm();
 
