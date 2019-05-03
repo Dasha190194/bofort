@@ -75,9 +75,9 @@ $this->title = 'Бофорт.ру – аренда катеров и яхт в �
             <?php /** @var \app\models\CategoryModel $categories */
             foreach ($categories as $category): ?>
 
-                <div class="col-xs-12 col-sm-6 col-md-3 mb-64 boat-item <?= (in_array($category->id, [2,4]))?'soon':'' ?>">
+                <div class="col-xs-12 col-sm-6 col-md-3 mb-64 boat-item <?= ($category->id == 2)?'soon':'' ?>">
                     <div class="boat-photo">
-                        <?php if (in_array($category->id, [2,4])):?>
+                        <?php if ($category->id == 2):?>
                             <img src="/uploads/550X350/<?= (isset($category->image->path)?$category->image->path:'index.png') ?>" alt="аренда <?= $category->name?>">
                         <?php else: ?>
                             <a href="/boats/index/<?= $category->slug ?>">
@@ -85,7 +85,7 @@ $this->title = 'Бофорт.ру – аренда катеров и яхт в �
                             </a>
                         <?php endif; ?>
 
-                        <?php if (!in_array($category->id, [2,4])):?>
+                        <?php if ($category->id != 2):?>
                             <div class="boat-price">от <?= \app\helpers\Utils::boatMinPrice($category->getMinPrice())?></div>
                         <?php endif; ?>
                     </div>
@@ -94,7 +94,7 @@ $this->title = 'Бофорт.ру – аренда катеров и яхт в �
 
                     <p><?= $category->description ?></p>
 
-                    <?php if (in_array($category->id, [2,4])):?>
+                    <?php if ($category->id == 2):?>
                         <a class="btn btn-primary mt-8">Скоро</a>
                     <?php else: ?>
                         <a class="btn btn-primary mt-8" href="/boats/index/<?= $category->slug ?>">Подробно</a>
