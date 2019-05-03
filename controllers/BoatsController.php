@@ -38,7 +38,7 @@ class BoatsController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['update', 'create', 'file-delete'],
+                        'actions' => ['update', 'create', 'file-delete', 'delete'],
                         'allow' => true,
                         'roles' => ['admin', 'shipowner'],
                     ],
@@ -100,7 +100,6 @@ class BoatsController extends Controller
 
         return $this->render('show', compact('boat', 'model'));
     }
-
 
     /**
      * Редактирование лодки
@@ -185,5 +184,19 @@ class BoatsController extends Controller
         $image = ImagesModel::findOne($key);
         $image->delete();
         return true;
+    }
+
+    /*
+     * Удаление катера
+     */
+    function actionDelete(int $id)
+    {
+        $boat = BoatsModel::findOne($id);
+        if (!$boat) throw new ErrorException('Not found.');
+
+        $boat->delete = 1;
+        $boat->save();
+
+        return $this->redirect('index');
     }
 }
