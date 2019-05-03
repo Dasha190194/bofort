@@ -32,7 +32,7 @@ class AdminController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'my-boat'],
+                        'actions' => ['index', 'my-boat', 'unlock'],
                         'allow' => true,
                         'roles' => ['admin', 'shipowner'],
                     ],
@@ -89,6 +89,28 @@ class AdminController extends Controller
         }
 
         return $this->render('my-boat', compact('boat', 'model'));
+    }
+
+    public function actionUnlock(int $id) {
+
+        $post = Yii::$app->request->post();
+        if (isset($post['editableKey'])) {
+            $order = OrdersModel::findOne($post['editableKey']);
+            $posted = current($post[$order->formName()]);
+            $post[$order->formName()] = $posted;
+            $order->load($post);
+            return $this->asJson(['output' => '', 'message' => '']);
+        }
+
+        $orders = OrdersModel::find()->where(['boat_id' => $id, 'state' => 3]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $orders,
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+        return $this->render('unlock', compact('dataProvider'));
+
     }
 
     /*
