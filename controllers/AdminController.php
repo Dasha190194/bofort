@@ -63,6 +63,7 @@ class AdminController extends Controller
             $posted = current($post[$order->formName()]);
             $post[$order->formName()] = $posted;
             $order->load($post);
+            $order->save();
             return $this->asJson(['output'=>'', 'message'=>'']);
         }
 
@@ -99,6 +100,7 @@ class AdminController extends Controller
             $posted = current($post[$order->formName()]);
             $post[$order->formName()] = $posted;
             $order->load($post);
+            $order->save();
             return $this->asJson(['output' => '', 'message' => '']);
         }
 
