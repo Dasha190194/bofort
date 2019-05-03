@@ -478,7 +478,7 @@ class DefaultController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->sendForgotEmail()) {
 
             // set flash (which will show on the current page)
-            Yii::$app->session->setFlash("Forgot-success", Yii::t("user", "Instructions to reset your password have been sent"));
+            Yii::$app->session->setFlash("Forgot-success", 'Вам были высланы инструкции по смене пароля на почту.');
         }
 
         return $this->render("forgot", compact("model"));
