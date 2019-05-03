@@ -47,7 +47,7 @@ class CategoryModel extends ActiveRecord
     }
 
     public function getBoats() {
-        return $this->hasMany(BoatsModel::className(), ['category_id' => 'id']);
+        return $this->hasMany(BoatsModel::className(), ['category_id' => 'id'])->where(['delete' => 0]);
     }
 
     public function getMinPrice() {

@@ -68,9 +68,9 @@ class BoatsController extends Controller
         } else {
             if ($shipowner) {
                 if (Yii::$app->user->identity->isShipowner()) {
-                    $boats = BoatsModel::find()->where(['user_id' => $shipowner])->all();
+                    $boats = BoatsModel::find()->where(['user_id' => $shipowner, 'delete' => 0])->all();
                 }
-            } else $boats = BoatsModel::find()->where(['!=', 'category_id', 2])->all();
+            } else $boats = BoatsModel::find()->where(['!=', 'category_id', 2])->andWhere(['delete' => 0])->all();
         }
 
         return $this->render('index', compact('boats'));
