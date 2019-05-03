@@ -32,7 +32,7 @@ class AdminController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index'],
+                        'actions' => ['index', 'my-boat'],
                         'allow' => true,
                         'roles' => ['admin', 'shipowner'],
                     ],
@@ -42,7 +42,7 @@ class AdminController extends Controller
                         'roles' => ['admin'],
                     ],
                     [
-                        'actions' => ['my-boat', 'boats'],
+                        'actions' => ['boats'],
                         'allow' => true,
                         'roles' => ['shipowner']
                     ]

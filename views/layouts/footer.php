@@ -20,6 +20,16 @@
             <div class="col-md-4">
                 <h5><a href="tel:74957457494">Круглосуточный Call-центр</a></h5>
                 <h4><a href="tel:74957457494"><span class="prepend">+7 (495)</span> 745 74 94</a></h4>
+                <div class="social-block">
+                    <p>Будь в курсе наших новостей и акций!</p>
+                    <a target="_blank" href="https://www.facebook.com/bofort.ru/">
+                        <img src="/img/icons/facebook.png" alt="Мы в Facebook!">
+                    </a>
+                    <a target="_blank" href="https://www.instagram.com/bofortmoscow/">
+                        <img src="/img/icons/instagram.png" alt="Мы в Instagram!">
+                    </a>
+
+                </div>
             </div>
         </div>
         <div class="row mt-32 mb-32">
@@ -39,7 +49,7 @@
         </div>
         <div class="row mb-16">
             <div class="col-md-12">
-                <p class="small text-center copy"><?php /* Даша, прости! - Какой ты миииилый :) */ echo date("Y"); ?> &copy; Bofort.ru, Москва, Петровско-Разумовский проезд, 15</p>
+                <p class="small text-center copy"><?= date("Y"); ?> &copy; Bofort.ru, Москва, Петровско-Разумовский проезд, 15</p>
             </div>
         </div>
     </div>
