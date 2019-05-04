@@ -77,17 +77,6 @@ $this->title = 'Аренда катера';
                         <a class="btn btn-primary" href="/boats/show/<?= $boat->slug ?>">
                             Подробнее
                         </a>
-                        <?php if(!Yii::$app->user->isGuest and Yii::$app->user->can("admin")): ?>
-                            <a class="btn-block" href="/boats/update?id=<?= $boat->id ?>">Редактировать</a>
-                            <a class="btn-block" href="/admin/my-boat?id=<?= $boat->id ?>">Заблокировать</a>
-                            <a class="btn-block" href="/admin/unlock?id=<?= $boat->id ?>">Разблокировать</a>
-                            <a class="btn-block" onclick="return confirm('Вы уверены, что хотите удалить лодку?');" href="/boats/delete?id=<?= $boat->id ?>">Удалить</a>
-                        <?php endif; ?>
-                        <?php if(!Yii::$app->user->isGuest and Yii::$app->user->identity->isShipowner()): ?>
-                            <a class="btn-block" href="/admin/my-boat?id=<?= $boat->id ?>">Заблокировать</a>
-                            <a class="btn-block" href="/admin/unlock?id=<?= $boat->id ?>">Разблокировать</a>
-                            <a class="btn-block" onclick="return confirm('Вы уверены, что хотите удалить лодку?');" href="/boats/delete?id=<?= $boat->id ?>">Удалить</a>
-                        <?php endif; ?>
                     </div>
                 </div>
             </div>

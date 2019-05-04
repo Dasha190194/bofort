@@ -32,7 +32,7 @@ class AdminController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'my-boat', 'unlock'],
+                        'actions' => ['index', 'my-boat', 'unlock', 'boats'],
                         'allow' => true,
                         'roles' => ['admin', 'shipowner'],
                     ],
@@ -41,11 +41,6 @@ class AdminController extends Controller
                         'allow' => true,
                         'roles' => ['admin'],
                     ],
-                    [
-                        'actions' => ['boats'],
-                        'allow' => true,
-                        'roles' => ['shipowner']
-                    ]
                 ],
             ],
         ];
@@ -116,13 +111,25 @@ class AdminController extends Controller
     }
 
     /*
-     * Лодки владельца
+     * Лодки
      */
     public function actionBoats() {
-        $user_id = Yii::$app->user->id;
-        $boats = BoatsModel::find()->where(['user_id' => $user_id])->all();
 
-        return $this->render('/boats/index', compact('boats'));
+        if (Yii::$app->user->identity->isShipowner()) {
+            $user_id = Yii::$app->user->id;
+            $boats = BoatsModel::find()->where(['user_id' => $user_id, 'delete' => 0]);
+        } else {
+            $boats = BoatsModel::find()->where(['delete' => 0]);
+        }
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $boats,
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+
+        return $this->render('boats', compact('dataProvider'));
     }
 
     /*
