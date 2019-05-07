@@ -31,7 +31,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/jpeg', 'href' => Url::
 <body>
 <?php $this->beginBody() ?>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<div class="wrap">
+<div class="<? if (Yii::$app->controller->action->id == 'tariffs') echo 'tariff-wrap'; else echo 'wrap';?>">
 
     <?php if (Yii::$app->controller->id.'/'.Yii::$app->controller->action->id == 'site/index'): ?>
         <?= $this->render('mainHeader') ?>

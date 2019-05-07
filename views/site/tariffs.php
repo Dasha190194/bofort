@@ -19,7 +19,7 @@ $this->title = 'Стоимость аренды катера'
 <hr>
 
 <div class="row">
-    <div class="col-md-12 tarif-wrap">
+    <div class="col-md-12 tarif">
         <table class="table">
             <tr class="no-border">
                 <td></td>
