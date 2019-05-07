@@ -20,7 +20,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/jpeg', 'href' => Url::
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <?php if (!Yii::$app->controller->action->id == 'tariffs'): ?>
+    <?php if (Yii::$app->controller->action->id != 'tariffs'): ?>
         <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php endif; ?>
     <meta name="Description" content="Аренда катеров и яхт в Москве. Быстрое онлайн-бронирование катера. Без посредников. Без депозита.">
