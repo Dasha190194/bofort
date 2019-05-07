@@ -14,6 +14,6 @@ $url = Url::toRoute(["/user/reset", "token" => $userToken->token], true);
 
 <h3><?= $subject ?></h3>
 
-<p><?= Yii::t("user", "Please use this link to reset your password:") ?></p>
+<p>Пожалуйста, используйте эту ссылку для изменения пароля:</p>
 
 <p><?= Html::a($url, $url) ?></p>

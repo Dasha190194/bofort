@@ -956,10 +956,19 @@ span.red {
     color: white;
 }
 
-.footer a {
+.footer a,
+.footer .social-block p {
     color: white;
     text-decoration: none;
     font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+
+.footer .social-block a {
+    margin-right: 10px;
+}
+
+.footer .social-block p {
+    font-weight: 700;
 }
 
 .text-seo p {

@@ -38,7 +38,7 @@ class BoatsController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['update', 'create', 'file-delete'],
+                        'actions' => ['update', 'create', 'file-delete', 'delete'],
                         'allow' => true,
                         'roles' => ['admin', 'shipowner'],
                     ],
@@ -66,11 +66,7 @@ class BoatsController extends Controller
 
             $boats = $category->boats;
         } else {
-            if ($shipowner) {
-                if (Yii::$app->user->identity->isShipowner()) {
-                    $boats = BoatsModel::find()->where(['user_id' => $shipowner])->all();
-                }
-            } else $boats = BoatsModel::find()->where(['!=', 'category_id', 2])->all();
+            $boats = BoatsModel::find()->where(['!=', 'category_id', 2])->andWhere(['delete' => 0])->all();
         }
 
         return $this->render('index', compact('boats'));
@@ -100,7 +96,6 @@ class BoatsController extends Controller
 
         return $this->render('show', compact('boat', 'model'));
     }
-
 
     /**
      * Редактирование лодки
@@ -185,5 +180,19 @@ class BoatsController extends Controller
         $image = ImagesModel::findOne($key);
         $image->delete();
         return true;
+    }
+
+    /*
+     * Удаление катера
+     */
+    function actionDelete(int $id)
+    {
+        $boat = BoatsModel::findOne($id);
+        if (!$boat) throw new ErrorException('Not found.');
+
+        $boat->delete = 1;
+        $boat->save();
+
+        return $this->redirect('index');
     }
 }

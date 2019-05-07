@@ -7,31 +7,7 @@ $favouriteMenuItems[] = ['label' => 'MAIN NAVIGATION', 'options' => ['class' => 
 
 
 $developerMenuItems = [];
-$developerMenuItems[] = [
-    'url' => ['/sub/action/one'],
-    'icon' => 'cog',
-    'label' => 'Sub 1',
-];
-$developerMenuItems[] = [
-    'icon' => 'cog',
-    'label' => 'No Link',
-];
-$developerMenuItems[] = [
-    'icon' => 'cog',
-    'label' => 'Not visible',
-    'visible' => false,
-];
-$developerMenuItems[] = [
-    'icon' => 'cog',
-    'label' => 'Folder',
-    'items' => [
-        [
-            'url' => ['/sub/action/two'],
-            'icon' => 'cog',
-            'label' => 'SubSub 2',
-        ],
-    ],
-];
+
 $developerMenuItems[] = [
     'url' => ['/sub/action/three'],
     'icon' => 'cog',
@@ -82,7 +58,7 @@ if(Yii::$app->user->identity->isAdmin()):
 
     $developerMenuItems = [];
     $developerMenuItems[] = [
-        'url' => ['/boats/index'],
+        'url' => ['/admin/boats'],
         'icon' => 'cog',
         'label' => 'Все катера',
     ];
@@ -113,7 +89,7 @@ endif;
 if(Yii::$app->user->identity->isShipowner()):
     $developerMenuItems = [];
     $developerMenuItems[] = [
-        'url' => ['/boats/index?shipowner='.Yii::$app->user->getId()],
+        'url' => ['/admin/boats'],
         'icon' => 'cog',
         'label' => 'Мои катера',
     ];

@@ -11,8 +11,8 @@ use yii\widgets\ActiveForm;
  * @var bool $invalidToken
  */
 
-$this->title = Yii::t('user', 'Reset');
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Смена пароля';
+
 ?>
 <div class="user-default-reset">
 
@@ -21,10 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php if (!empty($success)): ?>
 
         <div class="alert alert-success">
-
-            <p><?= Yii::t("user", "Password has been reset") ?></p>
-            <p><?= Html::a(Yii::t("user", "Log in here"), ["/user/login"]) ?></p>
-
+            <p>Пароль был изменен.</p>
         </div>
 
     <?php elseif (!empty($invalidToken)): ?>
@@ -44,10 +41,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?php $form = ActiveForm::begin(['id' => 'reset-form']); ?>
 
-                    <?= $form->field($user, 'newPassword')->passwordInput() ?>
-                    <?= $form->field($user, 'newPasswordConfirm')->passwordInput() ?>
+                    <?= $form->field($user, 'newPassword')->passwordInput()->label('Новый пароль') ?>
+                    <?= $form->field($user, 'newPasswordConfirm')->passwordInput()->label('Подтвердите пароль') ?>
                     <div class="form-group">
-                        <?= Html::submitButton(Yii::t("user", "Reset"), ['class' => 'btn btn-primary']) ?>
+                        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary']) ?>
                     </div>
                 <?php ActiveForm::end(); ?>
             </div>

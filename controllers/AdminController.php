@@ -32,7 +32,7 @@ class AdminController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index'],
+                        'actions' => ['index', 'my-boat', 'unlock', 'boats'],
                         'allow' => true,
                         'roles' => ['admin', 'shipowner'],
                     ],
@@ -41,11 +41,6 @@ class AdminController extends Controller
                         'allow' => true,
                         'roles' => ['admin'],
                     ],
-                    [
-                        'actions' => ['my-boat', 'boats'],
-                        'allow' => true,
-                        'roles' => ['shipowner']
-                    ]
                 ],
             ],
         ];
@@ -63,6 +58,7 @@ class AdminController extends Controller
             $posted = current($post[$order->formName()]);
             $post[$order->formName()] = $posted;
             $order->load($post);
+            $order->save();
             return $this->asJson(['output'=>'', 'message'=>'']);
         }
 
@@ -91,14 +87,49 @@ class AdminController extends Controller
         return $this->render('my-boat', compact('boat', 'model'));
     }
 
+    public function actionUnlock(int $id) {
+
+        $post = Yii::$app->request->post();
+        if (isset($post['editableKey'])) {
+            $order = OrdersModel::findOne($post['editableKey']);
+            $posted = current($post[$order->formName()]);
+            $post[$order->formName()] = $posted;
+            $order->load($post);
+            $order->save();
+            return $this->asJson(['output' => '', 'message' => '']);
+        }
+
+        $orders = OrdersModel::find()->where(['boat_id' => $id, 'state' => 3]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $orders,
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+        return $this->render('unlock', compact('dataProvider'));
+
+    }
+
     /*
-     * Лодки владельца
+     * Лодки
      */
     public function actionBoats() {
-        $user_id = Yii::$app->user->id;
-        $boats = BoatsModel::find()->where(['user_id' => $user_id])->all();
 
-        return $this->render('/boats/index', compact('boats'));
+        if (Yii::$app->user->identity->isShipowner()) {
+            $user_id = Yii::$app->user->id;
+            $boats = BoatsModel::find()->where(['user_id' => $user_id, 'delete' => 0]);
+        } else {
+            $boats = BoatsModel::find()->where(['delete' => 0]);
+        }
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $boats,
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+
+        return $this->render('boats', compact('dataProvider'));
     }
 
     /*

@@ -163,10 +163,10 @@ var app = new Vue({
       }
 
       timeTo = new Date(
-          this.choosenTimeTo.getFullYear(),
-          this.choosenTimeTo.getMonth(),
-          this.choosenTimeTo.getDate(),
-          this.choosenTimeTo.getHours() + 1
+        this.choosenTimeTo.getFullYear(),
+        this.choosenTimeTo.getMonth(),
+        this.choosenTimeTo.getDate(),
+        this.choosenTimeTo.getHours() + 1
       );
 
       return this.formatDate(timeTo);
@@ -197,10 +197,10 @@ var app = new Vue({
     },
     nightInOrder() {
       return (
-          this.choosenTimeFrom &&
-          this.choosenTimeTo &&
-          this.choosenTimeFrom.getDate() !== this.choosenTimeTo.getDate() &&
-          Math.round((this.choosenTimeTo.getTime() - this.choosenTimeFrom.getTime()) / (3600000 * 24)) * 24
+        this.choosenTimeFrom &&
+        this.choosenTimeTo &&
+        this.choosenTimeFrom.getDate() !== this.choosenTimeTo.getDate() &&
+        Math.round((this.choosenTimeTo.getTime() - this.choosenTimeFrom.getTime()) / (3600000 * 24)) * 24
       )
     },
     minimal_rent() {
@@ -364,12 +364,15 @@ var app = new Vue({
         if (
             this.dateTimes.calendar[i].getFullYear() === date.getFullYear() &&
             this.dateTimes.calendar[i].getMonth() === date.getMonth() &&
-            this.dateTimes.calendar[i].getDate() === date.getDate()
+            this.dateTimes.calendar[i].getDate() === date.getDate() &&
+            this.dateTimes.calendar[i].getHours() > 6 &&
+            this.dateTimes.calendar[i].getHours() < 20
         ) {
           busyHours++;
         }
       }
-      return busyHours * (100 / 13);
+      let busyPercent = busyHours * (100 / 13);
+      return busyPercent > 100 ? 100 : busyPercent;
     },
     daysInMonth(year, month) {
       return 32 - new Date(year, month, 32).getDate();

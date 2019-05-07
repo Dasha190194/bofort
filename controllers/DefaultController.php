@@ -50,7 +50,7 @@ class DefaultController extends Controller
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['login', 'register', 'forgot', 'login-email', 'login-callback'],
+                        'actions' => ['login', 'register', 'forgot', 'login-email', 'login-callback', 'reset'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -478,36 +478,69 @@ class DefaultController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->sendForgotEmail()) {
 
             // set flash (which will show on the current page)
-            Yii::$app->session->setFlash("Forgot-success", Yii::t("user", "Instructions to reset your password have been sent"));
+            Yii::$app->session->setFlash("Forgot-success", 'Вам были высланы инструкции по смене пароля на почту.');
         }
 
         return $this->render("forgot", compact("model"));
     }
 
+//    /**
+//     * Reset password
+//     */
+//    public function actionReset()
+//    {
+//        /** @var \amnah\yii2\user\models\User $user */
+//        /** @var \amnah\yii2\user\models\UserToken $userToken */
+//
+//
+//        // get user and set "reset" scenario
+//        $success = false;
+//        $user =  Yii::$app->user->identity;
+//        $user->setScenario("reset");
+//
+//        // load post data and reset user password
+//        if ($user->load(Yii::$app->request->post()) && $user->save()) {
+//
+//            // delete userToken and set success = true
+//
+//            $success = true;
+//        }
+//
+//        return $this->redirect(['/user/profile']);
+//    }
+
     /**
      * Reset password
      */
-    public function actionReset()
+    public function actionReset($token)
     {
         /** @var \amnah\yii2\user\models\User $user */
         /** @var \amnah\yii2\user\models\UserToken $userToken */
 
+        // get user token and check expiration
+        $userToken = $this->module->model("UserToken");
+        $userToken = $userToken::findByToken($token, $userToken::TYPE_PASSWORD_RESET);
+        if (!$userToken) {
+            return $this->render('reset', ["invalidToken" => true]);
+        }
 
         // get user and set "reset" scenario
         $success = false;
-        $user =  Yii::$app->user->identity;
+        $user = $this->module->model("User");
+        $user = $user::findOne($userToken->user_id);
         $user->setScenario("reset");
 
         // load post data and reset user password
         if ($user->load(Yii::$app->request->post()) && $user->save()) {
 
             // delete userToken and set success = true
-
+            $userToken->delete();
             $success = true;
         }
 
-        return $this->redirect(['/user/profile']);
+        return $this->render('reset', compact("user", "success"));
     }
+
 
     public function actionChangeCardState($id, $state) {
         Yii::info("Изменение состояния карты [$id] $state", 'app.default.change-card-state');

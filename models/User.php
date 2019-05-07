@@ -107,7 +107,7 @@ class User extends ActiveRecord implements IdentityInterface
             [['newPassword'], 'filter', 'filter' => 'trim'],
             [['newPassword'], 'required', 'on' => ['register', 'reset'], 'message' => 'Пароль не может быть пустым'],
             [['newPasswordConfirm'], 'required', 'on' => ['reset']],
-            [['newPasswordConfirm'], 'compare', 'compareAttribute' => 'newPassword', 'message' => Yii::t('user', 'Passwords do not match')],
+            [['newPasswordConfirm'], 'compare', 'compareAttribute' => 'newPassword', 'message' => 'Пароли не совпадают'],
             [['newPassword'], 'match', 'pattern' => '/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,})$/', 'message' => "Пароль должен содержать хотябы одну маленькую букву, заглавную, цифру и быть не менее 8 символов"],
 
 
