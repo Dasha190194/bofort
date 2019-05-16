@@ -20,7 +20,11 @@ $this->title = 'Стоимость аренды катера'
 
 <div class="row">
     <div class="col-md-12 tarif">
-        <table class="table">
+        <div class="nav-arrows">
+            <a href="#" class="round-arrow left"><i class="glyphicon glyphicon-chevron-left"></i></a>
+            <a href="#" class="round-arrow right"><i class="glyphicon glyphicon-chevron-right"></i></a>
+        </div>
+        <table class="table" data-visible-column="1">
             <tr class="no-border">
                 <td></td>
 
@@ -40,13 +44,10 @@ $this->title = 'Стоимость аренды катера'
 
 
             <tr class="no-border">
-                <td class="width-20">
+                <td colspan="4">
                     <h4>Будние дни</h4>
                     с 7:00 до 20:00
                 </td>
-                <td></td>
-                <td></td>
-                <td></td>
             </tr>
 
             <tr class="no-border">
@@ -69,13 +70,10 @@ $this->title = 'Стоимость аренды катера'
             </tr>
 
             <tr class="no-border">
-                <td class="width-20">
+                <td colspan="4">
                     <h4 class="red">Выходные и праздничные дни</h4>
                     с 7:00 до 20:00
                 </td>
-                <td></td>
-                <td></td>
-                <td></td>
             </tr>
             <tr class="no-border">
                 <th class="width-20">От 1 до 3х часов</th>
@@ -97,12 +95,9 @@ $this->title = 'Стоимость аренды катера'
             </tr>
 
             <tr class="no-border">
-                <td class="width-20">
+                <td colspan="4">
                     <h4>Дополнительные услуги</h4>
                 </td>
-                <td></td>
-                <td></td>
-                <td></td>
             </tr>
             <tr>
                 <th class="width-20">Услуга "Мой капитан"</th>
@@ -111,6 +106,52 @@ $this->title = 'Стоимость аренды катера'
                 <?php endforeach; ?>
             </tr>
         </table>
+        <script>
+            $(document).ready(function() {
+                var table = $('.tarif .table');
+                function next() {
+                    var currColl = +table.attr('data-visible-column');
+                    currColl--;
+                    if (currColl < 1) {
+                        currColl = 3;
+                    }
+                    table.attr('data-visible-column', currColl);
+                }
+                function prev() {
+                    var currColl = +table.attr('data-visible-column');
+                    currColl++;
+                    if (currColl > 3) {
+                        currColl = 1;
+                    }
+                    table.attr('data-visible-column', currColl);
+                }
+                $('.round-arrow.right').click(function(e) {
+                    e.preventDefault();
+                    next();
+                })
+                $('.round-arrow.left').click(function(e) {
+                    e.preventDefault();
+                    prev();
+                })
+                var touchFrom = 0;
+                var touchTo = 0;
+                $(table).on({
+                    'touchstart': function(e) {
+                        touchFrom = e.touches[0].pageX;
+                    },
+                    'touchmove': function(e) {
+                        touchTo = e.touches[0].pageX;
+                    },
+                    'touchend': function(e) {
+                        if (touchFrom > touchTo) {
+                            prev();
+                        } else {
+                            next();
+                        }
+                    }
+                })
+            })
+        </script>
     </div>
 </div>
 
