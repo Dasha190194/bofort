@@ -206,6 +206,8 @@ $cardEmpty = (empty(Yii::$app->user->identity->cards))?0:1;
                 success: function (request) {
                     if (request.success == true) {
                         $('#phoneconfirmform-phone').val(request.phone);
+                        $('#phone-input').hide();
+                        $('#confirm-phone').show();
                     }
                 }
             });

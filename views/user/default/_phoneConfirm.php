@@ -14,9 +14,12 @@ use yii\helpers\Html; ?>
     <h4>Введите номер телефона</h4>
 </div>
 <div class="modal-body">
-    <div class="row">
+    <div id="phone-input" class="row">
         <div class="col-md-6">
-            <input class="form-control" id="phone">
+            <div class="form-group field-user-phone">
+                <input class="form-control" id="phone" name="User[phone]" type="text">
+                <span class="placeholder">+7</span>
+            </div>
         </div>
         <div class="col-md-6">
             <button id="send-code" class="btn btn-primary">Отправить код</button>
@@ -25,6 +28,7 @@ use yii\helpers\Html; ?>
     <?php $form = ActiveForm::begin([
         'id' => 'confirm-phone',
         'action' => '/default/code-confirm',
+        'options' => ['style' => 'display: none'],
     ]); ?>
         <div class="row">
 

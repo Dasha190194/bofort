@@ -195,6 +195,8 @@ use yii\widgets\ActiveForm; ?>
                             success: function (request) {
                                 if (request.success == true) {
                                     $('#phoneconfirmform-phone').val(request.phone);
+                                    $('#phone-input').hide();
+                                    $('#confirm-phone').show();
                                 }
                             }
                         });
