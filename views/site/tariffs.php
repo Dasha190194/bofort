@@ -133,6 +133,7 @@ $this->title = 'Стоимость аренды катера'
                     e.preventDefault();
                     prev();
                 })
+                $(document).width();
                 var touchFrom = 0;
                 var touchTo = 0;
                 $(table).on({
@@ -143,6 +144,10 @@ $this->title = 'Стоимость аренды катера'
                         touchTo = e.touches[0].pageX;
                     },
                     'touchend': function(e) {
+                        var length = Math.abs(touchFrom - touchTo)
+                        if (length < $(document).width()*0.5) {
+                            return
+                        }
                         if (touchFrom > touchTo) {
                             prev();
                         } else {
