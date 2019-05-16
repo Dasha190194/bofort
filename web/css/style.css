@@ -670,6 +670,19 @@ hr.line {
     top: 11px;
     color: #939ca5;
 }
+.form-group .placeholder {
+    position: absolute;
+    top: 0px;
+    left: 32px;
+    top: 11px;
+    color: #939ca5;
+}
+.form-group.field-user-phone input {
+    padding-left: 40px;
+}
+#send-code {
+    width: 100%;
+}
 
 .profile-container .form-group.field-user-username input,
 .profile-container .form-group.field-user-email input {
@@ -902,17 +915,31 @@ hr.line {
         display: block;
     }
     .tarif table,
-    .tarif thead,
-    .tarif tbody,
-    .tarif th,
-    .tarif td,
-    .tarif tr { 
+    .tarif .table[data-visible-column='1'] thead,
+    .tarif .table[data-visible-column='2'] thead,
+    .tarif .table[data-visible-column='3'] thead,
+    .tarif .table[data-visible-column='1'] tbody,
+    .tarif .table[data-visible-column='2'] tbody,
+    .tarif .table[data-visible-column='3'] tbody,
+    .tarif .table[data-visible-column='1'] th,
+    .tarif .table[data-visible-column='2'] th,
+    .tarif .table[data-visible-column='3'] th,
+    .tarif .table[data-visible-column='1'] td,
+    .tarif .table[data-visible-column='2'] td,
+    .tarif .table[data-visible-column='3'] td,
+    .tarif .table[data-visible-column='1'] tr,
+    .tarif .table[data-visible-column='2'] tr,
+    .tarif .table[data-visible-column='3'] tr { 
         display: block;
         width: 100%;
         padding: 0;
     }
-    .tarif .table td,
-    .tarif .table th {
+    .tarif .table[data-visible-column='1'] th,
+    .tarif .table[data-visible-column='2'] th,
+    .tarif .table[data-visible-column='3'] th,
+    .tarif .table[data-visible-column='1'] td,
+    .tarif .table[data-visible-column='2'] td,
+    .tarif .table[data-visible-column='3'] td {
         padding: 0;
     }
     
@@ -928,13 +955,14 @@ hr.line {
     .tarif .table[data-visible-column='3'] td:nth-child(2) {
         display: none;
     }
-    .tarif .table .width-20 {
-        width: 100%;
-    }
-    .tarif tr:nth-child(1) {
+    .tarif .table[data-visible-column='1'] tr:nth-child(1),
+    .tarif .table[data-visible-column='2'] tr:nth-child(1),
+    .tarif .table[data-visible-column='3'] tr:nth-child(1) {
         height: 220px;
     }
-    .tarif tr:nth-child(1) td:nth-child(1) {
+    .tarif .table[data-visible-column='1'] tr:nth-child(1) td:nth-child(1),
+    .tarif .table[data-visible-column='2'] tr:nth-child(1) td:nth-child(1),
+    .tarif .table[data-visible-column='3'] tr:nth-child(1) td:nth-child(1) {
         display: none;
     }
 }
