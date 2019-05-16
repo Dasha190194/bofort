@@ -930,9 +930,18 @@ hr.line {
     .tarif .table[data-visible-column='1'] tr,
     .tarif .table[data-visible-column='2'] tr,
     .tarif .table[data-visible-column='3'] tr { 
-        display: block;
+        display: inline-block;
         width: 100%;
         padding: 0;
+        border: none;
+    }
+    .tarif .table[data-visible-column] tr,
+    .tarif .table[data-visible-column] tr,
+    .tarif .table[data-visible-column] tr { 
+        border-top: 1px solid #ddd;
+    }
+    .tarif .table[data-visible-column] tr.no-border {
+        border: none;
     }
     .tarif .table[data-visible-column='1'] th,
     .tarif .table[data-visible-column='2'] th,
@@ -941,6 +950,30 @@ hr.line {
     .tarif .table[data-visible-column='2'] td,
     .tarif .table[data-visible-column='3'] td {
         padding: 0;
+    }
+
+    .tarif .table[data-visible-column] tr:nth-child(3) th.width-20,
+    .tarif .table[data-visible-column] tr:nth-child(4) th.width-20,
+    .tarif .table[data-visible-column] tr:nth-child(5) th.width-20,
+    .tarif .table[data-visible-column] tr:nth-child(7) th.width-20,
+    .tarif .table[data-visible-column] tr:nth-child(8) th.width-20,
+    .tarif .table[data-visible-column] tr:nth-child(9) th.width-20,
+    .tarif .table[data-visible-column] tr:nth-child(11) th.width-20 {
+        width: 49%;
+        padding-top: 20px;
+        box-sizing: border-box;
+    }
+    .tarif .table[data-visible-column] tr:nth-child(3) td.text-center,
+    .tarif .table[data-visible-column] tr:nth-child(4) td.text-center,
+    .tarif .table[data-visible-column] tr:nth-child(5) td.text-center,
+    .tarif .table[data-visible-column] tr:nth-child(7) td.text-center,
+    .tarif .table[data-visible-column] tr:nth-child(8) td.text-center,
+    .tarif .table[data-visible-column] tr:nth-child(9) td.text-center,
+    .tarif .table[data-visible-column] tr:nth-child(11) td.text-center {
+        width: 49%;
+        text-align: right;
+        padding-top: 20px;
+        box-sizing: border-box;
     }
     
     .tarif .table[data-visible-column='1'] td:nth-child(3),
