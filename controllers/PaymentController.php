@@ -13,6 +13,7 @@ use app\helpers\CloudPayments\InputPayAnswer;
 use app\models\CardsModel;
 use app\models\OrdersModel;
 use app\models\PayForm;
+use app\models\PromoHistoryModel;
 use app\models\TransactionsModel;
 use CloudPayments\Exception\PaymentException;
 use Exception;
@@ -88,6 +89,9 @@ class PaymentController extends Controller
 //                   $transaction->cloud_transaction_id = $response->getId();
 //                   $transaction->save();
 
+                   if ($order->promo_id != 0) {
+                       PromoHistoryModel::create($order->id, Yii::$app->user->getId(), $order->promo_id);
+                   }
 
                    Yii::info('Успешное списание денег ['.$transaction->id.']', 'app.payment.pay');
 
@@ -175,7 +179,12 @@ class PaymentController extends Controller
                     if ($order) {
                         $order->state = 1;
                         $order->save();
+
+                        if ($order->promo_id != 0) {
+                            PromoHistoryModel::create($order->id, $order->user_id, $order->promo_id);
+                        }
                     }
+
                 $transactionDB->commit();
 
                 Yii::info('Успешное проведение платежа ['.$transaction->id.']', 'app.payment.complete');

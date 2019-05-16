@@ -56,12 +56,6 @@ class OrdersModel extends ActiveRecord
         }
         $this->promo_id = $promocode->id;
         $this->save();
-
-        $promoHistory = new PromoHistoryModel();
-        $promoHistory->order_id = $this->id;
-        $promoHistory->user_id = Yii::$app->user->getId();
-        $promoHistory->promo_id = $this->promo_id;
-        $promoHistory->save();
     }
 
     //TODO это ебаный пиздец - перепиши
