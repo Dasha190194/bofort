@@ -32,12 +32,12 @@ $(document).ready(function() {
             window.location.replace('/');
         } else {
             $('#my-modal').modal('hide');
-            $('html,body').animate({scrollTop: document.body.scrollHeight},"slow");
+            $('html,body').animate({scrollTop: $('.user-default-register')[0].getBoundingClientRect().top},"slow");
         }
     });
 
     if (localStorage.getItem('makeRegistration') != null) {
-        $('html,body').animate({scrollTop: document.body.scrollHeight},"slow");
+        $('html,body').animate({scrollTop: $('.user-default-register')[0].getBoundingClientRect().top},"slow");
         localStorage.removeItem('makeRegistration');
     }
 
