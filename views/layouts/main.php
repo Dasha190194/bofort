@@ -20,7 +20,9 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/jpeg', 'href' => Url::
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php if (Yii::$app->controller->action->id != 'tariffs'): ?>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php endif; ?>
     <meta name="Description" content="Аренда катеров и яхт в Москве. Быстрое онлайн-бронирование катера. Без посредников. Без депозита.">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
@@ -29,7 +31,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/jpeg', 'href' => Url::
 <body>
 <?php $this->beginBody() ?>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<div class="wrap">
+<div class="<?php if (Yii::$app->controller->action->id == 'tariffs') echo 'tarif-wrap'; else echo 'wrap';?>">
 
     <?php if (Yii::$app->controller->id.'/'.Yii::$app->controller->action->id == 'site/index'): ?>
         <?= $this->render('mainHeader') ?>

@@ -867,6 +867,18 @@ hr.line {
     font-weight: bold;
 }
 
+.tarif .boat-photo img {
+    width: 100%;
+    max-width: 250px;
+}
+
+.tarif-wrap {
+    min-height: 100%;
+    height: auto;
+    margin: 0 auto -478px;
+    padding: 0 0 60px;
+}
+
 .faq h4 {
     border-bottom: 1px dashed;
     display: inline-block;
