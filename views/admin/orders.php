@@ -90,8 +90,9 @@ use yii\helpers\Html;
                         'label' => '',
                         'format' => 'raw',
                         'value' => function($data){
-                                    return Html::button('Отменить заказ и вернуть деньги',
-                                        ['class' => 'order-refund', 'data-id' => $data->id]);
+                                    if ($data->datetime_from > date("Y-m-d H:i:s"))
+                                        return Html::button('Отменить заказ и вернуть деньги',
+                                            ['class' => 'order-refund', 'data-id' => $data->id]);
                                   }
                     ],
                 ],
