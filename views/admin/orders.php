@@ -93,6 +93,8 @@ use yii\helpers\Html;
                                     if ($data->datetime_from > date("Y-m-d H:i:s"))
                                         return Html::button('Отменить заказ и вернуть деньги',
                                             ['class' => 'order-refund', 'data-id' => $data->id]);
+                                    else
+                                        return 'Выполнен!';
                                   }
                     ],
                 ],
