@@ -62,7 +62,7 @@ class AdminController extends Controller
             return $this->asJson(['output'=>'', 'message'=>'']);
         }
 
-        $orders = OrdersModel::find()->where(['state' => 1]);
+        $orders = OrdersModel::find()->where(['state' => 1])->andWhere(['>' , 'datetime_from', 'now()']);
         $dataProvider = new ActiveDataProvider([
             'query' => $orders,
             'pagination' => [
