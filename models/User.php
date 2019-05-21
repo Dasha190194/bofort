@@ -108,7 +108,7 @@ class User extends ActiveRecord implements IdentityInterface
             [['newPassword'], 'required', 'on' => ['register', 'reset'], 'message' => 'Пароль не может быть пустым'],
             [['newPasswordConfirm'], 'required', 'on' => ['reset']],
             [['newPasswordConfirm'], 'compare', 'compareAttribute' => 'newPassword', 'message' => 'Пароли не совпадают'],
-            [['newPassword'], 'match', 'pattern' => '/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,})$/', 'message' => "Пароль должен содержать хотябы одну маленькую букву, заглавную, цифру и быть не менее 8 символов"],
+            [['newPassword'], 'match', 'pattern' => '/^(?=.*[0-9])(?=.*[a-z])([a-z0-9]{8,})$/', 'message' => "Пароль должен быть не менее 8 символов и содержать цифры и буквы"],
 
 
             // account page
