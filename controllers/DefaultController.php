@@ -216,6 +216,7 @@ class DefaultController extends Controller
 
         // load post data
         $post = Yii::$app->request->post();
+        Yii::info('Попытка регистрации ['.json_encode($post).']', 'app.default.register');
         if ($user->load($post)) {
 
             // ensure profile data gets loaded
@@ -229,7 +230,7 @@ class DefaultController extends Controller
 
             // validate for normal request
             if ($user->validate() && $profile->validate()) {
-                Yii::info('Попытка регистрации ['.json_encode($post).']', 'app.default.register');
+
                 // perform registration
                 $role = $this->module->model("Role");
                 $user->setRegisterAttributes($role::ROLE_USER)->save();
