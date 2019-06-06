@@ -18,8 +18,8 @@
                 <h5><a href="/site/contact/">Контакты</a></h5>
             </div>
             <div class="col-md-4">
-                <h5><a href="tel:74957457494">Круглосуточный Call-центр</a></h5>
-                <h4><a href="tel:74957457494"><span class="prepend">+7 (495)</span> 745 74 94</a></h4>
+                <h5>Круглосуточный Call-центр</h5>
+                <h4><a href="tel:74957457494" onclick="ym(52657108, 'reachGoal', 'phoneClick'); return true;"><span class="prepend">+7 (495)</span> 745 74 94</a></h4>
                 <div class="social-block">
                     <p>Будь в курсе наших новостей и акций!</p>
                     <a target="_blank" href="https://www.facebook.com/bofort.ru/">
