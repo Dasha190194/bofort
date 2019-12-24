@@ -103,7 +103,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/jpeg', 'href' => Url::
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', "<?= Yii::$app->params['google_analytics']?>");
+    gtag('config', "<?= Yii::$app->params['google_analytics']?>", { 'optimize_id': "<?= Yii::$app->params['google_optimize']?>"});
 </script>
 
 

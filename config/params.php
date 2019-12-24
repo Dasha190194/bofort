@@ -35,5 +35,6 @@ return [
 
     // SEO
     'google_analytics' => 'UA-134950835-1',
+    'google_optimize' => 'GTM-T68NKC4',
     'yandex_metrika' => '52490173'
 ];
